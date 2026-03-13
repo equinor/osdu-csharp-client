@@ -1,0 +1,7 @@
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1singlect - A GET operation with a body was found. The request body will be ignored.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1lateboundcrs - A GET operation with a body was found. The request body will be ignored.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1earlyboundcrs - A GET operation with a body was found. The request body will be ignored.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1ct - A GET operation with a body was found. The request body will be ignored.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1crs - A GET operation with a body was found. The request body will be ignored.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1compoundct - A GET operation with a body was found. The request body will be ignored.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1v2~1compoundcrs - A GET operation with a body was found. The request body will be ignored.

@@ -1,0 +1,4 @@
+Warning: KiotaBuilder OpenAPI warning: #/ - A servers entry (v3) or host + basePath + schemes properties (v2) was not present in the OpenAPI description. The root URL will need to be set manually with the request adapter.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1api~1policy~1v1~1policies~1osdu~1partition~1{data_partition}~1{policy_id}/delete - The operation describes multiple response schemas that are divergent. Only the schema of the lowest success status code will be used.
+Warning: KiotaBuilder OpenAPI warning: #/paths/~1api~1policy~1v1~1bootstrap/post - The operation describes multiple response schemas that are divergent. Only the schema of the lowest success status code will be used.
+Warning: KiotaBuilder No server url found in the OpenAPI document. The base url will need to be set when using the client.

@@ -1,0 +1,25 @@
+# .NET build artifacts
+bin/
+obj/
+*.user
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Generated client code (re-run generate_all.py to regenerate)
+src/OsduCsharpClient/*/
+!src/OsduCsharpClient/*.csproj
+
+# Temporary files created during generation
+openapi_specs/*.temp.json
+
+# Secrets and local config
+.env
+.msal_token_cache.bin
+
+# IDE
+.vs/
+.idea/
+*.suo
+*.DS_Store
