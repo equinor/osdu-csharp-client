@@ -3,6 +3,7 @@ name: Build
 on:
   push:
     branches: ["main", "master"]
+    tags: ["v*"]
   pull_request:
 
 jobs:
@@ -35,11 +36,11 @@ jobs:
         run: dotnet build src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release
 
       - name: Pack
-        if: github.event_name == 'push'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: dotnet pack src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release --no-build --output nupkgs
 
       - name: Publish to GitHub Packages
-        if: github.event_name == 'push'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           dotnet nuget add source \
             --username ${{ github.actor }} \
@@ -47,4 +48,4 @@ jobs:
             --store-password-in-clear-text \
             --name github \
             "https://nuget.pkg.github.com/equinor/index.json"
-          dotnet nuget push nupkgs/*.nupkg --source github --skip-duplicate
+          dotnet nuget push nupkgs/*.nupkg --source github
