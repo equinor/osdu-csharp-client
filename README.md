@@ -158,16 +158,53 @@ dotnet test OsduCsharpClient.slnx
 
 # Run a single test by name
 dotnet test OsduCsharpClient.slnx --filter "FullyQualifiedName~QueryRecords_ReturnsResults"
+
+# Run tests and see printed output
+dotnet test OsduCsharpClient.slnx --logger "console;verbosity=detailed"
 ```
 
+Optional env vars for Wellbore DDMS tests (set in `.env` or shell):
+
+- `WELLBORE_DDMS_WELLBORE_ID` — runs `GetWellbore_ById_ReturnsRecord`
+- `WELLBORE_DDMS_WELL_ID` — runs `GetWell_ById_ReturnsRecord`
+
 ## Development
+
+### Getting started
+
+Clone the repo, then generate the clients and build:
+
+```sh
+git clone https://github.com/equinor/osdu-csharp-client.git
+cd osdu-csharp-client
+python3 generate_all.py
+dotnet build OsduCsharpClient.slnx
+```
+
+Copy `.env` from the template and fill in your OSDU environment values before running tests:
+
+```sh
+cp .env.example .env   # if an example exists, otherwise create manually
+dotnet test OsduCsharpClient.slnx
+```
+
+### Releasing a new version
+
+1. Bump `<Version>` in `src/OsduCsharpClient/OsduCsharpClient.csproj`
+2. Commit and push to `main`
+3. Tag the commit and push the tag — this triggers the publish to GitHub Packages:
+
+```sh
+git tag v0.2.0
+git push origin v0.2.0
+```
 
 ### Updating OpenAPI Specs
 
 To fetch the latest OpenAPI specifications from the OSDU wiki:
 
 ```sh
-python download.py
+python3 download.py
 ```
 
 This script parses the OSDU wiki for service definitions and downloads the corresponding JSON specs into `openapi_specs/`, trying Community Implementation, Azure, AWS, and GCP sources in order.
@@ -180,13 +217,13 @@ Some OSDU endpoints declare structured JSON responses under `*/*` instead of `ap
 
 ```sh
 # Check what would be changed (dry-run)
-python fix_openapi_json_response_media_types.py --check
+python3 fix_openapi_json_response_media_types.py --check
 
 # Apply fixes to all specs
-python fix_openapi_json_response_media_types.py
+python3 fix_openapi_json_response_media_types.py
 
 # Target a specific file
-python fix_openapi_json_response_media_types.py openapi_specs/Search.json
+python3 fix_openapi_json_response_media_types.py openapi_specs/Search.json
 ```
 
 ### Regenerating Clients
@@ -194,7 +231,7 @@ python fix_openapi_json_response_media_types.py openapi_specs/Search.json
 To regenerate all C# clients from the specs in `openapi_specs/`:
 
 ```sh
-python generate_all.py
+python3 generate_all.py
 ```
 
 This iterates through the JSON files and runs `kiota generate` for each service into `src/OsduCsharpClient/<ServiceName>/`. It also handles minor spec patches (missing `info.version`, non-standard `< * >` wildcard properties) before invoking Kiota.

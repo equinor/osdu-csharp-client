@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Equinor.OsduCsharpClient</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Equinor</Authors>
     <Description>C# client library for OSDU platform services, generated from OpenAPI specifications using Microsoft Kiota.</Description>
     <RepositoryUrl>https://github.com/equinor/osdu-csharp-client</RepositoryUrl>
