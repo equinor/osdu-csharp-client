@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      packages: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -30,3 +33,18 @@ jobs:
 
       - name: Build
         run: dotnet build src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release
+
+      - name: Pack
+        if: github.event_name == 'push'
+        run: dotnet pack src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release --no-build --output nupkgs
+
+      - name: Publish to GitHub Packages
+        if: github.event_name == 'push'
+        run: |
+          dotnet nuget add source \
+            --username ${{ github.actor }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text \
+            --name github \
+            "https://nuget.pkg.github.com/equinor/index.json"
+          dotnet nuget push nupkgs/*.nupkg --source github --skip-duplicate

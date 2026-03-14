@@ -7,21 +7,33 @@ It provides typed, async clients for various OSDU core services, allowing for ea
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- [Kiota CLI](https://learn.microsoft.com/en-us/openapi/kiota/install) (only required to regenerate clients)
+
+For regenerating clients locally:
+
+- [Kiota CLI](https://learn.microsoft.com/en-us/openapi/kiota/install)
 
   ```sh
   dotnet tool install --global Microsoft.OpenApi.Kiota
   ```
 
-- Python 3.10+ (only required to download specs or regenerate clients)
+- Python 3.10+
 
 ## Installation
 
-Reference the project directly, or build and reference the DLL:
+The package is published to [GitHub Packages](https://github.com/equinor/osdu-csharp-client/packages).
+
+Add the Equinor NuGet feed (once per machine), then install the package:
 
 ```sh
-dotnet build src/OsduCsharpClient/OsduCsharpClient.csproj
+dotnet nuget add source "https://nuget.pkg.github.com/equinor/index.json" \
+  --name equinor-github \
+  --username <your-github-username> \
+  --password <your-github-personal-access-token>
+
+dotnet add package Equinor.OsduCsharpClient
 ```
+
+> The personal access token needs the `read:packages` scope. Generate one at [github.com/settings/tokens](https://github.com/settings/tokens).
 
 ## .env Setup
 
