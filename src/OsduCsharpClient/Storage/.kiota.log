@@ -1,2 +1,0 @@
-Warning: KiotaBuilder OpenAPI warning: #/ - The schema /records is a polymorphic type but does not define a discriminator. This will result in serialization errors.
-Warning: KiotaBuilder OpenAPI warning: #/ - The schema /records is a polymorphic type but does not define a discriminator. This will result in serialization errors.

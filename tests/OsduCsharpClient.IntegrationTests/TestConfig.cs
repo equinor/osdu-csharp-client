@@ -16,9 +16,11 @@ public class TestConfig
 
     private string EntitlementsEndpoint { get; } = "/api/entitlements/v2";
     private string SearchEndpoint { get; } = "/api/search/v2";
+    private string WellboreDdmsEndpoint { get; } = "/api/os-wellbore-ddms";
 
     public string EntitlementsUrl => $"{Server}{EntitlementsEndpoint}";
     public string SearchUrl => $"{Server}{SearchEndpoint}";
+    public string WellboreDdmsUrl => $"{Server}{WellboreDdmsEndpoint}";
 
     public TestConfig()
     {

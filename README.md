@@ -146,6 +146,7 @@ if (result?.Results is not null)
 | `OsduCsharpClient.Search` | Search |
 | `OsduCsharpClient.Storage` | Storage |
 | `OsduCsharpClient.Unit` | Unit |
+| `OsduCsharpClient.WellboreDdms` | Wellbore DDMS |
 
 ## Running Tests
 
