@@ -1,7 +1,7 @@
 using OsduCsharpClient.Search;
 using OsduCsharpClient.Search.Models;
 using Xunit;
-using Xunit.Abstractions;
+
 
 namespace OsduCsharpClient.IntegrationTests;
 

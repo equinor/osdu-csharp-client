@@ -33,7 +33,7 @@ public class OsduFixture : IAsyncLifetime
     public TestConfig Config { get; } = new();
     public string AccessToken { get; private set; } = string.Empty;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var storageProperties = new StorageCreationPropertiesBuilder(
                 Path.GetFileName(TokenCachePath),
@@ -78,7 +78,7 @@ public class OsduFixture : IAsyncLifetime
         return new HttpClientRequestAdapter(authProvider) { BaseUrl = baseUrl };
     }
 
-    public Task DisposeAsync() => Task.CompletedTask;
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 }
 
 [CollectionDefinition("Osdu")]
