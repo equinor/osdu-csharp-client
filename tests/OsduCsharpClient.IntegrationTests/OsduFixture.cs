@@ -1,5 +1,4 @@
 using Microsoft.Identity.Client;
-using Microsoft.Identity.Client.Extensions.Msal;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using Xunit;
@@ -28,20 +27,14 @@ public class OsduFixture : IAsyncLifetime
 {
     private static readonly string TokenCachePath =
         Environment.GetEnvironmentVariable("OSDU_MSAL_CACHE_PATH")
-        ?? Path.Combine(Directory.GetCurrentDirectory(), ".msal_token_cache.bin");
+        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".osdu", "msal_cache.bin");
 
     public TestConfig Config { get; } = new();
     public string AccessToken { get; private set; } = string.Empty;
 
     public async ValueTask InitializeAsync()
     {
-        var storageProperties = new StorageCreationPropertiesBuilder(
-                Path.GetFileName(TokenCachePath),
-                Path.GetDirectoryName(TokenCachePath)!)
-            .WithMacKeyChain("OsduCsharpClient", "MSALCache")
-            .Build();
-
-        var cacheHelper = await MsalCacheHelper.CreateAsync(storageProperties);
+        Directory.CreateDirectory(Path.GetDirectoryName(TokenCachePath)!);
 
         var app = PublicClientApplicationBuilder
             .Create(Config.ClientId)
@@ -49,7 +42,17 @@ public class OsduFixture : IAsyncLifetime
             .WithRedirectUri("http://localhost")
             .Build();
 
-        cacheHelper.RegisterCache(app.UserTokenCache);
+        // Cross-platform file-based token cache — no OS keychain required.
+        app.UserTokenCache.SetBeforeAccess(args =>
+        {
+            if (File.Exists(TokenCachePath))
+                args.TokenCache.DeserializeMsalV3(File.ReadAllBytes(TokenCachePath));
+        });
+        app.UserTokenCache.SetAfterAccess(args =>
+        {
+            if (args.HasStateChanged)
+                File.WriteAllBytes(TokenCachePath, args.TokenCache.SerializeMsalV3());
+        });
 
         var scopes = Config.Scopes.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         var accounts = await app.GetAccountsAsync();
