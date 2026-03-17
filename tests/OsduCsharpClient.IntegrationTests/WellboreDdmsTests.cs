@@ -20,7 +20,8 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
     {
         var client = CreateClient();
         var result = await client.About.GetAsync(
-            config => config.Headers.Add("data-partition-id", DataPartitionId));
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
         output.WriteLine($"Service:  {result.Service?.String}");
@@ -37,7 +38,8 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
 
         var client = CreateClient();
         var result = await client.Ddms.V3.Wellbores[wellboreId].GetAsync(
-            config => config.Headers.Add("data-partition-id", DataPartitionId));
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
         output.WriteLine($"Kind: {result.Kind}");
@@ -52,7 +54,8 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
 
         var client = CreateClient();
         var result = await client.Ddms.V3.Wells[wellId].GetAsync(
-            config => config.Headers.Add("data-partition-id", DataPartitionId));
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
         output.WriteLine($"Kind: {result.Kind}");

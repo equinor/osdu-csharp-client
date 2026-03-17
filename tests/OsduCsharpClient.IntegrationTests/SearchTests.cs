@@ -34,7 +34,8 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
                 Limit = limit,
                 ReturnedFields = ["id", "kind", "createTime"],
             },
-            config => config.Headers.Add("data-partition-id", DataPartitionId));
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
         Assert.NotNull(result.Results);
@@ -55,7 +56,8 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
                 Limit = 1,
                 ReturnedFields = ["id"],
             },
-            config => config.Headers.Add("data-partition-id", DataPartitionId));
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(fieldResult);
         Assert.NotNull(fieldResult.Results);
@@ -73,7 +75,8 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
                 Limit = 100,
                 ReturnedFields = ["id", "kind", "createTime"],
             },
-            config => config.Headers.Add("data-partition-id", DataPartitionId));
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(wellboreResult);
         Assert.NotNull(wellboreResult.Results);

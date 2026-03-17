@@ -27,7 +27,8 @@ public class EntitlementsTests(OsduFixture fixture, ITestOutputHelper output)
             {
                 config.QueryParameters.Type = groupType;
                 config.Headers.Add("data-partition-id", DataPartitionId);
-            });
+            },
+            TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
         Assert.NotNull(result.Groups);
