@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <PackageId>Equinor.OsduCsharpClient</PackageId>
     <Version>0.2.0</Version>
+    <RootNamespace>Equinor.OsduCsharpClient</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
     <Authors>Equinor</Authors>
     <Description>C# client library for OSDU platform services, generated from OpenAPI specifications using Microsoft Kiota.</Description>
     <RepositoryUrl>https://github.com/equinor/osdu-csharp-client</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <RootNamespace>Equinor.OsduCsharpClient</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
