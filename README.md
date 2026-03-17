@@ -4,6 +4,17 @@ This project is a C# client library for [OSDU](https://osduforum.org/) services,
 
 It provides typed, async clients for various OSDU core services, allowing for easy integration with OSDU APIs in .NET applications.
 
+## Generated code is not committed
+
+The C# clients under `src/OsduCsharpClient/` are produced by running Kiota against the OpenAPI specs in `openapi_specs/`. This output is **not committed to the repository** for the following reasons:
+
+- **Nobody can accidentally edit it.** If the generated code is not in the repository, it cannot be hand-edited. Any change must go through the spec and the generator — the only correct way to change it.
+- **The spec is the source of truth.** Committing generated code creates a second source of truth that can silently drift from the spec.
+- **Diffs stay meaningful.** A spec change generates hundreds of touched lines across dozens of files. Keeping generated code out of git means pull request diffs show only what actually changed.
+- **Reproducible by design.** Given the same spec and the same Kiota version, generation is deterministic. Storing the result is redundant.
+
+Consumers of the published NuGet package can still browse the generated client code through their IDE (Visual Studio, Rider, VS Code with C# Dev Kit) using decompilation and the included XML documentation. AI coding assistants also work against the installed package. Contributors working in this repository should run `python3 generate_all.py` once after cloning to have the generated code available locally.
+
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
