@@ -48,7 +48,7 @@ def generate_all():
         raw_name = spec_path.stem  # e.g. "CRS_Catalog"
         service_name = raw_name.lower().replace(" ", "_").replace("-", "_")  # e.g. "crs_catalog"
         class_name = to_pascal_case(service_name) + "Client"  # e.g. "CrsCatalogClient"
-        namespace = f"OsduCsharpClient.{to_pascal_case(service_name)}"  # e.g. "OsduCsharpClient.CrsCatalog"
+        namespace = f"Equinor.OsduCsharpClient.{to_pascal_case(service_name)}"  # e.g. "Equinor.OsduCsharpClient.CrsCatalog"
         output_path = OUTPUT_DIR / to_pascal_case(service_name)  # e.g. src/OsduCsharpClient/CrsCatalog
 
         print(f"Generating client for {service_name}...")

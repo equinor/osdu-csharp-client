@@ -1,5 +1,5 @@
-using OsduCsharpClient.Search;
-using OsduCsharpClient.Search.Models;
+using Equinor.OsduCsharpClient.Search;
+using Equinor.OsduCsharpClient.Search.Models;
 using Xunit;
 
 

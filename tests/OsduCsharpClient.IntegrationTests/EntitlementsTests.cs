@@ -1,4 +1,4 @@
-using OsduCsharpClient.Entitlements;
+using Equinor.OsduCsharpClient.Entitlements;
 using Xunit;
 
 

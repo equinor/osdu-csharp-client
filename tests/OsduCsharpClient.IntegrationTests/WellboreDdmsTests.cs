@@ -1,4 +1,4 @@
-using OsduCsharpClient.WellboreDdms;
+using Equinor.OsduCsharpClient.WellboreDdms;
 using Xunit;
 
 
