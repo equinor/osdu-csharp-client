@@ -11,3 +11,49 @@ jobs:
       contents: write # Required to update changelog file
       pull-requests: write # Required to create release PRs
     uses: equinor/ops-actions/.github/workflows/release-please-manifest.yml@8dfda59d14ec91a8727ac64fe60ab51a4b98d03e # v9.35.0
+
+  build-and-publish:
+    name: Build and publish
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required to read the repository contents
+      packages: write # Required to publish packages to GitHub Packages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5.2.0
+        with:
+          dotnet-version: "10.x"
+
+      - name: Install Kiota
+        run: dotnet tool install --global Microsoft.OpenApi.Kiota
+
+      - name: Generate C# clients
+        run: python generate_all.py
+
+      - name: Build
+        run: dotnet build src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release
+
+      - name: Pack
+        run: dotnet pack src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release --no-build --output nupkgs
+
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget add source \
+            --username ${{ github.actor }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text \
+            --name github \
+            "https://nuget.pkg.github.com/equinor/index.json"
+          dotnet nuget push nupkgs/*.nupkg --source github
