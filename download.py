@@ -6,6 +6,7 @@ import re
 WIKI_URL = "https://community.opengroup.org/groups/osdu/platform/-/wikis/Core-Services-API-Docs/raw"
 OUTPUT_DIR = "openapi_specs"
 
+
 def get_json_url(original_url: str) -> str:
     """
     Convert UI/view URLs to JSON spec URLs.
@@ -24,6 +25,7 @@ def get_json_url(original_url: str) -> str:
 
     return original_url
 
+
 def _extract_first_markdown_url(cell_text: str) -> str | None:
     """
     Extract first URL from a markdown table cell, e.g. [API Doc](https://...).
@@ -40,6 +42,7 @@ def _extract_first_markdown_url(cell_text: str) -> str | None:
     if match:
         return match.group(1).rstrip(")")
     return None
+
 
 def extract_service_sources(markdown_text: str) -> dict[str, dict[str, str]]:
     """
@@ -100,6 +103,7 @@ def extract_service_sources(markdown_text: str) -> dict[str, dict[str, str]]:
 
     return services
 
+
 def _looks_like_json_response(resp: requests.Response) -> bool:
     ctype = (resp.headers.get("content-type") or "").lower()
     if "application/json" in ctype:
@@ -109,6 +113,7 @@ def _looks_like_json_response(resp: requests.Response) -> bool:
     # If content-type is missing/odd, do a light check
     body = (resp.text or "").lstrip()
     return body.startswith("{") or body.startswith("[")
+
 
 def try_download_spec(url: str, timeout: int = 10) -> tuple[bool, str, bytes | None]:
     """
@@ -132,6 +137,7 @@ def try_download_spec(url: str, timeout: int = 10) -> tuple[bool, str, bytes | N
         return False, "non-json response", None
 
     return True, "ok", resp.content
+
 
 def download_specs() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -183,6 +189,7 @@ def download_specs() -> None:
         print("-" * 40)
 
     print(f"\nDone. Check folder `{OUTPUT_DIR}`")
+
 
 if __name__ == "__main__":
     download_specs()

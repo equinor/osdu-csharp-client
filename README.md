@@ -1,5 +1,7 @@
 # OSDU C# Client
 
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/ee3bb3b0-3485-4f5c-b37c-864b29c84914/badge)](https://developer.equinor.com/governance/scm-policy/)
+
 This project is a C# client library for [OSDU](https://osduforum.org/) services, automatically generated from OpenAPI specifications using [Microsoft Kiota](https://github.com/microsoft/kiota).
 
 It provides typed, async clients for various OSDU core services, allowing for easy integration with OSDU APIs in .NET applications.
@@ -139,25 +141,25 @@ if (result?.Results is not null)
 
 ### Available Services
 
-| Namespace | Service |
-|---|---|
-| `OsduCsharpClient.CrsCatalog` | CRS Catalog |
-| `OsduCsharpClient.CrsConversion` | CRS Conversion |
-| `OsduCsharpClient.Dataset` | Dataset |
-| `OsduCsharpClient.Entitlements` | Entitlements |
-| `OsduCsharpClient.File` | File |
-| `OsduCsharpClient.Indexer` | Indexer |
+| Namespace                                   | Service                    |
+| ------------------------------------------- | -------------------------- |
+| `OsduCsharpClient.CrsCatalog`               | CRS Catalog                |
+| `OsduCsharpClient.CrsConversion`            | CRS Conversion             |
+| `OsduCsharpClient.Dataset`                  | Dataset                    |
+| `OsduCsharpClient.Entitlements`             | Entitlements               |
+| `OsduCsharpClient.File`                     | File                       |
+| `OsduCsharpClient.Indexer`                  | Indexer                    |
 | `OsduCsharpClient.IngestionWorkflowService` | Ingestion Workflow Service |
-| `OsduCsharpClient.Legal` | Legal |
-| `OsduCsharpClient.Notification` | Notification |
-| `OsduCsharpClient.Partition` | Partition |
-| `OsduCsharpClient.Policy` | Policy |
-| `OsduCsharpClient.Register` | Register |
-| `OsduCsharpClient.Schema` | Schema |
-| `OsduCsharpClient.Search` | Search |
-| `OsduCsharpClient.Storage` | Storage |
-| `OsduCsharpClient.Unit` | Unit |
-| `OsduCsharpClient.WellboreDdms` | Wellbore DDMS |
+| `OsduCsharpClient.Legal`                    | Legal                      |
+| `OsduCsharpClient.Notification`             | Notification               |
+| `OsduCsharpClient.Partition`                | Partition                  |
+| `OsduCsharpClient.Policy`                   | Policy                     |
+| `OsduCsharpClient.Register`                 | Register                   |
+| `OsduCsharpClient.Schema`                   | Schema                     |
+| `OsduCsharpClient.Search`                   | Search                     |
+| `OsduCsharpClient.Storage`                  | Storage                    |
+| `OsduCsharpClient.Unit`                     | Unit                       |
+| `OsduCsharpClient.WellboreDdms`             | Wellbore DDMS              |
 
 ## Running Tests
 
@@ -251,14 +253,15 @@ This iterates through the JSON files and runs `kiota generate` for each service 
 
 ## Project Structure
 
-```
-openapi_specs/          Downloaded OpenAPI JSON specifications
-src/OsduCsharpClient/   Generated C# clients (one subfolder per service)
+```txt
+openapi_specs/                              Downloaded OpenAPI JSON specifications
+src/
+    OsduCsharpClient/                       Generated C# clients (one subfolder per service)
 tests/
-  OsduCsharpClient.IntegrationTests/   xUnit integration tests
-download.py             Downloads specs from the OSDU wiki
-fix_openapi_json_response_media_types.py  Normalises */* response media types
-generate_all.py         Regenerates all C# clients via Kiota
+    OsduCsharpClient.IntegrationTests/      xUnit integration tests
+download.py                                 Downloads specs from the OSDU wiki
+fix_openapi_json_response_media_types.py    Normalises */* response media types
+generate_all.py                             Regenerates all C# clients via Kiota
 ```
 
 ## License
