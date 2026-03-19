@@ -1,5 +1,7 @@
 # OSDU C# Client
 
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/ee3bb3b0-3485-4f5c-b37c-864b29c84914/badge)](https://developer.equinor.com/governance/scm-policy/)
+
 This project is a C# client library for [OSDU](https://osduforum.org/) services, automatically generated from OpenAPI specifications using [Microsoft Kiota](https://github.com/microsoft/kiota).
 
 It provides typed, async clients for various OSDU core services, allowing for easy integration with OSDU APIs in .NET applications.
