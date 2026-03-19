@@ -3,7 +3,6 @@ import os
 import re
 import shutil
 import subprocess
-import sys
 from pathlib import Path
 
 SPECS_DIR = Path("openapi_specs")
@@ -46,10 +45,14 @@ def generate_all():
 
     for spec_path in specs:
         raw_name = spec_path.stem  # e.g. "CRS_Catalog"
-        service_name = raw_name.lower().replace(" ", "_").replace("-", "_")  # e.g. "crs_catalog"
+        service_name = (
+            raw_name.lower().replace(" ", "_").replace("-", "_")
+        )  # e.g. "crs_catalog"
         class_name = to_pascal_case(service_name) + "Client"  # e.g. "CrsCatalogClient"
         namespace = f"Equinor.OsduCsharpClient.{to_pascal_case(service_name)}"  # e.g. "Equinor.OsduCsharpClient.CrsCatalog"
-        output_path = OUTPUT_DIR / to_pascal_case(service_name)  # e.g. src/OsduCsharpClient/CrsCatalog
+        output_path = OUTPUT_DIR / to_pascal_case(
+            service_name
+        )  # e.g. src/OsduCsharpClient/CrsCatalog
 
         print(f"Generating client for {service_name}...")
 
@@ -74,12 +77,18 @@ def generate_all():
         output_path.mkdir(parents=True)
 
         cmd = [
-            KIOTA, "generate",
-            "--openapi", str(temp_spec_path),
-            "--language", "CSharp",
-            "--class-name", class_name,
-            "--namespace-name", namespace,
-            "--output", str(output_path),
+            KIOTA,
+            "generate",
+            "--openapi",
+            str(temp_spec_path),
+            "--language",
+            "CSharp",
+            "--class-name",
+            class_name,
+            "--namespace-name",
+            namespace,
+            "--output",
+            str(output_path),
             "--clean-output",
             "--clear-cache",
             "--exclude-backward-compatible",

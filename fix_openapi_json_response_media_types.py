@@ -19,7 +19,9 @@ HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options"}
 STRUCTURED_TYPES = {"object", "array", "allOf", "anyOf", "oneOf"}
 
 
-def infer_schema_type(schema: dict[str, Any] | None, components: dict[str, Any]) -> str | None:
+def infer_schema_type(
+    schema: dict[str, Any] | None, components: dict[str, Any]
+) -> str | None:
     if not isinstance(schema, dict):
         return None
 
@@ -69,7 +71,7 @@ def fix_spec_file(path: Path, *, write: bool) -> tuple[int, list[str]]:
     with path.open() as f:
         spec = json.load(f)
 
-    components = ((spec.get("components") or {}).get("schemas") or {})
+    components = (spec.get("components") or {}).get("schemas") or {}
     changed = 0
     touched_ops: list[str] = []
 
