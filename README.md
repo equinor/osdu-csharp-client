@@ -203,14 +203,13 @@ dotnet test OsduCsharpClient.slnx
 
 ### Releasing a new version
 
-1. Bump `<Version>` in `src/OsduCsharpClient/OsduCsharpClient.csproj`
-2. Commit and push to `main`
-3. Tag the commit and push the tag — this triggers the publish to GitHub Packages:
+Releases are automated using [Release Please](https://github.com/googleapis/release-please).
 
-```sh
-git tag v0.2.0
-git push origin v0.2.0
-```
+**How it works:**
+
+1. On merge to `main`, Release Please checks new commits since the last release using the [Conventional Commits](https://www.conventionalcommits.org/) format.
+2. When releasable changes are found, Release Please creates or updates a release pull request that bumps the version in [`OsduCsharpClient.csproj`](src/OsduCsharpClient/OsduCsharpClient.csproj) and updates [`CHANGELOG.md`](CHANGELOG.md).
+3. When the release pull request is merged, the release workflow creates a GitHub release and publishes the NuGet package.
 
 ### Updating OpenAPI Specs
 
