@@ -51,9 +51,12 @@ jobs:
       - name: Publish to GitHub Packages
         run: |
           dotnet nuget add source \
-            --username ${{ github.actor }} \
-            --password ${{ secrets.GITHUB_TOKEN }} \
+            --username "${GITHUB_ACTOR}" \
+            --password "${GITHUB_TOKEN}" \
             --store-password-in-clear-text \
             --name github \
             "https://nuget.pkg.github.com/equinor/index.json"
           dotnet nuget push nupkgs/*.nupkg --source github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
