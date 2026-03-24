@@ -11,6 +11,7 @@
     <Description>C# client library for OSDU platform services, generated from OpenAPI specifications using Microsoft Kiota.</Description>
     <RepositoryUrl>https://github.com/equinor/osdu-csharp-client</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
