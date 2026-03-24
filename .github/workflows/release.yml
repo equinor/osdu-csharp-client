@@ -3,10 +3,12 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   release-please:
     name: Release Please
+    if: github.event_name == 'push'
     permissions:
       contents: write # Required to update changelog file
       pull-requests: write # Required to create release PRs
@@ -15,7 +17,7 @@ jobs:
   build-and-publish:
     name: Build and publish
     needs: release-please
-    if: needs.release-please.outputs.releases_created == 'true'
+    if: ${{ always() && (github.event_name == 'workflow_dispatch' || needs.release-please.outputs.releases_created == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read # Required to read the repository contents
@@ -50,13 +52,9 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: |
-          dotnet nuget add source \
-            --username "${GITHUB_ACTOR}" \
-            --password "${GITHUB_TOKEN}" \
-            --store-password-in-clear-text \
-            --name github \
-            "https://nuget.pkg.github.com/equinor/index.json"
-          dotnet nuget push nupkgs/*.nupkg --source github
+          dotnet nuget push nupkgs/*.nupkg \
+            --source "https://nuget.pkg.github.com/equinor/index.json" \
+            --api-key "${GITHUB_TOKEN}" \
+            --skip-duplicate
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTOR: ${{ github.actor }}
