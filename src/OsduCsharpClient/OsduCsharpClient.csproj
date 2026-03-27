@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Equinor.OsduCsharpClient</PackageId>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <RootNamespace>Equinor.OsduCsharpClient</RootNamespace>
   </PropertyGroup>
 

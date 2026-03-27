@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/equinor/osdu-csharp-client/compare/v0.3.0...v0.3.1) (2026-03-27)
+
+
+### Dependencies
+
+* updates `requests` from 2.32.5 to 2.33.0 ([#10](https://github.com/equinor/osdu-csharp-client/issues/10)) ([68aa7bf](https://github.com/equinor/osdu-csharp-client/commit/68aa7bf790e1c0983443f969986953877eb117aa))
+
 ## [0.3.0](https://github.com/equinor/osdu-csharp-client/compare/v0.2.0...v0.3.0) (2026-03-24)
 
 
