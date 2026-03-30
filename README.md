@@ -80,7 +80,7 @@ if (result?.Results is not null)
 }
 ```
 
-For full examples (request adapter setup, Entitlements usage, Search usage, and raw JSON body inspection), see [docs/usage.md](docs/usage.md).
+For full examples (request adapter setup, Entitlements usage, Search usage, and accessing raw JSON), see [docs/usage.md](docs/usage.md).
 
 ## Available Services
 
@@ -131,7 +131,7 @@ For release flow, OpenAPI update steps, response media type normalization, clien
 ## Documentation
 
 - Environment and tests: [docs/environment-and-tests.md](docs/environment-and-tests.md)
-- Usage examples (including raw JSON body inspection): [docs/usage.md](docs/usage.md)
+- Usage examples (including raw JSON access): [docs/usage.md](docs/usage.md)
 - Development and release workflow: [docs/development.md](docs/development.md)
 
 ## License

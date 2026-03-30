@@ -64,55 +64,37 @@ if (result?.Results is not null)
 }
 ```
 
-## Accessing raw JSON alongside typed models
+## Accessing raw JSON
 
 OSDU records share a common envelope (`id`, `kind`, `createTime`, etc.) but the `data` block varies by record kind. The Kiota-generated client gives you typed access to the common fields, but the `data` block is represented as `AdditionalData` with `UntypedNode` values because the OpenAPI spec defines it as a free-form object.
 
-In many OSDU workflows you want both: the typed model for the envelope and the raw JSON for the kind-specific `data` block. Kiota supports this via the built-in `BodyInspectionHandler`, which is part of the default middleware pipeline.
+When you need the raw JSON — for example to access the kind-specific `data` block — use Kiota's `NativeResponseHandler` to intercept the `HttpResponseMessage` directly.
 
-### Setup
-
-No special client configuration is needed. Create the client as usual:
+### Getting raw JSON with NativeResponseHandler
 
 ```csharp
-using Microsoft.Kiota.Http.HttpClientLibrary;
-using Microsoft.Kiota.Http.HttpClientLibrary.Middleware.Options;
+using Microsoft.Kiota.Abstractions;
+using System.Net.Http;
 
-var adapter = new HttpClientRequestAdapter(authProvider) { BaseUrl = baseUrl };
-var client = new WellboreDdmsClient(adapter);
-```
+var nativeResponseHandler = new NativeResponseHandler();
 
-### Per-request body inspection
-
-Pass a `BodyInspectionHandlerOption` on any request where you want the raw JSON:
-
-```csharp
-var bodyInspection = new BodyInspectionHandlerOption { InspectResponseBody = true };
-
-// Kiota returns the typed model as usual
-var wellbore = await client.Ddms.V3.Wellbores[wellboreId].GetAsync(h =>
+await client.Ddms.V3.Wellbores[wellboreId].GetAsync(config =>
 {
-    h.Headers.Add("data-partition-id", dataPartitionId);
-    h.Options.Add(bodyInspection);
+    config.Headers.Add("data-partition-id", dataPartitionId);
+    config.Options.Add(new ResponseHandlerOption { ResponseHandler = nativeResponseHandler });
 });
 
-// Typed access to common OSDU record fields
-Console.WriteLine(wellbore?.Kind);
-Console.WriteLine(wellbore?.CreateTime?.DateTimeOffset);
-
-// Raw JSON: the full record as the server returned it
-bodyInspection.ResponseBody.Seek(0, SeekOrigin.Begin);
-using var reader = new StreamReader(bodyInspection.ResponseBody, leaveOpen: true);
-var json = reader.ReadToEnd();
+var httpResponse = (HttpResponseMessage)nativeResponseHandler.Value!;
+var json = await httpResponse.Content.ReadAsStringAsync();
 Console.WriteLine(json);
 ```
 
+> **Note:** When a `NativeResponseHandler` is used, Kiota hands off the response to the handler instead of deserializing it into a typed model. The method returns the default value (`null` for reference types). Use `json` with `System.Text.Json` to access any fields you need.
+
 ### Working with the data block via System.Text.Json
 
-Once you have the raw JSON, you can use `JsonDocument` to navigate the kind-specific `data` fields without unpacking `UntypedNode` values:
-
 ```csharp
-var doc = JsonDocument.Parse(json);
+using var doc = JsonDocument.Parse(json);
 
 // Pretty-print the entire record
 Console.WriteLine(JsonSerializer.Serialize(doc, new JsonSerializerOptions { WriteIndented = true }));
@@ -127,11 +109,4 @@ if (doc.RootElement.TryGetProperty("data", out var data)
 
 ### Why This Is Needed
 
-Kiota is a typed client generator. It maps OpenAPI schemas to C# classes. The OSDU record `data` property is defined as an open-ended `object` with `additionalProperties: true` because its shape depends on the record kind (well, wellbore, well log, and so on). Without a fixed schema, Kiota falls back to `AdditionalData` with `UntypedNode` wrappers.
-
-The `BodyInspectionHandlerOption` approach gives you both:
-
-- Typed access to the common record envelope via the Kiota model
-- Raw JSON for the kind-specific `data` block, using standard `System.Text.Json` APIs
-
-The same `BodyInspectionHandlerOption` instance can be reused across multiple requests; the `ResponseBody` stream is replaced on each call.
+Kiota is a typed client generator. It maps OpenAPI schemas to C# classes. The OSDU record `data` property is defined as an open-ended `object` with `additionalProperties: true` because its shape depends on the record kind (well, wellbore, well log, and so on). Without a fixed schema, Kiota falls back to `AdditionalData` with `UntypedNode` wrappers. Reading the raw JSON via `NativeResponseHandler` and `System.Text.Json` is the recommended way to consume these free-form fields.
