@@ -90,37 +90,7 @@
           "400": {
             "description": "Invalid parameters were given on request",
             "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Service Unavailable",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "502": {
-            "description": "Search service scale-up is taking longer than expected. Wait 10 seconds and retry.",
-            "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -130,7 +100,7 @@
           "401": {
             "description": "Unauthorized",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -140,7 +110,7 @@
           "403": {
             "description": "User not authorized to perform the action",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -150,7 +120,37 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "*/*": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Search service scale-up is taking longer than expected. Wait 10 seconds and retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -195,66 +195,6 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "Invalid parameters were given on request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Service Unavailable",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "502": {
-            "description": "Search service scale-up is taking longer than expected. Wait 10 seconds and retry.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "User not authorized to perform the action",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
           "200": {
             "description": "Success",
             "content": {
@@ -265,10 +205,70 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid parameters were given on request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User not authorized to perform the action",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "content": {
-              "*/*": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Search service scale-up is taking longer than expected. Wait 10 seconds and retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -303,10 +303,20 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "502": {
             "description": "Bad Gateway",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -316,19 +326,9 @@
           "503": {
             "description": "Service Unavailable",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
                 }
               }
             }
@@ -356,10 +356,20 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "502": {
             "description": "Bad Gateway",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -369,19 +379,9 @@
           "503": {
             "description": "Service Unavailable",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string"
                 }
               }
             }
@@ -472,37 +472,7 @@
           "400": {
             "description": "Invalid parameters were given on request",
             "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Service Unavailable",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/AppError"
-                }
-              }
-            }
-          },
-          "502": {
-            "description": "Search service scale-up is taking longer than expected. Wait 10 seconds and retry.",
-            "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -512,7 +482,7 @@
           "401": {
             "description": "Unauthorized",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -522,7 +492,7 @@
           "403": {
             "description": "User not authorized to perform the action",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -532,7 +502,37 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "*/*": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Search service scale-up is taking longer than expected. Wait 10 seconds and retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AppError"
                 }
@@ -563,23 +563,30 @@
           "bottomRight": {
             "$ref": "#/components/schemas/Point"
           }
-        }
+        },
+        "description": "Bounding box filter defined by top-left and bottom-right coordinate points."
       },
       "ByDistance": {
         "required": [
+          "distance",
           "point"
         ],
         "type": "object",
         "properties": {
           "distance": {
             "maximum": 9223372036854775807,
+            "minimum": 0,
+            "exclusiveMinimum": true,
             "type": "number",
-            "format": "double"
+            "description": "The radius of the circle centered on the specified location. Points which fall into this circle are considered to be matches.",
+            "format": "double",
+            "example": 1500
           },
           "point": {
             "$ref": "#/components/schemas/Point"
           }
-        }
+        },
+        "description": "Distance filter returning results within a given radius of a coordinate point."
       },
       "ByGeoPolygon": {
         "required": [
@@ -588,12 +595,15 @@
         "type": "object",
         "properties": {
           "points": {
+            "minItems": 1,
             "type": "array",
+            "description": "Polygon defined by a set of points.",
             "items": {
               "$ref": "#/components/schemas/Point"
             }
           }
-        }
+        },
+        "description": "Polygon filter returning results within the given geographic polygon."
       },
       "ByIntersection": {
         "required": [
@@ -603,11 +613,13 @@
         "properties": {
           "polygons": {
             "type": "array",
+            "description": "List of polygons each defined by a set of points.",
             "items": {
               "$ref": "#/components/schemas/Polygon"
             }
           }
-        }
+        },
+        "description": "Intersection filter returning results whose geometry intersects the given polygons."
       },
       "ByWithinPolygon": {
         "required": [
@@ -617,11 +629,13 @@
         "properties": {
           "points": {
             "type": "array",
+            "description": "Polygon defined by a set of points.",
             "items": {
               "$ref": "#/components/schemas/Point"
             }
           }
-        }
+        },
+        "description": "Within-polygon filter returning results contained within the given polygon."
       },
       "CursorQueryRequest": {
         "required": [
@@ -630,7 +644,10 @@
         "type": "object",
         "properties": {
           "kind": {
-            "oneOf": [
+            "type": "object",
+            "description": "The type(s) of data to search. Accepts a single kind string or a list of kinds. Format: {Data-Partition-Id}:{source}:{type}:{version}. Wildcards are supported per segment, e.g. 'opendes:*:*:*'.",
+            "example": "opendes:osdu:wellbore:1.0.0",
+            "anyOf": [
               {
                 "type": "string"
               },
@@ -645,42 +662,80 @@
           "limit": {
             "minimum": 0,
             "type": "integer",
-            "format": "int32"
+            "description": "The maximum number of results to return from the given offset. If no limit is provided, then it will return 10 items. Max number of items which can be fetched by the query is 1000. (If you wish to fetch large set of items, please use query_with_cursor API)",
+            "format": "int32",
+            "example": 30
           },
           "query": {
-            "type": "string"
+            "type": "string",
+            "description": "The query string in Lucene query string syntax.",
+            "example": "data.country: \"US\""
           },
           "suggestPhrase": {
-            "type": "string"
+            "type": "string",
+            "description": "Part of the phrase for which search should return completions",
+            "example": "wellb"
           },
           "highlightedFields": {
             "type": "array",
+            "description": "The fields where matches should be highlighted.",
+            "example": [
+              "data.wellName"
+            ],
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "The fields where matches should be highlighted.",
+              "example": "[\"data.wellName\"]"
             }
           },
           "returnedFields": {
             "type": "array",
+            "description": "The fields on which to project the results.",
+            "example": [
+              "id",
+              "kind",
+              "data.wellName"
+            ],
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "The fields on which to project the results.",
+              "example": "[\"id\",\"kind\",\"data.wellName\"]"
+            }
+          },
+          "excludedFields": {
+            "type": "array",
+            "description": "The fields on which to exclude from the results.",
+            "example": [
+              "data.rawData"
+            ],
+            "items": {
+              "type": "string",
+              "description": "The fields on which to exclude from the results.",
+              "example": "[\"data.rawData\"]"
             }
           },
           "sort": {
             "$ref": "#/components/schemas/SortQuery"
           },
           "queryAsOwner": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "The queryAsOwner switches between viewer and owner to return results that you are entitled to view or results you are the owner of.",
+            "example": false
           },
           "trackTotalCount": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Tracks accurate record count matching the query if 'true', partial count otherwise. Partial count queries are more performant. Default is 'false' and returns 10000 if matching records are higher than 10000.",
+            "example": false
           },
           "spatialFilter": {
             "$ref": "#/components/schemas/SpatialFilter"
           },
           "cursor": {
-            "type": "string"
+            "type": "string",
+            "description": "Search context to retrieve the next page of results. Null when there are no more results."
           }
-        }
+        },
+        "description": "Search query request using cursor-based pagination for retrieving large result sets."
       },
       "Point": {
         "type": "object",
@@ -689,38 +744,61 @@
             "maximum": 90,
             "minimum": -90,
             "type": "number",
-            "format": "double"
+            "description": "Latitude of point.",
+            "format": "double",
+            "example": 37.450727
           },
           "longitude": {
+            "maximum": 180,
+            "minimum": -180,
             "type": "number",
-            "format": "double"
+            "description": "Longitude of point.",
+            "format": "double",
+            "example": -122.174762
           }
-        }
+        },
+        "description": "A geographic coordinate expressed as a latitude/longitude pair."
       },
       "Polygon": {
         "type": "object",
         "properties": {
           "points": {
             "type": "array",
+            "description": "List of points making up a polygon",
             "items": {
               "$ref": "#/components/schemas/Point"
             }
           }
-        }
+        },
+        "description": "A polygon defined by an ordered list of geographic coordinate points."
       },
       "SortQuery": {
         "type": "object",
         "properties": {
           "field": {
             "type": "array",
+            "description": "The list of fields to sort the results.",
+            "example": [
+              "data.wellName",
+              "id"
+            ],
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "The list of fields to sort the results.",
+              "example": "[\"data.wellName\",\"id\"]"
             }
           },
           "order": {
             "type": "array",
+            "description": "The list of orders to sort the results. The element must be either ASC or DESC.",
+            "example": [
+              "ASC",
+              "DESC"
+            ],
             "items": {
               "type": "string",
+              "description": "Sort direction for search results.",
+              "example": "[\"ASC\",\"DESC\"]",
               "enum": [
                 "ASC",
                 "DESC"
@@ -729,11 +807,14 @@
           },
           "filter": {
             "type": "array",
+            "description": "Optional list of filter expressions applied per sort field, controlling how missing or unmapped values are treated.",
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "Optional list of filter expressions applied per sort field, controlling how missing or unmapped values are treated."
             }
           }
-        }
+        },
+        "description": "Defines the sort criteria for search results, including field names, sort direction, and optional filters."
       },
       "SpatialFilter": {
         "required": [
@@ -742,7 +823,9 @@
         "type": "object",
         "properties": {
           "field": {
-            "type": "string"
+            "type": "string",
+            "description": "geo-point field in the index on which filtering will be performed. Use GET schema API to find which fields supports spatial search.",
+            "example": "data.SpatialLocation.Wgs84Coordinates"
           },
           "byBoundingBox": {
             "$ref": "#/components/schemas/ByBoundingBox"
@@ -759,42 +842,55 @@
           "byWithinPolygon": {
             "$ref": "#/components/schemas/ByWithinPolygon"
           }
-        }
+        },
+        "description": "A spatial filter constraining search results by geographic location. Exactly one of the filter types should be specified."
       },
       "CursorQueryResponse": {
         "type": "object",
         "properties": {
           "cursor": {
-            "type": "string"
+            "type": "string",
+            "description": "Search context to retrieve the next page of results. Null when there are no more results.",
+            "example": "AoE="
           },
           "results": {
             "type": "array",
+            "description": "List of matched records, each represented as a map of field names to values.",
             "items": {
               "type": "object",
-              "additionalProperties": {
-              }
+              "additionalProperties": true
             }
           },
           "totalCount": {
             "type": "integer",
-            "format": "int64"
+            "description": "Total number of records matching the query. Capped at 10000 unless trackTotalCount is true.",
+            "format": "int64",
+            "example": 1
           }
-        }
+        },
+        "description": "Cursor-based search query response for retrieving large result sets incrementally."
       },
       "AppError": {
         "type": "object",
         "properties": {
           "code": {
             "type": "integer",
-            "format": "int32"
+            "description": "HTTP status code.",
+            "format": "int32",
+            "example": 400
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "description": "Short error reason.",
+            "example": "Bad Request"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "Detailed error message.",
+            "example": "Invalid record format."
           }
-        }
+        },
+        "description": "Standard error response returned by OSDU services."
       },
       "QueryRequest": {
         "required": [
@@ -803,7 +899,10 @@
         "type": "object",
         "properties": {
           "kind": {
-            "oneOf": [
+            "type": "object",
+            "description": "The type(s) of data to search. Accepts a single kind string or a list of kinds. Format: {Data-Partition-Id}:{source}:{type}:{version}. Wildcards are supported per segment, e.g. 'opendes:*:*:*'.",
+            "example": "opendes:osdu:wellbore:1.0.0",
+            "anyOf": [
               {
                 "type": "string"
               },
@@ -818,47 +917,88 @@
           "limit": {
             "minimum": 0,
             "type": "integer",
-            "format": "int32"
+            "description": "The maximum number of results to return from the given offset. If no limit is provided, then it will return 10 items. Max number of items which can be fetched by the query is 1000. (If you wish to fetch large set of items, please use query_with_cursor API)",
+            "format": "int32",
+            "example": 30
           },
           "query": {
-            "type": "string"
+            "type": "string",
+            "description": "The query string in Lucene query string syntax.",
+            "example": "data.country: \"US\""
           },
           "suggestPhrase": {
-            "type": "string"
+            "type": "string",
+            "description": "Part of the phrase for which search should return completions",
+            "example": "wellb"
           },
           "highlightedFields": {
             "type": "array",
+            "description": "The fields where matches should be highlighted.",
+            "example": [
+              "data.wellName"
+            ],
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "The fields where matches should be highlighted.",
+              "example": "[\"data.wellName\"]"
             }
           },
           "returnedFields": {
             "type": "array",
+            "description": "The fields on which to project the results.",
+            "example": [
+              "id",
+              "kind",
+              "data.wellName"
+            ],
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "The fields on which to project the results.",
+              "example": "[\"id\",\"kind\",\"data.wellName\"]"
+            }
+          },
+          "excludedFields": {
+            "type": "array",
+            "description": "The fields on which to exclude from the results.",
+            "example": [
+              "data.rawData"
+            ],
+            "items": {
+              "type": "string",
+              "description": "The fields on which to exclude from the results.",
+              "example": "[\"data.rawData\"]"
             }
           },
           "sort": {
             "$ref": "#/components/schemas/SortQuery"
           },
           "queryAsOwner": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "The queryAsOwner switches between viewer and owner to return results that you are entitled to view or results you are the owner of.",
+            "example": false
           },
           "trackTotalCount": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Tracks accurate record count matching the query if 'true', partial count otherwise. Partial count queries are more performant. Default is 'false' and returns 10000 if matching records are higher than 10000.",
+            "example": false
           },
           "spatialFilter": {
             "$ref": "#/components/schemas/SpatialFilter"
           },
           "aggregateBy": {
-            "type": "string"
+            "type": "string",
+            "description": "The aggregateBy field returns the distinct values of the given field.",
+            "example": "kind"
           },
           "offset": {
             "minimum": 0,
             "type": "integer",
-            "format": "int32"
+            "description": "The starting offset from which to return results.",
+            "format": "int32",
+            "example": 0
           }
-        }
+        },
+        "description": "Search query request with offset-based pagination."
       },
       "AggregationResponse": {
         "type": "object",
@@ -870,102 +1010,140 @@
             "type": "integer",
             "format": "int64"
           }
-        }
+        },
+        "description": "Aggregation results keyed by field name, present only when aggregateBy is specified."
       },
       "QueryResponse": {
         "type": "object",
         "properties": {
           "results": {
             "type": "array",
+            "description": "List of matched records, each represented as a map of field names to values.",
             "items": {
               "type": "object",
-              "additionalProperties": {
-              }
+              "additionalProperties": true
             }
           },
           "aggregations": {
             "type": "array",
+            "description": "Aggregation results keyed by field name, present only when aggregateBy is specified.",
             "items": {
               "$ref": "#/components/schemas/AggregationResponse"
             }
           },
           "phraseSuggestions": {
             "type": "array",
+            "description": "Phrase completion suggestions returned when suggestPhrase is specified.",
             "items": {
-              "type": "string"
+              "type": "string",
+              "description": "Phrase completion suggestions returned when suggestPhrase is specified."
             }
           },
           "totalCount": {
             "type": "integer",
-            "format": "int64"
+            "description": "Total number of records matching the query. Capped at 10000 unless trackTotalCount is true.",
+            "format": "int64",
+            "example": 1
           }
-        }
+        },
+        "description": "Search query response containing matched records and associated metadata."
       },
       "ConnectedOuterService": {
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the connected external service.",
+            "example": "storage"
           },
           "version": {
-            "type": "string"
+            "type": "string",
+            "description": "Version of the connected external service.",
+            "example": "2.0.0"
           }
-        }
+        },
+        "description": "Name and version of an external service that this OSDU service connects to."
       },
       "FeatureFlagState": {
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the feature flag.",
+            "example": "collaborations-api"
           },
           "enabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the feature flag is currently enabled.",
+            "example": true
           },
           "partition": {
-            "type": "string"
+            "type": "string",
+            "description": "Data partition this flag applies to.",
+            "example": "opendes"
           },
           "source": {
-            "type": "string"
+            "type": "string",
+            "description": "Source configuration that provided this flag state.",
+            "example": "runtime"
           }
-        }
+        },
+        "description": "State of a feature flag for a given partition and source."
       },
       "VersionInfo": {
         "type": "object",
         "properties": {
           "groupId": {
-            "type": "string"
+            "type": "string",
+            "description": "Maven group ID of the service artifact.",
+            "example": "org.opengroup.osdu"
           },
           "artifactId": {
-            "type": "string"
+            "type": "string",
+            "description": "Maven artifact ID of the service.",
+            "example": "os-search"
           },
           "version": {
-            "type": "string"
+            "type": "string",
+            "description": "Semantic version of the deployed service.",
+            "example": "0.27.0"
           },
           "buildTime": {
-            "type": "string"
+            "type": "string",
+            "description": "ISO 8601 timestamp of the build.",
+            "example": "2021-01-26T02:24:13.843000+00:00"
           },
           "branch": {
-            "type": "string"
+            "type": "string",
+            "description": "Source control branch from which the service was built.",
+            "example": "main"
           },
           "commitId": {
-            "type": "string"
+            "type": "string",
+            "description": "Short commit SHA of the build.",
+            "example": "7777777"
           },
           "commitMessage": {
-            "type": "string"
+            "type": "string",
+            "description": "Commit message of the build.",
+            "example": "initial commit"
           },
           "connectedOuterServices": {
             "type": "array",
+            "description": "List of external services this service depends on.",
             "items": {
               "$ref": "#/components/schemas/ConnectedOuterService"
             }
           },
           "featureFlagStates": {
             "type": "array",
+            "description": "Current feature flag states for this partition, if any.",
             "items": {
               "$ref": "#/components/schemas/FeatureFlagState"
             }
           }
-        }
+        },
+        "description": "Version and build information for an OSDU service."
       }
     },
     "securitySchemes": {
