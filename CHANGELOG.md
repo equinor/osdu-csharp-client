@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.1](https://github.com/equinor/osdu-csharp-client/compare/v0.4.0...v0.4.1) (2026-04-20)
+
+
+### Dependencies
+
+* bump `equinor/ops-actions/.github/workflows/commitlint.yml` from 9.35.1 to 9.36.0 ([bd19fe7](https://github.com/equinor/osdu-csharp-client/commit/bd19fe72bacb28ff91518064d7f913077b277071))
+* bump `equinor/ops-actions/.github/workflows/release-please-manifest.yml` from 9.35.1 to 9.36.0 ([bd19fe7](https://github.com/equinor/osdu-csharp-client/commit/bd19fe72bacb28ff91518064d7f913077b277071))
+* bump `equinor/ops-actions/.github/workflows/zizmor-codeql.yml` from 9.35.1 to 9.36.0 ([bd19fe7](https://github.com/equinor/osdu-csharp-client/commit/bd19fe72bacb28ff91518064d7f913077b277071))
+* bump `Microsoft.Identity.Client` from 4.83.1 to 4.83.3 ([#20](https://github.com/equinor/osdu-csharp-client/issues/20)) ([de6326a](https://github.com/equinor/osdu-csharp-client/commit/de6326a58f2ab2c233a2f87fb7bf5c3a38ba1a32))
+* bump `Microsoft.NET.Test.Sdk` from 18.3.0 to 18.4.0 ([#23](https://github.com/equinor/osdu-csharp-client/issues/23)) ([7d78fd5](https://github.com/equinor/osdu-csharp-client/commit/7d78fd5ca18cc1fa2d2b32ce8879e405fb56f481))
+* bump the github-actions group with 3 updates ([#22](https://github.com/equinor/osdu-csharp-client/issues/22)) ([bd19fe7](https://github.com/equinor/osdu-csharp-client/commit/bd19fe72bacb28ff91518064d7f913077b277071))
+
 ## [0.4.0](https://github.com/equinor/osdu-csharp-client/compare/v0.3.0...v0.4.0) (2026-03-31)
 
 
