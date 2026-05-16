@@ -1,32 +1,59 @@
 # Usage
 
-Each OSDU service has its own namespace under `OsduCsharpClient`. Clients are constructed with a Kiota `IRequestAdapter`, which handles HTTP and authentication.
+## Using OsduClient (Recommended)
 
-## Set Up the Request Adapter
+`OsduClient` wraps all service clients with auth, `data-partition-id` injection, and connection management. Construct it once and use it for the lifetime of your application.
 
 ```csharp
-using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
+using Equinor.OsduCsharpClient.Facade;
 
-// Implement IAccessTokenProvider to supply your bearer token
-var authProvider = new BaseBearerTokenAuthenticationProvider(new MyTokenProvider());
-var adapter = new HttpClientRequestAdapter(authProvider)
-{
-    BaseUrl = "https://your-osdu-instance.com/api/entitlements/v2"
-};
+using var osdu = new OsduClient(OsduConfig.FromEnvironment());
 ```
 
-## Example: Entitlements service
+`OsduConfig.FromEnvironment()` reads from environment variables or a `.env` file. You can also construct `OsduConfig` directly:
 
 ```csharp
-using OsduCsharpClient.Entitlements;
+var config = new OsduConfig
+{
+    Server          = "https://your-osdu-instance.com",
+    DataPartitionId = "your-partition-id",
+    Authority       = "https://login.microsoftonline.com/<tenant-id>",
+    ClientId        = "<client-id>",
+    Scopes          = "api://<app-id-uri>/.default",
+};
+using var osdu = new OsduClient(config);
+```
 
-var client = new EntitlementsClient(adapter);
+### Example: Search service
 
-var result = await client.Groups.All.GetAsync(config =>
+```csharp
+using Equinor.OsduCsharpClient.Search.Models;
+
+var result = await osdu.Search.Query.PostAsync(
+    new QueryRequest
+    {
+        Kind = new QueryRequest.QueryRequest_kind
+        {
+            QueryRequestKindString = "osdu:wks:work-product-component--WellLog:*"
+        },
+        Query = "*",
+        Limit = 10,
+        ReturnedFields = ["id", "kind", "createTime"],
+    });
+
+if (result?.Results is not null)
+{
+    foreach (var record in result.Results)
+        Console.WriteLine(record.AdditionalData["id"]);
+}
+```
+
+### Example: Entitlements service
+
+```csharp
+var result = await osdu.Entitlements.Groups.All.GetAsync(config =>
 {
     config.QueryParameters.Type = "NONE";
-    config.Headers.Add("data-partition-id", "your-partition-id");
 });
 
 if (result?.Groups is not null)
@@ -36,11 +63,73 @@ if (result?.Groups is not null)
 }
 ```
 
-## Example: Search service
+### Auth providers
+
+By default `OsduClient` uses `MsalInteractiveTokenProvider` (browser popup on first run, then silent from cache). Choose the mode that fits your environment:
+
+| Provider | When to use | Config needed |
+|---|---|---|
+| `MsalInteractiveTokenProvider` | Local dev, opens browser | `Authority`, `ClientId`, `Scopes` |
+| `MsalDeviceFlowTokenProvider` | Headless / SSH sessions | `Authority`, `ClientId`, `Scopes` |
+| `MsalClientCredentialsTokenProvider` | CI / service-to-service | + `clientSecret` |
+| `StaticTokenProvider` | Testing / externally managed token | pre-acquired token string |
 
 ```csharp
-using OsduCsharpClient.Search;
-using OsduCsharpClient.Search.Models;
+using Equinor.OsduCsharpClient.Facade.Auth;
+
+// Interactive (default — opens browser on first run)
+using var osdu = new OsduClient(config);
+
+// Device code flow (prints a URL + code to the console; no browser required on this machine)
+using var osdu = new OsduClient(config, new MsalDeviceFlowTokenProvider(config));
+
+// Client credentials (CI / service-to-service, no user interaction)
+using var osdu = new OsduClient(config, new MsalClientCredentialsTokenProvider(config, clientSecret: "..."));
+
+// Pre-acquired token
+using var osdu = new OsduClient(config, new StaticTokenProvider("your-bearer-token"));
+```
+
+All three MSAL providers persist the token cache to `~/.osdu/msal_cache.bin` by default (override with `OSDU_MSAL_CACHE_PATH` env var), so silent renewal is used on subsequent runs.
+
+---
+
+## Low-level: Raw Service Clients
+
+Each service client can also be constructed directly with a Kiota `IRequestAdapter` when you need full control over auth and HTTP configuration.
+
+### Set Up the Request Adapter
+
+```csharp
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
+
+var authProvider = new BaseBearerTokenAuthenticationProvider(new MyTokenProvider());
+var adapter = new HttpClientRequestAdapter(authProvider)
+{
+    BaseUrl = "https://your-osdu-instance.com/api/entitlements/v2"
+};
+```
+
+### Example: Entitlements service
+
+```csharp
+using Equinor.OsduCsharpClient.Entitlements;
+
+var client = new EntitlementsClient(adapter);
+
+var result = await client.Groups.All.GetAsync(config =>
+{
+    config.QueryParameters.Type = "NONE";
+    config.Headers.Add("data-partition-id", "your-partition-id");
+});
+```
+
+### Example: Search service
+
+```csharp
+using Equinor.OsduCsharpClient.Search;
+using Equinor.OsduCsharpClient.Search.Models;
 
 var client = new SearchClient(adapter);
 
@@ -56,13 +145,9 @@ var result = await client.Query.PostAsync(
         ReturnedFields = ["id", "kind", "createTime"],
     },
     config => config.Headers.Add("data-partition-id", "your-partition-id"));
-
-if (result?.Results is not null)
-{
-    foreach (var record in result.Results)
-        Console.WriteLine(record.AdditionalData["id"]);
-}
 ```
+
+---
 
 ## Accessing raw JSON
 
@@ -78,9 +163,8 @@ using System.Net.Http;
 
 var nativeResponseHandler = new NativeResponseHandler();
 
-await client.Ddms.V3.Wellbores[wellboreId].GetAsync(config =>
+await osdu.WellboreDdms.Ddms.V3.Wellbores[wellboreId].GetAsync(config =>
 {
-    config.Headers.Add("data-partition-id", dataPartitionId);
     config.Options.Add(new ResponseHandlerOption { ResponseHandler = nativeResponseHandler });
 });
 

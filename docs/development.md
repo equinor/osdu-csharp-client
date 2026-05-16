@@ -22,10 +22,9 @@ python3 generate_all.py
 dotnet build OsduCsharpClient.slnx
 ```
 
-Copy `.env` from the template and fill in your OSDU environment values before running tests:
+Copy `.env` with the required values before running tests — see [docs/environment-and-tests.md](environment-and-tests.md).
 
 ```sh
-cp .env.example .env   # if an example exists, otherwise create manually
 dotnet test OsduCsharpClient.slnx
 ```
 
@@ -74,18 +73,27 @@ To regenerate all C# clients from the specs in `openapi_specs/`:
 python3 generate_all.py
 ```
 
-This iterates through the JSON files and runs `kiota generate` for each service into `src/OsduCsharpClient/<ServiceName>/`. It also handles minor spec patches (missing `info.version`, non-standard `< * >` wildcard properties) before invoking Kiota.
+This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiota generate` for each service into `src/OsduCsharpClient/<ServiceName>/`. It also handles minor spec patches (missing `info.version`, non-standard `< * >` wildcard properties, YAML timestamp normalization) before invoking Kiota.
 
 > Warning: Do not hand-edit files under `src/OsduCsharpClient/`. They are generated artifacts and will be overwritten the next time `generate_all.py` is run. Make changes in `openapi_specs/` and/or the generation scripts instead.
 
 ## Project Structure
 
 ```txt
-openapi_specs/                              Downloaded OpenAPI JSON specifications
+openapi_specs/                              OpenAPI specs (.json / .yaml / .yml)
 src/
-    OsduCsharpClient/                       Generated C# clients (one subfolder per service)
+    OsduCsharpClient/
+        <ServiceName>/                      Generated C# clients (one subfolder per service)
+        Facade/
+            Auth/                           ITokenProvider + MSAL implementations
+            DataPartitionHandler.cs         DelegatingHandler for data-partition-id injection
+            OsduClient.cs                   High-level facade with typed per-service properties
+            OsduConfig.cs                   Configuration record (FromEnvironment factory)
+            OsduException.cs                Typed exception for auth/config/API errors
+            ServiceRegistry.cs              Static service → endpoint mapping
 tests/
-    OsduCsharpClient.IntegrationTests/      xUnit integration tests
+    OsduCsharpClient.IntegrationTests/      xUnit integration tests (require live OSDU server)
+    OsduCsharpClient.Tests/                 xUnit unit tests (no network required)
 download.py                                 Downloads specs from the OSDU wiki
 fix_openapi_json_response_media_types.py    Normalizes */* response media types
 generate_all.py                             Regenerates all C# clients via Kiota
