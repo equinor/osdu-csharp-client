@@ -14,9 +14,39 @@ import json
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options"}
 STRUCTURED_TYPES = {"object", "array", "allOf", "anyOf", "oneOf"}
+YAML_EXTENSIONS = {".yaml", ".yml"}
+
+
+class _NoTimestampLoader(yaml.SafeLoader):
+    """SafeLoader that leaves ISO date/datetime values as strings."""
+
+
+_NoTimestampLoader.yaml_implicit_resolvers = {
+    k: [(tag, regexp) for tag, regexp in v if tag != "tag:yaml.org,2002:timestamp"]
+    for k, v in yaml.SafeLoader.yaml_implicit_resolvers.items()
+}
+
+
+def _load_spec(path: Path) -> tuple[Any, bool]:
+    """Load a JSON or YAML spec. Returns ``(data, is_yaml)``."""
+    text = path.read_text(encoding="utf-8")
+    if path.suffix.lower() in YAML_EXTENSIONS:
+        return yaml.load(text, Loader=_NoTimestampLoader), True
+    return json.loads(text), False
+
+
+def _dump_spec(path: Path, data: Any, *, is_yaml: bool) -> None:
+    with path.open("w") as f:
+        if is_yaml:
+            yaml.dump(data, f, allow_unicode=True, sort_keys=False)
+        else:
+            json.dump(data, f, indent=2)
+            f.write("\n")
 
 
 def infer_schema_type(
@@ -68,8 +98,7 @@ def should_fix_response(response: dict[str, Any], components: dict[str, Any]) ->
 
 
 def fix_spec_file(path: Path, *, write: bool) -> tuple[int, list[str]]:
-    with path.open() as f:
-        spec = json.load(f)
+    spec, is_yaml = _load_spec(path)
 
     components = (spec.get("components") or {}).get("schemas") or {}
     changed = 0
@@ -95,9 +124,7 @@ def fix_spec_file(path: Path, *, write: bool) -> tuple[int, list[str]]:
                 touched_ops.append(f"{method.upper()} {route} [{status_code}]")
 
     if changed and write:
-        with path.open("w") as f:
-            json.dump(spec, f, indent=2)
-            f.write("\n")
+        _dump_spec(path, spec, is_yaml=is_yaml)
 
     return changed, touched_ops
 
@@ -121,7 +148,10 @@ def main() -> int:
     files: list[Path] = []
     for p in args.paths:
         if p.is_dir():
-            files.extend(sorted(p.glob("*.json")))
+            files.extend(sorted(
+                f for f in p.iterdir()
+                if f.is_file() and f.suffix.lower() in {".json", ".yaml", ".yml"}
+            ))
         elif p.is_file():
             files.append(p)
 
