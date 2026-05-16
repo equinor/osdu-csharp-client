@@ -36,6 +36,7 @@ public class OsduClientTests
         Assert.NotNull(client.Legal);
         Assert.NotNull(client.File);
         Assert.NotNull(client.Dataset);
+        Assert.NotNull(client.Geospatial);
         Assert.NotNull(client.Indexer);
         Assert.NotNull(client.Notification);
         Assert.NotNull(client.Partition);
@@ -44,6 +45,7 @@ public class OsduClientTests
         Assert.NotNull(client.Unit);
         Assert.NotNull(client.CrsCatalog);
         Assert.NotNull(client.CrsConversion);
+        Assert.NotNull(client.SeismicDdms);
         Assert.NotNull(client.WellboreDdms);
         Assert.NotNull(client.Workflow);
     }

@@ -11,8 +11,8 @@ public class ServiceRegistryTests
         var expected = new[]
         {
             "search", "storage", "schema", "entitlements", "legal", "file",
-            "dataset", "indexer", "notification", "partition", "policy",
-            "register", "unit", "crs_catalog", "crs_conversion",
+            "dataset", "geospatial", "indexer", "notification", "partition", "policy",
+            "register", "unit", "crs_catalog", "crs_conversion", "seismic_ddms",
             "wellbore_ddms", "workflow",
         };
 
