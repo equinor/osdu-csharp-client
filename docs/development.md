@@ -2,7 +2,7 @@
 
 ## Generated Code Is Not Committed
 
-The C# clients under `src/OsduCsharpClient/` are produced by running Kiota against the OpenAPI specs in `openapi_specs/`. This output is **not committed to the repository** for the following reasons:
+The C# clients under `src/OsduCsharpClient/Generated/` are produced by running Kiota against the OpenAPI specs in `openapi_specs/`. This output is **not committed to the repository** for the following reasons:
 
 - **Nobody can accidentally edit it.** If the generated code is not in the repository, it cannot be hand-edited. Any change must go through the spec and the generator — the only correct way to change it.
 - **The spec is the source of truth.** Committing generated code creates a second source of truth that can silently drift from the spec.
@@ -83,10 +83,12 @@ This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiot
 openapi_specs/                              OpenAPI specs (.json / .yaml / .yml)
 src/
     OsduCsharpClient/
-        <ServiceName>/                      Generated C# clients (one subfolder per service)
+        Generated/                          Generated C# clients — gitignored, re-run generate_all.py
+            <ServiceName>/                  One subfolder per service (e.g. Search/, Storage/)
         Facade/
             Auth/                           ITokenProvider + MSAL implementations
             DataPartitionHandler.cs         DelegatingHandler for data-partition-id injection
+            LoggingHandler.cs               DelegatingHandler for HTTP request/response logging
             OsduClient.cs                   High-level facade with typed per-service properties
             OsduConfig.cs                   Configuration record (FromEnvironment factory)
             OsduException.cs                Typed exception for auth/config/API errors

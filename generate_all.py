@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 SPECS_DIR = Path("openapi_specs")
-OUTPUT_DIR = Path("src/OsduCsharpClient")
+OUTPUT_DIR = Path("src/OsduCsharpClient/Generated")
 SPEC_EXTENSIONS = {".json", ".yaml", ".yml"}
 
 KIOTA = shutil.which("kiota") or os.path.expanduser("~/.dotnet/tools/kiota")

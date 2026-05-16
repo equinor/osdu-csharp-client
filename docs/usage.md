@@ -92,6 +92,42 @@ using var osdu = new OsduClient(config, new StaticTokenProvider("your-bearer-tok
 
 All three MSAL providers persist the token cache to `~/.osdu/msal_cache.bin` by default (override with `OSDU_MSAL_CACHE_PATH` env var), so silent renewal is used on subsequent runs.
 
+### Logging
+
+`OsduClient` uses `Microsoft.Extensions.Logging` and produces no output by default. Pass your application's `ILoggerFactory` to enable logging:
+
+```csharp
+using Microsoft.Extensions.Logging;
+
+using var loggerFactory = LoggerFactory.Create(builder =>
+    builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
+
+using var osdu = new OsduClient(config, loggerFactory: loggerFactory);
+```
+
+Two log categories are used:
+
+| Category | What it logs | Default level to enable |
+|---|---|---|
+| `Equinor.OsduCsharpClient` | `→ METHOD URL`, `← STATUS URL (elapsed ms)`, auth flow events | `Debug` |
+| `Equinor.OsduCsharpClient.Body` | Request/response bodies (truncated to 2 KB, `Authorization`/`Cookie` headers redacted) | `Debug` (opt-in) |
+
+To enable body logging only:
+
+```json
+// appsettings.json
+{
+  "Logging": {
+    "LogLevel": {
+      "Equinor.OsduCsharpClient": "Debug",
+      "Equinor.OsduCsharpClient.Body": "Debug"
+    }
+  }
+}
+```
+
+Auth providers also accept an optional `ILoggerFactory` to log silent vs interactive/device/credential flow transitions.
+
 ---
 
 ## Low-level: Raw Service Clients
