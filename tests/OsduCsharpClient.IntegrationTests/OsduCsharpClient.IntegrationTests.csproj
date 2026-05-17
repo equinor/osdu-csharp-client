@@ -15,7 +15,7 @@
     </PackageReference>
     <PackageReference Include="DotNetEnv" Version="3.2.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.83.3" />
-    <PackageReference Include="Microsoft.Kiota.Abstractions" Version="1.22.1" />
+    <PackageReference Include="Microsoft.Kiota.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Kiota.Http.HttpClientLibrary" Version="1.22.1" />
   </ItemGroup>
 
