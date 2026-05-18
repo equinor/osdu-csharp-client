@@ -73,9 +73,36 @@ To regenerate all C# clients from the specs in `openapi_specs/`:
 python3 generate_all.py
 ```
 
-This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiota generate` for each service into `src/OsduCsharpClient/<ServiceName>/`. It also handles minor spec patches (missing `info.version`, non-standard `< * >` wildcard properties, YAML timestamp normalization) before invoking Kiota.
+This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiota generate` for each service into `src/OsduCsharpClient/Generated/<ServiceName>/`. It also handles minor spec patches (missing `info.version`, non-standard `< * >` wildcard properties, YAML timestamp normalization) before invoking Kiota.
 
-> Warning: Do not hand-edit files under `src/OsduCsharpClient/`. They are generated artifacts and will be overwritten the next time `generate_all.py` is run. Make changes in `openapi_specs/` and/or the generation scripts instead.
+> Warning: Do not hand-edit files under `src/OsduCsharpClient/Generated/`. They are generated artifacts and will be overwritten the next time `generate_all.py` is run. Make changes in `openapi_specs/` and/or the generation scripts instead.
+
+## Adding a New Service
+
+1. **Add the OpenAPI spec** to `openapi_specs/` (`.json`, `.yaml`, or `.yml`).
+
+2. **Regenerate** — `generate_all.py` auto-discovers all specs, so no script changes are needed:
+   ```sh
+   python3 generate_all.py
+   ```
+   This creates `src/OsduCsharpClient/Generated/<PascalCaseName>/` with a `<PascalCaseName>Client` class.
+
+3. **Register the endpoint** in `src/OsduCsharpClient/Facade/ServiceRegistry.cs`:
+   ```csharp
+   new("my_service", "/api/my-service/v1"),
+   ```
+   The attribute name (snake_case) must match the property name you will add to `OsduClient`.
+
+4. **Expose the typed property** in `src/OsduCsharpClient/Facade/OsduClient.cs`:
+   - Add a `using` for the generated namespace (e.g. `using Equinor.OsduCsharpClient.MyService;`)
+   - Add a backing field: `private MyServiceClient? _myService;`
+   - Add a public property: `public MyServiceClient MyService => _myService ??= Build(ref _myService, "my_service");`
+
+5. **Update the README** services table in `README.md`.
+
+6. **Update the unit tests** — the service count assertions in
+   `tests/OsduCsharpClient.Tests/ServiceRegistryTests.cs` and
+   `tests/OsduCsharpClient.Tests/OsduClientTests.cs` will fail until updated.
 
 ## Project Structure
 
