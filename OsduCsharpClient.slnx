@@ -4,5 +4,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/OsduCsharpClient.IntegrationTests/OsduCsharpClient.IntegrationTests.csproj" />
+    <Project Path="tests/OsduCsharpClient.Tests/OsduCsharpClient.Tests.csproj" />
   </Folder>
 </Solution>

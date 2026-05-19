@@ -19,7 +19,7 @@ SCOPES=api://<app-id-uri>/.default
 
 Optional environment variables used by tests:
 
-- `OSDU_MSAL_CACHE_PATH` - path to a persistent MSAL token cache file (default: `.msal_token_cache.bin` in the repo root)
+- `OSDU_MSAL_CACHE_PATH` — path to a persistent MSAL token cache file (default: `~/.osdu/msal_cache.bin`)
 - `SEARCH_KIND` - kind filter for search tests (default: `osdu:wks:work-product-component--WellLog:*`)
 - `SEARCH_QUERY` - query string for search tests (default: `*`)
 - `SEARCH_LIMIT` - result limit for search tests (default: `5`)

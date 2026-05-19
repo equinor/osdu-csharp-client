@@ -8,8 +8,7 @@ obj/
 *.snupkg
 
 # Generated client code (re-run generate_all.py to regenerate)
-src/OsduCsharpClient/*/
-!src/OsduCsharpClient/*.csproj
+src/OsduCsharpClient/Generated/
 
 # Temporary files created during generation
 openapi_specs/*.temp.json
