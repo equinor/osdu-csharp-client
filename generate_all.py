@@ -5,10 +5,35 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import yaml
+
 SPECS_DIR = Path("openapi_specs")
-OUTPUT_DIR = Path("src/OsduCsharpClient")
+OUTPUT_DIR = Path("src/OsduCsharpClient/Generated")
+SPEC_EXTENSIONS = {".json", ".yaml", ".yml"}
 
 KIOTA = shutil.which("kiota") or os.path.expanduser("~/.dotnet/tools/kiota")
+
+
+class _NoTimestampLoader(yaml.SafeLoader):
+    """SafeLoader that leaves ISO date/datetime values as strings.
+
+    OpenAPI ``example`` fields like ``2021-01-26T02:24:13.843Z`` would
+    otherwise become ``datetime`` objects, which then break JSON serialization
+    when we hand the spec off to Kiota.
+    """
+
+
+_NoTimestampLoader.yaml_implicit_resolvers = {
+    k: [(tag, regexp) for tag, regexp in v if tag != "tag:yaml.org,2002:timestamp"]
+    for k, v in yaml.SafeLoader.yaml_implicit_resolvers.items()
+}
+
+
+def _load_spec(spec_path: Path) -> dict:
+    text = spec_path.read_text(encoding="utf-8")
+    if spec_path.suffix.lower() in {".yaml", ".yml"}:
+        return yaml.load(text, Loader=_NoTimestampLoader)
+    return json.loads(text)
 
 
 def to_pascal_case(name: str) -> str:
@@ -40,7 +65,10 @@ def normalize_wildcard_properties(obj):
 def generate_all():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    specs = list(SPECS_DIR.glob("*.json"))
+    specs = sorted(
+        p for p in SPECS_DIR.iterdir()
+        if p.is_file() and p.suffix.lower() in SPEC_EXTENSIONS
+    )
     print(f"Found {len(specs)} OpenAPI specs.")
 
     for spec_path in specs:
@@ -54,11 +82,9 @@ def generate_all():
             service_name
         )  # e.g. src/OsduCsharpClient/CrsCatalog
 
-        print(f"Generating client for {service_name}...")
+        print(f"Generating client for {service_name} (from {spec_path.name})...")
 
-        # OSDU specs sometimes miss the 'version' field required by Kiota
-        with open(spec_path) as f:
-            spec_data = json.load(f)
+        spec_data = _load_spec(spec_path)
 
         normalize_wildcard_properties(spec_data)
 
@@ -67,7 +93,8 @@ def generate_all():
             spec_data["info"]["version"] = "1.0.0"
             print(f"  - Patching missing version for {service_name}")
 
-        # Always write a temp file so in-memory normalizations take effect
+        # Always write a temp JSON file so in-memory normalizations and YAML
+        # conversion take effect (Kiota accepts JSON on all platforms).
         temp_spec_path = spec_path.with_suffix(".temp.json")
         with open(temp_spec_path, "w") as f:
             json.dump(spec_data, f)

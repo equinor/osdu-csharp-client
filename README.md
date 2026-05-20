@@ -6,17 +6,6 @@ This project is a C# client library for [OSDU](https://osduforum.org/) services,
 
 It provides typed, async clients for various OSDU core services, allowing for easy integration with OSDU APIs in .NET applications.
 
-## Generated code is not committed
-
-The C# clients under `src/OsduCsharpClient/` are produced by running Kiota against the OpenAPI specs in `openapi_specs/`. This output is **not committed to the repository** for the following reasons:
-
-- **Nobody can accidentally edit it.** If the generated code is not in the repository, it cannot be hand-edited. Any change must go through the spec and the generator — the only correct way to change it.
-- **The spec is the source of truth.** Committing generated code creates a second source of truth that can silently drift from the spec.
-- **Diffs stay meaningful.** A spec change generates hundreds of touched lines across dozens of files. Keeping generated code out of git means pull request diffs show only what actually changed.
-- **Reproducible by design.** Given the same spec and the same Kiota version, generation is deterministic. Storing the result is redundant.
-
-Consumers of the published NuGet package can still browse the generated client code through their IDE (Visual Studio, Rider, VS Code with C# Dev Kit) using decompilation and the included XML documentation. AI coding assistants also work against the installed package. Contributors working in this repository should run `python3 generate_all.py` once after cloning to have the generated code available locally.
-
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
@@ -50,17 +39,15 @@ dotnet add package Equinor.OsduCsharpClient
 
 ## Quick Start
 
-Each OSDU service has its own namespace under `OsduCsharpClient`. Clients are constructed with a Kiota `IRequestAdapter`, which handles HTTP and authentication.
-
-Minimal example (Search):
+The `OsduClient` facade handles auth, token caching, and `data-partition-id` injection automatically:
 
 ```csharp
-using OsduCsharpClient.Search;
-using OsduCsharpClient.Search.Models;
+using Equinor.OsduCsharpClient.Facade;
+using Equinor.OsduCsharpClient.Search.Models;
 
-var client = new SearchClient(adapter);
+using var osdu = new OsduClient(OsduConfig.FromEnvironment());
 
-var result = await client.Query.PostAsync(
+var result = await osdu.Search.Query.PostAsync(
     new QueryRequest
     {
         Kind = new QueryRequest.QueryRequest_kind
@@ -70,8 +57,7 @@ var result = await client.Query.PostAsync(
         Query = "*",
         Limit = 10,
         ReturnedFields = ["id", "kind", "createTime"],
-    },
-    config => config.Headers.Add("data-partition-id", "your-partition-id"));
+    });
 
 if (result?.Results is not null)
 {
@@ -80,7 +66,9 @@ if (result?.Results is not null)
 }
 ```
 
-For full examples (request adapter setup, Entitlements usage, Search usage, and accessing raw JSON), see [docs/usage.md](docs/usage.md).
+`OsduConfig.FromEnvironment()` reads `SERVER`, `DATA_PARTITION_ID`, `AUTHORITY`, `CLIENT_ID`, and `SCOPES` from environment variables or a `.env` file. See [docs/environment-and-tests.md](docs/environment-and-tests.md) for setup.
+
+For low-level usage (constructing service clients directly with a raw adapter), see [docs/usage.md](docs/usage.md).
 
 ## Available Services
 
@@ -91,8 +79,8 @@ For full examples (request adapter setup, Entitlements usage, Search usage, and 
 | `OsduCsharpClient.Dataset`                  | Dataset                    |
 | `OsduCsharpClient.Entitlements`             | Entitlements               |
 | `OsduCsharpClient.File`                     | File                       |
+| `OsduCsharpClient.Geospatial`               | Geospatial                 |
 | `OsduCsharpClient.Indexer`                  | Indexer                    |
-| `OsduCsharpClient.IngestionWorkflowService` | Ingestion Workflow Service |
 | `OsduCsharpClient.Legal`                    | Legal                      |
 | `OsduCsharpClient.Notification`             | Notification               |
 | `OsduCsharpClient.Partition`                | Partition                  |
@@ -100,9 +88,11 @@ For full examples (request adapter setup, Entitlements usage, Search usage, and 
 | `OsduCsharpClient.Register`                 | Register                   |
 | `OsduCsharpClient.Schema`                   | Schema                     |
 | `OsduCsharpClient.Search`                   | Search                     |
+| `OsduCsharpClient.SeismicDdms`              | Seismic DDMS               |
 | `OsduCsharpClient.Storage`                  | Storage                    |
 | `OsduCsharpClient.Unit`                     | Unit                       |
 | `OsduCsharpClient.WellboreDdms`             | Wellbore DDMS              |
+| `OsduCsharpClient.Workflow`                 | Workflow                   |
 
 ## Running Tests
 
