@@ -1,3 +1,5 @@
+using System.Text.Json.Nodes;
+using Equinor.OsduCsharpClient.Facade;
 using Equinor.OsduCsharpClient.WellboreDdms;
 using Xunit;
 
@@ -59,5 +61,27 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
 
         Assert.NotNull(result);
         output.WriteLine($"Kind: {result.Kind}");
+    }
+
+    [Fact]
+    public async Task GetWellLog_ById_ExposesDataAsJson()
+    {
+        var wellLogId = Environment.GetEnvironmentVariable("WELLBORE_DDMS_WELLLOG_ID");
+        if (string.IsNullOrEmpty(wellLogId))
+            return; // skip: set WELLBORE_DDMS_WELLLOG_ID to run this test
+
+        var client = CreateClient();
+        var result = await client.Ddms.V3.Welllogs[wellLogId].GetAsync(
+            config => config.Headers.Add("data-partition-id", DataPartitionId),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(result);
+
+        // data is a free-form UntypedNode; the JSON bridge turns it into
+        // ordinary System.Text.Json for inspection.
+        JsonNode? data = result.Data.ToJsonNode();
+        Assert.NotNull(data);
+        output.WriteLine($"Kind: {result.Kind}");
+        output.WriteLine($"Name: {(string?)data["Name"]}");
     }
 }

@@ -73,7 +73,14 @@ To regenerate all C# clients from the specs in `openapi_specs/`:
 python3 generate_all.py
 ```
 
-This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiota generate` for each service into `src/OsduCsharpClient/Generated/<ServiceName>/`. It also handles minor spec patches (missing `info.version`, non-standard `< * >` wildcard properties, YAML timestamp normalization) before invoking Kiota.
+This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiota generate` for each service into `src/OsduCsharpClient/Generated/<ServiceName>/`. It also handles minor spec patches before invoking Kiota:
+
+- missing `info.version`
+- non-standard `< * >` wildcard properties
+- YAML timestamp normalization
+- untyping the free-form OSDU `Record.data` field (Storage, Dataset, Wellbore DDMS) so Kiota emits an `UntypedNode` instead of an empty `Record_data` class ([#38](https://github.com/equinor/osdu-csharp-client/issues/38))
+
+These patches are applied in memory only — the files in `openapi_specs/` are not modified.
 
 > Warning: Do not hand-edit files under `src/OsduCsharpClient/Generated/`. They are generated artifacts and will be overwritten the next time `generate_all.py` is run. Make changes in `openapi_specs/` and/or the generation scripts instead.
 

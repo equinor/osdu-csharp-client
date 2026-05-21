@@ -40,6 +40,46 @@ def to_pascal_case(name: str) -> str:
     return "".join(word.capitalize() for word in re.split(r"[_\-\s]+", name))
 
 
+# Specs whose generic OSDU ``Record.data`` property should be emitted as an
+# untyped JSON node (Kiota ``UntypedNode``) instead of an empty model class.
+#
+# OSDU ``data`` is polymorphic by ``kind`` (a WellLog, a Wellbore, a
+# Trajectory, ... all share the same ``Record`` envelope), so no single closed
+# C# type can represent it. These specs declare it as a free-form
+# ``{"type": "object", "additionalProperties": true}``, which Kiota turns into
+# an empty ``Record_data`` class that cannot be used to author payloads.
+# Replacing the schema with an empty one makes Kiota generate an
+# ``UntypedNode`` instead, which round-trips arbitrary JSON.
+# See https://github.com/equinor/osdu-csharp-client/issues/38
+FREEFORM_RECORD_DATA_SPECS = {"wellbore_ddms", "storage", "dataset"}
+
+
+def untype_freeform_record_data(spec_data: dict, service_name: str) -> bool:
+    """Make the generic OSDU ``Record.data`` property an untyped JSON node.
+
+    Replaces the ``data`` property schema of the ``Record`` component with an
+    empty schema so Kiota generates an ``UntypedNode`` (free-form JSON) rather
+    than an empty ``Record_data`` class. Returns ``True`` if a change was made.
+    """
+    if service_name not in FREEFORM_RECORD_DATA_SPECS:
+        return False
+
+    schemas = (spec_data.get("components") or {}).get("schemas") or {}
+    record = schemas.get("Record")
+    if not isinstance(record, dict):
+        return False
+
+    properties = record.get("properties")
+    if not isinstance(properties, dict) or "data" not in properties:
+        return False
+
+    # An empty schema carries no type information, so Kiota maps the property
+    # to UntypedNode. The title is dropped intentionally to avoid Kiota
+    # inferring a named model from it.
+    properties["data"] = {}
+    return True
+
+
 def normalize_wildcard_properties(obj):
     """
     Recursively replace { "< * >": <schema> } with additionalProperties.
@@ -87,6 +127,9 @@ def generate_all():
         spec_data = _load_spec(spec_path)
 
         normalize_wildcard_properties(spec_data)
+
+        if untype_freeform_record_data(spec_data, service_name):
+            print(f"  - Untyping Record.data for {service_name} (free-form JSON)")
 
         needs_version_patch = "info" in spec_data and "version" not in spec_data["info"]
         if needs_version_patch:
