@@ -24,8 +24,10 @@ Optional environment variables used by tests:
 - `SEARCH_QUERY` - query string for search tests (default: `*`)
 - `SEARCH_LIMIT` - result limit for search tests (default: `5`)
 - `GROUP_TYPE` - group type filter for entitlements tests (default: `NONE`)
-- `WELLBORE_DDMS_WELLBORE_ID` - runs `GetWellbore_ById_ReturnsRecord`
+- `WELLBORE_DDMS_WELLBORE_ID` - runs `GetWellbore_ById_ReturnsRecord` (also the parent wellbore for `PostWellLog_WithJsonData_CreatesAndRoundTripsRecord`)
 - `WELLBORE_DDMS_WELL_ID` - runs `GetWell_ById_ReturnsRecord`
+- `WELLBORE_DDMS_WELLLOG_ID` - runs `GetWellLog_ById_ExposesDataAsJson`
+- `WELLBORE_DDMS_LEGAL_TAG`, `WELLBORE_DDMS_ACL_OWNER`, `WELLBORE_DDMS_ACL_VIEWER` - together with `WELLBORE_DDMS_WELLBORE_ID`, run `PostWellLog_WithJsonData_CreatesAndRoundTripsRecord` (ingests a WellLog, verifies it, then deletes it)
 
 ## Running Tests
 
