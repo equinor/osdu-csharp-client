@@ -30,10 +30,10 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
     public async Task GetWellbore_ById_ReturnsRecord()
     {
         var wellboreId = Environment.GetEnvironmentVariable("WELLBORE_DDMS_WELLBORE_ID");
-        if (string.IsNullOrEmpty(wellboreId))
-            return; // skip: set WELLBORE_DDMS_WELLBORE_ID to run this test
+        Assert.SkipWhen(string.IsNullOrEmpty(wellboreId),
+            "WELLBORE_DDMS_WELLBORE_ID is not set.");
 
-        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Wellbores[wellboreId].GetAsync(
+        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Wellbores[wellboreId!].GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
@@ -44,10 +44,9 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
     public async Task GetWell_ById_ReturnsRecord()
     {
         var wellId = Environment.GetEnvironmentVariable("WELLBORE_DDMS_WELL_ID");
-        if (string.IsNullOrEmpty(wellId))
-            return; // skip: set WELLBORE_DDMS_WELL_ID to run this test
+        Assert.SkipWhen(string.IsNullOrEmpty(wellId), "WELLBORE_DDMS_WELL_ID is not set.");
 
-        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Wells[wellId].GetAsync(
+        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Wells[wellId!].GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
@@ -58,11 +57,11 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
     public async Task GetWellLog_ById_ExposesDataAsJson()
     {
         var wellLogId = Environment.GetEnvironmentVariable("WELLBORE_DDMS_WELLLOG_ID");
-        if (string.IsNullOrEmpty(wellLogId))
-            return; // skip: set WELLBORE_DDMS_WELLLOG_ID to run this test
+        Assert.SkipWhen(string.IsNullOrEmpty(wellLogId),
+            "WELLBORE_DDMS_WELLLOG_ID is not set.");
 
         // The facade OsduClient injects auth and the data-partition-id header.
-        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Welllogs[wellLogId].GetAsync(
+        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Welllogs[wellLogId!].GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
@@ -82,12 +81,11 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         var aclOwner = Environment.GetEnvironmentVariable("WELLBORE_DDMS_ACL_OWNER");
         var aclViewer = Environment.GetEnvironmentVariable("WELLBORE_DDMS_ACL_VIEWER");
         var wellboreId = Environment.GetEnvironmentVariable("WELLBORE_DDMS_WELLBORE_ID");
-        if (string.IsNullOrEmpty(legalTag) || string.IsNullOrEmpty(aclOwner)
-            || string.IsNullOrEmpty(aclViewer) || string.IsNullOrEmpty(wellboreId))
-        {
-            // skip: set WELLBORE_DDMS_LEGAL_TAG / _ACL_OWNER / _ACL_VIEWER / _WELLBORE_ID to run
-            return;
-        }
+        Assert.SkipWhen(
+            string.IsNullOrEmpty(legalTag) || string.IsNullOrEmpty(aclOwner)
+            || string.IsNullOrEmpty(aclViewer) || string.IsNullOrEmpty(wellboreId),
+            "Set WELLBORE_DDMS_LEGAL_TAG, WELLBORE_DDMS_ACL_OWNER, "
+            + "WELLBORE_DDMS_ACL_VIEWER and WELLBORE_DDMS_WELLBORE_ID to run this test.");
 
         var ct = TestContext.Current.CancellationToken;
         const string logName = "osdu-csharp-client integration-test WellLog";
@@ -111,10 +109,10 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         var record = new Models.Record
         {
             Kind = "osdu:wks:work-product-component--WellLog:1.2.0",
-            Acl = new Models.StorageAcl { Owners = [aclOwner], Viewers = [aclViewer] },
+            Acl = new Models.StorageAcl { Owners = [aclOwner!], Viewers = [aclViewer!] },
             Legal = new Models.Legal
             {
-                Legaltags = new Models.Legal.Legal_legaltags { String = [legalTag] },
+                Legaltags = new Models.Legal.Legal_legaltags { String = [legalTag!] },
                 OtherRelevantDataCountries =
                     new Models.Legal.Legal_otherRelevantDataCountries { String = ["US"] },
             },
