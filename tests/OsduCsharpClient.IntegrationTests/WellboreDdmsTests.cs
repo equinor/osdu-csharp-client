@@ -12,17 +12,18 @@ namespace OsduCsharpClient.IntegrationTests;
 /// </summary>
 [Collection("Osdu")]
 public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
+    : OsduTestBase(fixture, output)
 {
     [Fact]
     public async Task GetAbout_ReturnsServiceInfo()
     {
-        var result = await fixture.Client.WellboreDdms.About.GetAsync(
+        var result = await Fixture.Client.WellboreDdms.About.GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
-        output.WriteLine($"Service:  {result.Service?.String}");
-        output.WriteLine($"Version:  {result.Version?.String}");
-        output.WriteLine($"Release:  {result.Release?.String}");
+        Output.WriteLine($"Service:  {result.Service?.String}");
+        Output.WriteLine($"Version:  {result.Version?.String}");
+        Output.WriteLine($"Release:  {result.Release?.String}");
     }
 
     [Fact]
@@ -32,11 +33,11 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         if (string.IsNullOrEmpty(wellboreId))
             return; // skip: set WELLBORE_DDMS_WELLBORE_ID to run this test
 
-        var result = await fixture.Client.WellboreDdms.Ddms.V3.Wellbores[wellboreId].GetAsync(
+        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Wellbores[wellboreId].GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
-        output.WriteLine($"Kind: {result.Kind}");
+        Output.WriteLine($"Kind: {result.Kind}");
     }
 
     [Fact]
@@ -46,11 +47,11 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         if (string.IsNullOrEmpty(wellId))
             return; // skip: set WELLBORE_DDMS_WELL_ID to run this test
 
-        var result = await fixture.Client.WellboreDdms.Ddms.V3.Wells[wellId].GetAsync(
+        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Wells[wellId].GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
-        output.WriteLine($"Kind: {result.Kind}");
+        Output.WriteLine($"Kind: {result.Kind}");
     }
 
     [Fact]
@@ -61,7 +62,7 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
             return; // skip: set WELLBORE_DDMS_WELLLOG_ID to run this test
 
         // The facade OsduClient injects auth and the data-partition-id header.
-        var result = await fixture.Client.WellboreDdms.Ddms.V3.Welllogs[wellLogId].GetAsync(
+        var result = await Fixture.Client.WellboreDdms.Ddms.V3.Welllogs[wellLogId].GetAsync(
             cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.NotNull(result);
@@ -70,8 +71,8 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         // ordinary System.Text.Json for inspection.
         JsonNode? data = result.Data.ToJsonNode();
         Assert.NotNull(data);
-        output.WriteLine($"Kind: {result.Kind}");
-        output.WriteLine($"Name: {(string?)data["Name"]}");
+        Output.WriteLine($"Kind: {result.Kind}");
+        Output.WriteLine($"Name: {(string?)data["Name"]}");
     }
 
     [Fact]
@@ -92,7 +93,7 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         const string logName = "osdu-csharp-client integration-test WellLog";
 
         // The facade OsduClient injects auth and the data-partition-id header.
-        var wellbore = fixture.Client.WellboreDdms.Ddms.V3;
+        var wellbore = Fixture.Client.WellboreDdms.Ddms.V3;
 
         // The WellLog `data` block is authored as plain JSON and bridged into the
         // record's free-form `Data` (an UntypedNode) via ToUntypedNode().
@@ -125,7 +126,7 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
         var ids = response?.RecordIds?.String ?? [];
         Assert.NotEmpty(ids);
         var wellLogId = ids[0];
-        output.WriteLine($"Created WellLog: {wellLogId}");
+        Output.WriteLine($"Created WellLog: {wellLogId}");
 
         try
         {
@@ -143,11 +144,11 @@ public class WellboreDdmsTests(OsduFixture fixture, ITestOutputHelper output)
             try
             {
                 await wellbore.Welllogs[wellLogId].DeleteAsync(cancellationToken: ct);
-                output.WriteLine($"Deleted WellLog: {wellLogId}");
+                Output.WriteLine($"Deleted WellLog: {wellLogId}");
             }
             catch (Exception ex)
             {
-                output.WriteLine($"Cleanup failed for {wellLogId}: {ex.Message}");
+                Output.WriteLine($"Cleanup failed for {wellLogId}: {ex.Message}");
             }
         }
     }

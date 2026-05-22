@@ -42,4 +42,17 @@ dotnet test OsduCsharpClient.slnx --filter "FullyQualifiedName~QueryRecords_Retu
 
 # Run tests and see printed output
 dotnet test OsduCsharpClient.slnx --logger "console;verbosity=detailed"
+
+# Run only the WellLog tests with full SDK request/response logging
+dotnet test tests/OsduCsharpClient.IntegrationTests/OsduCsharpClient.IntegrationTests.csproj \
+  --filter "FullyQualifiedName~WellLog" \
+  --logger "console;verbosity=detailed"
 ```
+
+## Logging
+
+`OsduFixture` builds the `OsduClient` with a logger factory that routes SDK
+logs to the running test's xUnit output. With `--logger "console;verbosity=detailed"`,
+HTTP request/response lines (and truncated bodies, sensitive headers redacted)
+appear under the test that produced them. See the log categories in
+[docs/usage.md](usage.md#logging).

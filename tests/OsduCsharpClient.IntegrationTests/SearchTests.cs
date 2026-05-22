@@ -8,6 +8,7 @@ namespace OsduCsharpClient.IntegrationTests;
 /// </summary>
 [Collection("Osdu")]
 public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
+    : OsduTestBase(fixture, output)
 {
     [Fact]
     public async Task QueryRecords_ReturnsResults()
@@ -18,7 +19,7 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
         var limit = int.TryParse(Environment.GetEnvironmentVariable("SEARCH_LIMIT"), out var l) ? l : 5;
 
         // The facade OsduClient injects auth and the data-partition-id header.
-        var result = await fixture.Client.Search.Query.PostAsync(
+        var result = await Fixture.Client.Search.Query.PostAsync(
             new QueryRequest
             {
                 Kind = new QueryRequest.QueryRequest_kind { QueryRequestKindString = kind },
@@ -31,13 +32,13 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
         Assert.NotNull(result);
         Assert.NotNull(result.Results);
         foreach (var record in result.Results)
-            output.WriteLine(string.Join(", ", record.AdditionalData.Select(kv => $"{kv.Key}={kv.Value}")));
+            Output.WriteLine(string.Join(", ", record.AdditionalData.Select(kv => $"{kv.Key}={kv.Value}")));
     }
 
     [Fact]
     public async Task QueryWellboresForGivenField_ReturnsResults()
     {
-        var search = fixture.Client.Search;
+        var search = Fixture.Client.Search;
 
         var fieldResult = await search.Query.PostAsync(
             new QueryRequest
@@ -55,7 +56,7 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
 
         var fieldId = fieldResult.Results[0].AdditionalData["id"]?.ToString();
         Assert.NotNull(fieldId);
-        output.WriteLine($"Field ID: {fieldId}");
+        Output.WriteLine($"Field ID: {fieldId}");
 
         var wellboreResult = await search.Query.PostAsync(
             new QueryRequest
@@ -70,6 +71,6 @@ public class SearchTests(OsduFixture fixture, ITestOutputHelper output)
         Assert.NotNull(wellboreResult);
         Assert.NotNull(wellboreResult.Results);
         foreach (var record in wellboreResult.Results)
-            output.WriteLine(string.Join(", ", record.AdditionalData.Select(kv => $"{kv.Key}={kv.Value}")));
+            Output.WriteLine(string.Join(", ", record.AdditionalData.Select(kv => $"{kv.Key}={kv.Value}")));
     }
 }

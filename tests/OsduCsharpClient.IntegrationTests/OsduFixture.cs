@@ -6,26 +6,37 @@ namespace OsduCsharpClient.IntegrationTests;
 
 /// <summary>
 /// xUnit collection fixture: exposes a shared <see cref="OsduClient"/> facade
-/// pre-configured for every OSDU service. All integration tests use this facade.
+/// pre-configured for every OSDU service, with SDK logging routed to the
+/// running test's output. All integration tests use this facade.
 /// </summary>
 public class OsduFixture : IAsyncLifetime
 {
+    private readonly TestOutputLoggerFactory _loggerFactory = new();
+
     /// <summary>The shared facade client used by every integration test.</summary>
     public OsduClient Client { get; private set; } = null!;
+
+    /// <summary>
+    /// Routes SDK request/response logs to the given test's output.
+    /// Called by <see cref="OsduTestBase"/> for each test.
+    /// </summary>
+    public void RouteLogsTo(ITestOutputHelper output) => _loggerFactory.SetOutput(output);
 
     public ValueTask InitializeAsync()
     {
         Env.NoClobber().TraversePath().Load();
 
-        // The facade owns authentication: OsduClient defaults to interactive
-        // MSAL and renews tokens silently from the MSAL cache.
-        Client = new OsduClient(OsduConfig.FromEnvironment());
+        // The facade owns authentication (interactive MSAL, silent renewal).
+        // Passing a logger factory enables HTTP request/response logging — see
+        // the log categories documented in docs/usage.md.
+        Client = new OsduClient(OsduConfig.FromEnvironment(), loggerFactory: _loggerFactory);
         return ValueTask.CompletedTask;
     }
 
     public ValueTask DisposeAsync()
     {
         Client?.Dispose();
+        _loggerFactory.Dispose();
         return ValueTask.CompletedTask;
     }
 }
