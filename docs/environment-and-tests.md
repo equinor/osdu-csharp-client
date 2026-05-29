@@ -56,3 +56,8 @@ logs to the running test's xUnit output. With `--logger "console;verbosity=detai
 HTTP request/response lines (and truncated bodies, sensitive headers redacted)
 appear under the test that produced them. See the log categories in
 [docs/usage.md](usage.md#logging).
+
+Body logging is enabled by default in the test fixture so that a failing test
+shows the full request/response. Set `OSDU_TEST_LOG_BODIES=false` to silence
+the `Equinor.OsduCsharpClient.Body` category for a quieter run; the summary
+`→ METHOD URL` / `← STATUS URL` lines still print.

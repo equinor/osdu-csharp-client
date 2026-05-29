@@ -60,12 +60,40 @@ FREEFORM_DATA_SCHEMAS: dict[str, set[str]] = {
 }
 
 
+def _is_freeform_data_schema(schema: dict) -> bool:
+    """Return True if ``schema`` looks like a free-form OSDU ``data`` payload.
+
+    Accepts the two shapes we've observed upstream:
+    * ``{type: object, additionalProperties: true}`` (most ``Record.data``)
+    * ``{type: object, additionalProperties: {type: object}}``
+      (``RecordMergePatchRequest.data``)
+
+    Anything with typed ``properties``, a ``$ref``, or ``allOf``/``oneOf``/
+    ``anyOf`` is rejected — it would mean upstream now describes a structured
+    ``data`` and the patch should be re-evaluated rather than silently dropping
+    the type information.
+    """
+    if schema.get("type") != "object":
+        return False
+    if schema.get("properties"):
+        return False
+    if any(key in schema for key in ("$ref", "allOf", "oneOf", "anyOf")):
+        return False
+    additional_properties = schema.get("additionalProperties")
+    return additional_properties is True or isinstance(additional_properties, dict)
+
+
 def untype_freeform_record_data(spec_data: dict, service_name: str) -> list[str]:
     """Untype the ``data`` property on each free-form record schema for the spec.
 
     Replaces the ``data`` property of every targeted schema with an empty
     schema so Kiota emits a ``UntypedNode`` (free-form JSON) rather than an
     empty ``*_data`` class. Returns the names of schemas that were patched.
+
+    If the upstream ``data`` schema no longer matches the expected free-form
+    shape, the patch is skipped and a warning is printed so the change is
+    visible — silently overwriting a now-typed schema would be worse than not
+    patching at all.
     """
     targets = FREEFORM_DATA_SCHEMAS.get(service_name, set())
     if not targets:
@@ -79,6 +107,19 @@ def untype_freeform_record_data(spec_data: dict, service_name: str) -> list[str]
             continue
         properties = schema.get("properties")
         if not isinstance(properties, dict) or "data" not in properties:
+            continue
+        data_schema = properties["data"]
+        if not isinstance(data_schema, dict) or not _is_freeform_data_schema(data_schema):
+            shape = (
+                f"keys={sorted(data_schema)}"
+                if isinstance(data_schema, dict)
+                else f"type={type(data_schema).__name__}"
+            )
+            print(
+                f"  ! WARNING: {name}.data in {service_name} no longer looks "
+                f"like a free-form schema ({shape}). Leaving it untouched — "
+                f"re-evaluate whether this patch is still needed."
+            )
             continue
         # An empty schema carries no type information, so Kiota maps the
         # property to UntypedNode. The title/description are dropped

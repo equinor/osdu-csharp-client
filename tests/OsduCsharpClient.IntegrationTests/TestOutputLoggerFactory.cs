@@ -9,8 +9,23 @@ namespace OsduCsharpClient.IntegrationTests;
 /// The active helper is swapped per test via <see cref="SetOutput"/>, so HTTP
 /// request/response logs appear under the test that produced them.
 /// </summary>
+/// <remarks>
+/// All categories are enabled by default — the whole point of wiring a logger
+/// into the integration-test fixture is to surface full SDK request/response
+/// detail when something fails. The documented opt-in
+/// <c>Equinor.OsduCsharpClient.Body</c> category (request/response bodies,
+/// truncated, sensitive headers redacted) can be silenced for a quieter run by
+/// setting <c>OSDU_TEST_LOG_BODIES=false</c>.
+/// </remarks>
 public sealed class TestOutputLoggerFactory : ILoggerFactory
 {
+    private const string BodyCategory = "Equinor.OsduCsharpClient.Body";
+
+    private static readonly bool BodyLoggingEnabled = !string.Equals(
+        Environment.GetEnvironmentVariable("OSDU_TEST_LOG_BODIES"),
+        "false",
+        StringComparison.OrdinalIgnoreCase);
+
     private volatile ITestOutputHelper? _output;
 
     /// <summary>Routes subsequent log records to the given test's output.</summary>
@@ -32,7 +47,9 @@ public sealed class TestOutputLoggerFactory : ILoggerFactory
     {
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
 
-        public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
+        public bool IsEnabled(LogLevel logLevel) =>
+            logLevel != LogLevel.None
+            && (category != BodyCategory || BodyLoggingEnabled);
 
         public void Log<TState>(
             LogLevel logLevel,
