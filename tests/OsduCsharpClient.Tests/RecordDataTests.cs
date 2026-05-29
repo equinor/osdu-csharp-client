@@ -4,6 +4,7 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Serialization.Json;
 using Xunit;
 using StorageRecord = Equinor.OsduCsharpClient.Storage.Models.Record;
+using StorageMergePatch = Equinor.OsduCsharpClient.Storage.Models.RecordMergePatchRequest;
 using DatasetRecord = Equinor.OsduCsharpClient.Dataset.Models.Record;
 using WellboreRecord = Equinor.OsduCsharpClient.WellboreDdms.Models.Record;
 
@@ -51,6 +52,30 @@ public class RecordDataTests
         var record = new WellboreRecord { Data = JsonNode.Parse(DataJson).ToUntypedNode() };
         Assert.IsAssignableFrom<UntypedNode>(record.Data);
         Assert.True(JsonNode.DeepEquals(JsonNode.Parse(DataJson), record.Data.ToJsonNode()));
+    }
+
+    [Fact]
+    public void StorageMergePatch_Data_IsUntypedNode()
+    {
+        // PATCH /records/{id} uses RecordMergePatchRequest; its `data` payload
+        // is free-form too and must be authorable through the JSON bridge.
+        var patch = new StorageMergePatch
+        {
+            Data = JsonNode.Parse("""{ "Name": "Updated", "Optional": null }""").ToUntypedNode(),
+        };
+        Assert.IsAssignableFrom<UntypedNode>(patch.Data);
+
+        // JSON Merge Patch (RFC 7396) uses null to delete a key; UntypedNull
+        // must round-trip as JSON null through Kiota's writer.
+        using var writer = new JsonSerializationWriter();
+        writer.WriteObjectValue(string.Empty, patch);
+        using var stream = writer.GetSerializedContent();
+        var json = JsonNode.Parse(stream)!;
+
+        Assert.Equal("Updated", (string?)json["data"]!["Name"]);
+        Assert.NotNull(json["data"]!.AsObject());
+        Assert.True(json["data"]!.AsObject().ContainsKey("Optional"));
+        Assert.Null(json["data"]!["Optional"]);
     }
 
     [Fact]

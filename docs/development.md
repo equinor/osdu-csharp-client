@@ -78,7 +78,7 @@ This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiot
 - missing `info.version`
 - non-standard `< * >` wildcard properties
 - YAML timestamp normalization
-- untyping the free-form OSDU `Record.data` field (Storage, Dataset, Wellbore DDMS) so Kiota emits an `UntypedNode` instead of an empty `Record_data` class ([#38](https://github.com/equinor/osdu-csharp-client/issues/38))
+- untyping the free-form OSDU `data` field on `Record` (Storage, Dataset, Wellbore DDMS) and `RecordMergePatchRequest` (Storage `PATCH /records/{id}`) so Kiota emits an `UntypedNode` instead of an empty `*_data` class ([#38](https://github.com/equinor/osdu-csharp-client/issues/38))
 
 These patches are applied in memory only — the files in `openapi_specs/` are not modified.
 

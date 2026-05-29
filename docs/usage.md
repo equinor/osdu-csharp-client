@@ -239,6 +239,24 @@ record.Data = myWellLog.ToUntypedNode();                // POCO  -> UntypedNode
 MyWellLog? wl = result?.Data.Deserialize<MyWellLog>();   // UntypedNode -> POCO
 ```
 
+**JSON Merge Patch (Storage `PATCH /records/{id}`):**
+
+The merge-patch request body uses the same pattern — `RecordMergePatchRequest.Data` is also an `UntypedNode`. Per [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396), include a JSON `null` to delete a nested key:
+
+```csharp
+var patch = new RecordMergePatchRequest
+{
+    Data = JsonNode.Parse("""
+    {
+      "Name": "Updated Well Name",
+      "RetiredField": null
+    }
+    """).ToUntypedNode(),
+};
+
+await osdu.Storage.Records[recordId].PatchAsync(patch);
+```
+
 ### Other services: raw JSON via NativeResponseHandler
 
 Some endpoints return free-form payloads that are not exposed as a typed `Record` — for example Search query hits, which arrive as untyped maps in `AdditionalData`. For those, use Kiota's `NativeResponseHandler` to intercept the `HttpResponseMessage` directly and read the raw JSON.
