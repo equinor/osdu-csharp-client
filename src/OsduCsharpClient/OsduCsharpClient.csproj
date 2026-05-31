@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8"/>
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.84.0"/>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.84.1"/>
     <PackageReference Include="Microsoft.Kiota.Abstractions" Version="1.22.1"/>
     <PackageReference Include="Microsoft.Kiota.Http.HttpClientLibrary" Version="1.22.1"/>
     <PackageReference Include="Microsoft.Kiota.Serialization.Form" Version="1.22.1"/>
