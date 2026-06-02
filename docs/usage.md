@@ -185,24 +185,97 @@ var result = await client.Query.PostAsync(
 
 ---
 
-## Accessing raw JSON
+## Working with free-form `data`
 
-OSDU records share a common envelope (`id`, `kind`, `createTime`, etc.) but the `data` block varies by record kind. The Kiota-generated client gives you typed access to the common fields, but the `data` block is represented as `AdditionalData` with `UntypedNode` values because the OpenAPI spec defines it as a free-form object.
+OSDU records share a common envelope (`id`, `kind`, `acl`, `legal`, `createTime`, …) but the `data` block varies by record kind. A WellLog, a Wellbore and a Trajectory all travel inside the same `Record` envelope, so no single closed C# type can describe `data` — the spec declares it as a free-form object.
 
-When you need the raw JSON — for example to access the kind-specific `data` block — use Kiota's `NativeResponseHandler` to intercept the `HttpResponseMessage` directly.
+### Storage, Dataset & Wellbore DDMS: `Record.Data` + the JSON bridge
 
-### Getting raw JSON with NativeResponseHandler
+The services with a generic `Record` schema — **Storage**, **Dataset** and **Wellbore DDMS** — expose `data` directly as a Kiota `UntypedNode` (`Record.Data`). The facade adds a JSON bridge in `Equinor.OsduCsharpClient.Facade` — `ToUntypedNode()` / `ToJsonNode()`, plus generic POCO overloads — so you can author and read `data` with ordinary `System.Text.Json` values instead of hand-building `UntypedNode` trees.
+
+The example below ingests a WellLog through Wellbore DDMS; the same `Record` / JSON-bridge pattern applies to `osdu.Storage.Records.PutAsync(...)` and the Dataset registry endpoints.
+
+**Ingesting a WellLog:**
+
+```csharp
+using System.Text.Json.Nodes;
+using Equinor.OsduCsharpClient.Facade;
+using Equinor.OsduCsharpClient.WellboreDdms.Models;
+
+var data = JsonNode.Parse("""
+{
+  "Name": "GR Log",
+  "WellboreID": "partition:master-data--Wellbore:abc:",
+  "TopMeasuredDepth": 12345.6,
+  "BottomMeasuredDepth": 13856.2,
+  "Curves": [ { "Mnemonic": "GR", "NumberOfColumns": 1 } ]
+}
+""");
+
+var record = new Record
+{
+    Kind  = "osdu:wks:work-product-component--WellLog:1.2.0",
+    Acl   = new StorageAcl { Owners = ["..."], Viewers = ["..."] },
+    Legal = new Legal { /* legaltags, otherRelevantDataCountries */ },
+    Data  = data.ToUntypedNode(),
+};
+
+var response = await osdu.WellboreDdms.Ddms.V3.Welllogs.PostAsync([record]);
+```
+
+**Reading `data` back:**
+
+```csharp
+var result = await osdu.WellboreDdms.Ddms.V3.Welllogs[welllogId].GetAsync();
+
+JsonNode? data = result?.Data.ToJsonNode();
+Console.WriteLine((string?)data?["Name"]);
+```
+
+**Bridging your own POCOs:**
+
+```csharp
+record.Data = myWellLog.ToUntypedNode();                // POCO  -> UntypedNode
+MyWellLog? wl = result?.Data.Deserialize<MyWellLog>();   // UntypedNode -> POCO
+```
+
+**JSON Merge Patch (Storage `PATCH /records/{id}`):**
+
+The merge-patch request body uses the same pattern — `RecordMergePatchRequest.Data` is also an `UntypedNode`. Per [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396), include a JSON `null` to delete a nested key:
+
+```csharp
+var patch = new RecordMergePatchRequest
+{
+    Data = JsonNode.Parse("""
+    {
+      "Name": "Updated Well Name",
+      "RetiredField": null
+    }
+    """).ToUntypedNode(),
+};
+
+await osdu.Storage.Records[recordId].PatchAsync(patch);
+```
+
+### Other services: raw JSON via NativeResponseHandler
+
+Some endpoints return free-form payloads that are not exposed as a typed `Record` — for example Search query hits, which arrive as untyped maps in `AdditionalData`. For those, use Kiota's `NativeResponseHandler` to intercept the `HttpResponseMessage` directly and read the raw JSON.
+
+#### Getting raw JSON with NativeResponseHandler
 
 ```csharp
 using Microsoft.Kiota.Abstractions;
+using Equinor.OsduCsharpClient.Search.Models;
 using System.Net.Http;
 
 var nativeResponseHandler = new NativeResponseHandler();
 
-await osdu.WellboreDdms.Ddms.V3.Wellbores[wellboreId].GetAsync(config =>
-{
-    config.Options.Add(new ResponseHandlerOption { ResponseHandler = nativeResponseHandler });
-});
+await osdu.Search.Query.PostAsync(
+    new QueryRequest { Kind = new() { QueryRequestKindString = "*:*:*:*" }, Query = "*" },
+    config =>
+    {
+        config.Options.Add(new ResponseHandlerOption { ResponseHandler = nativeResponseHandler });
+    });
 
 var httpResponse = (HttpResponseMessage)nativeResponseHandler.Value!;
 var json = await httpResponse.Content.ReadAsStringAsync();
@@ -211,7 +284,7 @@ Console.WriteLine(json);
 
 > **Note:** When a `NativeResponseHandler` is used, Kiota hands off the response to the handler instead of deserializing it into a typed model. The method returns the default value (`null` for reference types). Use `json` with `System.Text.Json` to access any fields you need.
 
-### Working with the data block via System.Text.Json
+#### Working with the data block via System.Text.Json
 
 ```csharp
 using var doc = JsonDocument.Parse(json);
@@ -229,4 +302,6 @@ if (doc.RootElement.TryGetProperty("data", out var data)
 
 ### Why This Is Needed
 
-Kiota is a typed client generator. It maps OpenAPI schemas to C# classes. The OSDU record `data` property is defined as an open-ended `object` with `additionalProperties: true` because its shape depends on the record kind (well, wellbore, well log, and so on). Without a fixed schema, Kiota falls back to `AdditionalData` with `UntypedNode` wrappers. Reading the raw JSON via `NativeResponseHandler` and `System.Text.Json` is the recommended way to consume these free-form fields.
+Kiota is a typed client generator: it maps OpenAPI schemas to closed C# classes. The OSDU record `data` property is an open-ended `object` with `additionalProperties: true` because its shape depends on the record `kind`. Kiota cannot generate a meaningful type for it.
+
+For the services with a generic `Record` schema (Storage, Dataset, Wellbore DDMS) the spec is patched during generation so `data` is emitted as a Kiota `UntypedNode` (`Record.Data`) — see `generate_all.py`. That makes `data` round-trip arbitrary JSON, and the facade's JSON bridge turns it into ergonomic `System.Text.Json` access for both reading and writing. For endpoints that return free-form payloads outside that `Record` type, `NativeResponseHandler` + `System.Text.Json` remains the way to consume free-form fields.
