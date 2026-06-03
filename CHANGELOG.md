@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/equinor/osdu-csharp-client/compare/v0.5.0...v0.5.1) (2026-06-03)
+
+
+### Bug Fixes
+
+* install Python dependencies before generating clients in release workflow ([#44](https://github.com/equinor/osdu-csharp-client/issues/44)) ([5bd7112](https://github.com/equinor/osdu-csharp-client/commit/5bd7112f2481f876b5522306dcf4155eac4866ef))
+
 ## [0.5.0](https://github.com/equinor/osdu-csharp-client/compare/v0.4.2...v0.5.0) (2026-06-02)
 
 
