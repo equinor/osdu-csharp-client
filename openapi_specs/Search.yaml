@@ -49,6 +49,7 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -125,6 +126,7 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -194,7 +196,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            text/plain:
               schema:
                 type: string
         "502":
@@ -209,6 +211,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+      security: []
   /liveness_check:
     get:
       tags:
@@ -220,7 +223,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            text/plain:
               schema:
                 type: string
         "502":
@@ -235,6 +238,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+      security: []
   /info:
     get:
       tags:
@@ -250,6 +254,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VersionInfo"
+      security: []
   /query_with_cursor/{cursor}:
     delete:
       tags:
@@ -266,6 +271,7 @@ paths:
         required: true
         schema:
           type: string
+          pattern: "^[A-Za-z0-9=_-]+$"
       - name: search_after
         in: query
         description: "If true, close a search-after pagination context instead of\
@@ -280,6 +286,7 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Success

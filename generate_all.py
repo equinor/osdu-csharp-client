@@ -40,6 +40,95 @@ def to_pascal_case(name: str) -> str:
     return "".join(word.capitalize() for word in re.split(r"[_\-\s]+", name))
 
 
+# Per-spec set of schema names whose ``data`` property is a generic OSDU
+# free-form payload and should be emitted as a Kiota ``UntypedNode`` instead
+# of an empty model class.
+#
+# OSDU ``data`` is polymorphic by ``kind`` (a WellLog, a Wellbore, a
+# Trajectory, ... all share the same record envelope), so no single closed
+# C# type can represent it. These schemas declare it as a free-form
+# ``{"type": "object", "additionalProperties": true}`` (or similar
+# map-of-objects in the case of merge-patch), which Kiota turns into an
+# empty ``*_data`` class that cannot be used to author payloads. Replacing
+# the schema with an empty one makes Kiota generate an ``UntypedNode``
+# instead, which round-trips arbitrary JSON.
+# See https://github.com/equinor/osdu-csharp-client/issues/38
+FREEFORM_DATA_SCHEMAS: dict[str, set[str]] = {
+    "wellbore_ddms": {"Record"},
+    "dataset":       {"Record"},
+    "storage":       {"Record", "RecordMergePatchRequest"},
+}
+
+
+def _is_freeform_data_schema(schema: dict) -> bool:
+    """Return True if ``schema`` looks like a free-form OSDU ``data`` payload.
+
+    Accepts the two shapes we've observed upstream:
+    * ``{type: object, additionalProperties: true}`` (most ``Record.data``)
+    * ``{type: object, additionalProperties: {type: object}}``
+      (``RecordMergePatchRequest.data``)
+
+    Anything with typed ``properties``, a ``$ref``, or ``allOf``/``oneOf``/
+    ``anyOf`` is rejected — it would mean upstream now describes a structured
+    ``data`` and the patch should be re-evaluated rather than silently dropping
+    the type information.
+    """
+    if schema.get("type") != "object":
+        return False
+    if schema.get("properties"):
+        return False
+    if any(key in schema for key in ("$ref", "allOf", "oneOf", "anyOf")):
+        return False
+    additional_properties = schema.get("additionalProperties")
+    return additional_properties is True or isinstance(additional_properties, dict)
+
+
+def untype_freeform_record_data(spec_data: dict, service_name: str) -> list[str]:
+    """Untype the ``data`` property on each free-form record schema for the spec.
+
+    Replaces the ``data`` property of every targeted schema with an empty
+    schema so Kiota emits a ``UntypedNode`` (free-form JSON) rather than an
+    empty ``*_data`` class. Returns the names of schemas that were patched.
+
+    If the upstream ``data`` schema no longer matches the expected free-form
+    shape, the patch is skipped and a warning is printed so the change is
+    visible — silently overwriting a now-typed schema would be worse than not
+    patching at all.
+    """
+    targets = FREEFORM_DATA_SCHEMAS.get(service_name, set())
+    if not targets:
+        return []
+
+    schemas = (spec_data.get("components") or {}).get("schemas") or {}
+    patched: list[str] = []
+    for name in sorted(targets):
+        schema = schemas.get(name)
+        if not isinstance(schema, dict):
+            continue
+        properties = schema.get("properties")
+        if not isinstance(properties, dict) or "data" not in properties:
+            continue
+        data_schema = properties["data"]
+        if not isinstance(data_schema, dict) or not _is_freeform_data_schema(data_schema):
+            shape = (
+                f"keys={sorted(data_schema)}"
+                if isinstance(data_schema, dict)
+                else f"type={type(data_schema).__name__}"
+            )
+            print(
+                f"  ! WARNING: {name}.data in {service_name} no longer looks "
+                f"like a free-form schema ({shape}). Leaving it untouched — "
+                f"re-evaluate whether this patch is still needed."
+            )
+            continue
+        # An empty schema carries no type information, so Kiota maps the
+        # property to UntypedNode. The title/description are dropped
+        # intentionally to avoid Kiota inferring a named model from them.
+        properties["data"] = {}
+        patched.append(name)
+    return patched
+
+
 def normalize_wildcard_properties(obj):
     """
     Recursively replace { "< * >": <schema> } with additionalProperties.
@@ -87,6 +176,9 @@ def generate_all():
         spec_data = _load_spec(spec_path)
 
         normalize_wildcard_properties(spec_data)
+
+        for patched_name in untype_freeform_record_data(spec_data, service_name):
+            print(f"  - Untyping {patched_name}.data for {service_name} (free-form JSON)")
 
         needs_version_patch = "info" in spec_data and "version" not in spec_data["info"]
         if needs_version_patch:
