@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/equinor/osdu-csharp-client/compare/v0.5.1...v0.5.2) (2026-06-04)
+
+
+### Dependencies
+
+* bump all Microsoft.Kiota packages from 1.22.1 to 2.0.0 ([#47](https://github.com/equinor/osdu-csharp-client/issues/47)) ([dd16403](https://github.com/equinor/osdu-csharp-client/commit/dd16403eb4db4fc38f5e3bcd5c64dc419b4ac4a2))
+
 ## [0.5.1](https://github.com/equinor/osdu-csharp-client/compare/v0.5.0...v0.5.1) (2026-06-03)
 
 
