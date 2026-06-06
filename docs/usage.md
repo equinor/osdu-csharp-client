@@ -6,11 +6,30 @@
 
 ```csharp
 using Equinor.OsduCsharpClient.Facade;
+using Microsoft.Extensions.Configuration;
 
-using var osdu = new OsduClient(OsduConfig.FromEnvironment());
+using var osdu = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration));
 ```
 
-`OsduConfig.FromEnvironment()` reads from environment variables or a `.env` file. You can also construct `OsduConfig` directly:
+`OsduConfig.FromConfiguration(IConfiguration)` binds the `Osdu` section from any standard
+.NET configuration source — `appsettings.json`, environment variables, user secrets, command line:
+
+```jsonc
+// appsettings.json
+{
+  "Osdu": {
+    "Server": "https://your-osdu-instance.com",
+    "DataPartitionId": "your-partition-id",
+    "Authority": "https://login.microsoftonline.com/<tenant-id>",
+    "ClientId": "<client-id>",
+    "Scopes": "api://<app-id-uri>/.default"
+  }
+}
+```
+
+Any value can be overridden by an environment variable using the standard double-underscore
+convention, e.g. `Osdu__Server` or `Osdu__Scopes`. Pass a custom section name via
+`OsduConfig.FromConfiguration(config, "MySection")`. You can also construct `OsduConfig` directly:
 
 ```csharp
 var config = new OsduConfig

@@ -16,6 +16,7 @@ openapi_specs/*.temp.json
 # Secrets and local config
 .env
 .msal_token_cache.bin
+appsettings.local.json
 
 # IDE
 .vs/

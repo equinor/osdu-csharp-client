@@ -31,7 +31,7 @@ namespace Equinor.OsduCsharpClient.Facade;
 /// </summary>
 /// <example>
 /// <code>
-/// using var client = new OsduClient(OsduConfig.FromEnvironment());
+/// using var client = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration));
 /// var result = await client.Search.Query.PostAsync(request, cancellationToken: ct);
 /// </code>
 /// </example>
@@ -63,7 +63,7 @@ public sealed class OsduClient : IDisposable
     private WellboreDdmsClient?  _wellboreDdms;
     private WorkflowClient?      _workflow;
 
-    /// <param name="config">OSDU configuration. Use <see cref="OsduConfig.FromEnvironment"/> to load from env vars.</param>
+    /// <param name="config">OSDU configuration. Use <see cref="OsduConfig.FromConfiguration"/> to bind from <c>IConfiguration</c>.</param>
     /// <param name="tokenProvider">
     /// Token provider. Defaults to <see cref="MsalInteractiveTokenProvider"/> when null.
     /// </param>

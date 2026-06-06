@@ -1,20 +1,45 @@
 # Environment and Tests
 
-## .env Setup
+## Configuration Setup
 
-Integration tests load configuration from a `.env` file in the repository root.
+Integration tests use standard .NET configuration (`Microsoft.Extensions.Configuration`).
+Settings are read, in increasing order of precedence, from:
 
-Create `.env` with the required values for your OSDU environment:
+1. `appsettings.json` (committed template, empty values)
+2. `appsettings.local.json` (gitignored — put your real values here)
+3. user secrets (`dotnet user-secrets`, id `osdu-csharp-client-integration-tests`)
+4. environment variables (`Osdu__*`)
 
-```dotenv
-# Base OSDU host (no trailing slash)
-SERVER=https://your-osdu-instance.com
+Provide the required values for your OSDU environment in `appsettings.local.json`:
 
-# Required for authenticated test runs
-DATA_PARTITION_ID=your-partition-id
-AUTHORITY=https://login.microsoftonline.com/<tenant-id>
-CLIENT_ID=<public-client-id>
-SCOPES=api://<app-id-uri>/.default
+```json
+{
+  "Osdu": {
+    "Server": "https://your-osdu-instance.com",
+    "DataPartitionId": "your-partition-id",
+    "Authority": "https://login.microsoftonline.com/<tenant-id>",
+    "ClientId": "<public-client-id>",
+    "Scopes": "api://<app-id-uri>/.default"
+  }
+}
+```
+
+…or via environment variables (double-underscore = section nesting):
+
+```sh
+export Osdu__Server=https://your-osdu-instance.com
+export Osdu__DataPartitionId=your-partition-id
+export Osdu__Authority=https://login.microsoftonline.com/<tenant-id>
+export Osdu__ClientId=<public-client-id>
+export Osdu__Scopes=api://<app-id-uri>/.default
+```
+
+…or via user secrets:
+
+```sh
+cd tests/OsduCsharpClient.IntegrationTests
+dotnet user-secrets set "Osdu:Server" "https://your-osdu-instance.com"
+# …etc
 ```
 
 Optional environment variables used by tests:
@@ -31,7 +56,7 @@ Optional environment variables used by tests:
 
 ## Running Tests
 
-Integration tests hit a real OSDU server. On first run a browser window will open for interactive MSAL login; the resulting token is cached in `.msal_token_cache.bin`.
+Integration tests hit a real OSDU server. On first run a browser window will open for interactive MSAL login; the resulting token is cached in `.msal_token_cache.bin`. Tests are skipped automatically when their required settings are absent.
 
 ```sh
 # Run all integration tests

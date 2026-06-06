@@ -1,4 +1,5 @@
 using Equinor.OsduCsharpClient.Facade;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace OsduCsharpClient.Tests;
@@ -52,36 +53,70 @@ public class OsduConfigTests
     }
 
     [Fact]
-    public void FromEnvironment_MissingRequired_ThrowsOsduException()
+    public void FromConfiguration_MissingSection_ThrowsOsduException()
     {
-        // Ensure none of the required vars are set
-        Environment.SetEnvironmentVariable("SERVER", null);
-        Assert.Throws<OsduException>(() => OsduConfig.FromEnvironment());
+        var configuration = new ConfigurationBuilder().Build();
+        Assert.Throws<OsduException>(() => OsduConfig.FromConfiguration(configuration));
     }
 
     [Fact]
-    public void FromEnvironment_AllSet_ReturnsConfig()
+    public void FromConfiguration_MissingRequiredValue_ThrowsOsduException()
     {
-        Environment.SetEnvironmentVariable("SERVER", "https://test.example.com");
-        Environment.SetEnvironmentVariable("DATA_PARTITION_ID", "test-partition");
-        Environment.SetEnvironmentVariable("AUTHORITY", "https://login.microsoftonline.com/tenant");
-        Environment.SetEnvironmentVariable("CLIENT_ID", "client-id");
-        Environment.SetEnvironmentVariable("SCOPES", "https://test.example.com/.default");
+        // Section exists but a required value (Scopes) is absent.
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Osdu:Server"] = "https://test.example.com",
+                ["Osdu:DataPartitionId"] = "test-partition",
+                ["Osdu:Authority"] = "https://login.microsoftonline.com/tenant",
+                ["Osdu:ClientId"] = "client-id",
+            })
+            .Build();
 
-        try
-        {
-            var config = OsduConfig.FromEnvironment();
-            Assert.Equal("https://test.example.com", config.Server);
-            Assert.Equal("test-partition", config.DataPartitionId);
-        }
-        finally
-        {
-            Environment.SetEnvironmentVariable("SERVER", null);
-            Environment.SetEnvironmentVariable("DATA_PARTITION_ID", null);
-            Environment.SetEnvironmentVariable("AUTHORITY", null);
-            Environment.SetEnvironmentVariable("CLIENT_ID", null);
-            Environment.SetEnvironmentVariable("SCOPES", null);
-        }
+        var ex = Assert.Throws<OsduException>(() => OsduConfig.FromConfiguration(configuration));
+        Assert.Contains("Scopes", ex.Message);
+    }
+
+    [Fact]
+    public void FromConfiguration_AllSet_BindsConfig()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Osdu:Server"] = "https://test.example.com",
+                ["Osdu:DataPartitionId"] = "test-partition",
+                ["Osdu:Authority"] = "https://login.microsoftonline.com/tenant",
+                ["Osdu:ClientId"] = "client-id",
+                ["Osdu:Scopes"] = "https://test.example.com/.default",
+                ["Osdu:TimeoutSeconds"] = "45",
+                ["Osdu:EndpointOverrides:search"] = "https://custom.example.com/search",
+            })
+            .Build();
+
+        var config = OsduConfig.FromConfiguration(configuration);
+
+        Assert.Equal("https://test.example.com", config.Server);
+        Assert.Equal("test-partition", config.DataPartitionId);
+        Assert.Equal(45.0, config.TimeoutSeconds);
+        Assert.Equal("https://custom.example.com/search", config.UrlFor("search"));
+    }
+
+    [Fact]
+    public void FromConfiguration_CustomSectionName_Binds()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["MyOsdu:Server"] = "https://test.example.com",
+                ["MyOsdu:DataPartitionId"] = "test-partition",
+                ["MyOsdu:Authority"] = "https://login.microsoftonline.com/tenant",
+                ["MyOsdu:ClientId"] = "client-id",
+                ["MyOsdu:Scopes"] = "https://test.example.com/.default",
+            })
+            .Build();
+
+        var config = OsduConfig.FromConfiguration(configuration, "MyOsdu");
+        Assert.Equal("https://test.example.com", config.Server);
     }
 
     private static OsduConfig MakeConfig(string server) => new()

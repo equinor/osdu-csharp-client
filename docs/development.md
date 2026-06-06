@@ -22,7 +22,7 @@ python3 generate_all.py
 dotnet build OsduCsharpClient.slnx
 ```
 
-Copy `.env` with the required values before running tests — see [docs/environment-and-tests.md](environment-and-tests.md).
+Provide configuration (e.g. `appsettings.local.json` or `Osdu__*` environment variables) before running tests — see [docs/environment-and-tests.md](environment-and-tests.md).
 
 ```sh
 dotnet test OsduCsharpClient.slnx
@@ -124,7 +124,7 @@ src/
             DataPartitionHandler.cs         DelegatingHandler for data-partition-id injection
             LoggingHandler.cs               DelegatingHandler for HTTP request/response logging
             OsduClient.cs                   High-level facade with typed per-service properties
-            OsduConfig.cs                   Configuration record (FromEnvironment factory)
+            OsduConfig.cs                   Configuration record (FromConfiguration binder)
             OsduException.cs                Typed exception for auth/config/API errors
             ServiceRegistry.cs              Static service → endpoint mapping
 tests/
