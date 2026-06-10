@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.0](https://github.com/equinor/osdu-csharp-client/compare/v0.5.2...v1.0.0) (2026-06-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* bind OsduConfig from IConfiguration instead of environment variables ([#49](https://github.com/equinor/osdu-csharp-client/issues/49))
+
+### Features
+
+* bind OsduConfig from IConfiguration instead of environment variables ([#49](https://github.com/equinor/osdu-csharp-client/issues/49)) ([bc2115c](https://github.com/equinor/osdu-csharp-client/commit/bc2115c686910bf3306aad2f06139f2fad38a915))
+
+
+### Dependencies
+
+* bump `equinor/ops-actions` from 9.38.0 to 9.38.1 and `actions/setup-dotnet` from 5.2.0 to 5.3.0 ([#50](https://github.com/equinor/osdu-csharp-client/issues/50)) ([e679484](https://github.com/equinor/osdu-csharp-client/commit/e6794844817b97608d338242ec13096a9c63f8d0))
+* bump `Microsoft.NET.Test.Sdk` from 18.5.1 to 18.6.0 ([#51](https://github.com/equinor/osdu-csharp-client/issues/51)) ([4a282dd](https://github.com/equinor/osdu-csharp-client/commit/4a282ddafda47d93707af3b75245a81cf9442bad))
+
 ## [0.5.2](https://github.com/equinor/osdu-csharp-client/compare/v0.5.1...v0.5.2) (2026-06-04)
 
 
