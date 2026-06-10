@@ -20,6 +20,7 @@ using Equinor.OsduCsharpClient.WellboreDdms;
 using Equinor.OsduCsharpClient.Workflow;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 
@@ -41,6 +42,7 @@ public sealed class OsduClient : IDisposable
     private readonly ITokenProvider _tokenProvider;
     private readonly ILoggerFactory _loggerFactory;
     private readonly List<HttpClient> _httpClients = [];
+    private readonly Dictionary<string, HttpClientRequestAdapter> _adapters = [];
     private bool _disposed;
 
     private CrsCatalogClient?    _crsCatalog;
@@ -62,6 +64,7 @@ public sealed class OsduClient : IDisposable
     private UnitClient?          _unit;
     private WellboreDdmsClient?  _wellboreDdms;
     private WorkflowClient?      _workflow;
+    private WellboreDdmsBulkClient? _wellboreDdmsBulk;
 
     /// <param name="config">OSDU configuration. Use <see cref="OsduConfig.FromConfiguration"/> to bind from <c>IConfiguration</c>.</param>
     /// <param name="tokenProvider">
@@ -100,12 +103,38 @@ public sealed class OsduClient : IDisposable
     public WellboreDdmsClient  WellboreDdms  => _wellboreDdms  ??= Build(ref _wellboreDdms,  "wellbore_ddms");
     public WorkflowClient      Workflow      => _workflow      ??= Build(ref _workflow,      "workflow");
 
+    /// <summary>
+    /// Hand-written Wellbore DDMS bulk-data helpers for <c>application/x-parquet</c>
+    /// (read, write, and chunked session writes), which the generated
+    /// <see cref="WellboreDdms"/> client cannot express. Shares the same
+    /// authenticated transport as <see cref="WellboreDdms"/>.
+    /// </summary>
+    public WellboreDdmsBulkClient WellboreDdmsBulk =>
+        _wellboreDdmsBulk ??= new WellboreDdmsBulkClient(GetOrCreateAdapter("wellbore_ddms"));
+
+    /// <summary>
+    /// Returns the authenticated Kiota request adapter for the given service attr name
+    /// (e.g. <c>"wellbore_ddms"</c> — see <see cref="ServiceRegistry"/>). Escape hatch for
+    /// requests the generated clients cannot express, such as alternate content types:
+    /// build a <c>RequestInformation</c> and send it directly. Bearer-token auth,
+    /// <c>data-partition-id</c> injection, and logging are all applied.
+    /// </summary>
+    public IRequestAdapter GetRequestAdapter(string serviceAttr) => GetOrCreateAdapter(serviceAttr);
+
     private T Build<T>(ref T? field, string serviceAttr) where T : class
     {
         if (field is not null) return field;
-        var adapter = CreateAdapter(_config.UrlFor(serviceAttr));
+        var adapter = GetOrCreateAdapter(serviceAttr);
         field = (T)Activator.CreateInstance(typeof(T), adapter)!;
         return field;
+    }
+
+    private HttpClientRequestAdapter GetOrCreateAdapter(string serviceAttr)
+    {
+        if (_adapters.TryGetValue(serviceAttr, out var adapter)) return adapter;
+        adapter = CreateAdapter(_config.UrlFor(serviceAttr));
+        _adapters[serviceAttr] = adapter;
+        return adapter;
     }
 
     /// <summary>

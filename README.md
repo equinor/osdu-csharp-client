@@ -71,6 +71,8 @@ if (result?.Results is not null)
 
 For low-level usage (constructing service clients directly with a raw adapter), see [docs/usage.md](docs/usage.md).
 
+Wellbore DDMS bulk data (well-log curves) can be read and written as Parquet via `osdu.WellboreDdmsBulk` — including chunked session writes for large datasets. See [docs/usage.md](docs/usage.md#wellbore-ddms-parquet-bulk-data).
+
 ## Available Services
 
 | Namespace                                   | Service                    |
