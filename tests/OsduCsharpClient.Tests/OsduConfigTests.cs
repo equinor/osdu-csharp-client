@@ -80,30 +80,8 @@ public class OsduConfigTests
     [Fact]
     public void FromConfiguration_AllSet_BindsConfig()
     {
-        var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                ["Osdu:Server"] = "https://test.example.com",
-                ["Osdu:DataPartitionId"] = "test-partition",
-                ["Osdu:Authority"] = "https://login.microsoftonline.com/tenant",
-                ["Osdu:ClientId"] = "client-id",
-                ["Osdu:Scopes"] = "https://test.example.com/.default",
-                ["Osdu:TimeoutSeconds"] = "45",
-                ["Osdu:EndpointOverrides:search"] = "https://custom.example.com/search",
-            })
-            .Build();
-
-        var config = OsduConfig.FromConfiguration(configuration);
-
-        Assert.Equal("https://test.example.com", config.Server);
-        Assert.Equal("test-partition", config.DataPartitionId);
-        Assert.Equal(45.0, config.TimeoutSeconds);
-        Assert.Equal("https://custom.example.com/search", config.UrlFor("search"));
-    }
-
-    [Fact]
-    public void FromConfiguration_CustomSectionName_Binds()
-    {
+        // Single binding smoke test: custom section name, defaults override,
+        // and the EndpointOverrides dictionary.
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
@@ -112,11 +90,17 @@ public class OsduConfigTests
                 ["MyOsdu:Authority"] = "https://login.microsoftonline.com/tenant",
                 ["MyOsdu:ClientId"] = "client-id",
                 ["MyOsdu:Scopes"] = "https://test.example.com/.default",
+                ["MyOsdu:TimeoutSeconds"] = "45",
+                ["MyOsdu:EndpointOverrides:search"] = "https://custom.example.com/search",
             })
             .Build();
 
         var config = OsduConfig.FromConfiguration(configuration, "MyOsdu");
+
         Assert.Equal("https://test.example.com", config.Server);
+        Assert.Equal("test-partition", config.DataPartitionId);
+        Assert.Equal(45.0, config.TimeoutSeconds);
+        Assert.Equal("https://custom.example.com/search", config.UrlFor("search"));
     }
 
     private static OsduConfig MakeConfig(string server) => new()

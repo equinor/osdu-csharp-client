@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 
 namespace Equinor.OsduCsharpClient.Facade;
@@ -13,13 +14,13 @@ public record OsduConfig
     public const string DefaultSectionName = "Osdu";
 
 
-    public required string Server { get; init; }
-    public required string DataPartitionId { get; init; }
-    public required string Authority { get; init; }
-    public required string ClientId { get; init; }
+    [Required] public required string Server { get; init; }
+    [Required] public required string DataPartitionId { get; init; }
+    [Required] public required string Authority { get; init; }
+    [Required] public required string ClientId { get; init; }
 
     /// <summary>Space-separated OAuth scopes, e.g. <c>https://example.com/.default</c>.</summary>
-    public required string Scopes { get; init; }
+    [Required] public required string Scopes { get; init; }
 
     public double TimeoutSeconds { get; init; } = 30.0;
     public int RetryAttempts { get; init; } = 3;
@@ -74,25 +75,16 @@ public record OsduConfig
         var config = section.Get<OsduConfig>()
             ?? throw new OsduException($"Could not bind configuration section '{sectionName}'.");
 
-        config.Validate(sectionName);
-        return config;
-    }
-
-    /// <summary>Throws <see cref="OsduException"/> if any required value is missing.</summary>
-    private void Validate(string sectionName)
-    {
-        foreach (var (name, value) in new[]
-                 {
-                     (nameof(Server), Server),
-                     (nameof(DataPartitionId), DataPartitionId),
-                     (nameof(Authority), Authority),
-                     (nameof(ClientId), ClientId),
-                     (nameof(Scopes), Scopes),
-                 })
+        try
         {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new OsduException(
-                    $"Missing required configuration value '{sectionName}:{name}'.");
+            Validator.ValidateObject(config, new ValidationContext(config), validateAllProperties: true);
         }
+        catch (ValidationException ex)
+        {
+            throw new OsduException(
+                $"Invalid configuration in section '{sectionName}': {ex.Message}", ex);
+        }
+
+        return config;
     }
 }
