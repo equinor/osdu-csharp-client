@@ -1,18 +1,26 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Configuration;
+
 namespace Equinor.OsduCsharpClient.Facade;
 
 /// <summary>
 /// CSP-agnostic OSDU client configuration.
-/// Load from environment variables via <see cref="FromEnvironment"/>, or construct directly.
+/// Bind from <see cref="IConfiguration"/> via <see cref="FromConfiguration"/>
+/// (appsettings.json, environment variables, user secrets, …), or construct directly.
 /// </summary>
 public record OsduConfig
 {
-    public required string Server { get; init; }
-    public required string DataPartitionId { get; init; }
-    public required string Authority { get; init; }
-    public required string ClientId { get; init; }
+    /// <summary>Default configuration section name bound by <see cref="FromConfiguration"/>.</summary>
+    public const string DefaultSectionName = "Osdu";
+
+
+    [Required] public required string Server { get; init; }
+    [Required] public required string DataPartitionId { get; init; }
+    [Required] public required string Authority { get; init; }
+    [Required] public required string ClientId { get; init; }
 
     /// <summary>Space-separated OAuth scopes, e.g. <c>https://example.com/.default</c>.</summary>
-    public required string Scopes { get; init; }
+    [Required] public required string Scopes { get; init; }
 
     public double TimeoutSeconds { get; init; } = 30.0;
     public int RetryAttempts { get; init; } = 3;
@@ -41,23 +49,42 @@ public record OsduConfig
         Scopes.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
     /// <summary>
-    /// Creates an <see cref="OsduConfig"/> from the standard environment variables:
-    /// <c>SERVER</c>, <c>DATA_PARTITION_ID</c>, <c>AUTHORITY</c>, <c>CLIENT_ID</c>, <c>SCOPES</c>.
+    /// Binds an <see cref="OsduConfig"/> from a configuration section (default
+    /// <see cref="DefaultSectionName"/>). Works with any standard .NET
+    /// configuration source — <c>appsettings.json</c>, environment variables
+    /// (e.g. <c>Osdu__Server</c>), user secrets, command line, etc.
     /// </summary>
-    public static OsduConfig FromEnvironment() => new()
+    /// <example>
+    /// <code>
+    /// // appsettings.json: { "Osdu": { "Server": "...", "DataPartitionId": "...", ... } }
+    /// var config = OsduConfig.FromConfiguration(builder.Configuration);
+    /// </code>
+    /// </example>
+    /// <param name="configuration">The configuration root or provider to bind from.</param>
+    /// <param name="sectionName">Section to bind. Defaults to <see cref="DefaultSectionName"/>.</param>
+    /// <exception cref="OsduException">If the section is missing or a required value is absent.</exception>
+    public static OsduConfig FromConfiguration(
+        IConfiguration configuration, string sectionName = DefaultSectionName)
     {
-        Server          = Required("SERVER"),
-        DataPartitionId = Required("DATA_PARTITION_ID"),
-        Authority       = Required("AUTHORITY"),
-        ClientId        = Required("CLIENT_ID"),
-        Scopes          = Required("SCOPES"),
-        TimeoutSeconds  = double.TryParse(Env("OSDU_TIMEOUT_SECONDS"), out var t) ? t : 30.0,
-        RetryAttempts   = int.TryParse(Env("OSDU_RETRY_ATTEMPTS"), out var r) ? r : 3,
-    };
+        ArgumentNullException.ThrowIfNull(configuration);
 
-    private static string Required(string key) =>
-        Environment.GetEnvironmentVariable(key)
-        ?? throw new OsduException($"Missing required environment variable: {key}");
+        var section = configuration.GetSection(sectionName);
+        if (!section.Exists())
+            throw new OsduException($"Missing configuration section '{sectionName}'.");
 
-    private static string? Env(string key) => Environment.GetEnvironmentVariable(key);
+        var config = section.Get<OsduConfig>()
+            ?? throw new OsduException($"Could not bind configuration section '{sectionName}'.");
+
+        try
+        {
+            Validator.ValidateObject(config, new ValidationContext(config), validateAllProperties: true);
+        }
+        catch (ValidationException ex)
+        {
+            throw new OsduException(
+                $"Invalid configuration in section '{sectionName}': {ex.Message}", ex);
+        }
+
+        return config;
+    }
 }

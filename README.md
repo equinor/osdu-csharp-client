@@ -44,8 +44,9 @@ The `OsduClient` facade handles auth, token caching, and `data-partition-id` inj
 ```csharp
 using Equinor.OsduCsharpClient.Facade;
 using Equinor.OsduCsharpClient.Search.Models;
+using Microsoft.Extensions.Configuration;
 
-using var osdu = new OsduClient(OsduConfig.FromEnvironment());
+using var osdu = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration));
 
 var result = await osdu.Search.Query.PostAsync(
     new QueryRequest
@@ -66,7 +67,7 @@ if (result?.Results is not null)
 }
 ```
 
-`OsduConfig.FromEnvironment()` reads `SERVER`, `DATA_PARTITION_ID`, `AUTHORITY`, `CLIENT_ID`, and `SCOPES` from environment variables or a `.env` file. See [docs/environment-and-tests.md](docs/environment-and-tests.md) for setup.
+`OsduConfig.FromConfiguration(IConfiguration)` binds the `Osdu` section (`Server`, `DataPartitionId`, `Authority`, `ClientId`, `Scopes`) from any standard .NET configuration source — `appsettings.json`, environment variables (`Osdu__Server`), user secrets, etc. See [docs/environment-and-tests.md](docs/environment-and-tests.md) for setup.
 
 For low-level usage (constructing service clients directly with a raw adapter), see [docs/usage.md](docs/usage.md).
 
@@ -103,7 +104,7 @@ Quick run:
 dotnet test OsduCsharpClient.slnx
 ```
 
-For `.env` setup, optional variables, and detailed test commands, see [docs/environment-and-tests.md](docs/environment-and-tests.md).
+For configuration setup, optional variables, and detailed test commands, see [docs/environment-and-tests.md](docs/environment-and-tests.md).
 
 ## Development
 

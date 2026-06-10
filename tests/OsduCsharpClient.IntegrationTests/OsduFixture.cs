@@ -1,5 +1,5 @@
-using DotNetEnv;
 using Equinor.OsduCsharpClient.Facade;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace OsduCsharpClient.IntegrationTests;
@@ -24,12 +24,20 @@ public class OsduFixture : IAsyncLifetime
 
     public ValueTask InitializeAsync()
     {
-        Env.NoClobber().TraversePath().Load();
+        // Standard .NET configuration: appsettings.json (committed template),
+        // appsettings.local.json (gitignored, real values), user secrets, and
+        // environment variables (e.g. Osdu__Server). See docs/environment-and-tests.md.
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile("appsettings.local.json", optional: true)
+            .AddUserSecrets<OsduFixture>(optional: true)
+            .AddEnvironmentVariables()
+            .Build();
 
         // The facade owns authentication (interactive MSAL, silent renewal).
         // Passing a logger factory enables HTTP request/response logging — see
         // the log categories documented in docs/usage.md.
-        Client = new OsduClient(OsduConfig.FromEnvironment(), loggerFactory: _loggerFactory);
+        Client = new OsduClient(OsduConfig.FromConfiguration(configuration), loggerFactory: _loggerFactory);
         return ValueTask.CompletedTask;
     }
 
