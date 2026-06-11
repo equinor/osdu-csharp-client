@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/equinor/osdu-csharp-client/compare/v1.0.0...v1.1.0) (2026-06-11)
+
+
+### Features
+
+* add Wellbore DDMS Parquet bulk data support ([#54](https://github.com/equinor/osdu-csharp-client/issues/54)) ([b6e5fd0](https://github.com/equinor/osdu-csharp-client/commit/b6e5fd01327efca570c566335b623e731b2088a5))
+
 ## [1.0.0](https://github.com/equinor/osdu-csharp-client/compare/v0.5.2...v1.0.0) (2026-06-10)
 
 
