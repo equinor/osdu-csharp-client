@@ -40,15 +40,9 @@ How it works:
 
 ## Updating OpenAPI Specs
 
-To fetch the latest OpenAPI specifications from the OSDU wiki:
+Specs in `openapi_specs/` are updated manually: fetch the spec from a deployed service (e.g. `<server>/api/<service>/.../openapi.json`) or from the upstream OSDU service repository, and commit it. Update one service at a time so the diff stays reviewable.
 
-```sh
-python3 download.py
-```
-
-This script parses the OSDU wiki for service definitions and downloads the corresponding JSON specs into `openapi_specs/`, trying Community Implementation, Azure, AWS, and GCP sources in order.
-
-> Warning: The raw upstream specs are not always generator-friendly. This repository may intentionally apply local edits to files in `openapi_specs/` to improve generated client quality. Check `git diff` after running `download.py` before committing.
+> Warning: The raw upstream specs are not always generator-friendly. This repository may intentionally apply local edits to files in `openapi_specs/` to improve generated client quality. Check `git diff` against the previous spec before committing.
 
 ## Normalizing OpenAPI Response Media Types
 
@@ -130,7 +124,6 @@ src/
 tests/
     OsduCsharpClient.IntegrationTests/      xUnit integration tests (require live OSDU server)
     OsduCsharpClient.Tests/                 xUnit unit tests (no network required)
-download.py                                 Downloads specs from the OSDU wiki
 fix_openapi_json_response_media_types.py    Normalizes */* response media types
 generate_all.py                             Regenerates all C# clients via Kiota
 ```
