@@ -324,3 +324,46 @@ if (doc.RootElement.TryGetProperty("data", out var data)
 Kiota is a typed client generator: it maps OpenAPI schemas to closed C# classes. The OSDU record `data` property is an open-ended `object` with `additionalProperties: true` because its shape depends on the record `kind`. Kiota cannot generate a meaningful type for it.
 
 For the services with a generic `Record` schema (Storage, Dataset, Wellbore DDMS) the spec is patched during generation so `data` is emitted as a Kiota `UntypedNode` (`Record.Data`) — see `generate_all.py`. That makes `data` round-trip arbitrary JSON, and the facade's JSON bridge turns it into ergonomic `System.Text.Json` access for both reading and writing. For endpoints that return free-form payloads outside that `Record` type, `NativeResponseHandler` + `System.Text.Json` remains the way to consume free-form fields.
+
+## Wellbore DDMS: Parquet bulk data
+
+Well-log bulk data is served as Parquet by Wellbore DDMS — the `/ddms/v3/{entity}/{id}/data` endpoints negotiate `application/json` **or** `application/x-parquet`, and Parquet is the primary, performant format. The generated client is JSON-only (Kiota models one content type per direction — [microsoft/kiota#3377](https://github.com/microsoft/kiota/issues/3377)), so the facade ships a hand-written bulk client at `client.WellboreDdmsBulk` that talks real `application/x-parquet` over the same authenticated transport:
+
+```csharp
+// Read bulk data as Parquet (raw stream)
+await using var parquet = await client.WellboreDdmsBulk.ReadParquetAsync(
+    recordId,
+    new WellboreBulkReadOptions { Curves = ["MD", "GR"], Limit = 10_000 },
+    cancellationToken: ct);
+
+// Write bulk data as Parquet, creating a new record version
+var version = await client.WellboreDdmsBulk.WriteParquetAsync(recordId, parquetStream, cancellationToken: ct);
+```
+
+For large datasets (> ~10M values or > 3000 columns the server requires chunking), write via a session — one call orchestrates open → upload chunks → commit, abandoning the session automatically if any step fails:
+
+```csharp
+var commit = await client.WellboreDdmsBulk.WriteParquetSessionAsync(
+    recordId, [chunk1, chunk2, chunk3], SessionUpdateMode.Update, cancellationToken: ct);
+
+// Or drive the steps yourself
+var session = await client.WellboreDdmsBulk.OpenSessionAsync(recordId, SessionUpdateMode.Update, cancellationToken: ct);
+await client.WellboreDdmsBulk.WriteSessionChunkParquetAsync(recordId, session.Id!.Value, chunk1, cancellationToken: ct);
+var result = await client.WellboreDdmsBulk.CommitSessionAsync(recordId, session.Id!.Value, cancellationToken: ct);
+// ... or AbandonSessionAsync(recordId, session.Id!.Value)
+```
+
+All methods take an `entity` parameter (`WellLogs` default, `WellboreTrajectories`, `PpfgDataset`, `WellPressureTestRawMeasurement`). Payloads are raw Parquet `Stream`s — the package takes no dependency on a Parquet library; encode/decode with e.g. [Parquet.Net](https://www.nuget.org/packages/Parquet.Net) or [Apache.Arrow](https://www.nuget.org/packages/Apache.Arrow). Remapping to `application/octet-stream` is not an option: WBDDMS validates the exact media type and rejects it.
+
+### Escape hatch: GetRequestAdapter
+
+For other requests the generated clients cannot express (alternate content types, hand-built URLs), `OsduClient.GetRequestAdapter(serviceAttr)` returns the authenticated Kiota adapter for any registered service. Build a `RequestInformation` and send it directly — bearer-token auth, `data-partition-id` injection, and logging are all applied:
+
+```csharp
+var adapter = client.GetRequestAdapter("wellbore_ddms");
+var requestInfo = new RequestInformation(
+    Method.GET, "{+baseurl}/ddms/v3/welllogs/{record_id}/data",
+    new Dictionary<string, object> { { "record_id", recordId } });
+requestInfo.Headers.TryAdd("Accept", "application/x-parquet");
+var stream = await adapter.SendPrimitiveAsync<Stream>(requestInfo, cancellationToken: ct);
+```
