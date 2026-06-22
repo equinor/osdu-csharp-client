@@ -44,21 +44,6 @@ Specs in `openapi_specs/` are updated manually: fetch the spec from a deployed s
 
 > Warning: The raw upstream specs are not always generator-friendly. This repository may intentionally apply local edits to files in `openapi_specs/` to improve generated client quality. Check `git diff` against the previous spec before committing.
 
-## Normalizing OpenAPI Response Media Types
-
-Some OSDU endpoints declare structured JSON responses under `*/*` instead of `application/json`. The included script fixes these in place:
-
-```sh
-# Check what would be changed (dry-run)
-python3 fix_openapi_json_response_media_types.py --check
-
-# Apply fixes to all specs
-python3 fix_openapi_json_response_media_types.py
-
-# Target a specific file
-python3 fix_openapi_json_response_media_types.py openapi_specs/Search.json
-```
-
 ## Regenerating Clients
 
 To regenerate all C# clients from the specs in `openapi_specs/`:
@@ -124,6 +109,5 @@ src/
 tests/
     OsduCsharpClient.IntegrationTests/      xUnit integration tests (require live OSDU server)
     OsduCsharpClient.Tests/                 xUnit unit tests (no network required)
-fix_openapi_json_response_media_types.py    Normalizes */* response media types
 generate_all.py                             Regenerates all C# clients via Kiota
 ```
