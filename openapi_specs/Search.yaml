@@ -416,16 +416,20 @@ components:
         large result sets.
       properties:
         kind:
-          type: object
           anyOf:
           - type: string
+            description: "A single data kind, formatted {authority}:{source}:{entityType}:{version}."
+            example: opendes:osdu:wellbore:1.0.0
+            pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
           - type: array
             items:
               type: string
+              description: "A single data kind, formatted {authority}:{source}:{entityType}:{version}."
+              example: opendes:osdu:wellbore:1.0.0
+              pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
           description: "The type(s) of data to search. Accepts a single kind string\
             \ or a list of kinds. Format: {Data-Partition-Id}:{source}:{type}:{version}.\
             \ Wildcards are supported per segment, e.g. 'opendes:*:*:*'."
-          example: opendes:osdu:wellbore:1.0.0
         limit:
           type: integer
           format: int32
@@ -625,16 +629,20 @@ components:
       description: Search query request with offset-based pagination.
       properties:
         kind:
-          type: object
           anyOf:
           - type: string
+            description: "A single data kind, formatted {authority}:{source}:{entityType}:{version}."
+            example: opendes:osdu:wellbore:1.0.0
+            pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
           - type: array
             items:
               type: string
+              description: "A single data kind, formatted {authority}:{source}:{entityType}:{version}."
+              example: opendes:osdu:wellbore:1.0.0
+              pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
           description: "The type(s) of data to search. Accepts a single kind string\
             \ or a list of kinds. Format: {Data-Partition-Id}:{source}:{type}:{version}.\
             \ Wildcards are supported per segment, e.g. 'opendes:*:*:*'."
-          example: opendes:osdu:wellbore:1.0.0
         limit:
           type: integer
           format: int32
