@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1](https://github.com/equinor/osdu-csharp-client/compare/v1.1.0...v1.1.1) (2026-06-23)
+
+
+### Dependencies
+
+* bump `Microsoft.Identity.Client` from 4.84.1 to 4.84.2 ([#58](https://github.com/equinor/osdu-csharp-client/issues/58)) ([2cf22f3](https://github.com/equinor/osdu-csharp-client/commit/2cf22f39170ab9f651b32327aa5068145254cbde))
+* bump the github-actions group with 4 updates ([#57](https://github.com/equinor/osdu-csharp-client/issues/57)) ([d752ddb](https://github.com/equinor/osdu-csharp-client/commit/d752ddb2cd52ee0d29127c2e10dbd65e87021157))
+* Bump the nuget group with 6 updates ([#71](https://github.com/equinor/osdu-csharp-client/issues/71)) ([329c021](https://github.com/equinor/osdu-csharp-client/commit/329c021406ed67570689f4c9c664ca98df1294c4))
+
 ## [1.1.0](https://github.com/equinor/osdu-csharp-client/compare/v1.0.0...v1.1.0) (2026-06-11)
 
 
