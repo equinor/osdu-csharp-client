@@ -11,10 +11,10 @@ namespace Osdu.Client.Apis.WellboreDdms;
 public class Record
 {
     [JsonPropertyName("id")]
-    public RecordId? Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("version")]
-    public RecordVersion? Version { get; set; }
+    public long? Version { get; set; }
 
     [Required]
     [JsonPropertyName("kind")]
@@ -29,7 +29,7 @@ public class Record
     public Legal Legal { get; set; }
 
     [JsonPropertyName("meta")]
-    public RecordMeta? Meta { get; set; }
+    public List<object>? Meta { get; set; }
 
     [Required]
     [JsonPropertyName("data")]
@@ -39,149 +39,19 @@ public class Record
     public RecordAncestry? Ancestry { get; set; }
 
     [JsonPropertyName("tags")]
-    public RecordTags? Tags { get; set; }
+    public object? Tags { get; set; }
 
     [JsonPropertyName("createTime")]
-    public RecordCreateTime? CreateTime { get; set; }
+    public DateTimeOffset? CreateTime { get; set; }
 
     [JsonPropertyName("createUser")]
-    public RecordCreateUser? CreateUser { get; set; }
+    public string? CreateUser { get; set; }
 
     [JsonPropertyName("modifyTime")]
-    public RecordModifyTime? ModifyTime { get; set; }
+    public DateTimeOffset? ModifyTime { get; set; }
 
     [JsonPropertyName("modifyUser")]
-    public RecordModifyUser? ModifyUser { get; set; }
+    public string? ModifyUser { get; set; }
 
 }
 
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordIdVariant1), "RecordIdVariant1")]
-[JsonDerivedType(typeof(RecordIdVariant2), "RecordIdVariant2")]
-public abstract class RecordId
-{
-}
-
-public class RecordIdVariant1 : RecordId
-{
-}
-
-public class RecordIdVariant2 : RecordId
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordVersionVariant1), "RecordVersionVariant1")]
-[JsonDerivedType(typeof(RecordVersionVariant2), "RecordVersionVariant2")]
-public abstract class RecordVersion
-{
-}
-
-public class RecordVersionVariant1 : RecordVersion
-{
-}
-
-public class RecordVersionVariant2 : RecordVersion
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordMetaVariant1), "RecordMetaVariant1")]
-[JsonDerivedType(typeof(RecordMetaVariant2), "RecordMetaVariant2")]
-public abstract class RecordMeta
-{
-}
-
-public class RecordMetaVariant1 : RecordMeta
-{
-}
-
-public class RecordMetaVariant2 : RecordMeta
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordAncestry), "RecordAncestry")]
-[JsonDerivedType(typeof(RecordAncestryVariant1), "RecordAncestryVariant1")]
-public abstract class RecordAncestry
-{
-}
-
-public class RecordAncestryVariant1 : RecordAncestry
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordTagsVariant1), "RecordTagsVariant1")]
-[JsonDerivedType(typeof(RecordTagsVariant2), "RecordTagsVariant2")]
-public abstract class RecordTags
-{
-}
-
-public class RecordTagsVariant1 : RecordTags
-{
-}
-
-public class RecordTagsVariant2 : RecordTags
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordCreateTimeVariant1), "RecordCreateTimeVariant1")]
-[JsonDerivedType(typeof(RecordCreateTimeVariant2), "RecordCreateTimeVariant2")]
-public abstract class RecordCreateTime
-{
-}
-
-public class RecordCreateTimeVariant1 : RecordCreateTime
-{
-}
-
-public class RecordCreateTimeVariant2 : RecordCreateTime
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordCreateUserVariant1), "RecordCreateUserVariant1")]
-[JsonDerivedType(typeof(RecordCreateUserVariant2), "RecordCreateUserVariant2")]
-public abstract class RecordCreateUser
-{
-}
-
-public class RecordCreateUserVariant1 : RecordCreateUser
-{
-}
-
-public class RecordCreateUserVariant2 : RecordCreateUser
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordModifyTimeVariant1), "RecordModifyTimeVariant1")]
-[JsonDerivedType(typeof(RecordModifyTimeVariant2), "RecordModifyTimeVariant2")]
-public abstract class RecordModifyTime
-{
-}
-
-public class RecordModifyTimeVariant1 : RecordModifyTime
-{
-}
-
-public class RecordModifyTimeVariant2 : RecordModifyTime
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordModifyUserVariant1), "RecordModifyUserVariant1")]
-[JsonDerivedType(typeof(RecordModifyUserVariant2), "RecordModifyUserVariant2")]
-public abstract class RecordModifyUser
-{
-}
-
-public class RecordModifyUserVariant1 : RecordModifyUser
-{
-}
-
-public class RecordModifyUserVariant2 : RecordModifyUser
-{
-}

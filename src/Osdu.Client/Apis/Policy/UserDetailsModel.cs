@@ -11,21 +11,6 @@ namespace Osdu.Client.Apis.Policy;
 public class UserDetailsModel
 {
     [JsonPropertyName("country_code")]
-    public UserDetailsModelCountryCode? CountryCode { get; set; }
+    public string? CountryCode { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(UserDetailsModelCountryCodeVariant1), "UserDetailsModelCountryCodeVariant1")]
-[JsonDerivedType(typeof(UserDetailsModelCountryCodeVariant2), "UserDetailsModelCountryCodeVariant2")]
-public abstract class UserDetailsModelCountryCode
-{
-}
-
-public class UserDetailsModelCountryCodeVariant1 : UserDetailsModelCountryCode
-{
-}
-
-public class UserDetailsModelCountryCodeVariant2 : UserDetailsModelCountryCode
-{
 }

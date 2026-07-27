@@ -20,7 +20,7 @@ public class CreateDataSessionRequest
     /// miscellaneous metadata associated to the session. The session creator can set some data here.
     /// </summary>
     [JsonPropertyName("meta")]
-    public CreateDataSessionRequestMeta? Meta { get; set; }
+    public object? Meta { get; set; }
 
     /// <summary>
     /// specify the version on top of which update will be applied. By default use the latest one (0). Not relevant if overwrite is set to True.
@@ -40,34 +40,5 @@ public class CreateDataSessionRequest
     [Required]
     [JsonPropertyName("mode")]
     public SessionUpdateMode Mode { get; set; }
-
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(CreateDataSessionRequestMetaVariant1), "CreateDataSessionRequestMetaVariant1")]
-[JsonDerivedType(typeof(CreateDataSessionRequestMetaVariant2), "CreateDataSessionRequestMetaVariant2")]
-public abstract class CreateDataSessionRequestMeta
-{
-}
-
-public class CreateDataSessionRequestMetaVariant1 : CreateDataSessionRequestMeta
-{
-}
-
-public class CreateDataSessionRequestMetaVariant2 : CreateDataSessionRequestMeta
-{
-}
-
-/// <summary>
-/// merge mode at commit. If 'update', existing data will be merged with the data sent during the session. If 'overwrite', existing data will be ignored, the final result will only contains data sent within the session.
-/// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CreateDataSessionRequestMode
-{
-    [JsonStringEnumMemberName("overwrite")]
-    Overwrite,
-
-    [JsonStringEnumMemberName("update")]
-    Update,
 
 }

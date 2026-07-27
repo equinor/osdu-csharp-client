@@ -17,7 +17,7 @@ public class Session
     /// miscellaneous metadata associated to the session. The session creator can set some data here.
     /// </summary>
     [JsonPropertyName("meta")]
-    public SessionMeta? Meta { get; set; }
+    public object? Meta { get; set; }
 
     /// <summary>
     /// identifier of the current session.
@@ -71,54 +71,5 @@ public class Session
     [Required]
     [JsonPropertyName("state")]
     public SessionState State { get; set; }
-
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(SessionMetaVariant1), "SessionMetaVariant1")]
-[JsonDerivedType(typeof(SessionMetaVariant2), "SessionMetaVariant2")]
-public abstract class SessionMeta
-{
-}
-
-public class SessionMetaVariant1 : SessionMeta
-{
-}
-
-public class SessionMetaVariant2 : SessionMeta
-{
-}
-
-/// <summary>
-/// merge mode at commit. If 'update', existing data will be merged with the data sent during the session. If 'overrride', existing data will be ignored, the final result will only contains data sent within the session.
-/// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SessionMode
-{
-    [JsonStringEnumMemberName("overwrite")]
-    Overwrite,
-
-    [JsonStringEnumMemberName("update")]
-    Update,
-
-}
-
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SessionState
-{
-    [JsonStringEnumMemberName("open")]
-    Open,
-
-    [JsonStringEnumMemberName("committing")]
-    Committing,
-
-    [JsonStringEnumMemberName("abandoning")]
-    Abandoning,
-
-    [JsonStringEnumMemberName("committed")]
-    Committed,
-
-    [JsonStringEnumMemberName("abandoned")]
-    Abandoned,
 
 }

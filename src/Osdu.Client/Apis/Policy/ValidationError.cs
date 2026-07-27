@@ -12,7 +12,7 @@ public class ValidationError
 {
     [Required]
     [JsonPropertyName("loc")]
-    public List<ValidationErrorLoc> Loc { get; set; }
+    public List<object> Loc { get; set; }
 
     [Required]
     [JsonPropertyName("msg")]
@@ -22,19 +22,4 @@ public class ValidationError
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(ValidationErrorLocVariant1), "ValidationErrorLocVariant1")]
-[JsonDerivedType(typeof(ValidationErrorLocVariant2), "ValidationErrorLocVariant2")]
-public abstract class ValidationErrorLoc
-{
-}
-
-public class ValidationErrorLocVariant1 : ValidationErrorLoc
-{
-}
-
-public class ValidationErrorLocVariant2 : ValidationErrorLoc
-{
 }

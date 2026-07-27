@@ -15,39 +15,9 @@ public class GuessRequest
     public string Label { get; set; }
 
     [JsonPropertyName("log_unit")]
-    public GuessRequestLogUnit? LogUnit { get; set; }
+    public string? LogUnit { get; set; }
 
     [JsonPropertyName("description")]
-    public GuessRequestDescription? Description { get; set; }
+    public string? Description { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(GuessRequestLogUnitVariant1), "GuessRequestLogUnitVariant1")]
-[JsonDerivedType(typeof(GuessRequestLogUnitVariant2), "GuessRequestLogUnitVariant2")]
-public abstract class GuessRequestLogUnit
-{
-}
-
-public class GuessRequestLogUnitVariant1 : GuessRequestLogUnit
-{
-}
-
-public class GuessRequestLogUnitVariant2 : GuessRequestLogUnit
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(GuessRequestDescriptionVariant1), "GuessRequestDescriptionVariant1")]
-[JsonDerivedType(typeof(GuessRequestDescriptionVariant2), "GuessRequestDescriptionVariant2")]
-public abstract class GuessRequestDescription
-{
-}
-
-public class GuessRequestDescriptionVariant1 : GuessRequestDescription
-{
-}
-
-public class GuessRequestDescriptionVariant2 : GuessRequestDescription
-{
 }

@@ -15,133 +15,28 @@ public class InfoOut
     public string Version { get; set; }
 
     [JsonPropertyName("artifactId")]
-    public InfoOutArtifactId? ArtifactId { get; set; }
+    public string? ArtifactId { get; set; }
 
     [JsonPropertyName("name")]
-    public InfoOutName? Name { get; set; }
+    public string? Name { get; set; }
 
     [JsonPropertyName("groupId")]
-    public InfoOutGroupId? GroupId { get; set; }
+    public string? GroupId { get; set; }
 
     [JsonPropertyName("buildTime")]
-    public InfoOutBuildTime? BuildTime { get; set; }
+    public string? BuildTime { get; set; }
 
     [JsonPropertyName("branch")]
-    public InfoOutBranch? Branch { get; set; }
+    public string? Branch { get; set; }
 
     [JsonPropertyName("commitId")]
-    public InfoOutCommitId? CommitId { get; set; }
+    public string? CommitId { get; set; }
 
     [JsonPropertyName("commitMessage")]
-    public InfoOutCommitMessage? CommitMessage { get; set; }
+    public string? CommitMessage { get; set; }
 
     [Required]
     [JsonPropertyName("connectedOuterServices")]
     public Services ConnectedOuterServices { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutArtifactIdVariant1), "InfoOutArtifactIdVariant1")]
-[JsonDerivedType(typeof(InfoOutArtifactIdVariant2), "InfoOutArtifactIdVariant2")]
-public abstract class InfoOutArtifactId
-{
-}
-
-public class InfoOutArtifactIdVariant1 : InfoOutArtifactId
-{
-}
-
-public class InfoOutArtifactIdVariant2 : InfoOutArtifactId
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutNameVariant1), "InfoOutNameVariant1")]
-[JsonDerivedType(typeof(InfoOutNameVariant2), "InfoOutNameVariant2")]
-public abstract class InfoOutName
-{
-}
-
-public class InfoOutNameVariant1 : InfoOutName
-{
-}
-
-public class InfoOutNameVariant2 : InfoOutName
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutGroupIdVariant1), "InfoOutGroupIdVariant1")]
-[JsonDerivedType(typeof(InfoOutGroupIdVariant2), "InfoOutGroupIdVariant2")]
-public abstract class InfoOutGroupId
-{
-}
-
-public class InfoOutGroupIdVariant1 : InfoOutGroupId
-{
-}
-
-public class InfoOutGroupIdVariant2 : InfoOutGroupId
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutBuildTimeVariant1), "InfoOutBuildTimeVariant1")]
-[JsonDerivedType(typeof(InfoOutBuildTimeVariant2), "InfoOutBuildTimeVariant2")]
-public abstract class InfoOutBuildTime
-{
-}
-
-public class InfoOutBuildTimeVariant1 : InfoOutBuildTime
-{
-}
-
-public class InfoOutBuildTimeVariant2 : InfoOutBuildTime
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutBranchVariant1), "InfoOutBranchVariant1")]
-[JsonDerivedType(typeof(InfoOutBranchVariant2), "InfoOutBranchVariant2")]
-public abstract class InfoOutBranch
-{
-}
-
-public class InfoOutBranchVariant1 : InfoOutBranch
-{
-}
-
-public class InfoOutBranchVariant2 : InfoOutBranch
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutCommitIdVariant1), "InfoOutCommitIdVariant1")]
-[JsonDerivedType(typeof(InfoOutCommitIdVariant2), "InfoOutCommitIdVariant2")]
-public abstract class InfoOutCommitId
-{
-}
-
-public class InfoOutCommitIdVariant1 : InfoOutCommitId
-{
-}
-
-public class InfoOutCommitIdVariant2 : InfoOutCommitId
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InfoOutCommitMessageVariant1), "InfoOutCommitMessageVariant1")]
-[JsonDerivedType(typeof(InfoOutCommitMessageVariant2), "InfoOutCommitMessageVariant2")]
-public abstract class InfoOutCommitMessage
-{
-}
-
-public class InfoOutCommitMessageVariant1 : InfoOutCommitMessage
-{
-}
-
-public class InfoOutCommitMessageVariant2 : InfoOutCommitMessage
-{
 }

@@ -18,7 +18,7 @@ public class QueryRequest
     /// </summary>
     [Required]
     [JsonPropertyName("kind")]
-    public QueryRequestKind Kind { get; set; }
+    public object Kind { get; set; }
 
     /// <summary>
     /// The maximum number of results to return from the given offset. If no limit is provided, then it will return 10 items. Max number of items which can be fetched by the query is 1000. (If you wish to fetch large set of items, please use query_with_cursor API)
@@ -94,22 +94,4 @@ public class QueryRequest
     [JsonPropertyName("offset")]
     public int? Offset { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(QueryRequestKindVariant1), "QueryRequestKindVariant1")]
-[JsonDerivedType(typeof(QueryRequestKindVariant2), "QueryRequestKindVariant2")]
-public abstract class QueryRequestKind
-{
-}
-
-/// <summary>
-/// A single data kind, formatted {authority}:{source}:{entityType}:{version}.
-/// </summary>
-public class QueryRequestKindVariant1 : QueryRequestKind
-{
-}
-
-public class QueryRequestKindVariant2 : QueryRequestKind
-{
 }

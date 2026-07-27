@@ -53,7 +53,7 @@ public class SchemaGenerator
         {
             Directory.CreateDirectory(outputDir);
         }
-        
+
 
         IDictionary<string, IOpenApiSchema> schemas = _document.Components?.Schemas;
         if (schemas is null || schemas.Count == 0)
@@ -73,12 +73,12 @@ public class SchemaGenerator
         {
             string outputFile = Path.Combine(outputDir, $"{name}.cs");
             File.WriteAllText(outputFile, code);
-            _logger.LogInformation($"    Generated schema: {outputFile}");
+            _logger.LogInformation($"    Generated schema: {name}.cs");
         }
 
         // ==================
 
-        
+
         //Generate(outputDir);
 
     }
@@ -95,8 +95,7 @@ public class SchemaGenerator
             return;
         }
 
-        foreach (var (name, schema) in schemas
-)
+        foreach (var (name, schema) in schemas)
         {
             var code = GenerateFileForSchema(name, schema);
             _generatedTypes[name] = code;
@@ -107,7 +106,7 @@ public class SchemaGenerator
         {
             string outputFile = Path.Combine(outputFolder, $"{name}.cs");
             File.WriteAllText(outputFile, code);
-           _logger.LogInformation($"    * Generated schema file: {outputFile}");
+            _logger.LogInformation($"    * Generated schema file: {outputFile}");
         }
     }
 
@@ -142,13 +141,14 @@ public class SchemaGenerator
         }
 
         // Handle oneOf/anyOf as discriminated union via abstract base + derived
-        if (schema.OneOf is { Count: > 0 })
+        // but only if the variants would produce meaningful classes
+        if (schema.OneOf is { Count: > 0 } && HasMeaningfulVariants(schema.OneOf))
         {
             GenerateDiscriminatedUnion(sb, name, schema.OneOf, schema.Discriminator, prefix);
             return;
         }
 
-        if (schema.AnyOf is { Count: > 0 })
+        if (schema.AnyOf is { Count: > 0 } && HasMeaningfulVariants(schema.AnyOf))
         {
             GenerateDiscriminatedUnion(sb, name, schema.AnyOf, schema.Discriminator, prefix);
             return;
@@ -161,6 +161,18 @@ public class SchemaGenerator
         if (schema.Description is not null)
         {
             AppendSummary(sb, schema.Description, prefix);
+        }
+
+        // Check if this schema has a discriminator and is used as a base class by other schemas (via allOf).
+        // If so, generate [JsonPolymorphic] and [JsonDerivedType] attributes.
+        var derivedTypes = FindDerivedSchemas(name, schema);
+        if (derivedTypes.Count > 0 && schema.Discriminator is not null)
+        {
+            sb.AppendLine($"{prefix}[JsonPolymorphic(TypeDiscriminatorPropertyName = \"{schema.Discriminator.PropertyName ?? "type"}\")]");
+            foreach (var (derivedName, _) in derivedTypes)
+            {
+                sb.AppendLine($"{prefix}[JsonDerivedType(typeof({Sanitize(derivedName)}), \"{derivedName}\")]");
+            }
         }
 
         var inheritance = baseClass is not null ? $" : {baseClass}" : "";
@@ -191,12 +203,209 @@ public class SchemaGenerator
         }
     }
 
+    /// <summary>
+    /// Determines whether a set of oneOf/anyOf variants would produce meaningful generated types.
+    /// Returns false if no variant has any substance (properties, composition, etc.),
+    /// meaning generating an abstract class hierarchy would be useless.
+    /// </summary>
+    private bool HasMeaningfulVariants(IList<IOpenApiSchema> variants)
+    {
+        if (variants.Count == 0)
+            return false;
+
+        foreach (var variant in variants)
+        {
+            if (variant is OpenApiSchemaReference schemaRef)
+            {
+                // Resolve the $ref and check if the target schema has substance
+                var resolved = ResolveSchemaFully(schemaRef);
+                if (resolved is not null && SchemaHasSubstance(resolved))
+                    return true;
+            }
+            else
+            {
+                // Inline variant — check if it has any substance
+                if (SchemaHasSubstance(variant))
+                    return true;
+            }
+        }
+
+        // No variant has any meaningful content — don't generate a class hierarchy
+        return false;
+    }
+
+    /// <summary>
+    /// Checks whether a schema has meaningful content worth generating a class for.
+    /// A schema has substance if it has properties, allOf composition with properties,
+    /// nested oneOf/anyOf with $ref variants, or complex array items.
+    /// </summary>
+    private bool SchemaHasSubstance(IOpenApiSchema schema)
+    {
+        // Has direct properties
+        if (schema.Properties is { Count: > 0 })
+            return true;
+
+        // Has allOf — check if any part contributes properties
+        if (schema.AllOf is { Count: > 0 })
+        {
+            foreach (var part in schema.AllOf)
+            {
+                if (part is OpenApiSchemaReference partRef)
+                {
+                    var resolved = ResolveSchemaFully(partRef);
+                    if (resolved is not null && resolved.Properties is { Count: > 0 })
+                        return true;
+                }
+                else if (part.Properties is { Count: > 0 })
+                {
+                    return true;
+                }
+            }
+        }
+
+        // Has nested oneOf/anyOf with $ref variants (complex polymorphic composition)
+        if (schema.OneOf is { Count: > 0 } && schema.OneOf.OfType<OpenApiSchemaReference>().Any())
+            return true;
+        if (schema.AnyOf is { Count: > 0 } && schema.AnyOf.OfType<OpenApiSchemaReference>().Any())
+            return true;
+
+        // Has array items that are complex
+        if (schema.Items is OpenApiSchemaReference)
+            return true;
+        if (schema.Items is not null && schema.Items.Properties is { Count: > 0 })
+            return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Fully resolves a schema reference, following $ref chains and looking up component schemas.
+    /// </summary>
+    private IOpenApiSchema? ResolveSchemaFully(OpenApiSchemaReference schemaRef)
+    {
+        var id = schemaRef.Reference.Id;
+
+        if (_document.Components?.Schemas is not null &&
+            _document.Components.Schemas.TryGetValue(id, out var resolved))
+        {
+            // Follow one more level if it's another reference
+            if (resolved is OpenApiSchemaReference innerRef)
+                return ResolveSchemaFully(innerRef);
+            return resolved;
+        }
+
+        // Fall back to the reference itself
+        return schemaRef;
+    }
+
+    /// <summary>
+    /// Resolves a non-meaningful oneOf/anyOf to the best single C# type.
+    /// Returns "object" if mixed or unknown, or the specific type if all variants share the same type.
+    /// </summary>
+    private string ResolveNonMeaningfulOneOfType(IList<IOpenApiSchema> variants)
+    {
+        string? resolvedType = null;
+
+        foreach (var variant in variants)
+        {
+            // Resolve $refs to get actual schema
+            var actual = variant is OpenApiSchemaReference sr ? ResolveSchemaFully(sr) : variant;
+            if (actual is null)
+                return "object";
+
+            var type = actual.Type ?? JsonSchemaType.Null;
+            var format = actual.Format;
+
+            // Skip null-type variants — they only indicate nullability, not a distinct type
+            if (type == JsonSchemaType.Null)
+                continue;
+
+            string csharpType;
+
+            if (HasFlag(type, JsonSchemaType.String))
+            {
+                csharpType = format switch
+                {
+                    "date-time" => "DateTimeOffset",
+                    "date" => "DateOnly",
+                    "time" => "TimeOnly",
+                    "uuid" => "Guid",
+                    "uri" => "Uri",
+                    _ => "string"
+                };
+            }
+            else if (HasFlag(type, JsonSchemaType.Integer))
+                csharpType = format == "int64" ? "long" : "int";
+            else if (HasFlag(type, JsonSchemaType.Number))
+                csharpType = format switch { "float" => "float", "decimal" => "decimal", _ => "double" };
+            else if (HasFlag(type, JsonSchemaType.Boolean))
+                csharpType = "bool";
+            else if (HasFlag(type, JsonSchemaType.Array))
+            {
+                var itemSchema = actual.Items;
+                if (itemSchema is not null)
+                {
+                    var itemType = ResolveTypeName(itemSchema, "", "");
+                    csharpType = $"List<{itemType}>";
+                }
+                else
+                {
+                    csharpType = "List<object>";
+                }
+            }
+            else
+                csharpType = "object";
+
+            if (resolvedType is null)
+                resolvedType = csharpType;
+            else if (resolvedType != csharpType)
+                return "object"; // Mixed types — fall back to object
+        }
+
+        return resolvedType ?? "object";
+    }
+
+    /// <summary>
+    /// Finds all schemas in the document that reference the given schema name via allOf (i.e., derived types).
+    /// </summary>
+    private List<(string Name, IOpenApiSchema Schema)> FindDerivedSchemas(string baseSchemaName, IOpenApiSchema baseSchema)
+    {
+        var derived = new List<(string Name, IOpenApiSchema Schema)>();
+
+        if (_document.Components?.Schemas is null)
+            return derived;
+
+        // Only look for derived types if this schema has a discriminator
+        if (baseSchema.Discriminator is null)
+            return derived;
+
+        foreach (var (schemaName, schema) in _document.Components.Schemas)
+        {
+            if (schemaName == baseSchemaName)
+                continue;
+
+            if (schema.AllOf is { Count: > 0 })
+            {
+                foreach (var allOfItem in schema.AllOf)
+                {
+                    if (allOfItem is OpenApiSchemaReference schemaRef && schemaRef.Reference.Id == baseSchemaName)
+                    {
+                        derived.Add((schemaName, schema));
+                        break;
+                    }
+                }
+            }
+        }
+
+        return derived;
+    }
+
     private void GenerateDiscriminatedUnion(
-  StringBuilder sb,
-  string name,
-  IList<IOpenApiSchema> variants,
-  OpenApiDiscriminator? discriminator,
-  string prefix)
+        StringBuilder sb,
+        string name,
+        IList<IOpenApiSchema> variants,
+        OpenApiDiscriminator? discriminator,
+        string prefix)
     {
         var resolvedVariants = new List<(string TypeName, string DiscriminatorValue, IOpenApiSchema Schema)>();
         int inlineIndex = 0;
@@ -206,10 +415,19 @@ public class SchemaGenerator
             var refName = GetSchemaReferenceName(variant);
             if (refName is not null)
             {
+                // Only include $ref variants whose target schema has substance
+                var resolved = ResolveSchemaFully((OpenApiSchemaReference)variant);
+                if (resolved is null || !SchemaHasSubstance(resolved))
+                    continue;
+
                 resolvedVariants.Add((Sanitize(refName.ToPascalCase()), refName, variant));
             }
             else
             {
+                // Only include inline variants that have substance
+                if (!SchemaHasSubstance(variant))
+                    continue;
+
                 // Try to get a title or generate a name
                 var title = variant.Title;
                 string typeName;
@@ -230,13 +448,9 @@ public class SchemaGenerator
             }
         }
 
-        if (resolvedVariants.Count == 0)
-        {
-            sb.AppendLine($"{prefix}public class {Sanitize(name)}");
-            sb.AppendLine($"{prefix}{{");
-            sb.AppendLine($"{prefix}}}");
+        // If after filtering we have fewer than 2 meaningful variants, don't generate a union
+        if (resolvedVariants.Count < 2)
             return;
-        }
 
         // Generate abstract base with polymorphic attributes
         sb.AppendLine($"{prefix}[JsonPolymorphic(TypeDiscriminatorPropertyName = \"{discriminator?.PropertyName ?? "type"}\")]");
@@ -351,6 +565,10 @@ public class SchemaGenerator
 
     private void GenerateInlineEnums(StringBuilder sb, string propName, IOpenApiSchema propSchema, string prefix, string parentName)
     {
+        // Skip $ref properties — the referenced schema is generated as a top-level type
+        if (propSchema is OpenApiSchemaReference)
+            return;
+
         // Direct enum on the property
         if (propSchema.Enum is { Count: > 0 } && HasFlag(propSchema.Type ?? JsonSchemaType.Null, JsonSchemaType.String))
         {
@@ -443,10 +661,14 @@ public class SchemaGenerator
             }
         }
 
-        // Handle oneOf/anyOf — generate abstract base with derived types if discriminator present
+        // Handle oneOf/anyOf — generate abstract base with derived types only if meaningful
         if (propSchema.OneOf is { Count: > 0 } || propSchema.AnyOf is { Count: > 0 })
         {
             var variants = propSchema.OneOf is { Count: > 0 } ? propSchema.OneOf : propSchema.AnyOf!;
+
+            // Skip if variants don't produce meaningful classes
+            if (!HasMeaningfulVariants(variants))
+                return;
 
             // Skip generating a discriminated union if all variants share a common base class
             var commonBase = FindCommonBaseClass(variants);
@@ -512,6 +734,10 @@ public class SchemaGenerator
                 && (itemSchema.OneOf is { Count: > 0 } || itemSchema.AnyOf is { Count: > 0 }))
             {
                 var variants = itemSchema.OneOf is { Count: > 0 } ? itemSchema.OneOf : itemSchema.AnyOf!;
+
+                // Skip if variants don't produce meaningful classes
+                if (!HasMeaningfulVariants(variants))
+                    return;
 
                 // Skip generating a discriminated union if all variants share a common base class
                 var commonBase = FindCommonBaseClass(variants);
@@ -611,9 +837,22 @@ public class SchemaGenerator
         if (schema is OpenApiSchemaReference schemaRef)
             return Sanitize(schemaRef.Reference.Id);
 
-        // oneOf / anyOf at property level — use common base or cached union type or first ref
+        // oneOf / anyOf at property level
         if (schema.OneOf is { Count: > 0 })
         {
+            // If variants don't produce meaningful classes, resolve to best primitive or object
+            if (!HasMeaningfulVariants(schema.OneOf))
+                return ResolveNonMeaningfulOneOfType(schema.OneOf);
+
+            // Nullable wrapper pattern: if only one substantive variant exists (rest are null/primitive),
+            // resolve directly to that variant's type instead of generating a union
+            var substantiveVariants = schema.OneOf
+                .Where(v => SchemaHasSubstance(v is OpenApiSchemaReference sr ? ResolveSchemaFully(sr) ?? v : v))
+                .ToList();
+
+            if (substantiveVariants.Count == 1)
+                return ResolveTypeName(substantiveVariants[0], parentName, propertyName);
+
             var commonBase = FindCommonBaseClass(schema.OneOf);
             if (commonBase is not null)
                 return Sanitize(commonBase);
@@ -634,7 +873,20 @@ public class SchemaGenerator
         }
 
         if (schema.AnyOf is { Count: > 0 })
-        {
+        {   
+            // If variants don't produce meaningful classes, resolve to best primitive or object
+            if (!HasMeaningfulVariants(schema.AnyOf))
+                return ResolveNonMeaningfulOneOfType(schema.AnyOf);
+
+            // Nullable wrapper pattern: if only one substantive variant exists (rest are null/primitive),
+            // resolve directly to that variant's type instead of generating a union
+            var substantiveVariants = schema.AnyOf
+                .Where(v => SchemaHasSubstance(v is OpenApiSchemaReference sr ? ResolveSchemaFully(sr) ?? v : v))
+                .ToList();
+
+            if (substantiveVariants.Count == 1)
+                return ResolveTypeName(substantiveVariants[0], parentName, propertyName);
+
             var commonBase = FindCommonBaseClass(schema.AnyOf);
             if (commonBase is not null)
                 return Sanitize(commonBase);
@@ -722,6 +974,10 @@ public class SchemaGenerator
 
                 if (itemOneOf is not null)
                 {
+                    // If variants don't produce meaningful classes, resolve to simple type
+                    if (!HasMeaningfulVariants(itemOneOf))
+                        return $"List<{ResolveNonMeaningfulOneOfType(itemOneOf)}>";
+
                     var commonBase = FindCommonBaseClass(itemOneOf);
                     if (commonBase is not null)
                         return $"List<{Sanitize(commonBase)}>";

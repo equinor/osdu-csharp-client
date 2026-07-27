@@ -15,16 +15,16 @@ public class Input
     public InputOperation Operation { get; set; }
 
     [JsonPropertyName("groups")]
-    public InputGroups? Groups { get; set; }
+    public List<string>? Groups { get; set; }
 
     [JsonPropertyName("xuserid")]
-    public InputXuserid? Xuserid { get; set; }
+    public string? Xuserid { get; set; }
 
     [JsonPropertyName("token")]
-    public InputToken? Token { get; set; }
+    public string? Token { get; set; }
 
     [JsonPropertyName("datapartitionid")]
-    public InputDatapartitionid? Datapartitionid { get; set; }
+    public string? Datapartitionid { get; set; }
 
 }
 
@@ -46,64 +46,4 @@ public enum InputOperation
     [JsonStringEnumMemberName("purge")]
     Purge,
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InputGroupsVariant1), "InputGroupsVariant1")]
-[JsonDerivedType(typeof(InputGroupsVariant2), "InputGroupsVariant2")]
-public abstract class InputGroups
-{
-}
-
-public class InputGroupsVariant1 : InputGroups
-{
-}
-
-public class InputGroupsVariant2 : InputGroups
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InputXuseridVariant1), "InputXuseridVariant1")]
-[JsonDerivedType(typeof(InputXuseridVariant2), "InputXuseridVariant2")]
-public abstract class InputXuserid
-{
-}
-
-public class InputXuseridVariant1 : InputXuserid
-{
-}
-
-public class InputXuseridVariant2 : InputXuserid
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InputTokenVariant1), "InputTokenVariant1")]
-[JsonDerivedType(typeof(InputTokenVariant2), "InputTokenVariant2")]
-public abstract class InputToken
-{
-}
-
-public class InputTokenVariant1 : InputToken
-{
-}
-
-public class InputTokenVariant2 : InputToken
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(InputDatapartitionidVariant1), "InputDatapartitionidVariant1")]
-[JsonDerivedType(typeof(InputDatapartitionidVariant2), "InputDatapartitionidVariant2")]
-public abstract class InputDatapartitionid
-{
-}
-
-public class InputDatapartitionidVariant1 : InputDatapartitionid
-{
-}
-
-public class InputDatapartitionidVariant2 : InputDatapartitionid
-{
 }

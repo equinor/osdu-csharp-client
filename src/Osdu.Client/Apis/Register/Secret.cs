@@ -11,6 +11,9 @@ namespace Osdu.Client.Apis.Register;
 /// <summary>
 /// Represents a model for Secret
 /// </summary>
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "secretType")]
+[JsonDerivedType(typeof(GsaSecret), "GsaSecret")]
+[JsonDerivedType(typeof(HmacSecret), "HmacSecret")]
 public class Secret
 {
     [Required]

@@ -11,21 +11,6 @@ namespace Osdu.Client.Apis.WellboreDdms;
 public class RecordAncestry
 {
     [JsonPropertyName("parents")]
-    public RecordAncestryParents? Parents { get; set; }
+    public List<string>? Parents { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordAncestryParentsVariant1), "RecordAncestryParentsVariant1")]
-[JsonDerivedType(typeof(RecordAncestryParentsVariant2), "RecordAncestryParentsVariant2")]
-public abstract class RecordAncestryParents
-{
-}
-
-public class RecordAncestryParentsVariant1 : RecordAncestryParents
-{
-}
-
-public class RecordAncestryParentsVariant2 : RecordAncestryParents
-{
 }

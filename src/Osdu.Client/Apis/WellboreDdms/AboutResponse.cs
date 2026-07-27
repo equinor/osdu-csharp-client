@@ -11,93 +11,18 @@ namespace Osdu.Client.Apis.WellboreDdms;
 public class AboutResponse
 {
     [JsonPropertyName("service")]
-    public AboutResponseService? Service { get; set; }
+    public string? Service { get; set; }
 
     [JsonPropertyName("version")]
-    public AboutResponseVersion? Version { get; set; }
+    public string? Version { get; set; }
 
     [JsonPropertyName("buildNumber")]
-    public AboutResponseBuildNumber? BuildNumber { get; set; }
+    public string? BuildNumber { get; set; }
 
     [JsonPropertyName("cloudEnvironment")]
-    public AboutResponseCloudEnvironment? CloudEnvironment { get; set; }
+    public string? CloudEnvironment { get; set; }
 
     [JsonPropertyName("release")]
-    public AboutResponseRelease? Release { get; set; }
+    public string? Release { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(AboutResponseServiceVariant1), "AboutResponseServiceVariant1")]
-[JsonDerivedType(typeof(AboutResponseServiceVariant2), "AboutResponseServiceVariant2")]
-public abstract class AboutResponseService
-{
-}
-
-public class AboutResponseServiceVariant1 : AboutResponseService
-{
-}
-
-public class AboutResponseServiceVariant2 : AboutResponseService
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(AboutResponseVersionVariant1), "AboutResponseVersionVariant1")]
-[JsonDerivedType(typeof(AboutResponseVersionVariant2), "AboutResponseVersionVariant2")]
-public abstract class AboutResponseVersion
-{
-}
-
-public class AboutResponseVersionVariant1 : AboutResponseVersion
-{
-}
-
-public class AboutResponseVersionVariant2 : AboutResponseVersion
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(AboutResponseBuildNumberVariant1), "AboutResponseBuildNumberVariant1")]
-[JsonDerivedType(typeof(AboutResponseBuildNumberVariant2), "AboutResponseBuildNumberVariant2")]
-public abstract class AboutResponseBuildNumber
-{
-}
-
-public class AboutResponseBuildNumberVariant1 : AboutResponseBuildNumber
-{
-}
-
-public class AboutResponseBuildNumberVariant2 : AboutResponseBuildNumber
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(AboutResponseCloudEnvironmentVariant1), "AboutResponseCloudEnvironmentVariant1")]
-[JsonDerivedType(typeof(AboutResponseCloudEnvironmentVariant2), "AboutResponseCloudEnvironmentVariant2")]
-public abstract class AboutResponseCloudEnvironment
-{
-}
-
-public class AboutResponseCloudEnvironmentVariant1 : AboutResponseCloudEnvironment
-{
-}
-
-public class AboutResponseCloudEnvironmentVariant2 : AboutResponseCloudEnvironment
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(AboutResponseReleaseVariant1), "AboutResponseReleaseVariant1")]
-[JsonDerivedType(typeof(AboutResponseReleaseVariant2), "AboutResponseReleaseVariant2")]
-public abstract class AboutResponseRelease
-{
-}
-
-public class AboutResponseReleaseVariant1 : AboutResponseRelease
-{
-}
-
-public class AboutResponseReleaseVariant2 : AboutResponseRelease
-{
 }

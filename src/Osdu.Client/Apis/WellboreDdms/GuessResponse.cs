@@ -11,75 +11,15 @@ namespace Osdu.Client.Apis.WellboreDdms;
 public class GuessResponse
 {
     [JsonPropertyName("family")]
-    public GuessResponseFamily? Family { get; set; }
+    public string? Family { get; set; }
 
     [JsonPropertyName("family_type")]
-    public GuessResponseFamilyType? FamilyType { get; set; }
+    public List<string>? FamilyType { get; set; }
 
     [JsonPropertyName("log_unit")]
-    public GuessResponseLogUnit? LogUnit { get; set; }
+    public string? LogUnit { get; set; }
 
     [JsonPropertyName("base_unit")]
-    public GuessResponseBaseUnit? BaseUnit { get; set; }
+    public string? BaseUnit { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(GuessResponseFamilyVariant1), "GuessResponseFamilyVariant1")]
-[JsonDerivedType(typeof(GuessResponseFamilyVariant2), "GuessResponseFamilyVariant2")]
-public abstract class GuessResponseFamily
-{
-}
-
-public class GuessResponseFamilyVariant1 : GuessResponseFamily
-{
-}
-
-public class GuessResponseFamilyVariant2 : GuessResponseFamily
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(GuessResponseFamilyTypeVariant1), "GuessResponseFamilyTypeVariant1")]
-[JsonDerivedType(typeof(GuessResponseFamilyTypeVariant2), "GuessResponseFamilyTypeVariant2")]
-public abstract class GuessResponseFamilyType
-{
-}
-
-public class GuessResponseFamilyTypeVariant1 : GuessResponseFamilyType
-{
-}
-
-public class GuessResponseFamilyTypeVariant2 : GuessResponseFamilyType
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(GuessResponseLogUnitVariant1), "GuessResponseLogUnitVariant1")]
-[JsonDerivedType(typeof(GuessResponseLogUnitVariant2), "GuessResponseLogUnitVariant2")]
-public abstract class GuessResponseLogUnit
-{
-}
-
-public class GuessResponseLogUnitVariant1 : GuessResponseLogUnit
-{
-}
-
-public class GuessResponseLogUnitVariant2 : GuessResponseLogUnit
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(GuessResponseBaseUnitVariant1), "GuessResponseBaseUnitVariant1")]
-[JsonDerivedType(typeof(GuessResponseBaseUnitVariant2), "GuessResponseBaseUnitVariant2")]
-public abstract class GuessResponseBaseUnit
-{
-}
-
-public class GuessResponseBaseUnitVariant1 : GuessResponseBaseUnit
-{
-}
-
-public class GuessResponseBaseUnitVariant2 : GuessResponseBaseUnit
-{
 }

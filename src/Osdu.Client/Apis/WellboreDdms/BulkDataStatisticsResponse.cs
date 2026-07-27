@@ -37,23 +37,3 @@ public class BulkDataStatisticsResponse
     public Dictionary<string, CurveStatistics> Data { get; set; }
 
 }
-
-/// <summary>
-/// Status available for computation of bulk data statistics
-/// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum BulkDataStatisticsResponseComputationStatus
-{
-    [JsonStringEnumMemberName("error")]
-    Error,
-
-    [JsonStringEnumMemberName("started")]
-    Started,
-
-    [JsonStringEnumMemberName("running")]
-    Running,
-
-    [JsonStringEnumMemberName("complete")]
-    Complete,
-
-}

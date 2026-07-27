@@ -15,25 +15,10 @@ public class CatalogItem
     public string Unit { get; set; }
 
     [JsonPropertyName("family")]
-    public CatalogItemFamily? Family { get; set; }
+    public string? Family { get; set; }
 
     [Required]
     [JsonPropertyName("rule")]
     public string Rule { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(CatalogItemFamilyVariant1), "CatalogItemFamilyVariant1")]
-[JsonDerivedType(typeof(CatalogItemFamilyVariant2), "CatalogItemFamilyVariant2")]
-public abstract class CatalogItemFamily
-{
-}
-
-public class CatalogItemFamilyVariant1 : CatalogItemFamily
-{
-}
-
-public class CatalogItemFamilyVariant2 : CatalogItemFamily
-{
 }

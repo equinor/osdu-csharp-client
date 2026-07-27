@@ -8,6 +8,14 @@ using System.Text.Json.Serialization;
 
 namespace Osdu.Client.Apis.CrsConversion;
 
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(GeoJsonGeometryCollection), "GeoJsonGeometryCollection")]
+[JsonDerivedType(typeof(GeoJsonLineString), "GeoJsonLineString")]
+[JsonDerivedType(typeof(GeoJsonMultiLineString), "GeoJsonMultiLineString")]
+[JsonDerivedType(typeof(GeoJsonMultiPoint), "GeoJsonMultiPoint")]
+[JsonDerivedType(typeof(GeoJsonMultiPolygon), "GeoJsonMultiPolygon")]
+[JsonDerivedType(typeof(GeoJsonPoint), "GeoJsonPoint")]
+[JsonDerivedType(typeof(GeoJsonPolygon), "GeoJsonPolygon")]
 public class GeoJsonBase
 {
     [JsonPropertyName("geoJsonVariantInternal")]

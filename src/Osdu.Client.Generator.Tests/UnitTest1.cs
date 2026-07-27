@@ -2,6 +2,7 @@
 //using Osdu.Client.Data.Schemas;
 //using Osdu.Client.Apis.CrsConversion;
 //using Osdu.Client.Apis.Search;
+//using Osdu.Client.Apis.RafsDdms;
 
 //namespace Osdu.Client.Generator.Tests;
 
@@ -16,7 +17,8 @@
 //        GeoJsonGeometryCollection geo;
 //        //geo.Geometries
 
-//        GeoJsonGeometryCollectionGeometries geo1;
+//        IRafsDdmsApiClient client;
+//        client.
 
 //        //Class1 class1 = new Class1();
 //    }

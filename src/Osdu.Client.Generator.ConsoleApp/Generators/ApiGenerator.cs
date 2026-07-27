@@ -48,7 +48,7 @@ public class ApiGenerator
             Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
         }
 
-        _logger.LogInformation($"    Generated API client: {outputFile}");
+        _logger.LogInformation($"    Generated API client: {apiClientName}Client.cs");
         File.WriteAllText(outputFile, sb.ToString());
     }
 

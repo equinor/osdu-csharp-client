@@ -15,21 +15,6 @@ public class UserDetailRequestModel
     public UserDetailsModel UserDetail { get; set; }
 
     [JsonPropertyName("ttl")]
-    public UserDetailRequestModelTtl? Ttl { get; set; }
+    public int? Ttl { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(UserDetailRequestModelTtlVariant1), "UserDetailRequestModelTtlVariant1")]
-[JsonDerivedType(typeof(UserDetailRequestModelTtlVariant2), "UserDetailRequestModelTtlVariant2")]
-public abstract class UserDetailRequestModelTtl
-{
-}
-
-public class UserDetailRequestModelTtlVariant1 : UserDetailRequestModelTtl
-{
-}
-
-public class UserDetailRequestModelTtlVariant2 : UserDetailRequestModelTtl
-{
 }

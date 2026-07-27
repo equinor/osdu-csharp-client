@@ -18,7 +18,7 @@ public class CursorQueryRequest
     /// </summary>
     [Required]
     [JsonPropertyName("kind")]
-    public CursorQueryRequestKind Kind { get; set; }
+    public object Kind { get; set; }
 
     /// <summary>
     /// The maximum number of results to return from the given offset. If no limit is provided, then it will return 10 items. Max number of items which can be fetched by the query is 1000. (If you wish to fetch large set of items, please use query_with_cursor API)
@@ -87,22 +87,4 @@ public class CursorQueryRequest
     [JsonPropertyName("cursor")]
     public string Cursor { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(CursorQueryRequestKindVariant1), "CursorQueryRequestKindVariant1")]
-[JsonDerivedType(typeof(CursorQueryRequestKindVariant2), "CursorQueryRequestKindVariant2")]
-public abstract class CursorQueryRequestKind
-{
-}
-
-/// <summary>
-/// A single data kind, formatted {authority}:{source}:{entityType}:{version}.
-/// </summary>
-public class CursorQueryRequestKindVariant1 : CursorQueryRequestKind
-{
-}
-
-public class CursorQueryRequestKindVariant2 : CursorQueryRequestKind
-{
 }

@@ -15,21 +15,7 @@ public class Catalog
     public List<CatalogItem> FamilyCatalog { get; set; }
 
     [JsonPropertyName("main_family_catalog")]
-    public CatalogMainFamilyCatalog? MainFamilyCatalog { get; set; }
+    public List<MainFamilyCatalogItem>? MainFamilyCatalog { get; set; }
 
 }
 
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(CatalogMainFamilyCatalogVariant1), "CatalogMainFamilyCatalogVariant1")]
-[JsonDerivedType(typeof(CatalogMainFamilyCatalogVariant2), "CatalogMainFamilyCatalogVariant2")]
-public abstract class CatalogMainFamilyCatalog
-{
-}
-
-public class CatalogMainFamilyCatalogVariant1 : CatalogMainFamilyCatalog
-{
-}
-
-public class CatalogMainFamilyCatalogVariant2 : CatalogMainFamilyCatalog
-{
-}

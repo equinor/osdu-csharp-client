@@ -18,17 +18,3 @@ public class UpdateSessionState
     public UpdateSessionStateValue State { get; set; }
 
 }
-
-/// <summary>
-/// `commit` or `abandon` a session
-/// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum UpdateSessionStateState
-{
-    [JsonStringEnumMemberName("commit")]
-    Commit,
-
-    [JsonStringEnumMemberName("abandon")]
-    Abandon,
-
-}

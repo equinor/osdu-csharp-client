@@ -11,39 +11,9 @@ namespace Osdu.Client.Apis.WellboreDdms;
 public class RecordVersions
 {
     [JsonPropertyName("recordId")]
-    public RecordVersionsRecordId? RecordId { get; set; }
+    public string? RecordId { get; set; }
 
     [JsonPropertyName("versions")]
-    public RecordVersionsVersions? Versions { get; set; }
+    public List<long>? Versions { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordVersionsRecordIdVariant1), "RecordVersionsRecordIdVariant1")]
-[JsonDerivedType(typeof(RecordVersionsRecordIdVariant2), "RecordVersionsRecordIdVariant2")]
-public abstract class RecordVersionsRecordId
-{
-}
-
-public class RecordVersionsRecordIdVariant1 : RecordVersionsRecordId
-{
-}
-
-public class RecordVersionsRecordIdVariant2 : RecordVersionsRecordId
-{
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(RecordVersionsVersionsVariant1), "RecordVersionsVersionsVariant1")]
-[JsonDerivedType(typeof(RecordVersionsVersionsVariant2), "RecordVersionsVersionsVariant2")]
-public abstract class RecordVersionsVersions
-{
-}
-
-public class RecordVersionsVersionsVariant1 : RecordVersionsVersions
-{
-}
-
-public class RecordVersionsVersionsVariant2 : RecordVersionsVersions
-{
 }

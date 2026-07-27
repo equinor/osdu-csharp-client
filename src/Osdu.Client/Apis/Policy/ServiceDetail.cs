@@ -11,21 +11,6 @@ namespace Osdu.Client.Apis.Policy;
 public class ServiceDetail
 {
     [JsonPropertyName("version")]
-    public ServiceDetailVersion? Version { get; set; }
+    public string? Version { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(ServiceDetailVersionVariant1), "ServiceDetailVersionVariant1")]
-[JsonDerivedType(typeof(ServiceDetailVersionVariant2), "ServiceDetailVersionVariant2")]
-public abstract class ServiceDetailVersion
-{
-}
-
-public class ServiceDetailVersionVariant1 : ServiceDetailVersion
-{
-}
-
-public class ServiceDetailVersionVariant2 : ServiceDetailVersion
-{
 }

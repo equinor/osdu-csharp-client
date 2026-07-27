@@ -14,7 +14,7 @@ public class CommitSessionResponse
     /// miscellaneous metadata associated to the session. The session creator can set some data here.
     /// </summary>
     [JsonPropertyName("meta")]
-    public CommitSessionResponseMeta? Meta { get; set; }
+    public object? Meta { get; set; }
 
     /// <summary>
     /// identifier of the current session.
@@ -73,70 +73,6 @@ public class CommitSessionResponse
     /// Record version in case of successful commit
     /// </summary>
     [JsonPropertyName("version")]
-    public CommitSessionResponseVersion? Version { get; set; }
+    public long? Version { get; set; }
 
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(CommitSessionResponseMetaVariant1), "CommitSessionResponseMetaVariant1")]
-[JsonDerivedType(typeof(CommitSessionResponseMetaVariant2), "CommitSessionResponseMetaVariant2")]
-public abstract class CommitSessionResponseMeta
-{
-}
-
-public class CommitSessionResponseMetaVariant1 : CommitSessionResponseMeta
-{
-}
-
-public class CommitSessionResponseMetaVariant2 : CommitSessionResponseMeta
-{
-}
-
-/// <summary>
-/// merge mode at commit. If 'update', existing data will be merged with the data sent during the session. If 'overrride', existing data will be ignored, the final result will only contains data sent within the session.
-/// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CommitSessionResponseMode
-{
-    [JsonStringEnumMemberName("overwrite")]
-    Overwrite,
-
-    [JsonStringEnumMemberName("update")]
-    Update,
-
-}
-
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CommitSessionResponseState
-{
-    [JsonStringEnumMemberName("open")]
-    Open,
-
-    [JsonStringEnumMemberName("committing")]
-    Committing,
-
-    [JsonStringEnumMemberName("abandoning")]
-    Abandoning,
-
-    [JsonStringEnumMemberName("committed")]
-    Committed,
-
-    [JsonStringEnumMemberName("abandoned")]
-    Abandoned,
-
-}
-
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(CommitSessionResponseVersionVariant1), "CommitSessionResponseVersionVariant1")]
-[JsonDerivedType(typeof(CommitSessionResponseVersionVariant2), "CommitSessionResponseVersionVariant2")]
-public abstract class CommitSessionResponseVersion
-{
-}
-
-public class CommitSessionResponseVersionVariant1 : CommitSessionResponseVersion
-{
-}
-
-public class CommitSessionResponseVersionVariant2 : CommitSessionResponseVersion
-{
 }
