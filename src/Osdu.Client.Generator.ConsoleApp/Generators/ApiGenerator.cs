@@ -180,8 +180,12 @@ public class ApiGenerator
         string urlExpr = path;
         foreach (ParameterInfo pathParam in pathParams)
         {
-            urlExpr = urlExpr.Replace($"{{{pathParam.OriginalName}}}", $"{{{pathParam.CSharpName}}}");
+            urlExpr = urlExpr.Replace($"{{{pathParam.OriginalName}}}", $"\x00{pathParam.CSharpName}\x01");
         }
+        // Escape remaining braces that are not path parameters (literal path segments)
+        urlExpr = urlExpr.Replace("{", "").Replace("}", "");
+        // Restore path parameter interpolation braces
+        urlExpr = urlExpr.Replace('\x00', '{').Replace('\x01', '}');
 
         if (queryParams.Any())
         {

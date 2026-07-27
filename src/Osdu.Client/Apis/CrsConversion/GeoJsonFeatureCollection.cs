@@ -11,10 +11,10 @@ namespace Osdu.Client.Apis.CrsConversion;
 public class GeoJsonFeatureCollection
 {
     [JsonPropertyName("coordinateReferenceSystemID")]
-    public string CoordinateReferenceSystemID { get; set; }
+    public string coordinateReferenceSystemID { get; set; }
 
     [JsonPropertyName("verticalUnitID")]
-    public string VerticalUnitID { get; set; }
+    public string verticalUnitID { get; set; }
 
     [JsonPropertyName("geoJsonVariantInternal")]
     public GeoJsonFeatureCollectionGeoJsonVariantInternal GeoJsonVariantInternal { get; set; }

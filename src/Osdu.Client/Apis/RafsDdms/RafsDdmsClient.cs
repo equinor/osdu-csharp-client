@@ -567,7 +567,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
         var queryString = queryParts.Count > 0 ? "?" + string.Join("&", queryParts) : "";
-        var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{analysistype}/data/schema{queryString}";
+        var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/analysistype/data/schema{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
         request.Headers.Add("data-partition-id", dataPartitionId);

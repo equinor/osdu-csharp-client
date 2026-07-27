@@ -184,9 +184,19 @@ public class SchemaGenerator
 
         if (properties is not null)
         {
+            // Detect PascalCase collisions: multiple JSON property names that map to the same C# name
+            var pascalCaseGroups = properties.Keys
+                .GroupBy(p => Sanitize(p.ToPascalCase()), StringComparer.Ordinal)
+                .Where(g => g.Count() > 1)
+                .SelectMany(g => g)
+                .ToHashSet(StringComparer.Ordinal);
+
             foreach (var (propName, propSchema) in properties)
             {
-                GenerateProperty(sb, propName, propSchema, required.Contains(propName), prefix + "    ", name);
+                // If this property name collides with another after PascalCase conversion,
+                // use the original JSON property name as the C# property name instead
+                string? csharpNameOverride = pascalCaseGroups.Contains(propName) ? propName : null;
+                GenerateProperty(sb, propName, propSchema, required.Contains(propName), prefix + "    ", name, csharpNameOverride);
             }
         }
 
@@ -769,9 +779,10 @@ public class SchemaGenerator
         IOpenApiSchema propSchema,
         bool isRequired,
         string prefix,
-        string parentName)
+        string parentName,
+        string? csharpNameOverride = null)
     {
-        var csharpName = Sanitize(propName.ToPascalCase());
+        var csharpName = csharpNameOverride ?? Sanitize(propName.ToPascalCase());
         if (csharpName == "Unknown" && !propName.Any(char.IsLetterOrDigit))
         {
             // Skip properties with no valid identifier characters (e.g., wildcard patterns like "< * >")
