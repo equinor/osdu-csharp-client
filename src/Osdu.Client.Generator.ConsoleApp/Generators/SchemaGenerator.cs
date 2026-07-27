@@ -552,6 +552,12 @@ public class SchemaGenerator
             return;
         }
 
+        // CS0542: member names cannot be the same as their enclosing type
+        if (csharpName == Sanitize(parentName))
+        {
+            csharpName += "Value";
+        }
+
         if (propSchema.Description is not null)
         {
             AppendSummary(sb, propSchema.Description, prefix);

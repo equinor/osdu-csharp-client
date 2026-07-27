@@ -12,6 +12,6 @@ public class Detail
 {
     [Required]
     [JsonPropertyName("detail")]
-    public string Detail { get; set; }
+    public string DetailValue { get; set; }
 
 }
