@@ -32,7 +32,7 @@ public interface IStorageApiClient
     /// <summary>
     /// Modify record data and/or metadata attributes using patch operations
     /// </summary>
-    Task<PatchRecordsResponse> UpdateRecordsMetadataAsync(string dataPartitionId, string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<PatchRecordsResponse> UpdateRecordsMetadataAsync(string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Copy Record references form one namespace to another
@@ -195,12 +195,11 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Modify record data and/or metadata attributes using patch operations
     /// </summary>
-    public async Task<PatchRecordsResponse> UpdateRecordsMetadataAsync(string dataPartitionId, string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<PatchRecordsResponse> UpdateRecordsMetadataAsync(string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Headers.Add("data-partition-id", dataPartitionId);
         if (xCollaboration is not null)
             request.Headers.Add("x-collaboration", xCollaboration);

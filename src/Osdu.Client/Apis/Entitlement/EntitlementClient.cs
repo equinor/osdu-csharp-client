@@ -27,7 +27,7 @@ public interface IEntitlementApiClient
     /// <summary>
     /// List Groups
     /// </summary>
-    Task<ListGroupResponseDto> ListGroupsAsync(string dataPartitionId, string dataPartitionId, bool? roleRequired = default, string onBehalfOf = default, CancellationToken cancellationToken = default);
+    Task<ListGroupResponseDto> ListGroupsAsync(string dataPartitionId, bool? roleRequired = default, string onBehalfOf = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create Group
@@ -133,7 +133,7 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// List Groups
     /// </summary>
-    public async Task<ListGroupResponseDto> ListGroupsAsync(string dataPartitionId, string dataPartitionId, bool? roleRequired = default, string onBehalfOf = default, CancellationToken cancellationToken = default)
+    public async Task<ListGroupResponseDto> ListGroupsAsync(string dataPartitionId, bool? roleRequired = default, string onBehalfOf = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (roleRequired.HasValue)
@@ -142,7 +142,6 @@ public partial class EntitlementApiClient : IEntitlementApiClient
         var requestUrl = $"{_baseUrl}/groups{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Headers.Add("data-partition-id", dataPartitionId);
         if (onBehalfOf is not null)
             request.Headers.Add("on-behalf-of", onBehalfOf);

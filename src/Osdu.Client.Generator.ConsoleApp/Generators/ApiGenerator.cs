@@ -92,7 +92,7 @@ public class ApiGenerator
         {
             foreach (var (method, operation) in pathItem.Operations!)
             {
-                BuildMethodSignature(sb, path, method, operation, isInterface: true);
+                BuildMethodSignature(sb, path, method, operation, isInterface: true, pathItem);
             }
         }
 
@@ -128,17 +128,17 @@ public class ApiGenerator
         {
             foreach (var (method, operation) in pathItem.Operations)
             {
-                BuildMethod(sb, path, method, operation);
+                BuildMethod(sb, path, method, operation, pathItem);
             }
         }
 
         sb.AppendLine("}");
     }
 
-    private void BuildMethodSignature(StringBuilder sb, string path, HttpMethod method, OpenApiOperation operation, bool isInterface)
+    private void BuildMethodSignature(StringBuilder sb, string path, HttpMethod method, OpenApiOperation operation, bool isInterface, IOpenApiPathItem? pathItem = null)
     {
         string methodName = operation.OperationId?.ToPascalCase() ?? $"{method}{SanitizePath(path)}";
-        var (returnType, parameters) = ResolveMethodDetails(operation);
+        var (returnType, parameters) = ResolveMethodDetails(operation, pathItem);
         string paramList = BuildParameterList(parameters);
 
         if (operation.Summary is not null)
@@ -155,10 +155,10 @@ public class ApiGenerator
             sb.AppendLine();
     }
 
-    private void BuildMethod(StringBuilder sb, string path, HttpMethod method, OpenApiOperation operation)
+    private void BuildMethod(StringBuilder sb, string path, HttpMethod method, OpenApiOperation operation, IOpenApiPathItem? pathItem = null)
     {
         string methodName = operation.OperationId?.ToPascalCase() ?? $"{method}{SanitizePath(path)}";
-        var (returnType, parameters) = ResolveMethodDetails(operation);
+        var (returnType, parameters) = ResolveMethodDetails(operation, pathItem);
         string paramList = BuildParameterList(parameters);
 
         if (operation.Summary is not null)
@@ -258,29 +258,45 @@ public class ApiGenerator
         sb.AppendLine();
     }
 
-    private (string ReturnType, IList<ParameterInfo> Parameters) ResolveMethodDetails(OpenApiOperation operation)
+    private (string ReturnType, IList<ParameterInfo> Parameters) ResolveMethodDetails(OpenApiOperation operation, IOpenApiPathItem? pathItem = null)
     {
         IList<ParameterInfo> parameters = new List<ParameterInfo>();
 
-        // Path, query, header parameters
+        // Merge path-level parameters with operation-level parameters.
+        // Operation parameters override path-level parameters with the same name and location.
+        var allParams = new List<IOpenApiParameter>();
+
+        if (pathItem?.Parameters is not null)
+        {
+            allParams.AddRange(pathItem.Parameters);
+        }
+
         if (operation.Parameters is not null)
         {
-            foreach (var param in operation.Parameters)
+            foreach (var opParam in operation.Parameters)
             {
-                string csharpType = ResolveParamType(param.Schema);
-                bool isRequired = param.Required;
-                if (!isRequired && !csharpType.EndsWith("?") && csharpType != "string")
-                    csharpType += "?";
-
-                parameters.Add(new ParameterInfo
-                {
-                    OriginalName = param.Name!,
-                    CSharpName = SanitizeParamName(param.Name!),
-                    Type = csharpType,
-                    Location = param.In.ToString()!.ToLowerInvariant(),
-                    IsRequired = isRequired
-                });
+                // Remove any path-level param with the same name/location (operation overrides)
+                allParams.RemoveAll(p => p.Name == opParam.Name && p.In == opParam.In);
+                allParams.Add(opParam);
             }
+        }
+
+        // Path, query, header parameters
+        foreach (var param in allParams)
+        {
+            string csharpType = ResolveParamType(param.Schema);
+            bool isRequired = param.Required;
+            if (!isRequired && !csharpType.EndsWith("?") && csharpType != "string")
+                csharpType += "?";
+
+            parameters.Add(new ParameterInfo
+            {
+                OriginalName = param.Name!,
+                CSharpName = SanitizeParamName(param.Name!),
+                Type = csharpType,
+                Location = param.In.ToString()!.ToLowerInvariant(),
+                IsRequired = isRequired
+            });
         }
 
         // Request body
