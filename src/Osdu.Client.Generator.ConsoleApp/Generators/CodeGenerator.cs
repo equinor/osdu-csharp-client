@@ -36,10 +36,7 @@ public class CodeGenerator
             return;
         }
 
-        //if (!Directory.Exists(_configuration.Api.OutputDir))
-        //{
-            Directory.CreateDirectory(_configuration.Api.OutputDir);
-        //}
+        Directory.CreateDirectory(_configuration.Api.OutputDir);
 
         _logger.LogInformation($"  Reading API definitions from directory: {_configuration.Api.DefinitionsDir}");
         string[] jsonFiles = Directory.GetFiles(_configuration.Api.DefinitionsDir, "*.json", SearchOption.AllDirectories);
@@ -56,10 +53,9 @@ public class CodeGenerator
             // Generate API schema
             string apiClientName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
             string outputDir = Path.Combine(_configuration.Api.OutputDir, apiClientName);
+            string apiNamespace = $"{_configuration.Api.Namespace}.{apiClientName}";
 
-            _schemaGenerator.GenerateNew(jsonFile, outputDir, _configuration.Api.Namespace);
-
-            //break; // Remove this break statement to process all files        
+            _schemaGenerator.GenerateNew(jsonFile, outputDir, apiNamespace);
         }
 
     }
@@ -84,23 +80,21 @@ public class CodeGenerator
         {
             _logger.LogInformation($"  Building data schema from definition file: {jsonFile}");
 
-            var relativePath = Path.GetRelativePath(_configuration.Schema.DefinitionsDir, jsonFile);
-            var relativeDir = Path.GetDirectoryName(relativePath) ?? string.Empty;
-            var outputDir = Path.Combine(_configuration.Schema.OutputDir, relativeDir);
+            string relativePath = Path.GetRelativePath(_configuration.Schema.DefinitionsDir, jsonFile);
+            string relativeDir = Path.GetDirectoryName(relativePath).ToPascalCase() ?? string.Empty;
+            string outputDir = Path.Combine(_configuration.Schema.OutputDir, relativeDir);
+            string schemaNamespace = $"{_configuration.Schema.Namespace}" + (relativeDir == "" ? "" : $".{relativeDir}");
 
             // Generate data schema
-            string schemaName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
-            //string outputDir = Path.Combine(_configuration.Schema.OutputDir, schemaName);
+            _schemaGenerator.GenerateNew(jsonFile, outputDir, schemaNamespace, false);
 
-            _schemaGenerator.GenerateNew(jsonFile, outputDir, _configuration.Schema.Namespace, false);
+            //counter++;
 
-            counter++;
-
-            if (counter > 10)
-            {
-                break;
-            }
-            //break; // Remove this break statement to process all files        
+            //if (counter > 10)
+            //{
+            //    break;
+            //}
+            ////break; // Remove this break statement to process all files        
         }
     }
 }

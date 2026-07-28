@@ -36,8 +36,11 @@ public class SchemaGenerator
 
     public void GenerateNew(string jsonFile, string outputDir, string baseNamespace, bool hasOpenApiHeader = true)
     {
-        string schemaName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
-        string schemaNamespace = $"{baseNamespace}.{schemaName}";
+        //string schemaName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
+        string schemaName = Path.GetFileNameWithoutExtension(jsonFile).Replace('.', '_');
+        string parentName = Path.GetFileName(Path.GetDirectoryName(jsonFile) ?? string.Empty).ToPascalCase();
+        //string schemaNamespace = $"{baseNamespace}.{schemaName}";
+        string schemaNamespace = $"{baseNamespace}";
 
         string jsonContent = File.ReadAllText(jsonFile);
         if (!hasOpenApiHeader)
@@ -56,11 +59,6 @@ public class SchemaGenerator
         if (openApiDocument == null)
         {
             _logger.LogWarning($"  Failed to parse OpenAPI document from definition file: {jsonFile}");
-
-            //result?.Diagnostic?.Errors.ToList().ForEach(error =>
-            //{
-            //    _logger.LogWarning($"    - {error.Message}");
-            //});
             return;
         }
 
@@ -81,9 +79,9 @@ public class SchemaGenerator
 
         foreach (var (name, code) in _context.GeneratedTypes)
         {
-            string outputFile = Path.Combine(outputDir, $"{name}.cs");
+            string outputFile = Path.Combine(outputDir, $"{MakeName(name)}.cs");
             File.WriteAllText(outputFile, code);
-            _logger.LogInformation($"    Generated schema: {name}.cs");
+            _logger.LogInformation($"    Generated schema: {MakeName(name)}.cs");
         }
     }
 
@@ -105,30 +103,13 @@ public class SchemaGenerator
         return wrappedJson;
     }
 
-    //public void Generate(string outputFolder)
-    //{
-    //    Directory.CreateDirectory(outputFolder);
+    private string MakeName(string name)
+    {
+        return name.Replace('-', '_')
+            .Replace(' ', '_')
+            .Replace('.', '_');
 
-    //    var schemas = _context.Document.Components?.Schemas;
-    //    if (schemas is null || schemas.Count == 0)
-    //    {
-    //        Console.WriteLine("No schemas found in document.");
-    //        return;
-    //    }
-
-    //    foreach (var (name, schema) in schemas)
-    //    {
-    //        var code = GenerateFileForSchema(name, schema);
-    //        _context.GeneratedTypes[name] = code;
-    //    }
-
-    //    foreach (var (name, code) in _context.GeneratedTypes)
-    //    {
-    //        string outputFile = Path.Combine(outputFolder, $"{name}.cs");
-    //        File.WriteAllText(outputFile, code);
-    //        _logger.LogInformation($"    * Generated schema file: {outputFile}");
-    //    }
-    //}
+    }
 
     private string GenerateFileForSchema(string name, IOpenApiSchema schema)
     {
