@@ -19,6 +19,22 @@ public static class SchemaHelpers
         return !HasFlag(type, JsonSchemaType.String) && !HasFlag(type, JsonSchemaType.Array);
     }
 
+    //public static string Sanitize(string? name)
+    //{
+    //    if (string.IsNullOrEmpty(name)) return "Unknown";
+    //    var result = new StringBuilder();
+    //    foreach (var ch in name)
+    //    {
+    //        if (char.IsLetterOrDigit(ch) || ch == '_')
+    //            result.Append(ch);
+    //    }
+    //    if (result.Length == 0)
+    //        return "Unknown";
+    //    if (result.Length > 0 && char.IsDigit(result[0]))
+    //        result.Insert(0, '_');
+    //    return result.ToString().Replace("json", "");
+    //}
+
     public static string Sanitize(string? name)
     {
         if (string.IsNullOrEmpty(name)) return "Unknown";
@@ -27,12 +43,20 @@ public static class SchemaHelpers
         {
             if (char.IsLetterOrDigit(ch) || ch == '_')
                 result.Append(ch);
+            else if (ch == '.')
+                result.Append('_');
         }
         if (result.Length == 0)
             return "Unknown";
-        if (result.Length > 0 && char.IsDigit(result[0]))
-            result.Insert(0, '_');
-        return result.ToString().Replace("json", "");
+        // Remove "json" suffix (from schema file references)
+        var sanitized = result.ToString().Replace("json", "");
+        // Trim trailing underscores after all replacements
+        sanitized = sanitized.TrimEnd('_');
+        if (sanitized.Length == 0)
+            return "Unknown";
+        if (char.IsDigit(sanitized[0]))
+            sanitized = "_" + sanitized;
+        return sanitized;
     }
 
     public static string EscapeXml(string text)
