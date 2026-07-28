@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Osdu.Client.Generator.ConsoleApp.Configuration;
 using Osdu.Client.Generator.ConsoleApp.Extensions;
+using Osdu.Client.Generator.ConsoleApp.Generators.Api;
 using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
 
 namespace Osdu.Client.Generator.ConsoleApp.Generators;

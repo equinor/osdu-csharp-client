@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Osdu.Client.Generator.ConsoleApp.Configuration;
 using Osdu.Client.Generator.ConsoleApp.Generators;
+using Osdu.Client.Generator.ConsoleApp.Generators.Api;
 using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
 using Serilog;
 

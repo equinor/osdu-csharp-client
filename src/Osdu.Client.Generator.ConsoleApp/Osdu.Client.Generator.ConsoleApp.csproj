@@ -9,7 +9,11 @@
 
   <ItemGroup>
     <Compile Remove="CodeGenerator - Copy.cs" />
+    <Compile Remove="Generators\ApiGenerator.cs" />
+    <Compile Remove="Generators\SchemaGenerator - Copy %282%29.cs" />
+    <Compile Remove="Generators\SchemaGenerator - Copy %283%29.cs" />
     <Compile Remove="Generators\SchemaGenerator - Copy.cs" />
+    <Compile Remove="Generators\SchemaGenerator.cs" />
     <Compile Remove="Program - Copy.cs" />
   </ItemGroup>
 
