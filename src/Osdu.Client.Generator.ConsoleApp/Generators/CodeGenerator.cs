@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Osdu.Client.Generator.ConsoleApp.Configuration;
 using Osdu.Client.Generator.ConsoleApp.Extensions;
+using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
 
 namespace Osdu.Client.Generator.ConsoleApp.Generators;
 
@@ -35,10 +36,10 @@ public class CodeGenerator
             return;
         }
 
-        if (!Directory.Exists(_configuration.Api.OutputDir))
-        {
+        //if (!Directory.Exists(_configuration.Api.OutputDir))
+        //{
             Directory.CreateDirectory(_configuration.Api.OutputDir);
-        }
+        //}
 
         _logger.LogInformation($"  Reading API definitions from directory: {_configuration.Api.DefinitionsDir}");
         string[] jsonFiles = Directory.GetFiles(_configuration.Api.DefinitionsDir, "*.json", SearchOption.AllDirectories);
@@ -63,20 +64,43 @@ public class CodeGenerator
 
     }
 
-    private void GenerateApiSchemas()
+    private void GenerateDataSchemas()
     {
-        _logger.LogInformation("Generating API schemas...");
+        _logger.LogInformation("Generating data schemas...");
 
-        if (!Directory.Exists(_configuration.Api.DefinitionsDir))
+        if (!Directory.Exists(_configuration.Schema.DefinitionsDir))
         {
-            _logger.LogError($"No API schemas generated because API definitions directory not found: {_configuration.Api.DefinitionsDir}");
+            _logger.LogError($"No data schemas generated because data schema definitions directory not found: {_configuration.Schema.DefinitionsDir}");
             return;
         }
 
-    }
+        _logger.LogInformation($"  Reading data schema definitions from directory: {_configuration.Schema.DefinitionsDir}");
+        string[] jsonFiles = Directory.GetFiles(_configuration.Schema.DefinitionsDir, "*.json", SearchOption.AllDirectories);
 
-    private void GenerateDataSchemas()
-    {
-        _logger.LogInformation("Generating Data schemas...");
+        _logger.LogInformation($"  Found {jsonFiles.Length} data schema definitions");
+
+        int counter = 1;
+        foreach (string jsonFile in jsonFiles)
+        {
+            _logger.LogInformation($"  Building data schema from definition file: {jsonFile}");
+
+            var relativePath = Path.GetRelativePath(_configuration.Schema.DefinitionsDir, jsonFile);
+            var relativeDir = Path.GetDirectoryName(relativePath) ?? string.Empty;
+            var outputDir = Path.Combine(_configuration.Schema.OutputDir, relativeDir);
+
+            // Generate data schema
+            string schemaName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
+            //string outputDir = Path.Combine(_configuration.Schema.OutputDir, schemaName);
+
+            _schemaGenerator.GenerateNew(jsonFile, outputDir, _configuration.Schema.Namespace, false);
+
+            counter++;
+
+            if (counter > 10)
+            {
+                break;
+            }
+            //break; // Remove this break statement to process all files        
+        }
     }
 }

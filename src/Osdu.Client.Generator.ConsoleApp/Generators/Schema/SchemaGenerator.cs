@@ -1,0 +1,151 @@
+using System.Text;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Reader;
+using Osdu.Client.Generator.ConsoleApp.Configuration;
+using Osdu.Client.Generator.ConsoleApp.Extensions;
+using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Osdu.Client.Generator.ConsoleApp.Generators.Schema;
+
+public class SchemaGenerator
+{
+    private readonly ILogger<SchemaGenerator> _logger;
+    private readonly AppConfiguration _configuration;
+
+    private readonly SchemaGeneratorContext _context = new();
+    private SchemaResolver _resolver = null!;
+    private TypeNameResolver _typeNameResolver = null!;
+    private PropertyGenerator _propertyGenerator = null!;
+    private TypeGenerator _typeGenerator = null!;
+
+    public SchemaGenerator(ILogger<SchemaGenerator> logger, AppConfiguration configuration)
+    {
+        _logger = logger;
+        _configuration = configuration;
+    }
+
+    private void InitializeComponents()
+    {
+        _resolver = new SchemaResolver(_context);
+        _typeNameResolver = new TypeNameResolver(_resolver, _context);
+        _propertyGenerator = new PropertyGenerator(_typeNameResolver);
+        _typeGenerator = new TypeGenerator(_context, _resolver, _typeNameResolver, _propertyGenerator);
+    }
+
+    public void GenerateNew(string jsonFile, string outputDir, string baseNamespace, bool hasOpenApiHeader = true)
+    {
+        string schemaName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
+        string schemaNamespace = $"{baseNamespace}.{schemaName}";
+
+        string jsonContent = File.ReadAllText(jsonFile);
+        if (!hasOpenApiHeader)
+        {
+            jsonContent = AddOpenApiHeader(jsonContent, schemaName);
+        }
+
+        ReadResult? result = OpenApiDocument.Parse(jsonContent, "json");
+        OpenApiDocument? openApiDocument = result?.Document;
+        _context.Document = openApiDocument!;
+        _context.Namespace = schemaNamespace;
+        _context.Reset();
+
+        InitializeComponents();
+
+        if (openApiDocument == null)
+        {
+            _logger.LogWarning($"  Failed to parse OpenAPI document from definition file: {jsonFile}");
+
+            //result?.Diagnostic?.Errors.ToList().ForEach(error =>
+            //{
+            //    _logger.LogWarning($"    - {error.Message}");
+            //});
+            return;
+        }
+
+        Directory.CreateDirectory(outputDir);
+
+        IDictionary<string, IOpenApiSchema>? schemas = _context.Document.Components?.Schemas;
+        if (schemas is null || schemas.Count == 0)
+        {
+            _logger.LogWarning($"No schemas found in definition file: {jsonFile}");
+            return;
+        }
+
+        foreach (var (name, schema) in schemas)
+        {
+            var code = GenerateFileForSchema(name, schema);
+            _context.GeneratedTypes[name] = code;
+        }
+
+        foreach (var (name, code) in _context.GeneratedTypes)
+        {
+            string outputFile = Path.Combine(outputDir, $"{name}.cs");
+            File.WriteAllText(outputFile, code);
+            _logger.LogInformation($"    Generated schema: {name}.cs");
+        }
+    }
+
+    private string AddOpenApiHeader(string jsonContent, string schemaName)
+    {
+        // Wrap the JSON schema in a minimal OpenAPI document so we can reuse SchemaGenerator
+        var wrappedJson = $$"""
+                            {
+                                "openapi": "3.0.0",
+                                "info": { "title": "{{schemaName}}", "version": "1.0.0" },
+                                "paths": {},
+                                "components": {
+                                    "schemas": {
+                                        "{{schemaName}}": {{jsonContent}}
+                                    }
+                                }
+                            }
+                            """;
+        return wrappedJson;
+    }
+
+    //public void Generate(string outputFolder)
+    //{
+    //    Directory.CreateDirectory(outputFolder);
+
+    //    var schemas = _context.Document.Components?.Schemas;
+    //    if (schemas is null || schemas.Count == 0)
+    //    {
+    //        Console.WriteLine("No schemas found in document.");
+    //        return;
+    //    }
+
+    //    foreach (var (name, schema) in schemas)
+    //    {
+    //        var code = GenerateFileForSchema(name, schema);
+    //        _context.GeneratedTypes[name] = code;
+    //    }
+
+    //    foreach (var (name, code) in _context.GeneratedTypes)
+    //    {
+    //        string outputFile = Path.Combine(outputFolder, $"{name}.cs");
+    //        File.WriteAllText(outputFile, code);
+    //        _logger.LogInformation($"    * Generated schema file: {outputFile}");
+    //    }
+    //}
+
+    private string GenerateFileForSchema(string name, IOpenApiSchema schema)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("// <auto-generated/>");
+        sb.AppendLine("#nullable enable");
+        sb.AppendLine();
+        sb.AppendLine("using System;");
+        sb.AppendLine("using System.Collections.Generic;");
+        sb.AppendLine("using System.ComponentModel.DataAnnotations;");
+        sb.AppendLine("using System.Text.Json.Serialization;");
+        sb.AppendLine();
+        sb.AppendLine($"namespace {_context.Namespace};");
+        sb.AppendLine();
+
+        _typeGenerator.GenerateType(sb, name, schema, indent: 0);
+
+        return sb.ToString();
+    }
+}
