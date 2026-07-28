@@ -23,32 +23,32 @@ public interface ICrsCatalogApiClient
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    Task<PointsInAouSearchResult> GetAouInfoAsync(string dataPartitionId, InPolygonQuery body, CancellationToken cancellationToken = default);
+    Task<PointsInAouSearchResult> PostV3PointsInAouAsync(string dataPartitionId, InPolygonQuery body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    Task<SearchResponse> GetCoordinateTransformationAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default);
+    Task<SearchResponse> GetV3CoordinateTransformationAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    Task<SearchResponse> GetCoordinateTransformationsAsync(string dataPartitionId, CoordinateTransformationsQuery body = default, CancellationToken cancellationToken = default);
+    Task<SearchResponse> PostV3CoordinateTransformationAsync(string dataPartitionId, CoordinateTransformationsQuery body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Coordinate Reference Systems
     /// </summary>
-    Task<SearchResponse> GetCoordinateReferenceSystemAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default);
+    Task<SearchResponse> GetV3CoordinateReferenceSystemAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    Task<SearchResponse> GetCoordinateReferenceSystemsAsync(string dataPartitionId, CoordinateReferenceSystemsQuery body = default, CancellationToken cancellationToken = default);
+    Task<SearchResponse> PostV3CoordinateReferenceSystemAsync(string dataPartitionId, CoordinateReferenceSystemsQuery body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetV3InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
 }
 
@@ -72,7 +72,7 @@ public partial class CrsCatalogApiClient : ICrsCatalogApiClient
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    public async Task<PointsInAouSearchResult> GetAouInfoAsync(string dataPartitionId, InPolygonQuery body, CancellationToken cancellationToken = default)
+    public async Task<PointsInAouSearchResult> PostV3PointsInAouAsync(string dataPartitionId, InPolygonQuery body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/points-in-aou";
 
@@ -89,7 +89,7 @@ public partial class CrsCatalogApiClient : ICrsCatalogApiClient
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    public async Task<SearchResponse> GetCoordinateTransformationAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default)
+    public async Task<SearchResponse> GetV3CoordinateTransformationAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (recordId is not null)
@@ -111,7 +111,7 @@ public partial class CrsCatalogApiClient : ICrsCatalogApiClient
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    public async Task<SearchResponse> GetCoordinateTransformationsAsync(string dataPartitionId, CoordinateTransformationsQuery body = default, CancellationToken cancellationToken = default)
+    public async Task<SearchResponse> PostV3CoordinateTransformationAsync(string dataPartitionId, CoordinateTransformationsQuery body = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/coordinate-transformation";
 
@@ -128,7 +128,7 @@ public partial class CrsCatalogApiClient : ICrsCatalogApiClient
     /// <summary>
     /// Coordinate Reference Systems
     /// </summary>
-    public async Task<SearchResponse> GetCoordinateReferenceSystemAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default)
+    public async Task<SearchResponse> GetV3CoordinateReferenceSystemAsync(string dataPartitionId, string recordId = default, string dataId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (recordId is not null)
@@ -150,7 +150,7 @@ public partial class CrsCatalogApiClient : ICrsCatalogApiClient
     /// <summary>
     /// Coordinate Transformations
     /// </summary>
-    public async Task<SearchResponse> GetCoordinateReferenceSystemsAsync(string dataPartitionId, CoordinateReferenceSystemsQuery body = default, CancellationToken cancellationToken = default)
+    public async Task<SearchResponse> PostV3CoordinateReferenceSystemAsync(string dataPartitionId, CoordinateReferenceSystemsQuery body = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/coordinate-reference-system";
 
@@ -167,7 +167,7 @@ public partial class CrsCatalogApiClient : ICrsCatalogApiClient
     /// <summary>
     /// info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetV3InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/info";
 

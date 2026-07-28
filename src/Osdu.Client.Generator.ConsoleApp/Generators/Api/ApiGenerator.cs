@@ -21,7 +21,6 @@ public class ApiGenerator
     {
         _logger = logger;
         _configuration = configuration;
-
         _typeResolver = new ApiTypeResolver();
         _parameterResolver = new ApiParameterResolver(_typeResolver);
         _methodGenerator = new ApiMethodGenerator(_parameterResolver);

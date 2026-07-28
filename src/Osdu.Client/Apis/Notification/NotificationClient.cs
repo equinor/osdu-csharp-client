@@ -23,12 +23,12 @@ public interface INotificationApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> WarmupAsync(CancellationToken cancellationToken = default);
+    Task<string> GetAhWarmupAsync(CancellationToken cancellationToken = default);
 
 }
 
@@ -52,7 +52,7 @@ public partial class NotificationApiClient : INotificationApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
@@ -67,7 +67,7 @@ public partial class NotificationApiClient : INotificationApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> WarmupAsync(CancellationToken cancellationToken = default)
+    public async Task<string> GetAhWarmupAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/_ah/warmup";
 

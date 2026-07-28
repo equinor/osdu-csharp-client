@@ -52,7 +52,7 @@ public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0
 public enum AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0Kind
 {
     [JsonStringEnumMemberName("osdu:wks:AbstractGeoJson.PropertiesSeismic2DLineNavigation:1.0.0")]
-    OsduwksAbstractGeoJsonPropertiesSeismic2DLineNavigation100,
+    OsduWksAbstractGeoJsonPropertiesSeismic2DLineNavigation100,
 
 }
 

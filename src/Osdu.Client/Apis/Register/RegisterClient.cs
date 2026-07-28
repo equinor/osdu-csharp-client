@@ -23,109 +23,109 @@ public interface IRegisterApiClient
     /// <summary>
     /// Update secret for a subscription
     /// </summary>
-    Task<string> UpdateSecretAsync(string id, string dataPartitionId, GsaSecret body, CancellationToken cancellationToken = default);
+    Task<string> PutSubscriptionSecretByIdAsync(string id, string dataPartitionId, GsaSecret body, CancellationToken cancellationToken = default);
 
-    Task<ChallengeResponse> TestGsaAsync(string path, string crc, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ChallengeResponse> GetTestGcGsaChallengeByPathAsync(string path, string crc, string dataPartitionId, CancellationToken cancellationToken = default);
 
-    Task<string> TestPushGsaAsync(string path, string dataPartitionId, object body, CancellationToken cancellationToken = default);
+    Task<string> PostTestGcGsaChallengeByPathAsync(string path, string dataPartitionId, object body, CancellationToken cancellationToken = default);
 
-    Task<ChallengeResponse> TestCrcAsync(string path, string crc, string hmac, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ChallengeResponse> GetTestGcChallengeByPathAsync(string path, string crc, string hmac, string dataPartitionId, CancellationToken cancellationToken = default);
 
-    Task<string> TestPushHmacAsync(string path, string hmac, string dataPartitionId, object body, CancellationToken cancellationToken = default);
+    Task<string> PostTestGcChallengeByPathAsync(string path, string hmac, string dataPartitionId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Query Subscription
     /// </summary>
-    Task<List<Subscription>> QuerySubscriptionAsync(string notificationId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<List<Subscription>> GetSubscriptionAsync(string notificationId, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create a subscription
     /// </summary>
-    Task<Subscription> CreateSubscriptionAsync(string dataPartitionId, Subscription body, CancellationToken cancellationToken = default);
+    Task<Subscription> PostSubscriptionAsync(string dataPartitionId, Subscription body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Query for DDMS registrations
     /// </summary>
-    Task<List<Ddms>> QueryDMSAsync(string type, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<List<Ddms>> GetDdmsAsync(string type, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create a DDMS registration
     /// </summary>
-    Task<Ddms> PostDMSAsync(string dataPartitionId, Ddms body, CancellationToken cancellationToken = default);
+    Task<Ddms> PostDdmsAsync(string dataPartitionId, Ddms body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create an action registration
     /// </summary>
-    Task<Action> CreateActionAsync(string dataPartitionId, CreateActionDto body, CancellationToken cancellationToken = default);
+    Task<Action> PostActionAsync(string dataPartitionId, CreateActionDto body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Test an action registration
     /// </summary>
-    Task<ParsedAction> TestActionAsync(string dataPartitionId, TestActionRequest body, CancellationToken cancellationToken = default);
+    Task<ParsedAction> PostActionTestAsync(string dataPartitionId, TestActionRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Query for action registrations and substitutes any action with the given parameters
     /// </summary>
-    Task<List<Action>> RetrieveActionAsync(string dataPartitionId, JsonNode body, CancellationToken cancellationToken = default);
+    Task<List<Action>> PostActionRetrieveAsync(string dataPartitionId, JsonNode body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// List all topics
     /// </summary>
-    Task<List<Topic>> ListMessagesAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<List<Topic>> GetTopicsAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
-    Task<object> GetTestEndpointStateAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetTestGcStateAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     Task<List<Subscription>> GetSubscriptionsAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get a subscription
     /// </summary>
-    Task<SubscriptionInfo> GetSubscriptionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<SubscriptionInfo> GetSubscriptionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete a subscription
     /// </summary>
-    Task<string> DeleteSubscriptionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteSubscriptionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get a DDMS registration
     /// </summary>
-    Task<Ddms> GetDMSAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Ddms> GetDdmsByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete a DDMS registration
     /// </summary>
-    Task<string> DeleteDMSAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves Single Entity record id
     /// </summary>
-    Task<string> RedirectToDmsAsync(string id, string type, string localid, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetDdmsByIdAndTypeAndLocalidAsync(string id, string type, string localid, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetAhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetAhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get an action registration
     /// </summary>
-    Task<Action> GetActionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Action> GetActionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete an action  registration
     /// </summary>
-    Task<string> DeleteActionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteActionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
 }
 
@@ -149,7 +149,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Update secret for a subscription
     /// </summary>
-    public async Task<string> UpdateSecretAsync(string id, string dataPartitionId, GsaSecret body, CancellationToken cancellationToken = default)
+    public async Task<string> PutSubscriptionSecretByIdAsync(string id, string dataPartitionId, GsaSecret body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/subscription/{id}/secret";
 
@@ -162,7 +162,7 @@ public partial class RegisterApiClient : IRegisterApiClient
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
-    public async Task<ChallengeResponse> TestGsaAsync(string path, string crc, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ChallengeResponse> GetTestGcGsaChallengeByPathAsync(string path, string crc, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"crc={Uri.EscapeDataString(crc.ToString()!)}");
@@ -178,7 +178,7 @@ public partial class RegisterApiClient : IRegisterApiClient
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
 
-    public async Task<string> TestPushGsaAsync(string path, string dataPartitionId, object body, CancellationToken cancellationToken = default)
+    public async Task<string> PostTestGcGsaChallengeByPathAsync(string path, string dataPartitionId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/test-gc/gsa-challenge/{path}";
 
@@ -191,7 +191,7 @@ public partial class RegisterApiClient : IRegisterApiClient
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
-    public async Task<ChallengeResponse> TestCrcAsync(string path, string crc, string hmac, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ChallengeResponse> GetTestGcChallengeByPathAsync(string path, string crc, string hmac, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"crc={Uri.EscapeDataString(crc.ToString()!)}");
@@ -208,7 +208,7 @@ public partial class RegisterApiClient : IRegisterApiClient
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
 
-    public async Task<string> TestPushHmacAsync(string path, string hmac, string dataPartitionId, object body, CancellationToken cancellationToken = default)
+    public async Task<string> PostTestGcChallengeByPathAsync(string path, string hmac, string dataPartitionId, object body, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"hmac={Uri.EscapeDataString(hmac.ToString()!)}");
@@ -227,7 +227,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Query Subscription
     /// </summary>
-    public async Task<List<Subscription>> QuerySubscriptionAsync(string notificationId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<List<Subscription>> GetSubscriptionAsync(string notificationId, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"notificationId={Uri.EscapeDataString(notificationId.ToString()!)}");
@@ -246,7 +246,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Create a subscription
     /// </summary>
-    public async Task<Subscription> CreateSubscriptionAsync(string dataPartitionId, Subscription body, CancellationToken cancellationToken = default)
+    public async Task<Subscription> PostSubscriptionAsync(string dataPartitionId, Subscription body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/subscription";
 
@@ -263,7 +263,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Query for DDMS registrations
     /// </summary>
-    public async Task<List<Ddms>> QueryDMSAsync(string type, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<List<Ddms>> GetDdmsAsync(string type, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"type={Uri.EscapeDataString(type.ToString()!)}");
@@ -282,7 +282,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Create a DDMS registration
     /// </summary>
-    public async Task<Ddms> PostDMSAsync(string dataPartitionId, Ddms body, CancellationToken cancellationToken = default)
+    public async Task<Ddms> PostDdmsAsync(string dataPartitionId, Ddms body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms";
 
@@ -299,7 +299,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Create an action registration
     /// </summary>
-    public async Task<Action> CreateActionAsync(string dataPartitionId, CreateActionDto body, CancellationToken cancellationToken = default)
+    public async Task<Action> PostActionAsync(string dataPartitionId, CreateActionDto body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/action";
 
@@ -316,7 +316,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Test an action registration
     /// </summary>
-    public async Task<ParsedAction> TestActionAsync(string dataPartitionId, TestActionRequest body, CancellationToken cancellationToken = default)
+    public async Task<ParsedAction> PostActionTestAsync(string dataPartitionId, TestActionRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/action:test";
 
@@ -333,7 +333,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Query for action registrations and substitutes any action with the given parameters
     /// </summary>
-    public async Task<List<Action>> RetrieveActionAsync(string dataPartitionId, JsonNode body, CancellationToken cancellationToken = default)
+    public async Task<List<Action>> PostActionRetrieveAsync(string dataPartitionId, JsonNode body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/action:retrieve";
 
@@ -350,7 +350,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// List all topics
     /// </summary>
-    public async Task<List<Topic>> ListMessagesAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<List<Topic>> GetTopicsAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/topics";
 
@@ -363,7 +363,7 @@ public partial class RegisterApiClient : IRegisterApiClient
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
 
-    public async Task<object> GetTestEndpointStateAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetTestGcStateAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/test-gc/state";
 
@@ -392,7 +392,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Get a subscription
     /// </summary>
-    public async Task<SubscriptionInfo> GetSubscriptionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<SubscriptionInfo> GetSubscriptionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/subscription/{id}";
 
@@ -408,7 +408,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Delete a subscription
     /// </summary>
-    public async Task<string> DeleteSubscriptionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteSubscriptionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/subscription/{id}";
 
@@ -423,7 +423,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
@@ -439,7 +439,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Get a DDMS registration
     /// </summary>
-    public async Task<Ddms> GetDMSAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Ddms> GetDdmsByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/{id}";
 
@@ -455,7 +455,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Delete a DDMS registration
     /// </summary>
-    public async Task<string> DeleteDMSAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/{id}";
 
@@ -470,7 +470,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Retrieves Single Entity record id
     /// </summary>
-    public async Task<string> RedirectToDmsAsync(string id, string type, string localid, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetDdmsByIdAndTypeAndLocalidAsync(string id, string type, string localid, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/{id}/{type}/{localid}";
 
@@ -485,7 +485,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetAhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ah/readiness_check";
 
@@ -500,7 +500,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetAhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ah/liveness_check";
 
@@ -515,7 +515,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Get an action registration
     /// </summary>
-    public async Task<Action> GetActionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Action> GetActionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/action/{id}";
 
@@ -531,7 +531,7 @@ public partial class RegisterApiClient : IRegisterApiClient
     /// <summary>
     /// Delete an action  registration
     /// </summary>
-    public async Task<string> DeleteActionAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteActionByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/action/{id}";
 

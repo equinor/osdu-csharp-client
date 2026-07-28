@@ -23,117 +23,117 @@ public interface IPolicyApiClient
     /// <summary>
     /// Fetch All Policies That Match Partition
     /// </summary>
-    Task<object> FetchAllPoliciesThatMatchPartitionApiPolicyV1PoliciesGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetPoliciesAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Fetch A Policy
     /// </summary>
-    Task<object> FetchAPolicyApiPolicyV1PoliciesPolicyIdGetAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetPoliciesByPolicyIdAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Fetch Instance Policy
     /// </summary>
-    Task<object> FetchInstancePolicyApiPolicyV1PoliciesOsduInstancePolicyIdGetAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetPoliciesOsduInstanceByPolicyIdAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Fetch Partition Policy Directly From Opa
     /// </summary>
-    Task<object> FetchPartitionPolicyDirectlyFromOpaApiPolicyV1PoliciesOsduPartitionDataPartitionPolicyIdGetAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetPoliciesOsduPartitionByDataPartitionAndPolicyIdAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Partition Policy
     /// </summary>
-    Task<object> DeletePartitionPolicyApiPolicyV1PoliciesOsduPartitionDataPartitionPolicyIdDeleteAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> DeletePoliciesOsduPartitionByDataPartitionAndPolicyIdAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create Or Update Partition Policy
     /// </summary>
-    Task<object> CreateOrUpdatePartitionPolicyApiPolicyV1PoliciesOsduPartitionDataPartitionPolicyIdPutAsync(string policyId, string dataPartition, string dataPartitionId, Body_create_or_update_partition_policy_api_policy_v1_policies_osdu_partition__data_partition___policy_id__put body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PutPoliciesOsduPartitionByDataPartitionAndPolicyIdAsync(string policyId, string dataPartition, string dataPartitionId, Body_create_or_update_partition_policy_api_policy_v1_policies_osdu_partition__data_partition___policy_id__put body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Evaluate Policy
     /// </summary>
-    Task<object> EvaluatePolicyApiPolicyV1EvaluationsQueryPostAsync(string policyId, string dataPartitionId, Body_evaluate_policy_api_policy_v1_evaluations_query_post body, bool? includeAuth = default, bool? cache = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PostEvaluationsQueryAsync(string policyId, string dataPartitionId, Body_evaluate_policy_api_policy_v1_evaluations_query_post body, bool? includeAuth = default, bool? cache = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Translate Policy Api
     /// </summary>
-    Task<object> TranslatePolicyApiApiPolicyV1TranslatePostAsync(string dataPartitionId, TranslateItem body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PostTranslateAsync(string dataPartitionId, TranslateItem body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Return Version Info
     /// </summary>
-    Task<InfoOut> ReturnVersionInfoApiPolicyV1InfoGetAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default);
+    Task<InfoOut> GetInfoAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Compile Partially Evaluate A Query
     /// </summary>
-    Task<object> CompilePartiallyEvaluateAQueryApiPolicyV1CompilePostAsync(string dataPartitionId, Body_compile_partially_evaluate_a_query_api_policy_v1_compile_post body, bool? metrics = default, bool? instrument = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PostCompileAsync(string dataPartitionId, Body_compile_partially_evaluate_a_query_api_policy_v1_compile_post body, bool? metrics = default, bool? instrument = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Tenant
     /// </summary>
-    Task<object> GetTenantApiPolicyV1TenantGetAsync(string dataPartitionId, bool? allData = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetTenantAsync(string dataPartitionId, bool? allData = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Update Tenant
     /// </summary>
-    Task<object> UpdateTenantApiPolicyV1TenantPutAsync(string service, string dataPartitionId, int? pollingMinDelaySeconds = default, int? pollingMaxDelaySeconds = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PutTenantAsync(string service, string dataPartitionId, int? pollingMinDelaySeconds = default, int? pollingMaxDelaySeconds = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Tenant
     /// </summary>
-    Task<object> DeleteTenantApiPolicyV1TenantDeleteAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> DeleteTenantAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Health
     /// </summary>
-    Task<object> HealthApiPolicyV1HealthGetAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default);
+    Task<object> GetHealthAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Ready
     /// </summary>
-    Task<object> ReadyApiPolicyV1ReadyGetAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default);
+    Task<object> GetReadyAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Validate Policy
     /// </summary>
-    Task<object> ValidatePolicyApiPolicyV1ValidatePolicyIdPutAsync(string policyId, string dataPartitionId, Body_validate_policy_api_policy_v1_validate__policy_id__put body, bool? template = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PutValidateByPolicyIdAsync(string policyId, string dataPartitionId, Body_validate_policy_api_policy_v1_validate__policy_id__put body, bool? template = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Backup
     /// </summary>
-    Task<object> BackupApiPolicyV1BackupGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetBackupAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Bootstrap
     /// </summary>
-    Task<object> BootstrapApiPolicyV1BootstrapPostAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> PostBootstrapAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Show Policy Config Details
     /// </summary>
-    Task<object> ShowPolicyConfigDetailsApiPolicyV1ConfigGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<object> GetConfigAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Set User Details
     /// </summary>
-    Task<Detail> SetUserDetailsApiPolicyV1UserUserIdPutAsync(string userId, string dataPartitionId, UserDetailRequestModel body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<Detail> PutUserByUserIdAsync(string userId, string dataPartitionId, UserDetailRequestModel body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get User Details Of Another User
     /// </summary>
-    Task<UserDetailRequestModel> GetUserDetailsOfAnotherUserApiPolicyV1UserUserIdGetAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<UserDetailRequestModel> GetUserByUserIdAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete User
     /// </summary>
-    Task<Detail> DeleteUserApiPolicyV1UserUserIdDeleteAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<Detail> DeleteUserByUserIdAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get My User Details
     /// </summary>
-    Task<UserDetailsModel> GetMyUserDetailsApiPolicyV1UserGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
+    Task<UserDetailsModel> GetUserAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -157,7 +157,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Fetch All Policies That Match Partition
     /// </summary>
-    public async Task<object> FetchAllPoliciesThatMatchPartitionApiPolicyV1PoliciesGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetPoliciesAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/policies";
 
@@ -179,7 +179,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Fetch A Policy
     /// </summary>
-    public async Task<object> FetchAPolicyApiPolicyV1PoliciesPolicyIdGetAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetPoliciesByPolicyIdAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/policies/{policyId}";
 
@@ -201,7 +201,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Fetch Instance Policy
     /// </summary>
-    public async Task<object> FetchInstancePolicyApiPolicyV1PoliciesOsduInstancePolicyIdGetAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetPoliciesOsduInstanceByPolicyIdAsync(string policyId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/policies/osdu/instance/{policyId}";
 
@@ -223,7 +223,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Fetch Partition Policy Directly From Opa
     /// </summary>
-    public async Task<object> FetchPartitionPolicyDirectlyFromOpaApiPolicyV1PoliciesOsduPartitionDataPartitionPolicyIdGetAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetPoliciesOsduPartitionByDataPartitionAndPolicyIdAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/policies/osdu/partition/{dataPartition}/{policyId}";
 
@@ -245,7 +245,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Delete Partition Policy
     /// </summary>
-    public async Task<object> DeletePartitionPolicyApiPolicyV1PoliciesOsduPartitionDataPartitionPolicyIdDeleteAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> DeletePoliciesOsduPartitionByDataPartitionAndPolicyIdAsync(string policyId, string dataPartition, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/policies/osdu/partition/{dataPartition}/{policyId}";
 
@@ -267,7 +267,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Create Or Update Partition Policy
     /// </summary>
-    public async Task<object> CreateOrUpdatePartitionPolicyApiPolicyV1PoliciesOsduPartitionDataPartitionPolicyIdPutAsync(string policyId, string dataPartition, string dataPartitionId, Body_create_or_update_partition_policy_api_policy_v1_policies_osdu_partition__data_partition___policy_id__put body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PutPoliciesOsduPartitionByDataPartitionAndPolicyIdAsync(string policyId, string dataPartition, string dataPartitionId, Body_create_or_update_partition_policy_api_policy_v1_policies_osdu_partition__data_partition___policy_id__put body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/policies/osdu/partition/{dataPartition}/{policyId}";
 
@@ -290,7 +290,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Evaluate Policy
     /// </summary>
-    public async Task<object> EvaluatePolicyApiPolicyV1EvaluationsQueryPostAsync(string policyId, string dataPartitionId, Body_evaluate_policy_api_policy_v1_evaluations_query_post body, bool? includeAuth = default, bool? cache = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostEvaluationsQueryAsync(string policyId, string dataPartitionId, Body_evaluate_policy_api_policy_v1_evaluations_query_post body, bool? includeAuth = default, bool? cache = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"policy_id={Uri.EscapeDataString(policyId.ToString()!)}");
@@ -320,7 +320,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Translate Policy Api
     /// </summary>
-    public async Task<object> TranslatePolicyApiApiPolicyV1TranslatePostAsync(string dataPartitionId, TranslateItem body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostTranslateAsync(string dataPartitionId, TranslateItem body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/translate";
 
@@ -343,7 +343,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Return Version Info
     /// </summary>
-    public async Task<InfoOut> ReturnVersionInfoApiPolicyV1InfoGetAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default)
+    public async Task<InfoOut> GetInfoAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/info";
 
@@ -362,7 +362,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Compile Partially Evaluate A Query
     /// </summary>
-    public async Task<object> CompilePartiallyEvaluateAQueryApiPolicyV1CompilePostAsync(string dataPartitionId, Body_compile_partially_evaluate_a_query_api_policy_v1_compile_post body, bool? metrics = default, bool? instrument = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostCompileAsync(string dataPartitionId, Body_compile_partially_evaluate_a_query_api_policy_v1_compile_post body, bool? metrics = default, bool? instrument = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (metrics.HasValue)
@@ -391,7 +391,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Get Tenant
     /// </summary>
-    public async Task<object> GetTenantApiPolicyV1TenantGetAsync(string dataPartitionId, bool? allData = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetTenantAsync(string dataPartitionId, bool? allData = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (allData.HasValue)
@@ -417,7 +417,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Update Tenant
     /// </summary>
-    public async Task<object> UpdateTenantApiPolicyV1TenantPutAsync(string service, string dataPartitionId, int? pollingMinDelaySeconds = default, int? pollingMaxDelaySeconds = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PutTenantAsync(string service, string dataPartitionId, int? pollingMinDelaySeconds = default, int? pollingMaxDelaySeconds = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"service={Uri.EscapeDataString(service.ToString()!)}");
@@ -446,7 +446,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Delete Tenant
     /// </summary>
-    public async Task<object> DeleteTenantApiPolicyV1TenantDeleteAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> DeleteTenantAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/tenant";
 
@@ -468,7 +468,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Health
     /// </summary>
-    public async Task<object> HealthApiPolicyV1HealthGetAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetHealthAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/health";
 
@@ -487,7 +487,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Ready
     /// </summary>
-    public async Task<object> ReadyApiPolicyV1ReadyGetAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetReadyAsync(string correlationId = default, string userAgent = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/ready";
 
@@ -506,7 +506,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Validate Policy
     /// </summary>
-    public async Task<object> ValidatePolicyApiPolicyV1ValidatePolicyIdPutAsync(string policyId, string dataPartitionId, Body_validate_policy_api_policy_v1_validate__policy_id__put body, bool? template = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PutValidateByPolicyIdAsync(string policyId, string dataPartitionId, Body_validate_policy_api_policy_v1_validate__policy_id__put body, bool? template = default, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (template.HasValue)
@@ -533,7 +533,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Backup
     /// </summary>
-    public async Task<object> BackupApiPolicyV1BackupGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetBackupAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/backup";
 
@@ -555,7 +555,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Bootstrap
     /// </summary>
-    public async Task<object> BootstrapApiPolicyV1BootstrapPostAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostBootstrapAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/bootstrap";
 
@@ -577,7 +577,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Show Policy Config Details
     /// </summary>
-    public async Task<object> ShowPolicyConfigDetailsApiPolicyV1ConfigGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetConfigAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/config";
 
@@ -599,7 +599,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Set User Details
     /// </summary>
-    public async Task<Detail> SetUserDetailsApiPolicyV1UserUserIdPutAsync(string userId, string dataPartitionId, UserDetailRequestModel body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<Detail> PutUserByUserIdAsync(string userId, string dataPartitionId, UserDetailRequestModel body, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/user/{userId}";
 
@@ -622,7 +622,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Get User Details Of Another User
     /// </summary>
-    public async Task<UserDetailRequestModel> GetUserDetailsOfAnotherUserApiPolicyV1UserUserIdGetAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<UserDetailRequestModel> GetUserByUserIdAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/user/{userId}";
 
@@ -644,7 +644,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Delete User
     /// </summary>
-    public async Task<Detail> DeleteUserApiPolicyV1UserUserIdDeleteAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<Detail> DeleteUserByUserIdAsync(string userId, string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/user/{userId}";
 
@@ -666,7 +666,7 @@ public partial class PolicyApiClient : IPolicyApiClient
     /// <summary>
     /// Get My User Details
     /// </summary>
-    public async Task<UserDetailsModel> GetMyUserDetailsApiPolicyV1UserGetAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
+    public async Task<UserDetailsModel> GetUserAsync(string dataPartitionId, string correlationId = default, string userAgent = default, string xUserId = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/policy/v1/user";
 

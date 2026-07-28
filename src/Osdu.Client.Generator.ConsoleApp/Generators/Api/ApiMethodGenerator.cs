@@ -18,7 +18,7 @@ public class ApiMethodGenerator
 
     public void BuildMethodSignature(StringBuilder sb, string path, HttpMethod method, OpenApiOperation operation, bool isInterface, IOpenApiPathItem? pathItem = null)
     {
-        string methodName = operation.OperationId?.ToPascalCase() ?? $"{method}{ApiNamingHelpers.SanitizePath(path)}";
+        string methodName = ApiNamingHelpers.GenerateMethodName(method.Method, path);
         var (returnType, parameters) = _parameterResolver.ResolveMethodDetails(operation, pathItem);
         string paramList = _parameterResolver.BuildParameterList(parameters);
 
@@ -38,7 +38,7 @@ public class ApiMethodGenerator
 
     public void BuildMethod(StringBuilder sb, string path, HttpMethod method, OpenApiOperation operation, IOpenApiPathItem? pathItem = null)
     {
-        string methodName = operation.OperationId?.ToPascalCase() ?? $"{method}{ApiNamingHelpers.SanitizePath(path)}";
+        string methodName = ApiNamingHelpers.GenerateMethodName(method.Method, path);
         var (returnType, parameters) = _parameterResolver.ResolveMethodDetails(operation, pathItem);
         string paramList = _parameterResolver.BuildParameterList(parameters);
 

@@ -23,157 +23,157 @@ public interface IUnitApiClient
     /// <summary>
     /// getUnitBySystemAndMeasurement
     /// </summary>
-    Task<UnitSystem> GetUnitSystemAsync(string name, string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<UnitSystem> GetV3UnitsystemAsync(string name, string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postUnitSystem
     /// </summary>
-    Task<UnitSystem> PostUnitSystemAsync(string dataPartitionId, UnitSystemRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<UnitSystem> PostV3UnitsystemAsync(string dataPartitionId, UnitSystemRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnits
     /// </summary>
-    Task<QueryResult> GetUnitsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3UnitAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postUnit
     /// </summary>
-    Task<Unit> PostUnitAsync(string dataPartitionId, UnitRequest body, CancellationToken cancellationToken = default);
+    Task<Unit> PostV3UnitAsync(string dataPartitionId, UnitRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitBySystemAndMeasurement
     /// </summary>
-    Task<Unit> GetUnitBySystemAndMeasurementAsync(string unitSystemName, string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Unit> GetV3UnitUnitsystemAsync(string unitSystemName, string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postUnitBySystemAndMeasurement
     /// </summary>
-    Task<Unit> PostUnitBySystemAndMeasurementAsync(string unitSystemName, string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
+    Task<Unit> PostV3UnitUnitsystemAsync(string unitSystemName, string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postSearchUnits
     /// </summary>
-    Task<QueryResult> PostSearchUnitsAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> PostV3UnitSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postUnitsByMeasurement
     /// </summary>
-    Task<QueryResult> GetUnitsByMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3UnitMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitsByMeasurement
     /// </summary>
-    Task<QueryResult> PostUnitsByMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
+    Task<QueryResult> PostV3UnitMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postPreferredUnitsByMeasurement
     /// </summary>
-    Task<QueryResult> GetPreferredUnitsByMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3UnitMeasurementPreferredAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postPreferredUnitsByMeasurement
     /// </summary>
-    Task<QueryResult> PostPreferredUnitsByMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
+    Task<QueryResult> PostV3UnitMeasurementPreferredAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getMeasurements
     /// </summary>
-    Task<Measurement> GetMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Measurement> GetV3MeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postMeasurement
     /// </summary>
-    Task<Measurement> PostMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
+    Task<Measurement> PostV3MeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postSearchMeasurements
     /// </summary>
-    Task<QueryResult> PostSearchMeasurementsAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> PostV3MeasurementSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getConversionScaleOffsetBySymbols
     /// </summary>
-    Task<ConversionResult> GetConversionScaleOffsetBySymbolsAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ConversionResult> GetV3ConversionScaleAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postConversionScaleOffset
     /// </summary>
-    Task<ConversionResult> PostConversionScaleOffsetAsync(string dataPartitionId, ConversionScaleOffsetRequest body, CancellationToken cancellationToken = default);
+    Task<ConversionResult> PostV3ConversionScaleAsync(string dataPartitionId, ConversionScaleOffsetRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postConversionABCD
     /// </summary>
-    Task<ConversionResult> GetConversionABCDBySymbolsAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ConversionResult> GetV3ConversionAbcdAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postConversionABCD
     /// </summary>
-    Task<ConversionResult> PostConversionABCDAsync(string dataPartitionId, ConversionABCDRequest body, CancellationToken cancellationToken = default);
+    Task<ConversionResult> PostV3ConversionAbcdAsync(string dataPartitionId, ConversionABCDRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// postSearch
     /// </summary>
-    Task<QueryResult> PostSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> PostV3CatalogSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitSystemInfoList
     /// </summary>
-    Task<UnitSystemInfoResponse> GetUnitSystemInfoListAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<UnitSystemInfoResponse> GetV3UnitsystemListAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitsBySymbol
     /// </summary>
-    Task<QueryResult> GetUnitsBySymbolAsync(string symbol, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3UnitSymbolsAsync(string symbol, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitBySymbol
     /// </summary>
-    Task<Unit> GetUnitBySymbolAsync(string namespaces, string symbol, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Unit> GetV3UnitSymbolAsync(string namespaces, string symbol, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitMaps
     /// </summary>
-    Task<QueryResult> GetUnitMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3UnitMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getMeasurementMaps
     /// </summary>
-    Task<QueryResult> GetMeasurementMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3MeasurementMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getMeasurements
     /// </summary>
-    Task<QueryResult> GetMeasurementsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3MeasurementListAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetV3InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getCatalog
     /// </summary>
-    Task<Catalog> GetCatalogAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Catalog> GetV3CatalogAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getUnitMaps
     /// </summary>
-    Task<QueryResult> GetMapStatesAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<QueryResult> GetV3CatalogMapstatesAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// getLastModified
     /// </summary>
-    Task<CatalogLastModified> GetLastModifiedAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<CatalogLastModified> GetV3CatalogLastmodifiedAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetV3AhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetV3AhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
 }
 
@@ -197,7 +197,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitBySystemAndMeasurement
     /// </summary>
-    public async Task<UnitSystem> GetUnitSystemAsync(string name, string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<UnitSystem> GetV3UnitsystemAsync(string name, string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"name={Uri.EscapeDataString(name.ToString()!)}");
@@ -220,7 +220,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postUnitSystem
     /// </summary>
-    public async Task<UnitSystem> PostUnitSystemAsync(string dataPartitionId, UnitSystemRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<UnitSystem> PostV3UnitsystemAsync(string dataPartitionId, UnitSystemRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -243,7 +243,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnits
     /// </summary>
-    public async Task<QueryResult> GetUnitsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3UnitAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -265,7 +265,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postUnit
     /// </summary>
-    public async Task<Unit> PostUnitAsync(string dataPartitionId, UnitRequest body, CancellationToken cancellationToken = default)
+    public async Task<Unit> PostV3UnitAsync(string dataPartitionId, UnitRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/unit";
 
@@ -282,7 +282,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitBySystemAndMeasurement
     /// </summary>
-    public async Task<Unit> GetUnitBySystemAndMeasurementAsync(string unitSystemName, string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Unit> GetV3UnitUnitsystemAsync(string unitSystemName, string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"unitSystemName={Uri.EscapeDataString(unitSystemName.ToString()!)}");
@@ -302,7 +302,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postUnitBySystemAndMeasurement
     /// </summary>
-    public async Task<Unit> PostUnitBySystemAndMeasurementAsync(string unitSystemName, string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
+    public async Task<Unit> PostV3UnitUnitsystemAsync(string unitSystemName, string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"unitSystemName={Uri.EscapeDataString(unitSystemName.ToString()!)}");
@@ -322,7 +322,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postSearchUnits
     /// </summary>
-    public async Task<QueryResult> PostSearchUnitsAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> PostV3UnitSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -345,7 +345,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postUnitsByMeasurement
     /// </summary>
-    public async Task<QueryResult> GetUnitsByMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3UnitMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"ancestry={Uri.EscapeDataString(ancestry.ToString()!)}");
@@ -364,7 +364,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitsByMeasurement
     /// </summary>
-    public async Task<QueryResult> PostUnitsByMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> PostV3UnitMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/unit/measurement";
 
@@ -381,7 +381,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postPreferredUnitsByMeasurement
     /// </summary>
-    public async Task<QueryResult> GetPreferredUnitsByMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3UnitMeasurementPreferredAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"ancestry={Uri.EscapeDataString(ancestry.ToString()!)}");
@@ -400,7 +400,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postPreferredUnitsByMeasurement
     /// </summary>
-    public async Task<QueryResult> PostPreferredUnitsByMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> PostV3UnitMeasurementPreferredAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/unit/measurement/preferred";
 
@@ -417,7 +417,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getMeasurements
     /// </summary>
-    public async Task<Measurement> GetMeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Measurement> GetV3MeasurementAsync(string ancestry, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"ancestry={Uri.EscapeDataString(ancestry.ToString()!)}");
@@ -436,7 +436,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postMeasurement
     /// </summary>
-    public async Task<Measurement> PostMeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
+    public async Task<Measurement> PostV3MeasurementAsync(string dataPartitionId, MeasurementRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/measurement";
 
@@ -453,7 +453,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postSearchMeasurements
     /// </summary>
-    public async Task<QueryResult> PostSearchMeasurementsAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> PostV3MeasurementSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -476,7 +476,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getConversionScaleOffsetBySymbols
     /// </summary>
-    public async Task<ConversionResult> GetConversionScaleOffsetBySymbolsAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ConversionResult> GetV3ConversionScaleAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"namespaces={Uri.EscapeDataString(namespaces.ToString()!)}");
@@ -497,7 +497,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postConversionScaleOffset
     /// </summary>
-    public async Task<ConversionResult> PostConversionScaleOffsetAsync(string dataPartitionId, ConversionScaleOffsetRequest body, CancellationToken cancellationToken = default)
+    public async Task<ConversionResult> PostV3ConversionScaleAsync(string dataPartitionId, ConversionScaleOffsetRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/conversion/scale";
 
@@ -514,7 +514,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postConversionABCD
     /// </summary>
-    public async Task<ConversionResult> GetConversionABCDBySymbolsAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ConversionResult> GetV3ConversionAbcdAsync(string namespaces, string fromSymbol, string toSymbol, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"namespaces={Uri.EscapeDataString(namespaces.ToString()!)}");
@@ -535,7 +535,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postConversionABCD
     /// </summary>
-    public async Task<ConversionResult> PostConversionABCDAsync(string dataPartitionId, ConversionABCDRequest body, CancellationToken cancellationToken = default)
+    public async Task<ConversionResult> PostV3ConversionAbcdAsync(string dataPartitionId, ConversionABCDRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/conversion/abcd";
 
@@ -552,7 +552,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// postSearch
     /// </summary>
-    public async Task<QueryResult> PostSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> PostV3CatalogSearchAsync(string dataPartitionId, SearchRequest body, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -575,7 +575,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitSystemInfoList
     /// </summary>
-    public async Task<UnitSystemInfoResponse> GetUnitSystemInfoListAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<UnitSystemInfoResponse> GetV3UnitsystemListAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -597,7 +597,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitsBySymbol
     /// </summary>
-    public async Task<QueryResult> GetUnitsBySymbolAsync(string symbol, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3UnitSymbolsAsync(string symbol, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"symbol={Uri.EscapeDataString(symbol.ToString()!)}");
@@ -616,7 +616,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitBySymbol
     /// </summary>
-    public async Task<Unit> GetUnitBySymbolAsync(string namespaces, string symbol, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Unit> GetV3UnitSymbolAsync(string namespaces, string symbol, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"namespaces={Uri.EscapeDataString(namespaces.ToString()!)}");
@@ -636,7 +636,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitMaps
     /// </summary>
-    public async Task<QueryResult> GetUnitMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3UnitMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -658,7 +658,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getMeasurementMaps
     /// </summary>
-    public async Task<QueryResult> GetMeasurementMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3MeasurementMapsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -680,7 +680,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getMeasurements
     /// </summary>
-    public async Task<QueryResult> GetMeasurementsAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3MeasurementListAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -702,7 +702,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetV3InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/info";
 
@@ -718,7 +718,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getCatalog
     /// </summary>
-    public async Task<Catalog> GetCatalogAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Catalog> GetV3CatalogAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/catalog";
 
@@ -734,7 +734,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getUnitMaps
     /// </summary>
-    public async Task<QueryResult> GetMapStatesAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<QueryResult> GetV3CatalogMapstatesAsync(string dataPartitionId, int? offset = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -756,7 +756,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// getLastModified
     /// </summary>
-    public async Task<CatalogLastModified> GetLastModifiedAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<CatalogLastModified> GetV3CatalogLastmodifiedAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/catalog/lastmodified";
 
@@ -772,7 +772,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetV3AhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/_ah/readiness_check";
 
@@ -787,7 +787,7 @@ public partial class UnitApiClient : IUnitApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetV3AhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v3/_ah/liveness_check";
 

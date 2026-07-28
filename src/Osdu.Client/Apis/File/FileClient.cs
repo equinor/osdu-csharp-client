@@ -23,47 +23,47 @@ public interface IFileApiClient
     /// <summary>
     /// Revoked the Signed URL
     /// </summary>
-    Task<string> RevokeURLAsync(object body, CancellationToken cancellationToken = default);
+    Task<string> PostV2FilesRevokeURLAsync(object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a metadata for a file
     /// </summary>
-    Task<FileMetadataResponse> PostFilesMetadataAsync(string dataPartitionId, FileMetadata body, CancellationToken cancellationToken = default);
+    Task<FileMetadataResponse> PostV2FilesMetadataAsync(string dataPartitionId, FileMetadata body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetV2ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetV2LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetV2InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets metadata record for the given id
     /// </summary>
-    Task<RecordVersion> GetFileMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<RecordVersion> GetV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes metadata record &amp; file associated with that record for the given id
     /// </summary>
-    Task<string> DeleteFileMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a URL to download the file
     /// </summary>
-    Task<DownloadUrlResponse> DownloadURLAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<DownloadUrlResponse> GetV2FilesDownloadURLByIdAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get a location in Landing Zone to upload a file.
     /// </summary>
-    Task<LocationResponse> GetLocationFileAsync(string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<LocationResponse> GetV2FilesUploadURLAsync(string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -87,7 +87,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Revoked the Signed URL
     /// </summary>
-    public async Task<string> RevokeURLAsync(object body, CancellationToken cancellationToken = default)
+    public async Task<string> PostV2FilesRevokeURLAsync(object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/revokeURL";
 
@@ -102,7 +102,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Creates a metadata for a file
     /// </summary>
-    public async Task<FileMetadataResponse> PostFilesMetadataAsync(string dataPartitionId, FileMetadata body, CancellationToken cancellationToken = default)
+    public async Task<FileMetadataResponse> PostV2FilesMetadataAsync(string dataPartitionId, FileMetadata body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/metadata";
 
@@ -119,7 +119,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetV2ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/readiness_check";
 
@@ -134,7 +134,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetV2LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/liveness_check";
 
@@ -149,7 +149,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetV2InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/info";
 
@@ -165,7 +165,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Gets metadata record for the given id
     /// </summary>
-    public async Task<RecordVersion> GetFileMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<RecordVersion> GetV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/{id}/metadata";
 
@@ -181,7 +181,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Deletes metadata record &amp; file associated with that record for the given id
     /// </summary>
-    public async Task<string> DeleteFileMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/{id}/metadata";
 
@@ -196,7 +196,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Gets a URL to download the file
     /// </summary>
-    public async Task<DownloadUrlResponse> DownloadURLAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<DownloadUrlResponse> GetV2FilesDownloadURLByIdAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (expiryTime is not null)
@@ -216,7 +216,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Get a location in Landing Zone to upload a file.
     /// </summary>
-    public async Task<LocationResponse> GetLocationFileAsync(string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<LocationResponse> GetV2FilesUploadURLAsync(string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (expiryTime is not null)

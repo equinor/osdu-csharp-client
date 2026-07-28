@@ -40,7 +40,7 @@ public class AbstractGeoJson_PropertiesBinGridCorners_1_0_0
 public enum AbstractGeoJson_PropertiesBinGridCorners_1_0_0Kind
 {
     [JsonStringEnumMemberName("osdu:wks:AbstractGeoJson.PropertiesBinGridCorners:1.0.0")]
-    OsduwksAbstractGeoJsonPropertiesBinGridCorners100,
+    OsduWksAbstractGeoJsonPropertiesBinGridCorners100,
 
 }
 

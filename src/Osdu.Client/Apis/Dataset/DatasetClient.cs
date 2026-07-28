@@ -23,57 +23,57 @@ public interface IDatasetApiClient
     /// <summary>
     /// Create or Update Dataset Registry
     /// </summary>
-    Task<GetCreateUpdateDatasetRegistryResponse> CreateOrUpdateDatasetRegistryAsync(string dataPartitionId, CreateDatasetRegistryRequest body, CancellationToken cancellationToken = default);
+    Task<GetCreateUpdateDatasetRegistryResponse> PutRegisterDatasetAsync(string dataPartitionId, CreateDatasetRegistryRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Generate storage instructions 
     /// </summary>
-    Task<GetDatasetStorageInstructionsResponse> StorageInstructionsAsync(string kindSubType, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<GetDatasetStorageInstructionsResponse> PostStorageInstructionsAsync(string kindSubType, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Revoke previously generated URLs for Dataset
     /// </summary>
-    Task<string> RevokeURLAsync(string kindSubType, string dataPartitionId, object body, CancellationToken cancellationToken = default);
+    Task<string> PostRevokeURLAsync(string kindSubType, string dataPartitionId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Generate retrieval instructions
     /// </summary>
-    Task<RetrievalInstructionsResponse> RetrievalInstructionsAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<RetrievalInstructionsResponse> GetRetrievalInstructionsAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Generate retrieval instructions - multiple datasets 
     /// </summary>
-    Task<RetrievalInstructionsResponse> RetrievalInstructions1Async(string dataPartitionId, GetDatasetRegistryRequest body, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<RetrievalInstructionsResponse> PostRetrievalInstructionsAsync(string dataPartitionId, GetDatasetRegistryRequest body, string expiryTime = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Undelete Metadata Record by Id
     /// </summary>
-    Task<GetCreateUpdateDatasetRegistryResponse> UndeleteMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<GetCreateUpdateDatasetRegistryResponse> PostMetadataRecordUndeleteByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Metadata Record by Id
     /// </summary>
-    Task<string> DeleteMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> PostMetadataRecordSoftDeleteByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Dataset Registry
     /// </summary>
-    Task<GetCreateUpdateDatasetRegistryResponse> GetDatasetRegistryAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<GetCreateUpdateDatasetRegistryResponse> GetGetDatasetRegistryAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Dataset Registries
     /// </summary>
-    Task<GetCreateUpdateDatasetRegistryResponse> GetDatasetRegistry1Async(string dataPartitionId, GetDatasetRegistryRequest body, CancellationToken cancellationToken = default);
+    Task<GetCreateUpdateDatasetRegistryResponse> PostGetDatasetRegistryAsync(string dataPartitionId, GetDatasetRegistryRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
 }
 
@@ -97,7 +97,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Create or Update Dataset Registry
     /// </summary>
-    public async Task<GetCreateUpdateDatasetRegistryResponse> CreateOrUpdateDatasetRegistryAsync(string dataPartitionId, CreateDatasetRegistryRequest body, CancellationToken cancellationToken = default)
+    public async Task<GetCreateUpdateDatasetRegistryResponse> PutRegisterDatasetAsync(string dataPartitionId, CreateDatasetRegistryRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/registerDataset";
 
@@ -114,7 +114,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Generate storage instructions 
     /// </summary>
-    public async Task<GetDatasetStorageInstructionsResponse> StorageInstructionsAsync(string kindSubType, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<GetDatasetStorageInstructionsResponse> PostStorageInstructionsAsync(string kindSubType, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"kindSubType={Uri.EscapeDataString(kindSubType.ToString()!)}");
@@ -135,7 +135,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Revoke previously generated URLs for Dataset
     /// </summary>
-    public async Task<string> RevokeURLAsync(string kindSubType, string dataPartitionId, object body, CancellationToken cancellationToken = default)
+    public async Task<string> PostRevokeURLAsync(string kindSubType, string dataPartitionId, object body, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"kindSubType={Uri.EscapeDataString(kindSubType.ToString()!)}");
@@ -154,7 +154,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Generate retrieval instructions
     /// </summary>
-    public async Task<RetrievalInstructionsResponse> RetrievalInstructionsAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<RetrievalInstructionsResponse> GetRetrievalInstructionsAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"id={Uri.EscapeDataString(id.ToString()!)}");
@@ -175,7 +175,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Generate retrieval instructions - multiple datasets 
     /// </summary>
-    public async Task<RetrievalInstructionsResponse> RetrievalInstructions1Async(string dataPartitionId, GetDatasetRegistryRequest body, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<RetrievalInstructionsResponse> PostRetrievalInstructionsAsync(string dataPartitionId, GetDatasetRegistryRequest body, string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (expiryTime is not null)
@@ -196,7 +196,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Undelete Metadata Record by Id
     /// </summary>
-    public async Task<GetCreateUpdateDatasetRegistryResponse> UndeleteMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<GetCreateUpdateDatasetRegistryResponse> PostMetadataRecordUndeleteByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/metadataRecord/{id}/undelete";
 
@@ -212,7 +212,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Delete Metadata Record by Id
     /// </summary>
-    public async Task<string> DeleteMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> PostMetadataRecordSoftDeleteByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/metadataRecord/{id}/softDelete";
 
@@ -227,7 +227,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Get Dataset Registry
     /// </summary>
-    public async Task<GetCreateUpdateDatasetRegistryResponse> GetDatasetRegistryAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<GetCreateUpdateDatasetRegistryResponse> GetGetDatasetRegistryAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"id={Uri.EscapeDataString(id.ToString()!)}");
@@ -246,7 +246,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Get Dataset Registries
     /// </summary>
-    public async Task<GetCreateUpdateDatasetRegistryResponse> GetDatasetRegistry1Async(string dataPartitionId, GetDatasetRegistryRequest body, CancellationToken cancellationToken = default)
+    public async Task<GetCreateUpdateDatasetRegistryResponse> PostGetDatasetRegistryAsync(string dataPartitionId, GetDatasetRegistryRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/getDatasetRegistry";
 
@@ -263,7 +263,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/liveness_check";
 
@@ -278,7 +278,7 @@ public partial class DatasetApiClient : IDatasetApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 

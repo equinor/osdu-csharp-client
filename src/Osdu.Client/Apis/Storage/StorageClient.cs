@@ -23,102 +23,102 @@ public interface IStorageApiClient
     /// <summary>
     /// Fetch All records
     /// </summary>
-    Task<string> GetAllRecordsAsync(string dataPartitionId, string xCollaboration = default, int? limit = default, string kind = default, string cursor = default, bool? deleted = default, string modifiedAfterDate = default, string sortOrder = default, CancellationToken cancellationToken = default);
+    Task<string> GetRecordsAsync(string dataPartitionId, string xCollaboration = default, int? limit = default, string kind = default, string cursor = default, bool? deleted = default, string modifiedAfterDate = default, string sortOrder = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or Update Records
     /// </summary>
-    Task<CreateUpdateRecordsResponse> CreateOrUpdateRecordsAsync(string dataPartitionId, List<Record> body, string xCollaboration = default, bool? skipdupes = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PutRecordsAsync(string dataPartitionId, List<Record> body, string xCollaboration = default, bool? skipdupes = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Modify record data and/or metadata attributes using patch operations
     /// </summary>
-    Task<PatchRecordsResponse> UpdateRecordsMetadataAsync(string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<PatchRecordsResponse> PatchRecordsAsync(string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Copy Record references form one namespace to another
     /// </summary>
-    Task<CopyRecordReferencesModel> CopyRecordReferencesBetweenNamespacesAsync(string xCollaboration, string dataPartitionId, CopyRecordReferencesModel body, CancellationToken cancellationToken = default);
+    Task<CopyRecordReferencesModel> PutRecordsCopyAsync(string xCollaboration, string dataPartitionId, CopyRecordReferencesModel body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Replay Based on Filter.
     /// </summary>
-    Task<ReplayResponse> TriggerReplayAsync(string dataPartitionId, ReplayRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<ReplayResponse> PostReplayAsync(string dataPartitionId, ReplayRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Record
     /// </summary>
-    Task<string> DeleteRecordAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<string> PostRecordsDeleteByIdAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft delete of multiple records
     /// </summary>
-    Task<DeleteRecordsException> BulkDeleteRecordsAsync(string dataPartitionId, List<string> body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<DeleteRecordsException> PostRecordsDeleteAsync(string dataPartitionId, List<string> body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all record from kind
     /// </summary>
-    Task<DatastoreQueryResult> GetAllRecords1Async(string kind, string dataPartitionId, string xCollaboration = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<DatastoreQueryResult> GetQueryRecordsAsync(string kind, string dataPartitionId, string xCollaboration = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Fetch records
     /// </summary>
-    Task<MultiRecordInfo> GetRecordsAsync(string dataPartitionId, MultiRecordIds body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<MultiRecordInfo> PostQueryRecordsAsync(string dataPartitionId, MultiRecordIds body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Fetch multiple records
     /// </summary>
-    Task<MultiRecordResponse> FetchRecordsAsync(string dataPartitionId, string frameOfReference, MultiRecordRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<MultiRecordResponse> PostQueryRecordsBatchAsync(string dataPartitionId, string frameOfReference, MultiRecordRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Fetch multiple records' headers by ID
     /// </summary>
-    Task<MultiRecordHeadersInfo> GetRecordsHeadersAsync(string dataPartitionId, MultiRecordHeadersRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<MultiRecordHeadersInfo> PostQueryRecordsHeadersAsync(string dataPartitionId, MultiRecordHeadersRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get latest record version data
     /// </summary>
-    Task<string> GetLatestRecordVersionAsync(string id, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default);
+    Task<string> GetRecordsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Purge Record
     /// </summary>
-    Task<string> PurgeRecordAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteRecordsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Patch record with merge-patch operations
     /// </summary>
-    Task<string> PatchRecordAsync(string id, string dataPartitionId, RecordMergePatchRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<string> PatchRecordsByIdAsync(string id, string dataPartitionId, RecordMergePatchRequest body, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Replay Status.
     /// </summary>
-    Task<ReplayStatusResponse> GetReplayStatusAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ReplayStatusResponse> GetReplayStatusByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Specific record
     /// </summary>
-    Task<string> GetSpecificRecordVersionAsync(string id, long version, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default);
+    Task<string> GetRecordsByIdAndVersionAsync(string id, long version, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get record versions
     /// </summary>
-    Task<RecordVersions> GetRecordVersionsAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetRecordsVersionsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Purge Record Versions
     /// </summary>
-    Task<string> PurgeRecordVersionsAsync(string id, string dataPartitionId, string xCollaboration = default, string versionIds = default, int? limit = default, long? from = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteRecordsVersionsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, string versionIds = default, int? limit = default, long? from = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -142,7 +142,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Fetch All records
     /// </summary>
-    public async Task<string> GetAllRecordsAsync(string dataPartitionId, string xCollaboration = default, int? limit = default, string kind = default, string cursor = default, bool? deleted = default, string modifiedAfterDate = default, string sortOrder = default, CancellationToken cancellationToken = default)
+    public async Task<string> GetRecordsAsync(string dataPartitionId, string xCollaboration = default, int? limit = default, string kind = default, string cursor = default, bool? deleted = default, string modifiedAfterDate = default, string sortOrder = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (limit is not null)
@@ -173,7 +173,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Create or Update Records
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> CreateOrUpdateRecordsAsync(string dataPartitionId, List<Record> body, string xCollaboration = default, bool? skipdupes = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PutRecordsAsync(string dataPartitionId, List<Record> body, string xCollaboration = default, bool? skipdupes = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (skipdupes.HasValue)
@@ -196,7 +196,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Modify record data and/or metadata attributes using patch operations
     /// </summary>
-    public async Task<PatchRecordsResponse> UpdateRecordsMetadataAsync(string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<PatchRecordsResponse> PatchRecordsAsync(string dataPartitionId, RecordBulkUpdateParam body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records";
 
@@ -215,7 +215,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Copy Record references form one namespace to another
     /// </summary>
-    public async Task<CopyRecordReferencesModel> CopyRecordReferencesBetweenNamespacesAsync(string xCollaboration, string dataPartitionId, CopyRecordReferencesModel body, CancellationToken cancellationToken = default)
+    public async Task<CopyRecordReferencesModel> PutRecordsCopyAsync(string xCollaboration, string dataPartitionId, CopyRecordReferencesModel body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records/copy";
 
@@ -233,7 +233,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Replay Based on Filter.
     /// </summary>
-    public async Task<ReplayResponse> TriggerReplayAsync(string dataPartitionId, ReplayRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<ReplayResponse> PostReplayAsync(string dataPartitionId, ReplayRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/replay";
 
@@ -252,7 +252,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Delete Record
     /// </summary>
-    public async Task<string> DeleteRecordAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<string> PostRecordsDeleteByIdAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records/{id}:delete";
 
@@ -269,7 +269,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Soft delete of multiple records
     /// </summary>
-    public async Task<DeleteRecordsException> BulkDeleteRecordsAsync(string dataPartitionId, List<string> body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<DeleteRecordsException> PostRecordsDeleteAsync(string dataPartitionId, List<string> body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records/delete";
 
@@ -288,7 +288,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Get all record from kind
     /// </summary>
-    public async Task<DatastoreQueryResult> GetAllRecords1Async(string kind, string dataPartitionId, string xCollaboration = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<DatastoreQueryResult> GetQueryRecordsAsync(string kind, string dataPartitionId, string xCollaboration = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"kind={Uri.EscapeDataString(kind.ToString()!)}");
@@ -313,7 +313,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Fetch records
     /// </summary>
-    public async Task<MultiRecordInfo> GetRecordsAsync(string dataPartitionId, MultiRecordIds body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<MultiRecordInfo> PostQueryRecordsAsync(string dataPartitionId, MultiRecordIds body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/query/records";
 
@@ -332,7 +332,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Fetch multiple records
     /// </summary>
-    public async Task<MultiRecordResponse> FetchRecordsAsync(string dataPartitionId, string frameOfReference, MultiRecordRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<MultiRecordResponse> PostQueryRecordsBatchAsync(string dataPartitionId, string frameOfReference, MultiRecordRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/query/records:batch";
 
@@ -352,7 +352,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Fetch multiple records' headers by ID
     /// </summary>
-    public async Task<MultiRecordHeadersInfo> GetRecordsHeadersAsync(string dataPartitionId, MultiRecordHeadersRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<MultiRecordHeadersInfo> PostQueryRecordsHeadersAsync(string dataPartitionId, MultiRecordHeadersRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/query/records/headers";
 
@@ -371,7 +371,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Get latest record version data
     /// </summary>
-    public async Task<string> GetLatestRecordVersionAsync(string id, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default)
+    public async Task<string> GetRecordsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (attribute is not null)
@@ -392,7 +392,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Purge Record
     /// </summary>
-    public async Task<string> PurgeRecordAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteRecordsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records/{id}";
 
@@ -409,7 +409,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Patch record with merge-patch operations
     /// </summary>
-    public async Task<string> PatchRecordAsync(string id, string dataPartitionId, RecordMergePatchRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<string> PatchRecordsByIdAsync(string id, string dataPartitionId, RecordMergePatchRequest body, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records/{id}";
 
@@ -427,7 +427,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Get Replay Status.
     /// </summary>
-    public async Task<ReplayStatusResponse> GetReplayStatusAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ReplayStatusResponse> GetReplayStatusByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/replay/status/{id}";
 
@@ -443,7 +443,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Get Specific record
     /// </summary>
-    public async Task<string> GetSpecificRecordVersionAsync(string id, long version, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default)
+    public async Task<string> GetRecordsByIdAndVersionAsync(string id, long version, string dataPartitionId, string xCollaboration = default, string attribute = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (attribute is not null)
@@ -464,7 +464,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Get record versions
     /// </summary>
-    public async Task<RecordVersions> GetRecordVersionsAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetRecordsVersionsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/records/versions/{id}";
 
@@ -482,7 +482,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/liveness_check";
 
@@ -497,7 +497,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
@@ -513,7 +513,7 @@ public partial class StorageApiClient : IStorageApiClient
     /// <summary>
     /// Purge Record Versions
     /// </summary>
-    public async Task<string> PurgeRecordVersionsAsync(string id, string dataPartitionId, string xCollaboration = default, string versionIds = default, int? limit = default, long? from = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteRecordsVersionsByIdAsync(string id, string dataPartitionId, string xCollaboration = default, string versionIds = default, int? limit = default, long? from = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (versionIds is not null)

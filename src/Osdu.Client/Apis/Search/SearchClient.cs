@@ -23,32 +23,32 @@ public interface ISearchApiClient
     /// <summary>
     /// Queries the index using cursor for the input request criteria.
     /// </summary>
-    Task<CursorQueryResponse> QueryWithCursorAsync(string dataPartitionId, CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default);
+    Task<CursorQueryResponse> PostQueryWithCursorAsync(string dataPartitionId, CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Queries the index for the input request criteria.
     /// </summary>
-    Task<QueryResponse> QueryRecordsAsync(string dataPartitionId, QueryRequest body, CancellationToken cancellationToken = default);
+    Task<QueryResponse> PostQueryAsync(string dataPartitionId, QueryRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> ReadinessCheckAsync(CancellationToken cancellationToken = default);
+    Task<string> GetReadinessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(CancellationToken cancellationToken = default);
+    Task<string> GetLivenessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Closes a cursor-based pagination context.
     /// </summary>
-    Task<CursorQueryResponse> CloseCursorAsync(string cursor, string dataPartitionId, bool? searchAfter = default, CancellationToken cancellationToken = default);
+    Task<CursorQueryResponse> DeleteQueryWithCursorByCursorAsync(string cursor, string dataPartitionId, bool? searchAfter = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -72,7 +72,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Queries the index using cursor for the input request criteria.
     /// </summary>
-    public async Task<CursorQueryResponse> QueryWithCursorAsync(string dataPartitionId, CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default)
+    public async Task<CursorQueryResponse> PostQueryWithCursorAsync(string dataPartitionId, CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (searchAfter.HasValue)
@@ -93,7 +93,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Queries the index for the input request criteria.
     /// </summary>
-    public async Task<QueryResponse> QueryRecordsAsync(string dataPartitionId, QueryRequest body, CancellationToken cancellationToken = default)
+    public async Task<QueryResponse> PostQueryAsync(string dataPartitionId, QueryRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/query";
 
@@ -110,7 +110,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> ReadinessCheckAsync(CancellationToken cancellationToken = default)
+    public async Task<string> GetReadinessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/readiness_check";
 
@@ -124,7 +124,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(CancellationToken cancellationToken = default)
+    public async Task<string> GetLivenessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/liveness_check";
 
@@ -138,7 +138,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
@@ -153,7 +153,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Closes a cursor-based pagination context.
     /// </summary>
-    public async Task<CursorQueryResponse> CloseCursorAsync(string cursor, string dataPartitionId, bool? searchAfter = default, CancellationToken cancellationToken = default)
+    public async Task<CursorQueryResponse> DeleteQueryWithCursorByCursorAsync(string cursor, string dataPartitionId, bool? searchAfter = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (searchAfter.HasValue)

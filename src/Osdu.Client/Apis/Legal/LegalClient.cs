@@ -23,67 +23,67 @@ public interface ILegalApiClient
     /// <summary>
     /// Gets all LegalTags.
     /// </summary>
-    Task<LegalTagDtos> ListLegalTagsAsync(string dataPartitionId, bool? valid = default, CancellationToken cancellationToken = default);
+    Task<LegalTagDtos> GetLegaltagsAsync(string dataPartitionId, bool? valid = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the LegalTag for the given `name`.
     /// </summary>
-    Task<LegalTagDto> UpdateLegalTagAsync(string dataPartitionId, UpdateLegalTag body, CancellationToken cancellationToken = default);
+    Task<LegalTagDto> PutLegaltagsAsync(string dataPartitionId, UpdateLegalTag body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates the LegalTag for the given `name`.
     /// </summary>
-    Task<LegalTagDto> CreateLegalTagAsync(string dataPartitionId, LegalTagDto body, CancellationToken cancellationToken = default);
+    Task<LegalTagDto> PostLegaltagsAsync(string dataPartitionId, LegalTagDto body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the invalid LegalTag names with reasons for the given `names`.
     /// </summary>
-    Task<InvalidTagsWithReason> ValidateLegalTagsAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default);
+    Task<InvalidTagsWithReason> PostLegaltagsValidateAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the legaltags which matches query criteria or none if there is no match.
     /// </summary>
-    Task<LegalTagDtos> QueryLegalTagAsync(string dataPartitionId, QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default);
+    Task<LegalTagDtos> PostLegaltagsQueryAsync(string dataPartitionId, QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the LegalTags for the given `names`.
     /// </summary>
-    Task<LegalTagDtos> GetLegalTagsAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default);
+    Task<LegalTagDtos> PostLegaltagsBatchRetrieveAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets LegalTag property values.
     /// </summary>
-    Task<ReadablePropertyValues> GetLegalTagPropertiesAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ReadablePropertyValues> GetLegaltagsPropertiesAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a LegalTag for the given `name`.
     /// </summary>
-    Task<LegalTagDto> GetLegalTagAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<LegalTagDto> GetLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a LegalTag for the given `name`.
     /// </summary>
-    Task<string> DeleteLegalTagAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Check LegalTag Compliance Job Status
     /// </summary>
-    Task<string> CheckLegalTagStatusChangesAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetJobsUpdateLegalTagStatusAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetAhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetAhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
 }
 
@@ -107,7 +107,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Gets all LegalTags.
     /// </summary>
-    public async Task<LegalTagDtos> ListLegalTagsAsync(string dataPartitionId, bool? valid = default, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDtos> GetLegaltagsAsync(string dataPartitionId, bool? valid = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (valid.HasValue)
@@ -127,7 +127,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Updates the LegalTag for the given `name`.
     /// </summary>
-    public async Task<LegalTagDto> UpdateLegalTagAsync(string dataPartitionId, UpdateLegalTag body, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDto> PutLegaltagsAsync(string dataPartitionId, UpdateLegalTag body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags";
 
@@ -144,7 +144,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Creates the LegalTag for the given `name`.
     /// </summary>
-    public async Task<LegalTagDto> CreateLegalTagAsync(string dataPartitionId, LegalTagDto body, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDto> PostLegaltagsAsync(string dataPartitionId, LegalTagDto body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags";
 
@@ -161,7 +161,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Retrieves the invalid LegalTag names with reasons for the given `names`.
     /// </summary>
-    public async Task<InvalidTagsWithReason> ValidateLegalTagsAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default)
+    public async Task<InvalidTagsWithReason> PostLegaltagsValidateAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags:validate";
 
@@ -178,7 +178,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Retrieves the legaltags which matches query criteria or none if there is no match.
     /// </summary>
-    public async Task<LegalTagDtos> QueryLegalTagAsync(string dataPartitionId, QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDtos> PostLegaltagsQueryAsync(string dataPartitionId, QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (valid.HasValue)
@@ -199,7 +199,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Retrieves the LegalTags for the given `names`.
     /// </summary>
-    public async Task<LegalTagDtos> GetLegalTagsAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDtos> PostLegaltagsBatchRetrieveAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags:batchRetrieve";
 
@@ -216,7 +216,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Gets LegalTag property values.
     /// </summary>
-    public async Task<ReadablePropertyValues> GetLegalTagPropertiesAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ReadablePropertyValues> GetLegaltagsPropertiesAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags:properties";
 
@@ -232,7 +232,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Gets a LegalTag for the given `name`.
     /// </summary>
-    public async Task<LegalTagDto> GetLegalTagAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDto> GetLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags/{name}";
 
@@ -248,7 +248,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Deletes a LegalTag for the given `name`.
     /// </summary>
-    public async Task<string> DeleteLegalTagAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags/{name}";
 
@@ -263,7 +263,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Check LegalTag Compliance Job Status
     /// </summary>
-    public async Task<string> CheckLegalTagStatusChangesAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetJobsUpdateLegalTagStatusAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/jobs/updateLegalTagStatus";
 
@@ -278,7 +278,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
@@ -294,7 +294,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetAhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/_ah/readiness_check";
 
@@ -309,7 +309,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetAhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/_ah/liveness_check";
 

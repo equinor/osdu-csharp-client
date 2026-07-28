@@ -23,37 +23,37 @@ public interface IIndexerApiClient
     /// <summary>
     /// Provision partition
     /// </summary>
-    Task<object> ProvisionPartitionAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> PutPartitionsProvisionAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Re-index given 'kind'
     /// </summary>
-    Task<object> ReindexAsync(string dataPartitionId, RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default);
+    Task<object> PostReindexAsync(string dataPartitionId, RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Full Re-index by data partition
     /// </summary>
-    Task<string> FullReindexAsync(string dataPartitionId, bool? forceClean = default, CancellationToken cancellationToken = default);
+    Task<string> PatchReindexAsync(string dataPartitionId, bool? forceClean = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Re-index given records
     /// </summary>
-    Task<object> ReindexRecordsAsync(string dataPartitionId, ReindexRecordsRequest body, CancellationToken cancellationToken = default);
+    Task<object> PostReindexRecordsAsync(string dataPartitionId, ReindexRecordsRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Index for the given kind
@@ -82,7 +82,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Provision partition
     /// </summary>
-    public async Task<object> ProvisionPartitionAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> PutPartitionsProvisionAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/partitions/provision";
 
@@ -98,7 +98,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Re-index given 'kind'
     /// </summary>
-    public async Task<object> ReindexAsync(string dataPartitionId, RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostReindexAsync(string dataPartitionId, RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (forceClean.HasValue)
@@ -119,7 +119,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Full Re-index by data partition
     /// </summary>
-    public async Task<string> FullReindexAsync(string dataPartitionId, bool? forceClean = default, CancellationToken cancellationToken = default)
+    public async Task<string> PatchReindexAsync(string dataPartitionId, bool? forceClean = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (forceClean.HasValue)
@@ -138,7 +138,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Re-index given records
     /// </summary>
-    public async Task<object> ReindexRecordsAsync(string dataPartitionId, ReindexRecordsRequest body, CancellationToken cancellationToken = default)
+    public async Task<object> PostReindexRecordsAsync(string dataPartitionId, ReindexRecordsRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/reindex/records";
 
@@ -155,7 +155,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/readiness_check";
 
@@ -170,7 +170,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/liveness_check";
 
@@ -185,7 +185,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
