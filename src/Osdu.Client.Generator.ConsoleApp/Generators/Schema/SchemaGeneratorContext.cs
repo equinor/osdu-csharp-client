@@ -11,6 +11,7 @@ public class SchemaGeneratorContext
 {
     public OpenApiDocument Document { get; set; } = null!;
     public string Namespace { get; set; } = string.Empty;
+    public string JsonFilePath { get; set; } = string.Empty;
     public Dictionary<string, string> GeneratedTypes { get; } = new();
     public Dictionary<string, string> PendingBaseClassPatches { get; } = new();
     public Dictionary<string, string> OneOfUnionCache { get; } = new();
