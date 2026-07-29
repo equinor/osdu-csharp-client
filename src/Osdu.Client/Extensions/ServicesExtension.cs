@@ -6,9 +6,12 @@
 
 #nullable enable
 
+#nullable enable
+
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
+
 using Osdu.Client.Apis.CrsCatalog;
 using Osdu.Client.Apis.CrsConversion;
 using Osdu.Client.Apis.Dataset;

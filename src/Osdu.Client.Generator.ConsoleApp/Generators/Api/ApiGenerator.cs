@@ -45,7 +45,7 @@ public class ApiGenerator
 
         StringBuilder sb = new StringBuilder();
 
-        _classBuilder.BuildAutogenComment(sb);
+        CodeGenerator.BuildAutogenComment(sb);
         _classBuilder.BuildUsingsAndNamespace(sb, apiNamespace);
         _classBuilder.BuildInterface(sb, openApiDocument, $"{apiClientName}");
         _classBuilder.BuildImplementation(sb, openApiDocument, apiClientName);
