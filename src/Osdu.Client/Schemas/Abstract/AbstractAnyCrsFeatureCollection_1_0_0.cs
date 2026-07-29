@@ -18,6 +18,7 @@ namespace Osdu.Client.Schemas.Abstract;
 /// </summary>
 public class AbstractAnyCrsFeatureCollection_1_0_0
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0Type Type { get; set; }
@@ -75,6 +76,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0Type
 
 public class AbstractAnyCrsFeatureCollection_1_0_0Features
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesType Type { get; set; }
@@ -115,6 +117,7 @@ public abstract class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONPoint : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONPointType Type { get; set; }
@@ -140,6 +143,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONPo
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONLineString : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONLineStringType Type { get; set; }
@@ -165,6 +169,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONLi
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONPolygon : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONPolygonType Type { get; set; }
@@ -189,6 +194,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONPo
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMultiPoint : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMultiPointType Type { get; set; }
@@ -213,6 +219,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMu
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMultiLineString : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMultiLineStringType Type { get; set; }
@@ -237,6 +244,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMu
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMultiPolygon : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMultiPolygonType Type { get; set; }
@@ -261,6 +269,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONMu
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollection : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionType Type { get; set; }
@@ -296,6 +305,7 @@ public abstract class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCr
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONPoint : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONPointType Type { get; set; }
@@ -321,6 +331,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGe
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONLineString : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONLineStringType Type { get; set; }
@@ -346,6 +357,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGe
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONPolygon : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONPolygonType Type { get; set; }
@@ -370,6 +382,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGe
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONMultiPoint : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONMultiPointType Type { get; set; }
@@ -394,6 +407,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGe
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONMultiLineString : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONMultiLineStringType Type { get; set; }
@@ -418,6 +432,7 @@ public enum AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGe
 
 public class AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONMultiPolygon : AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractAnyCrsFeatureCollection_1_0_0FeaturesGeometryAnyCrsGeoJSONGeometryCollectionGeometriesAnyCrsGeoJSONMultiPolygonType Type { get; set; }

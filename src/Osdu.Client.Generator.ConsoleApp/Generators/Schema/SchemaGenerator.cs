@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Reader;
@@ -74,6 +75,10 @@ public class SchemaGenerator
             _context.GeneratedTypes[name] = code;
         }
 
+        // Post-process: add [JsonIgnore] to properties in derived types that conflict
+        // with the polymorphic type discriminator property name.
+        FixDiscriminatorPropertyConflicts();
+
         foreach (var (name, code) in _context.GeneratedTypes)
         {
             string outputFile = Path.Combine(outputDir, $"{MakeName(name)}.cs");
@@ -81,6 +86,85 @@ public class SchemaGenerator
             _logger.LogInformation($"    Generated schema: {MakeName(name)}.cs");
         }
     }
+
+    /// <summary>
+    /// Finds polymorphic base classes that use [JsonPolymorphic(TypeDiscriminatorPropertyName = "X")]
+    /// and adds [JsonIgnore] to any property in their derived classes whose [JsonPropertyName] matches
+    /// the discriminator property name. This prevents System.Text.Json from throwing
+    /// InvalidOperationException at runtime.
+    /// </summary>
+    private void FixDiscriminatorPropertyConflicts()
+    {
+        // Pattern to find: [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+        var polymorphicPattern = new Regex(
+            @"\[JsonPolymorphic\(TypeDiscriminatorPropertyName\s*=\s*""(?<disc>[^""]+)""\)\]");
+
+        // Pattern to find derived type class names from [JsonDerivedType(typeof(ClassName), ...)]
+        var derivedTypePattern = new Regex(
+            @"\[JsonDerivedType\(typeof\((?<typeName>[^)]+)\)");
+
+        // Collect discriminator info: for each base class, find the discriminator name and derived type names
+        var discriminatorsByDerivedType = new Dictionary<string, string>();
+
+        foreach (var (name, code) in _context.GeneratedTypes)
+        {
+            var polyMatch = polymorphicPattern.Match(code);
+            if (!polyMatch.Success)
+                continue;
+
+            string discriminatorPropertyName = polyMatch.Groups["disc"].Value;
+
+            var derivedMatches = derivedTypePattern.Matches(code);
+            foreach (Match derivedMatch in derivedMatches)
+            {
+                string derivedTypeName = derivedMatch.Groups["typeName"].Value;
+                discriminatorsByDerivedType[derivedTypeName] = discriminatorPropertyName;
+            }
+        }
+
+        // Now fix derived types: add [JsonIgnore] to the conflicting property
+        var keys = _context.GeneratedTypes.Keys.ToList();
+        foreach (var name in keys)
+        {
+            string code = _context.GeneratedTypes[name];
+
+            // Check if any class in this file is a known derived type
+            foreach (var (derivedTypeName, discriminatorName) in discriminatorsByDerivedType)
+            {
+                if (!code.Contains($"class {derivedTypeName}"))
+                    continue;
+
+                // Find the [JsonPropertyName("type")] line that matches the discriminator
+                // and insert [JsonIgnore] before it if not already present
+                string propertyNameAttr = $"[JsonPropertyName(\"{discriminatorName}\")]";
+                if (!code.Contains(propertyNameAttr))
+                    continue;
+
+                // Add [JsonIgnore] before the [JsonPropertyName("...")] for the discriminator property
+                var jsonIgnorePattern = new Regex(
+                    @"(?<indent>[ \t]*)(\[Required\]\s*\n[ \t]*)?" +
+                    Regex.Escape(propertyNameAttr));
+
+                code = jsonIgnorePattern.Replace(code, match =>
+                {
+                    // Only add if [JsonIgnore] is not already there
+                    if (code.LastIndexOf("[JsonIgnore]", match.Index, StringComparison.Ordinal) >= 0)
+                    {
+                        int checkStart = Math.Max(0, match.Index - 50);
+                        string preceding = code[checkStart..match.Index];
+                        if (preceding.Contains("[JsonIgnore]"))
+                            return match.Value;
+                    }
+
+                    string indent = match.Groups["indent"].Value;
+                    return $"{indent}[JsonIgnore]\n{match.Value}";
+                });
+
+                _context.GeneratedTypes[name] = code;
+            }
+        }
+    }
+
 
     private string AddOpenApiHeader(string jsonContent, string schemaName)
     {

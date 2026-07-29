@@ -18,6 +18,7 @@ namespace Osdu.Client.Schemas.Abstract;
 /// </summary>
 public class AbstractFeatureCollection_1_0_0
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0Type Type { get; set; }
@@ -42,6 +43,7 @@ public enum AbstractFeatureCollection_1_0_0Type
 
 public class AbstractFeatureCollection_1_0_0Features
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesType Type { get; set; }
@@ -82,6 +84,7 @@ public abstract class AbstractFeatureCollection_1_0_0FeaturesGeometry
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONPoint : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONPointType Type { get; set; }
@@ -107,6 +110,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONPointType
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONLineString : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONLineStringType Type { get; set; }
@@ -132,6 +136,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONLineStringType
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONPolygon : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONPolygonType Type { get; set; }
@@ -156,6 +161,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONPolygonType
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiPoint : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiPointType Type { get; set; }
@@ -180,6 +186,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiPointType
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiLineString : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiLineStringType Type { get; set; }
@@ -204,6 +211,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiLineStrin
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiPolygon : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiPolygonType Type { get; set; }
@@ -228,6 +236,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONMultiPolygonTy
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollection : AbstractFeatureCollection_1_0_0FeaturesGeometry
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionType Type { get; set; }
@@ -263,6 +272,7 @@ public abstract class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeom
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONPoint : AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONPointType Type { get; set; }
@@ -288,6 +298,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollec
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONLineString : AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONLineStringType Type { get; set; }
@@ -313,6 +324,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollec
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONPolygon : AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONPolygonType Type { get; set; }
@@ -337,6 +349,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollec
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONMultiPoint : AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONMultiPointType Type { get; set; }
@@ -361,6 +374,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollec
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONMultiLineString : AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONMultiLineStringType Type { get; set; }
@@ -385,6 +399,7 @@ public enum AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollec
 
 public class AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONMultiPolygon : AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometries
 {
+    [JsonIgnore]
     [Required]
     [JsonPropertyName("type")]
     public AbstractFeatureCollection_1_0_0FeaturesGeometryGeoJSONGeometryCollectionGeometriesGeoJSONMultiPolygonType Type { get; set; }

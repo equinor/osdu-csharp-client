@@ -1,7 +1,6 @@
+using System.Text.Json;
 using System.Windows;
 using Osdu.Client.Apis.Search;
-using Osdu.Client.Extensions;
-using Osdu.Client.Schemas.MasterData;
 
 namespace Osdu.Client.ExampleApp;
 
@@ -22,7 +21,7 @@ public partial class MainWindow : Window
     {
         SearchButton.IsEnabled = false;
         StatusText.Text = "Searching...";
-        ResultsListBox.Items.Clear();
+        ResultsTextBox.Clear();
 
         try
         {
@@ -35,14 +34,14 @@ public partial class MainWindow : Window
 
             QueryResponse? response = await _searchClient.PostQueryAsync(request);
 
-            IEnumerable<Wellbore_1_3_0> list = response.Results.DeserializeList<Wellbore_1_3_0>();
-
             StatusText.Text = $"Found {response.TotalCount} result(s).";
 
-            foreach (var result in response.Results ?? [])
+            string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
             {
-                ResultsListBox.Items.Add(result.ToString());
-            }
+                WriteIndented = true
+            });
+
+            ResultsTextBox.Text = prettyJson;
         }
         catch (Exception ex)
         {

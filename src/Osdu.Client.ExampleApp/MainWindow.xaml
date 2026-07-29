@@ -21,6 +21,10 @@
 
         <TextBlock x:Name="StatusText" Grid.Row="1" Margin="0,8" Foreground="Gray"/>
 
-        <ListBox x:Name="ResultsListBox" Grid.Row="2" Margin="0,8,0,0"/>
+        <TextBox x:Name="ResultsTextBox" Grid.Row="2" Margin="0,8,0,0"
+                 IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                 FontFamily="Consolas" FontSize="12"
+                 AcceptsReturn="True"/>
     </Grid>
 </Window>
