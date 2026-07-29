@@ -41,7 +41,7 @@ internal class Program
 
     static ServiceCollectionBuilder ConfigureServices()
     {
-        ServiceCollection services = new ServiceCollection();
+        IServiceCollection services = new ServiceCollection();
         return new ServiceCollectionBuilder(services);
     }
 

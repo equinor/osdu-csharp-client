@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Reader;
-using Osdu.Client.Generator.ConsoleApp.Configuration;
+using Osdu.Client.Generator.ConsoleApp;
 using Osdu.Client.Generator.ConsoleApp.Extensions;
 
 namespace Osdu.Client.Generator.ConsoleApp.Generators.Schema;

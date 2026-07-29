@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Osdu.Client.Generator.ConsoleApp.Configuration;
+using Osdu.Client.Generator.ConsoleApp;
 using Osdu.Client.Generator.ConsoleApp.Generators;
 using Osdu.Client.Generator.ConsoleApp.Generators.Api;
 using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
@@ -12,10 +12,10 @@ namespace Osdu.Client.Generator.ConsoleApp;
 
 internal class ServiceCollectionBuilder
 {
-    private readonly ServiceCollection _services;
+    private readonly IServiceCollection _services;
     private IConfiguration? _configuration;
 
-    public ServiceCollectionBuilder(ServiceCollection services)
+    public ServiceCollectionBuilder(IServiceCollection services)
     {
         _services = services;
     }
@@ -25,6 +25,7 @@ internal class ServiceCollectionBuilder
         _services.AddScoped<CodeGenerator>();
         _services.AddScoped<ApiGenerator>();
         _services.AddScoped<SchemaGenerator>();
+        _services.AddScoped<ServicesExtensionGenerator>();
 
         return this;
     }

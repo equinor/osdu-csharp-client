@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using Osdu.Client.Generator.ConsoleApp.Configuration;
+using Osdu.Client.Generator.ConsoleApp;
 using Osdu.Client.Generator.ConsoleApp.Extensions;
 using Osdu.Client.Generator.ConsoleApp.Generators.Api;
 using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
@@ -12,13 +12,16 @@ public class CodeGenerator
     private readonly AppConfiguration _configuration;
     private readonly ApiGenerator _apiGenerator;
     private readonly SchemaGenerator _schemaGenerator;
+    private readonly ServicesExtensionGenerator _servicesExtensionGenerator;
 
-    public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator, SchemaGenerator schemaGenerator)
+    public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator,
+        SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator)
     {
         _logger = logger;
         _configuration = configuration;
         _apiGenerator = apiGenerator;
         _schemaGenerator = schemaGenerator;
+        _servicesExtensionGenerator = servicesExtensionGenerator;
     }
 
     public void Generate()
@@ -44,21 +47,30 @@ public class CodeGenerator
 
         _logger.LogInformation($"  Found {jsonFiles.Length} API definitions");
 
+        var apiClientNames = new List<string>();
+
         foreach (string jsonFile in jsonFiles)
         {
             _logger.LogInformation($"  Building API client/schema from definition file: {jsonFile}");
+
+            string apiClientName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
+            apiClientNames.Add(apiClientName);
 
             // Generate API client
             _apiGenerator.Generate(jsonFile, _configuration.Api.OutputDir, _configuration.Api.Namespace);
 
             // Generate API schema
-            string apiClientName = Path.GetFileNameWithoutExtension(jsonFile).ToPascalCase();
             string outputDir = Path.Combine(_configuration.Api.OutputDir, apiClientName);
             string apiNamespace = $"{_configuration.Api.Namespace}.{apiClientName}";
 
             _schemaGenerator.GenerateNew(jsonFile, outputDir, apiNamespace);
         }
 
+        // Generate the ServicesExtension class
+        if (apiClientNames.Count > 0)
+        {
+            _servicesExtensionGenerator.Generate(apiClientNames);
+        }
     }
 
     private void GenerateDataSchemas()

@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
-using System.Text.Json.Serialization;
 
-namespace Osdu.Client.Generator.ConsoleApp.Configuration;
+namespace Osdu.Client.Generator.ConsoleApp;
 
 public class AppConfiguration
 {
@@ -9,6 +8,8 @@ public class AppConfiguration
     public string OutputBaseDir { get; private set; }
 
     public ApiConfiguration Api { get; init; }
+
+    public ExtensionConfiguration Extension { get; init; }
 
     public SchemaConfiguration Schema { get; init; }
 
@@ -23,6 +24,8 @@ public class AppConfiguration
         Api.DefinitionsDir = Path.Combine(appDir, Api.DefinitionsDir);
         Api.OutputDir = Path.Combine(OutputBaseDir, Api.OutputDir);
 
+        Extension.OutputDir = Path.Combine(OutputBaseDir, Extension.OutputDir);
+
         Schema.DefinitionsDir = Path.Combine(appDir, Schema.DefinitionsDir);
         Schema.OutputDir = Path.Combine(OutputBaseDir, Schema.OutputDir);
     }
@@ -35,8 +38,8 @@ public class AppConfiguration
 
 public class ApiConfiguration
 {
-    [JsonPropertyName("definitionsDir")]
     public required string DefinitionsDir { get; set; }
+
     public required string OutputDir { get; set; }
 
     public required string Namespace { get; set; }
@@ -45,6 +48,14 @@ public class ApiConfiguration
 public class SchemaConfiguration
 {
     public required string DefinitionsDir { get; set; }
+
+    public required string OutputDir { get; set; }
+
+    public required string Namespace { get; set; }
+}
+
+public class ExtensionConfiguration
+{
     public required string OutputDir { get; set; }
 
     public required string Namespace { get; set; }
