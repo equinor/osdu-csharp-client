@@ -23,17 +23,17 @@ public interface ICrsConversionApiClient
     /// <summary>
     /// Convert a list of points
     /// </summary>
-    Task<ConvertPointsResponse> PostV4ConvertAsync(string dataPartitionId, ConvertPointsRequestV4 body, CancellationToken cancellationToken = default);
+    Task<ConvertPointsResponse> PostV4ConvertAsync(ConvertPointsRequestV4 body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Convert trajectory stations
     /// </summary>
-    Task<ConvertTrajectoryResponseV4> PostV4ConvertTrajectoryAsync(string dataPartitionId, ConvertTrajectoryRequestV4 body, CancellationToken cancellationToken = default);
+    Task<ConvertTrajectoryResponseV4> PostV4ConvertTrajectoryAsync(ConvertTrajectoryRequestV4 body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Convert a GeoJSON or AnyCrsGeoJson structure
     /// </summary>
-    Task<ConvertGeoJsonResponse> PostV4ConvertGeoJsonAsync(string dataPartitionId, ConvertGeoJsonRequestV4 body, CancellationToken cancellationToken = default);
+    Task<ConvertGeoJsonResponse> PostV4ConvertGeoJsonAsync(ConvertGeoJsonRequestV4 body, CancellationToken cancellationToken = default);
 
 }
 
@@ -57,12 +57,11 @@ public partial class CrsConversionApiClient : ICrsConversionApiClient
     /// <summary>
     /// Convert a list of points
     /// </summary>
-    public async Task<ConvertPointsResponse> PostV4ConvertAsync(string dataPartitionId, ConvertPointsRequestV4 body, CancellationToken cancellationToken = default)
+    public async Task<ConvertPointsResponse> PostV4ConvertAsync(ConvertPointsRequestV4 body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v4/convert";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -74,12 +73,11 @@ public partial class CrsConversionApiClient : ICrsConversionApiClient
     /// <summary>
     /// Convert trajectory stations
     /// </summary>
-    public async Task<ConvertTrajectoryResponseV4> PostV4ConvertTrajectoryAsync(string dataPartitionId, ConvertTrajectoryRequestV4 body, CancellationToken cancellationToken = default)
+    public async Task<ConvertTrajectoryResponseV4> PostV4ConvertTrajectoryAsync(ConvertTrajectoryRequestV4 body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v4/convertTrajectory";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -91,12 +89,11 @@ public partial class CrsConversionApiClient : ICrsConversionApiClient
     /// <summary>
     /// Convert a GeoJSON or AnyCrsGeoJson structure
     /// </summary>
-    public async Task<ConvertGeoJsonResponse> PostV4ConvertGeoJsonAsync(string dataPartitionId, ConvertGeoJsonRequestV4 body, CancellationToken cancellationToken = default)
+    public async Task<ConvertGeoJsonResponse> PostV4ConvertGeoJsonAsync(ConvertGeoJsonRequestV4 body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v4/convertGeoJson";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);

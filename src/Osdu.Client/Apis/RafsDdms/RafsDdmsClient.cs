@@ -28,307 +28,307 @@ public interface IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetSamplesanalysesreportByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysesreportByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteSamplesanalysesreportByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteSamplesanalysesreportByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetSamplesanalysesreportVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysesreportVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetSamplesanalysesreportVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysesreportVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostSamplesanalysesreportAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostSamplesanalysesreportAsync(List<object> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Source Data
     /// </summary>
-    Task<object> GetSamplesanalysesreportSourceByRecordIdAsync(string recordId, string dataPartitionId, string version = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysesreportSourceByRecordIdAsync(string recordId, string version = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Types
     /// </summary>
-    Task<object> GetSamplesanalysisAnalysistypesAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisAnalysistypesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetSamplesanalysisByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteSamplesanalysisByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteSamplesanalysisByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetSamplesanalysisVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetSamplesanalysisVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostSamplesanalysisAsync(string dataPartitionId, List<object> body = default, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostSamplesanalysisAsync(List<object> body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    Task<object> GetSamplesanalysisDataSchemaByAnalysistypeAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisDataSchemaByAnalysistypeAsync(string contentSchemaVersion, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Data V2
     /// </summary>
-    Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAndContentIdAsync(string analysisType, string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAndContentIdAsync(string analysisType, string contentId, string recordId, string contentSchemaVersion, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Data V2
     /// </summary>
-    Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string dataPartitionId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default);
+    Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetSaturationfunctionsetSearchAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetSearchAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetSaturationfunctionsetSearchDataAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetSearchDataAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetSaturationfunctionsetByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteSaturationfunctionsetByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteSaturationfunctionsetByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetSaturationfunctionsetVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetSaturationfunctionsetVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostSaturationfunctionsetAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostSaturationfunctionsetAsync(List<object> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    Task<object> GetSaturationfunctionsetDataSchemaAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetDataSchemaAsync(string contentSchemaVersion, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Data Single Content Type
     /// </summary>
-    Task<object> GetSaturationfunctionsetDataByRecordIdAndContentIdAsync(string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
+    Task<object> GetSaturationfunctionsetDataByRecordIdAndContentIdAsync(string contentId, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Data Single Content Type
     /// </summary>
-    Task<object> PostSaturationfunctionsetDataByRecordIdAsync(string recordId, string dataPartitionId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default);
+    Task<object> PostSaturationfunctionsetDataByRecordIdAsync(string recordId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetMasterdataByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetMasterdataByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteMasterdataByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteMasterdataByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetMasterdataVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetMasterdataVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetMasterdataVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetMasterdataVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostMasterdataAsync(string dataPartitionId, List<object> body = default, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostMasterdataAsync(List<object> body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelSearchAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelSearchAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelSearchDataAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelSearchDataAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostReservoirsimulationrockphysicsmodelAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostReservoirsimulationrockphysicsmodelAsync(List<object> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelDataSchemaAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelDataSchemaAsync(string contentSchemaVersion, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Data Single Content Type
     /// </summary>
-    Task<object> GetReservoirsimulationrockphysicsmodelDataByRecordIdAndContentIdAsync(string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
+    Task<object> GetReservoirsimulationrockphysicsmodelDataByRecordIdAndContentIdAsync(string contentId, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Data Single Content Type
     /// </summary>
-    Task<object> PostReservoirsimulationrockphysicsmodelDataByRecordIdAsync(string recordId, string dataPartitionId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default);
+    Task<object> PostReservoirsimulationrockphysicsmodelDataByRecordIdAsync(string recordId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetFluidmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetFluidmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteFluidmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteFluidmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetFluidmodelVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetFluidmodelVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetFluidmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetFluidmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostFluidmodelAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostFluidmodelAsync(List<object> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetDepthshiftSearchAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftSearchAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    Task<object> GetDepthshiftSearchDataAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftSearchDataAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record
     /// </summary>
-    Task<object> GetDepthshiftByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    Task<string> DeleteDepthshiftByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteDepthshiftByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    Task<object> GetDepthshiftVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    Task<object> GetDepthshiftVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Records
     /// </summary>
-    Task<StorageUpsertResponse> PostDepthshiftAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default);
+    Task<StorageUpsertResponse> PostDepthshiftAsync(List<object> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    Task<object> GetDepthshiftDataSchemaAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftDataSchemaAsync(string contentSchemaVersion, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Data Single Content Type
     /// </summary>
-    Task<object> GetDepthshiftDataByRecordIdAndContentIdAsync(string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
+    Task<object> GetDepthshiftDataByRecordIdAndContentIdAsync(string contentId, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Data Single Content Type
     /// </summary>
-    Task<object> PostDepthshiftDataByRecordIdAsync(string recordId, string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default);
+    Task<object> PostDepthshiftDataByRecordIdAsync(string recordId, string contentSchemaVersion, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Data Dev
     /// </summary>
-    Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string columnsAggregation = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string columnsAggregation = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Post Data Dev
     /// </summary>
-    Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default);
+    Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string contentSchemaVersion, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Search Data
     /// </summary>
-    Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Search
     /// </summary>
-    Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
+    Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -367,12 +367,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetSamplesanalysesreportByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysesreportByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysesreport/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -383,12 +382,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteSamplesanalysesreportByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteSamplesanalysesreportByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysesreport/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -398,12 +396,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetSamplesanalysesreportVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysesreportVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysesreport/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -414,12 +411,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetSamplesanalysesreportVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysesreportVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysesreport/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -430,12 +426,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostSamplesanalysesreportAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostSamplesanalysesreportAsync(List<object> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysesreport";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -447,7 +442,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Source Data
     /// </summary>
-    public async Task<object> GetSamplesanalysesreportSourceByRecordIdAsync(string recordId, string dataPartitionId, string version = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysesreportSourceByRecordIdAsync(string recordId, string version = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (version is not null)
@@ -456,7 +451,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysesreport/{recordId}/source{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -467,12 +461,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Types
     /// </summary>
-    public async Task<object> GetSamplesanalysisAnalysistypesAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisAnalysistypesAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/analysistypes";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -483,12 +476,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetSamplesanalysisByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -499,12 +491,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteSamplesanalysisByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteSamplesanalysisByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -514,12 +505,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetSamplesanalysisVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -530,12 +520,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetSamplesanalysisVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -546,12 +535,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostSamplesanalysisAsync(string dataPartitionId, List<object> body = default, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostSamplesanalysisAsync(List<object> body = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -563,7 +551,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    public async Task<object> GetSamplesanalysisDataSchemaByAnalysistypeAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisDataSchemaByAnalysistypeAsync(string contentSchemaVersion, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -571,7 +559,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/analysistype/data/schema{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -582,7 +569,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Data V2
     /// </summary>
-    public async Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAndContentIdAsync(string analysisType, string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAndContentIdAsync(string analysisType, string contentId, string recordId, string contentSchemaVersion, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -602,7 +589,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{recordId}/data/{analysisType}/{contentId}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -613,7 +599,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Data V2
     /// </summary>
-    public async Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string dataPartitionId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -621,7 +607,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{recordId}/data/{analysisType}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -633,7 +618,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -663,7 +648,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{analysisType}/search{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -674,7 +658,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -710,7 +694,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/samplesanalysis/{analysisType}/search/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -721,7 +704,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetSearchAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetSearchAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -747,7 +730,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/search{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -758,7 +740,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetSearchDataAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetSearchDataAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -786,7 +768,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/search/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -797,12 +778,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -813,12 +793,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteSaturationfunctionsetByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteSaturationfunctionsetByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -828,12 +807,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -844,12 +822,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -860,12 +837,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostSaturationfunctionsetAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostSaturationfunctionsetAsync(List<object> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -877,7 +853,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetDataSchemaAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetDataSchemaAsync(string contentSchemaVersion, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -885,7 +861,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/data/schema{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -896,7 +871,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Data Single Content Type
     /// </summary>
-    public async Task<object> GetSaturationfunctionsetDataByRecordIdAndContentIdAsync(string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSaturationfunctionsetDataByRecordIdAndContentIdAsync(string contentId, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -912,7 +887,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/{recordId}/data/{contentId}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -923,7 +897,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Data Single Content Type
     /// </summary>
-    public async Task<object> PostSaturationfunctionsetDataByRecordIdAsync(string recordId, string dataPartitionId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostSaturationfunctionsetDataByRecordIdAsync(string recordId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -931,7 +905,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/saturationfunctionset/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -943,12 +916,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetMasterdataByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetMasterdataByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/masterdata/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -959,12 +931,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteMasterdataByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteMasterdataByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/masterdata/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -974,12 +945,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetMasterdataVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetMasterdataVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/masterdata/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -990,12 +960,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetMasterdataVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetMasterdataVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/masterdata/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1006,12 +975,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostMasterdataAsync(string dataPartitionId, List<object> body = default, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostMasterdataAsync(List<object> body = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/masterdata";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1023,7 +991,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelSearchAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelSearchAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1049,7 +1017,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/search{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1060,7 +1027,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelSearchDataAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelSearchDataAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1088,7 +1055,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/search/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1099,12 +1065,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1115,12 +1080,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteReservoirsimulationrockphysicsmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1130,12 +1094,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1146,12 +1109,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1162,12 +1124,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostReservoirsimulationrockphysicsmodelAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostReservoirsimulationrockphysicsmodelAsync(List<object> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1179,7 +1140,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelDataSchemaAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelDataSchemaAsync(string contentSchemaVersion, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1187,7 +1148,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/data/schema{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1198,7 +1158,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Data Single Content Type
     /// </summary>
-    public async Task<object> GetReservoirsimulationrockphysicsmodelDataByRecordIdAndContentIdAsync(string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetReservoirsimulationrockphysicsmodelDataByRecordIdAndContentIdAsync(string contentId, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1214,7 +1174,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/{recordId}/data/{contentId}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1225,7 +1184,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Data Single Content Type
     /// </summary>
-    public async Task<object> PostReservoirsimulationrockphysicsmodelDataByRecordIdAsync(string recordId, string dataPartitionId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostReservoirsimulationrockphysicsmodelDataByRecordIdAsync(string recordId, string contentSchemaVersion, object body = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1233,7 +1192,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/reservoirsimulationrockphysicsmodel/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1245,12 +1203,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetFluidmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetFluidmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/fluidmodel/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1261,12 +1218,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteFluidmodelByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteFluidmodelByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/fluidmodel/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1276,12 +1232,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetFluidmodelVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetFluidmodelVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/fluidmodel/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1292,12 +1247,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetFluidmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetFluidmodelVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/fluidmodel/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1308,12 +1262,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostFluidmodelAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostFluidmodelAsync(List<object> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/fluidmodel";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1325,7 +1278,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetDepthshiftSearchAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftSearchAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1353,7 +1306,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/search{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1364,7 +1316,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Search Endpoint
     /// </summary>
-    public async Task<object> GetDepthshiftSearchDataAsync(string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftSearchDataAsync(string contentSchemaVersion, string basinId = default, string fieldId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1394,7 +1346,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/search/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1405,12 +1356,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record
     /// </summary>
-    public async Task<object> GetDepthshiftByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1421,12 +1371,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Soft Delete Record
     /// </summary>
-    public async Task<string> DeleteDepthshiftByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDepthshiftByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/{recordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1436,12 +1385,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Versions
     /// </summary>
-    public async Task<object> GetDepthshiftVersionsByRecordIdAsync(string recordId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftVersionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/{recordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1452,12 +1400,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Record Specific Version
     /// </summary>
-    public async Task<object> GetDepthshiftVersionsByRecordIdAndVersionAsync(string recordId, int version, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftVersionsByRecordIdAndVersionAsync(string recordId, int version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/{recordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1468,12 +1415,11 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Records
     /// </summary>
-    public async Task<StorageUpsertResponse> PostDepthshiftAsync(string dataPartitionId, List<object> body, CancellationToken cancellationToken = default)
+    public async Task<StorageUpsertResponse> PostDepthshiftAsync(List<object> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1485,7 +1431,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Content Schema
     /// </summary>
-    public async Task<object> GetDepthshiftDataSchemaAsync(string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftDataSchemaAsync(string contentSchemaVersion, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1493,7 +1439,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/data/schema{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1504,7 +1449,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Data Single Content Type
     /// </summary>
-    public async Task<object> GetDepthshiftDataByRecordIdAndContentIdAsync(string contentId, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDepthshiftDataByRecordIdAndContentIdAsync(string contentId, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string columnsAggregation = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1520,7 +1465,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/{recordId}/data/{contentId}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1531,7 +1475,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Data Single Content Type
     /// </summary>
-    public async Task<object> PostDepthshiftDataByRecordIdAsync(string recordId, string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default)
+    public async Task<object> PostDepthshiftDataByRecordIdAsync(string recordId, string contentSchemaVersion, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1539,7 +1483,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/v2/depthshift/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1550,7 +1493,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Data Dev
     /// </summary>
-    public async Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string dataPartitionId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string columnsAggregation = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string contentSchemaVersion, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string columnsAggregation = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1566,7 +1509,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/dev/samplesanalysis/{recordId}/data/{analysisType}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1577,7 +1519,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Post Data Dev
     /// </summary>
-    public async Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string dataPartitionId, string contentSchemaVersion, CancellationToken cancellationToken = default)
+    public async Task<object> PostSamplesanalysisDataByRecordIdAndAnalysisTypeAsync(string analysisType, string recordId, string contentSchemaVersion, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1585,7 +1527,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/dev/samplesanalysis/{recordId}/data/{analysisType}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1596,7 +1537,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Search Data
     /// </summary>
-    public async Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisSearchDataByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string depthShiftPolicy = default, string depthShiftId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1634,7 +1575,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/dev/samplesanalysis/{analysisType}/search/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1645,7 +1585,7 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
     /// <summary>
     /// Get Search
     /// </summary>
-    public async Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string dataPartitionId, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetSamplesanalysisSearchByAnalysisTypeAsync(string analysisType, string contentSchemaVersion, string basinId = default, string fieldId = default, string wellId = default, string wellboreId = default, string columnsFilter = default, string rowsFilter = default, string rowsMultipleFilter = default, string metadata = default, string columnsAggregation = default, int? offset = default, int? pageLimit = default, string indexedStartDate = default, string indexedEndDate = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"content_schema_version={Uri.EscapeDataString(contentSchemaVersion.ToString()!)}");
@@ -1679,7 +1619,6 @@ public partial class RafsDdmsApiClient : IRafsDdmsApiClient
         var requestUrl = $"{_baseUrl}/api/rafs-ddms/dev/samplesanalysis/{analysisType}/search{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

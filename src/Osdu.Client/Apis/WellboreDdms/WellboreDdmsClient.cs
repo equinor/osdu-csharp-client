@@ -33,412 +33,412 @@ public interface IWellboreDdmsApiClient
     /// <summary>
     /// Get the Wellbore using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboresByWellboreidAsync(string wellboreid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboresByWellboreidAsync(string wellboreid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the wellbore. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WellboresByWellboreidAsync(string wellboreid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WellboresByWellboreidAsync(string wellboreid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the Wellbore
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WellboresVersionsByWellboreidAsync(string wellboreid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WellboresVersionsByWellboreidAsync(string wellboreid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the Wellbore using OSDU wellbore schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboresVersionsByWellboreidAndVersionAsync(string wellboreid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboresVersionsByWellboreidAndVersionAsync(string wellboreid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the Wellbores using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboresAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboresAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the Well using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WellsByWellidAsync(string wellid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellsByWellidAsync(string wellid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the well. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WellsByWellidAsync(string wellid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WellsByWellidAsync(string wellid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the Well
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WellsVersionsByWellidAsync(string wellid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WellsVersionsByWellidAsync(string wellid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the Well using OSDU well schema
     /// </summary>
-    Task<Record> GetDdmsV3WellsVersionsByWellidAndVersionAsync(string wellid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellsVersionsByWellidAndVersionAsync(string wellid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the Wells using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WellsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WellsAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the WellboreMarkerSet using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the wellboreMarkerset. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the WellboreMarkerSet
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAsync(string wellboremarkersetid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAsync(string wellboremarkersetid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the WellboreMarkerSet using OSDU WellboreMarkerset schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAndVersionAsync(string wellboremarkersetid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAndVersionAsync(string wellboremarkersetid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the Wellbore Markerset using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboremarkersetsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboremarkersetsAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the WellboreIntervalSet using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the WellboreIntervalSetId. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the WellboreIntervalSet
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the WellboreIntervalSet using OSDU WellboreIntervalSetId schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAndVersionAsync(string wellboreintervalsetsid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAndVersionAsync(string wellboreintervalsetsid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the WellboreIntervalSet using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboreintervalsetsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboreintervalsetsAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the WellLogAcquisition using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the WellLogAcquisitionId. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the WellLogAcquisition
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAsync(string welllogacquisitionid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAsync(string welllogacquisitionid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the WellLogAcquisition using OSDU WellLogAcquisitionId schema
     /// </summary>
-    Task<Record> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAndVersionAsync(string welllogacquisitionid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAndVersionAsync(string welllogacquisitionid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the WellLogAcquisition using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogacquisitionAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogacquisitionAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the WellLog using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WelllogsByWelllogidAsync(string welllogid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WelllogsByWelllogidAsync(string welllogid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the welllog. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WelllogsByWelllogidAsync(string welllogid, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WelllogsByWelllogidAsync(string welllogid, bool? purge = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the WellLog
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WelllogsVersionsByWelllogidAsync(string welllogid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WelllogsVersionsByWelllogidAsync(string welllogid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the WellLog using OSDU welllog schema
     /// </summary>
-    Task<Record> GetDdmsV3WelllogsVersionsByWelllogidAndVersionAsync(string welllogid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WelllogsVersionsByWelllogidAndVersionAsync(string welllogid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the WellLogs using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogsAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the WellboreTrajectory using osdu schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the wellboreTrajectory. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, bool? purge = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the WellboreTrajectory
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAsync(string wellboretrajectoryid, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAsync(string wellboretrajectoryid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the given version of the WellboreTrajectory using OSDU wellboreTrajectory schema
     /// </summary>
-    Task<Record> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAndVersionAsync(string wellboretrajectoryid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAndVersionAsync(string wellboretrajectoryid, long version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update the WellboreTrajectories using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboretrajectoriesAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WellboretrajectoriesAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    Task<Session> PostDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> PostDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    Task<List<Session>> GetDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<List<Session>> GetDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// get session.
     /// </summary>
-    Task<Session> GetDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> GetDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    Task<CommitSessionResponse> PatchDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CommitSessionResponse> PatchDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    Task<object> PostDdmsV3WelllogsDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> PostDdmsV3WelllogsDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    Task<object> GetDdmsV3WelllogsDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3WelllogsDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    Task<DataframeBasicDescribe> PostDdmsV3WelllogsSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<DataframeBasicDescribe> PostDdmsV3WelllogsSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    Task<object> GetDdmsV3WelllogsVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3WelllogsVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    Task<Session> PostDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> PostDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    Task<List<Session>> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<List<Session>> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// get session.
     /// </summary>
-    Task<Session> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    Task<CommitSessionResponse> PatchDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CommitSessionResponse> PatchDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    Task<object> PostDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> PostDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    Task<object> GetDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    Task<DataframeBasicDescribe> PostDdmsV3WellboretrajectoriesSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<DataframeBasicDescribe> PostDdmsV3WellboretrajectoriesSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    Task<object> GetDdmsV3WellboretrajectoriesVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3WellboretrajectoriesVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns statistics of record's data for selected curves
     /// </summary>
-    Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsDataStatisticsByRecordIdAsync(string recordId, string curves = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsDataStatisticsByRecordIdAsync(string recordId, string curves = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns statistics of record's data for selected curves at requested version
     /// </summary>
-    Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, string curves = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, string curves = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Trigger computations of record's data statistics of record's data
     /// </summary>
-    Task<object> PostDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> PostDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    Task<Session> PostDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> PostDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    Task<List<Session>> GetDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<List<Session>> GetDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// get session.
     /// </summary>
-    Task<Session> GetDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> GetDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    Task<CommitSessionResponse> PatchDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CommitSessionResponse> PatchDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    Task<object> PostDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> PostDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    Task<object> GetDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    Task<DataframeBasicDescribe> PostDdmsV3PpfgdatasetSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<DataframeBasicDescribe> PostDdmsV3PpfgdatasetSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    Task<object> GetDdmsV3PpfgdatasetVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3PpfgdatasetVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    Task<Session> PostDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> PostDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    Task<List<Session>> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<List<Session>> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// get session.
     /// </summary>
-    Task<Session> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Session> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    Task<CommitSessionResponse> PatchDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CommitSessionResponse> PatchDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    Task<object> PostDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> PostDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    Task<object> GetDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    Task<DataframeBasicDescribe> PostDdmsV3WellpressuretestrawmeasurementSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<DataframeBasicDescribe> PostDdmsV3WellpressuretestrawmeasurementSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    Task<object> GetDdmsV3WellpressuretestrawmeasurementVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<object> GetDdmsV3WellpressuretestrawmeasurementVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the record using the provided recordID
     /// </summary>
-    Task<Record> GetDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the record using id. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, bool? purge = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the provided record
     /// </summary>
-    Task<RecordVersions> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get specific version for the provided OSDU record
     /// </summary>
-    Task<Record> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update record using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3PpfgdatasetAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3PpfgdatasetAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get the record using the provided recordID
     /// </summary>
-    Task<Record> GetDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete the record using id. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    Task<string> DeleteDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<string> DeleteDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, bool? purge = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get all versions of the provided record
     /// </summary>
-    Task<RecordVersions> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<RecordVersions> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get specific version for the provided OSDU record
     /// </summary>
-    Task<Record> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<Record> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create or update record using osdu schema
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PostDdmsV3WellpressuretestrawmeasurementAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PostDdmsV3WellpressuretestrawmeasurementAsync(List<Record> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Recognize family and unit
     /// </summary>
-    Task<GuessResponse> PostLogRecognitionFamilyAsync(GuessRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<GuessResponse> PostLogRecognitionFamilyAsync(GuessRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Upload user-defined catalog with family assignment rules
     /// </summary>
-    Task<CreateUpdateRecordsResponse> PutLogRecognitionUploadCatalogAsync(CatalogRecord body, string dataPartitionId = default, CancellationToken cancellationToken = default);
+    Task<CreateUpdateRecordsResponse> PutLogRecognitionUploadCatalogAsync(CatalogRecord body, CancellationToken cancellationToken = default);
 
 }
 
@@ -492,13 +492,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the Wellbore using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboresByWellboreidAsync(string wellboreid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboresByWellboreidAsync(string wellboreid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellbores/{wellboreid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -509,13 +507,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the wellbore. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WellboresByWellboreidAsync(string wellboreid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WellboresByWellboreidAsync(string wellboreid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellbores/{wellboreid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -525,13 +521,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the Wellbore
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WellboresVersionsByWellboreidAsync(string wellboreid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WellboresVersionsByWellboreidAsync(string wellboreid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellbores/{wellboreid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -542,13 +536,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the Wellbore using OSDU wellbore schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboresVersionsByWellboreidAndVersionAsync(string wellboreid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboresVersionsByWellboreidAndVersionAsync(string wellboreid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellbores/{wellboreid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -559,13 +551,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the Wellbores using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboresAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboresAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellbores";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -577,13 +567,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the Well using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellsByWellidAsync(string wellid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellsByWellidAsync(string wellid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wells/{wellid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -594,13 +582,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the well. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WellsByWellidAsync(string wellid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WellsByWellidAsync(string wellid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wells/{wellid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -610,13 +596,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the Well
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WellsVersionsByWellidAsync(string wellid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WellsVersionsByWellidAsync(string wellid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wells/{wellid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -627,13 +611,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the Well using OSDU well schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellsVersionsByWellidAndVersionAsync(string wellid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellsVersionsByWellidAndVersionAsync(string wellid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wells/{wellid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -644,13 +626,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the Wells using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellsAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wells";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -662,13 +642,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the WellboreMarkerSet using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboremarkersets/{wellboremarkersetid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -679,13 +657,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the wellboreMarkerset. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WellboremarkersetsByWellboremarkersetidAsync(string wellboremarkersetid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboremarkersets/{wellboremarkersetid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -695,13 +671,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the WellboreMarkerSet
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAsync(string wellboremarkersetid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAsync(string wellboremarkersetid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboremarkersets/{wellboremarkersetid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -712,13 +686,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the WellboreMarkerSet using OSDU WellboreMarkerset schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAndVersionAsync(string wellboremarkersetid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboremarkersetsVersionsByWellboremarkersetidAndVersionAsync(string wellboremarkersetid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboremarkersets/{wellboremarkersetid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -729,13 +701,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the Wellbore Markerset using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboremarkersetsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboremarkersetsAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboremarkersets";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -747,13 +717,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the WellboreIntervalSet using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboreintervalsets/{wellboreintervalsetsid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -764,13 +732,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the WellboreIntervalSetId. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WellboreintervalsetsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboreintervalsets/{wellboreintervalsetsid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -780,13 +746,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the WellboreIntervalSet
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAsync(string wellboreintervalsetsid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboreintervalsets/{wellboreintervalsetsid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -797,13 +761,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the WellboreIntervalSet using OSDU WellboreIntervalSetId schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAndVersionAsync(string wellboreintervalsetsid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboreintervalsetsVersionsByWellboreintervalsetsidAndVersionAsync(string wellboreintervalsetsid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboreintervalsets/{wellboreintervalsetsid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -814,13 +776,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the WellboreIntervalSet using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboreintervalsetsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboreintervalsetsAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboreintervalsets";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -832,13 +792,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the WellLogAcquisition using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogacquisition/{welllogacquisitionid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -849,13 +807,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the WellLogAcquisitionId. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WelllogacquisitionByWelllogacquisitionidAsync(string welllogacquisitionid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogacquisition/{welllogacquisitionid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -865,13 +821,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the WellLogAcquisition
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAsync(string welllogacquisitionid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAsync(string welllogacquisitionid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogacquisition/{welllogacquisitionid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -882,13 +836,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the WellLogAcquisition using OSDU WellLogAcquisitionId schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAndVersionAsync(string welllogacquisitionid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WelllogacquisitionVersionsByWelllogacquisitionidAndVersionAsync(string welllogacquisitionid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogacquisition/{welllogacquisitionid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -899,13 +851,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the WellLogAcquisition using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogacquisitionAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogacquisitionAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogacquisition";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -917,13 +867,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the WellLog using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WelllogsByWelllogidAsync(string welllogid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WelllogsByWelllogidAsync(string welllogid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{welllogid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -934,7 +882,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the welllog. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WelllogsByWelllogidAsync(string welllogid, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WelllogsByWelllogidAsync(string welllogid, bool? purge = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (purge.HasValue)
@@ -943,8 +891,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{welllogid}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -954,13 +900,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the WellLog
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WelllogsVersionsByWelllogidAsync(string welllogid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WelllogsVersionsByWelllogidAsync(string welllogid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{welllogid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -971,13 +915,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the WellLog using OSDU welllog schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WelllogsVersionsByWelllogidAndVersionAsync(string welllogid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WelllogsVersionsByWelllogidAndVersionAsync(string welllogid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{welllogid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -988,13 +930,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the WellLogs using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogsAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WelllogsAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1006,13 +946,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the WellboreTrajectory using osdu schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{wellboretrajectoryid}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1023,7 +961,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the wellboreTrajectory. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WellboretrajectoriesByWellboretrajectoryidAsync(string wellboretrajectoryid, bool? purge = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (purge.HasValue)
@@ -1032,8 +970,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{wellboretrajectoryid}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1043,13 +979,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the WellboreTrajectory
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAsync(string wellboretrajectoryid, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAsync(string wellboretrajectoryid, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{wellboretrajectoryid}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1060,13 +994,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the given version of the WellboreTrajectory using OSDU wellboreTrajectory schema
     /// </summary>
-    public async Task<Record> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAndVersionAsync(string wellboretrajectoryid, long version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellboretrajectoriesVersionsByWellboretrajectoryidAndVersionAsync(string wellboretrajectoryid, long version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{wellboretrajectoryid}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1077,13 +1009,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update the WellboreTrajectories using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboretrajectoriesAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellboretrajectoriesAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1095,13 +1025,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    public async Task<Session> PostDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> PostDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1113,13 +1041,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    public async Task<List<Session>> GetDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<List<Session>> GetDdmsV3WelllogsSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1130,13 +1056,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// get session.
     /// </summary>
-    public async Task<Session> GetDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> GetDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1147,13 +1071,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    public async Task<CommitSessionResponse> PatchDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CommitSessionResponse> PatchDdmsV3WelllogsSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1165,13 +1087,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    public async Task<object> PostDdmsV3WelllogsDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostDdmsV3WelllogsDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1183,7 +1103,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    public async Task<object> GetDdmsV3WelllogsDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3WelllogsDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1202,8 +1122,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1214,13 +1132,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    public async Task<DataframeBasicDescribe> PostDdmsV3WelllogsSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<DataframeBasicDescribe> PostDdmsV3WelllogsSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/sessions/{sessionId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1232,7 +1148,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    public async Task<object> GetDdmsV3WelllogsVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3WelllogsVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1251,8 +1167,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/versions/{version}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1263,13 +1177,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    public async Task<Session> PostDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> PostDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1281,13 +1193,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    public async Task<List<Session>> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<List<Session>> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1298,13 +1208,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// get session.
     /// </summary>
-    public async Task<Session> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> GetDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1315,13 +1223,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    public async Task<CommitSessionResponse> PatchDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CommitSessionResponse> PatchDdmsV3WellboretrajectoriesSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1333,13 +1239,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    public async Task<object> PostDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1351,7 +1255,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    public async Task<object> GetDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3WellboretrajectoriesDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1370,8 +1274,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1382,13 +1284,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    public async Task<DataframeBasicDescribe> PostDdmsV3WellboretrajectoriesSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<DataframeBasicDescribe> PostDdmsV3WellboretrajectoriesSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/sessions/{sessionId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1400,7 +1300,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    public async Task<object> GetDdmsV3WellboretrajectoriesVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3WellboretrajectoriesVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1419,8 +1319,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/wellboretrajectories/{recordId}/versions/{version}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1431,7 +1329,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns statistics of record's data for selected curves
     /// </summary>
-    public async Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsDataStatisticsByRecordIdAsync(string recordId, string curves = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsDataStatisticsByRecordIdAsync(string recordId, string curves = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (curves is not null)
@@ -1440,8 +1338,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/data/statistics{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1452,7 +1348,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns statistics of record's data for selected curves at requested version
     /// </summary>
-    public async Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, string curves = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<BulkDataStatisticsResponse> GetDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, string curves = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (curves is not null)
@@ -1461,8 +1357,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/versions/{version}/data/statistics{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1473,13 +1367,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Trigger computations of record's data statistics of record's data
     /// </summary>
-    public async Task<object> PostDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostDdmsV3WelllogsVersionsDataStatisticsByRecordIdAndVersionAsync(string recordId, string version, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/welllogs/{recordId}/versions/{version}/data/statistics";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1490,13 +1382,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    public async Task<Session> PostDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> PostDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1508,13 +1398,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    public async Task<List<Session>> GetDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<List<Session>> GetDdmsV3PpfgdatasetSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1525,13 +1413,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// get session.
     /// </summary>
-    public async Task<Session> GetDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> GetDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1542,13 +1428,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    public async Task<CommitSessionResponse> PatchDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CommitSessionResponse> PatchDdmsV3PpfgdatasetSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1560,13 +1444,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    public async Task<object> PostDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1578,7 +1460,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    public async Task<object> GetDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3PpfgdatasetDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1597,8 +1479,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1609,13 +1489,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    public async Task<DataframeBasicDescribe> PostDdmsV3PpfgdatasetSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<DataframeBasicDescribe> PostDdmsV3PpfgdatasetSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/sessions/{sessionId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1627,7 +1505,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    public async Task<object> GetDdmsV3PpfgdatasetVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3PpfgdatasetVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1646,8 +1524,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{recordId}/versions/{version}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1658,13 +1534,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create a new session on the given record for writing bulk data.
     /// </summary>
-    public async Task<Session> PostDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> PostDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, CreateDataSessionRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1676,13 +1550,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// list session of the given record.
     /// </summary>
-    public async Task<List<Session>> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<List<Session>> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAsync(string recordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/sessions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1693,13 +1565,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// get session.
     /// </summary>
-    public async Task<Session> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Session> GetDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1710,13 +1580,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Update a session, either commit or abandon.
     /// </summary>
-    public async Task<CommitSessionResponse> PatchDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CommitSessionResponse> PatchDdmsV3WellpressuretestrawmeasurementSessionsByRecordIdAndSessionIdAsync(string recordId, string sessionId, UpdateSessionState body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/sessions/{sessionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1728,13 +1596,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Writes data as a whole bulk, creates a new version.
     /// </summary>
-    public async Task<object> PostDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1746,7 +1612,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns the data according to the specified query parameters.
     /// </summary>
-    public async Task<object> GetDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3WellpressuretestrawmeasurementDataByRecordIdAsync(string recordId, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1765,8 +1631,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1777,13 +1641,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Send a data chunk. Session must be complete/commit once all chunks are sent.
     /// </summary>
-    public async Task<DataframeBasicDescribe> PostDdmsV3WellpressuretestrawmeasurementSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<DataframeBasicDescribe> PostDdmsV3WellpressuretestrawmeasurementSessionsDataByRecordIdAndSessionIdAsync(string recordId, string sessionId, object body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/sessions/{sessionId}/data";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1795,7 +1657,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Returns data of the specified version.
     /// </summary>
-    public async Task<object> GetDdmsV3WellpressuretestrawmeasurementVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<object> GetDdmsV3WellpressuretestrawmeasurementVersionsDataByRecordIdAndVersionAsync(string recordId, long version, string offset = default, string limit = default, string curves = default, string describe = default, string filter = default, string orient = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (offset is not null)
@@ -1814,8 +1676,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{recordId}/versions/{version}/data{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1826,13 +1686,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the record using the provided recordID
     /// </summary>
-    public async Task<Record> GetDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{osduRecordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1843,7 +1701,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the record using id. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3PpfgdatasetByOsduRecordIdAsync(string osduRecordId, bool? purge = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (purge.HasValue)
@@ -1852,8 +1710,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{osduRecordId}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1863,13 +1719,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the provided record
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{osduRecordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1880,13 +1734,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get specific version for the provided OSDU record
     /// </summary>
-    public async Task<Record> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3PpfgdatasetVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset/{osduRecordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1897,13 +1749,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update record using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3PpfgdatasetAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3PpfgdatasetAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/ppfgdataset";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -1915,13 +1765,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get the record using the provided recordID
     /// </summary>
-    public async Task<Record> GetDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{osduRecordId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1932,7 +1780,7 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Delete the record using id. The API performs a logical deletion of the given record. No recursive delete for OSDU kinds
     /// </summary>
-    public async Task<string> DeleteDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, bool? purge = default, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteDdmsV3WellpressuretestrawmeasurementByOsduRecordIdAsync(string osduRecordId, bool? purge = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (purge.HasValue)
@@ -1941,8 +1789,6 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{osduRecordId}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1952,13 +1798,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get all versions of the provided record
     /// </summary>
-    public async Task<RecordVersions> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAsync(string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<RecordVersions> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAsync(string osduRecordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{osduRecordId}/versions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1969,13 +1813,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Get specific version for the provided OSDU record
     /// </summary>
-    public async Task<Record> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<Record> GetDdmsV3WellpressuretestrawmeasurementVersionsByOsduRecordIdAndVersionAsync(long version, string osduRecordId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement/{osduRecordId}/versions/{version}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -1986,13 +1828,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Create or update record using osdu schema
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellpressuretestrawmeasurementAsync(List<Record> body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PostDdmsV3WellpressuretestrawmeasurementAsync(List<Record> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/ddms/v3/wellpressuretestrawmeasurement";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -2004,13 +1844,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Recognize family and unit
     /// </summary>
-    public async Task<GuessResponse> PostLogRecognitionFamilyAsync(GuessRequest body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<GuessResponse> PostLogRecognitionFamilyAsync(GuessRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/log-recognition/family";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -2022,13 +1860,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
     /// <summary>
     /// Upload user-defined catalog with family assignment rules
     /// </summary>
-    public async Task<CreateUpdateRecordsResponse> PutLogRecognitionUploadCatalogAsync(CatalogRecord body, string dataPartitionId = default, CancellationToken cancellationToken = default)
+    public async Task<CreateUpdateRecordsResponse> PutLogRecognitionUploadCatalogAsync(CatalogRecord body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/log-recognition/upload-catalog";
 
         using var request = new HttpRequestMessage(HttpMethod.Put, requestUrl);
-        if (dataPartitionId is not null)
-            request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);

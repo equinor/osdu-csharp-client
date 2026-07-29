@@ -23,67 +23,67 @@ public interface ILegalApiClient
     /// <summary>
     /// Gets all LegalTags.
     /// </summary>
-    Task<LegalTagDtos> GetLegaltagsAsync(string dataPartitionId, bool? valid = default, CancellationToken cancellationToken = default);
+    Task<LegalTagDtos> GetLegaltagsAsync(bool? valid = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the LegalTag for the given `name`.
     /// </summary>
-    Task<LegalTagDto> PutLegaltagsAsync(string dataPartitionId, UpdateLegalTag body, CancellationToken cancellationToken = default);
+    Task<LegalTagDto> PutLegaltagsAsync(UpdateLegalTag body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates the LegalTag for the given `name`.
     /// </summary>
-    Task<LegalTagDto> PostLegaltagsAsync(string dataPartitionId, LegalTagDto body, CancellationToken cancellationToken = default);
+    Task<LegalTagDto> PostLegaltagsAsync(LegalTagDto body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the invalid LegalTag names with reasons for the given `names`.
     /// </summary>
-    Task<InvalidTagsWithReason> PostLegaltagsValidateAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default);
+    Task<InvalidTagsWithReason> PostLegaltagsValidateAsync(RequestLegalTags body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the legaltags which matches query criteria or none if there is no match.
     /// </summary>
-    Task<LegalTagDtos> PostLegaltagsQueryAsync(string dataPartitionId, QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default);
+    Task<LegalTagDtos> PostLegaltagsQueryAsync(QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Retrieves the LegalTags for the given `names`.
     /// </summary>
-    Task<LegalTagDtos> PostLegaltagsBatchRetrieveAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default);
+    Task<LegalTagDtos> PostLegaltagsBatchRetrieveAsync(RequestLegalTags body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets LegalTag property values.
     /// </summary>
-    Task<ReadablePropertyValues> GetLegaltagsPropertiesAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<ReadablePropertyValues> GetLegaltagsPropertiesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a LegalTag for the given `name`.
     /// </summary>
-    Task<LegalTagDto> GetLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<LegalTagDto> GetLegaltagsByNameAsync(string name, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a LegalTag for the given `name`.
     /// </summary>
-    Task<string> DeleteLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteLegaltagsByNameAsync(string name, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Check LegalTag Compliance Job Status
     /// </summary>
-    Task<string> GetJobsUpdateLegalTagStatusAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetJobsUpdateLegalTagStatusAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> GetAhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetAhReadinessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> GetAhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetAhLivenessCheckAsync(CancellationToken cancellationToken = default);
 
 }
 
@@ -107,7 +107,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Gets all LegalTags.
     /// </summary>
-    public async Task<LegalTagDtos> GetLegaltagsAsync(string dataPartitionId, bool? valid = default, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDtos> GetLegaltagsAsync(bool? valid = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (valid.HasValue)
@@ -116,7 +116,6 @@ public partial class LegalApiClient : ILegalApiClient
         var requestUrl = $"{_baseUrl}/legaltags{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -127,12 +126,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Updates the LegalTag for the given `name`.
     /// </summary>
-    public async Task<LegalTagDto> PutLegaltagsAsync(string dataPartitionId, UpdateLegalTag body, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDto> PutLegaltagsAsync(UpdateLegalTag body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags";
 
         using var request = new HttpRequestMessage(HttpMethod.Put, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -144,12 +142,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Creates the LegalTag for the given `name`.
     /// </summary>
-    public async Task<LegalTagDto> PostLegaltagsAsync(string dataPartitionId, LegalTagDto body, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDto> PostLegaltagsAsync(LegalTagDto body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -161,12 +158,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Retrieves the invalid LegalTag names with reasons for the given `names`.
     /// </summary>
-    public async Task<InvalidTagsWithReason> PostLegaltagsValidateAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default)
+    public async Task<InvalidTagsWithReason> PostLegaltagsValidateAsync(RequestLegalTags body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags:validate";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -178,7 +174,7 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Retrieves the legaltags which matches query criteria or none if there is no match.
     /// </summary>
-    public async Task<LegalTagDtos> PostLegaltagsQueryAsync(string dataPartitionId, QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDtos> PostLegaltagsQueryAsync(QueryLegalTag body, bool? valid = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (valid.HasValue)
@@ -187,7 +183,6 @@ public partial class LegalApiClient : ILegalApiClient
         var requestUrl = $"{_baseUrl}/legaltags:query{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -199,12 +194,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Retrieves the LegalTags for the given `names`.
     /// </summary>
-    public async Task<LegalTagDtos> PostLegaltagsBatchRetrieveAsync(string dataPartitionId, RequestLegalTags body, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDtos> PostLegaltagsBatchRetrieveAsync(RequestLegalTags body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags:batchRetrieve";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -216,12 +210,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Gets LegalTag property values.
     /// </summary>
-    public async Task<ReadablePropertyValues> GetLegaltagsPropertiesAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<ReadablePropertyValues> GetLegaltagsPropertiesAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags:properties";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -232,12 +225,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Gets a LegalTag for the given `name`.
     /// </summary>
-    public async Task<LegalTagDto> GetLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<LegalTagDto> GetLegaltagsByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags/{name}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -248,12 +240,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Deletes a LegalTag for the given `name`.
     /// </summary>
-    public async Task<string> DeleteLegaltagsByNameAsync(string name, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteLegaltagsByNameAsync(string name, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/legaltags/{name}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -263,12 +254,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Check LegalTag Compliance Job Status
     /// </summary>
-    public async Task<string> GetJobsUpdateLegalTagStatusAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetJobsUpdateLegalTagStatusAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/jobs/updateLegalTagStatus";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -278,12 +268,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -294,12 +283,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> GetAhReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetAhReadinessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/_ah/readiness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -309,12 +297,11 @@ public partial class LegalApiClient : ILegalApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> GetAhLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetAhLivenessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/_ah/liveness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

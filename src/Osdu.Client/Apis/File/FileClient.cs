@@ -28,42 +28,42 @@ public interface IFileApiClient
     /// <summary>
     /// Creates a metadata for a file
     /// </summary>
-    Task<FileMetadataResponse> PostV2FilesMetadataAsync(string dataPartitionId, FileMetadata body, CancellationToken cancellationToken = default);
+    Task<FileMetadataResponse> PostV2FilesMetadataAsync(FileMetadata body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> GetV2ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetV2ReadinessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> GetV2LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetV2LivenessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> GetV2InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetV2InfoAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets metadata record for the given id
     /// </summary>
-    Task<RecordVersion> GetV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<RecordVersion> GetV2FilesMetadataByIdAsync(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes metadata record &amp; file associated with that record for the given id
     /// </summary>
-    Task<string> DeleteV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteV2FilesMetadataByIdAsync(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a URL to download the file
     /// </summary>
-    Task<DownloadUrlResponse> GetV2FilesDownloadURLByIdAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<DownloadUrlResponse> GetV2FilesDownloadURLByIdAsync(string id, string expiryTime = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get a location in Landing Zone to upload a file.
     /// </summary>
-    Task<LocationResponse> GetV2FilesUploadURLAsync(string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default);
+    Task<LocationResponse> GetV2FilesUploadURLAsync(string expiryTime = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -102,12 +102,11 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Creates a metadata for a file
     /// </summary>
-    public async Task<FileMetadataResponse> PostV2FilesMetadataAsync(string dataPartitionId, FileMetadata body, CancellationToken cancellationToken = default)
+    public async Task<FileMetadataResponse> PostV2FilesMetadataAsync(FileMetadata body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/metadata";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -119,12 +118,11 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> GetV2ReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetV2ReadinessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/readiness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -134,12 +132,11 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> GetV2LivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetV2LivenessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/liveness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -149,12 +146,11 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> GetV2InfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetV2InfoAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/info";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -165,12 +161,11 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Gets metadata record for the given id
     /// </summary>
-    public async Task<RecordVersion> GetV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<RecordVersion> GetV2FilesMetadataByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/{id}/metadata";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -181,12 +176,11 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Deletes metadata record &amp; file associated with that record for the given id
     /// </summary>
-    public async Task<string> DeleteV2FilesMetadataByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteV2FilesMetadataByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/v2/files/{id}/metadata";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -196,7 +190,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Gets a URL to download the file
     /// </summary>
-    public async Task<DownloadUrlResponse> GetV2FilesDownloadURLByIdAsync(string id, string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<DownloadUrlResponse> GetV2FilesDownloadURLByIdAsync(string id, string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (expiryTime is not null)
@@ -205,7 +199,6 @@ public partial class FileApiClient : IFileApiClient
         var requestUrl = $"{_baseUrl}/v2/files/{id}/downloadURL{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -216,7 +209,7 @@ public partial class FileApiClient : IFileApiClient
     /// <summary>
     /// Get a location in Landing Zone to upload a file.
     /// </summary>
-    public async Task<LocationResponse> GetV2FilesUploadURLAsync(string dataPartitionId, string expiryTime = default, CancellationToken cancellationToken = default)
+    public async Task<LocationResponse> GetV2FilesUploadURLAsync(string expiryTime = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (expiryTime is not null)
@@ -225,7 +218,6 @@ public partial class FileApiClient : IFileApiClient
         var requestUrl = $"{_baseUrl}/v2/files/uploadURL{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

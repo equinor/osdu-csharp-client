@@ -23,42 +23,42 @@ public interface IEntitlementApiClient
     /// <summary>
     /// Initiate Tenant
     /// </summary>
-    Task<InitServiceDto> PostTenantProvisioningAsync(string dataPartitionId, InitServiceDto body = default, CancellationToken cancellationToken = default);
+    Task<InitServiceDto> PostTenantProvisioningAsync(InitServiceDto body = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// List Groups
     /// </summary>
-    Task<ListGroupResponseDto> GetGroupsAsync(string dataPartitionId, bool? roleRequired = default, string onBehalfOf = default, CancellationToken cancellationToken = default);
+    Task<ListGroupResponseDto> GetGroupsAsync(bool? roleRequired = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Create Group
     /// </summary>
-    Task<GroupDto> PostGroupsAsync(string dataPartitionId, CreateGroupDto body, CancellationToken cancellationToken = default);
+    Task<GroupDto> PostGroupsAsync(CreateGroupDto body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// List Group Members
     /// </summary>
-    Task<ListMemberResponseDto> GetGroupsMembersByGroupEmailAsync(string groupEmail, string dataPartitionId, string role = default, bool? includeType = default, CancellationToken cancellationToken = default);
+    Task<ListMemberResponseDto> GetGroupsMembersByGroupEmailAsync(string groupEmail, string role = default, bool? includeType = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Add Member
     /// </summary>
-    Task<AddMemberDto> PostGroupsMembersByGroupEmailAsync(string groupEmail, string dataPartitionId, AddMemberDto body, CancellationToken cancellationToken = default);
+    Task<AddMemberDto> PostGroupsMembersByGroupEmailAsync(string groupEmail, AddMemberDto body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Group
     /// </summary>
-    Task<string> DeleteGroupsByGroupEmailAsync(string groupEmail, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteGroupsByGroupEmailAsync(string groupEmail, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Update Group
     /// </summary>
-    Task<UpdateGroupResponseDto> PatchGroupsByGroupEmailAsync(string groupEmail, string dataPartitionId, List<UpdateGroupOperation> body, CancellationToken cancellationToken = default);
+    Task<UpdateGroupResponseDto> PatchGroupsByGroupEmailAsync(string groupEmail, List<UpdateGroupOperation> body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// List Group On Behalf Of
     /// </summary>
-    Task<ListGroupResponseDto> GetMembersGroupsByMemberEmailAsync(string memberEmail, string type, string dataPartitionId, string appid = default, bool? roleRequired = default, CancellationToken cancellationToken = default);
+    Task<ListGroupResponseDto> GetMembersGroupsByMemberEmailAsync(string memberEmail, string type, string appid = default, bool? roleRequired = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
@@ -68,12 +68,12 @@ public interface IEntitlementApiClient
     /// <summary>
     /// Count Members of a group
     /// </summary>
-    Task<ListMemberResponseDto> GetGroupsMembersCountByGroupEmailAsync(string groupEmail, string dataPartitionId, string role = default, CancellationToken cancellationToken = default);
+    Task<ListMemberResponseDto> GetGroupsMembersCountByGroupEmailAsync(string groupEmail, string role = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// List All Partition Groups
     /// </summary>
-    Task<ListGroupsOfPartitionDto> GetGroupsAllAsync(string type, string dataPartitionId, string cursor = default, int? limit = default, CancellationToken cancellationToken = default);
+    Task<ListGroupsOfPartitionDto> GetGroupsAllAsync(string type, string cursor = default, int? limit = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
@@ -88,12 +88,12 @@ public interface IEntitlementApiClient
     /// <summary>
     /// Delete Member
     /// </summary>
-    Task<string> DeleteMembersByMemberEmailAsync(string memberEmail, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteMembersByMemberEmailAsync(string memberEmail, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Member
     /// </summary>
-    Task<string> DeleteGroupsMembersByGroupEmailAndMemberEmailAsync(string groupEmail, string memberEmail, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteGroupsMembersByGroupEmailAndMemberEmailAsync(string groupEmail, string memberEmail, CancellationToken cancellationToken = default);
 
 }
 
@@ -117,12 +117,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Initiate Tenant
     /// </summary>
-    public async Task<InitServiceDto> PostTenantProvisioningAsync(string dataPartitionId, InitServiceDto body = default, CancellationToken cancellationToken = default)
+    public async Task<InitServiceDto> PostTenantProvisioningAsync(InitServiceDto body = default, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/tenant-provisioning";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -134,7 +133,7 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// List Groups
     /// </summary>
-    public async Task<ListGroupResponseDto> GetGroupsAsync(string dataPartitionId, bool? roleRequired = default, string onBehalfOf = default, CancellationToken cancellationToken = default)
+    public async Task<ListGroupResponseDto> GetGroupsAsync(bool? roleRequired = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (roleRequired.HasValue)
@@ -143,9 +142,6 @@ public partial class EntitlementApiClient : IEntitlementApiClient
         var requestUrl = $"{_baseUrl}/groups{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
-        if (onBehalfOf is not null)
-            request.Headers.Add("on-behalf-of", onBehalfOf);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -156,12 +152,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Create Group
     /// </summary>
-    public async Task<GroupDto> PostGroupsAsync(string dataPartitionId, CreateGroupDto body, CancellationToken cancellationToken = default)
+    public async Task<GroupDto> PostGroupsAsync(CreateGroupDto body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/groups";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -173,7 +168,7 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// List Group Members
     /// </summary>
-    public async Task<ListMemberResponseDto> GetGroupsMembersByGroupEmailAsync(string groupEmail, string dataPartitionId, string role = default, bool? includeType = default, CancellationToken cancellationToken = default)
+    public async Task<ListMemberResponseDto> GetGroupsMembersByGroupEmailAsync(string groupEmail, string role = default, bool? includeType = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (role is not null)
@@ -184,7 +179,6 @@ public partial class EntitlementApiClient : IEntitlementApiClient
         var requestUrl = $"{_baseUrl}/groups/{groupEmail}/members{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -195,12 +189,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Add Member
     /// </summary>
-    public async Task<AddMemberDto> PostGroupsMembersByGroupEmailAsync(string groupEmail, string dataPartitionId, AddMemberDto body, CancellationToken cancellationToken = default)
+    public async Task<AddMemberDto> PostGroupsMembersByGroupEmailAsync(string groupEmail, AddMemberDto body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/groups/{groupEmail}/members";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -212,12 +205,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Delete Group
     /// </summary>
-    public async Task<string> DeleteGroupsByGroupEmailAsync(string groupEmail, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteGroupsByGroupEmailAsync(string groupEmail, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/groups/{groupEmail}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -227,12 +219,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Update Group
     /// </summary>
-    public async Task<UpdateGroupResponseDto> PatchGroupsByGroupEmailAsync(string groupEmail, string dataPartitionId, List<UpdateGroupOperation> body, CancellationToken cancellationToken = default)
+    public async Task<UpdateGroupResponseDto> PatchGroupsByGroupEmailAsync(string groupEmail, List<UpdateGroupOperation> body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/groups/{groupEmail}";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -244,7 +235,7 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// List Group On Behalf Of
     /// </summary>
-    public async Task<ListGroupResponseDto> GetMembersGroupsByMemberEmailAsync(string memberEmail, string type, string dataPartitionId, string appid = default, bool? roleRequired = default, CancellationToken cancellationToken = default)
+    public async Task<ListGroupResponseDto> GetMembersGroupsByMemberEmailAsync(string memberEmail, string type, string appid = default, bool? roleRequired = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"type={Uri.EscapeDataString(type.ToString()!)}");
@@ -256,7 +247,6 @@ public partial class EntitlementApiClient : IEntitlementApiClient
         var requestUrl = $"{_baseUrl}/members/{memberEmail}/groups{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -282,7 +272,7 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Count Members of a group
     /// </summary>
-    public async Task<ListMemberResponseDto> GetGroupsMembersCountByGroupEmailAsync(string groupEmail, string dataPartitionId, string role = default, CancellationToken cancellationToken = default)
+    public async Task<ListMemberResponseDto> GetGroupsMembersCountByGroupEmailAsync(string groupEmail, string role = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (role is not null)
@@ -291,7 +281,6 @@ public partial class EntitlementApiClient : IEntitlementApiClient
         var requestUrl = $"{_baseUrl}/groups/{groupEmail}/membersCount{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -302,7 +291,7 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// List All Partition Groups
     /// </summary>
-    public async Task<ListGroupsOfPartitionDto> GetGroupsAllAsync(string type, string dataPartitionId, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
+    public async Task<ListGroupsOfPartitionDto> GetGroupsAllAsync(string type, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"type={Uri.EscapeDataString(type.ToString()!)}");
@@ -314,7 +303,6 @@ public partial class EntitlementApiClient : IEntitlementApiClient
         var requestUrl = $"{_baseUrl}/groups/all{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -353,12 +341,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Delete Member
     /// </summary>
-    public async Task<string> DeleteMembersByMemberEmailAsync(string memberEmail, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteMembersByMemberEmailAsync(string memberEmail, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/members/{memberEmail}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -368,12 +355,11 @@ public partial class EntitlementApiClient : IEntitlementApiClient
     /// <summary>
     /// Delete Member
     /// </summary>
-    public async Task<string> DeleteGroupsMembersByGroupEmailAndMemberEmailAsync(string groupEmail, string memberEmail, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteGroupsMembersByGroupEmailAndMemberEmailAsync(string groupEmail, string memberEmail, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/groups/{groupEmail}/members/{memberEmail}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

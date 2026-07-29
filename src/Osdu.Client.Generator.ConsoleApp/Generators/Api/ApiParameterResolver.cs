@@ -38,9 +38,12 @@ public class ApiParameterResolver
             }
         }
 
-        // Path, query, header parameters
+        // Path and query parameters only (headers are handled by DelegatingHandler)
         foreach (var param in allParams)
         {
+            if (param.In.ToString()!.Equals("header", StringComparison.OrdinalIgnoreCase))
+                continue;
+
             string csharpType = _typeResolver.ResolveParamType(param.Schema);
             bool isRequired = param.Required;
             if (!isRequired && !csharpType.EndsWith("?") && csharpType != "string")

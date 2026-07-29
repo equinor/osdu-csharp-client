@@ -28,22 +28,22 @@ public interface ISchemaApiClient
     /// <summary>
     /// Searches SchemaInfo repository
     /// </summary>
-    Task<SchemaInfoResponse> GetSchemaAsync(string dataPartitionId, string authority = default, string source = default, string entityType = default, long? schemaVersionMajor = default, long? schemaVersionMinor = default, long? schemaVersionPatch = default, string status = default, string scope = default, bool? latestVersion = default, int? limit = default, int? offset = default, CancellationToken cancellationToken = default);
+    Task<SchemaInfoResponse> GetSchemaAsync(string authority = default, string source = default, string entityType = default, long? schemaVersionMajor = default, long? schemaVersionMinor = default, long? schemaVersionPatch = default, string status = default, string scope = default, bool? latestVersion = default, int? limit = default, int? offset = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates/Updates a schema in development status
     /// </summary>
-    Task<SchemaInfo> PutSchemaAsync(string dataPartitionId, SchemaRequest body, CancellationToken cancellationToken = default);
+    Task<SchemaInfo> PutSchemaAsync(SchemaRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a schema to the schema repository.
     /// </summary>
-    Task<SchemaInfo> PostSchemaAsync(string dataPartitionId, SchemaRequest body, CancellationToken cancellationToken = default);
+    Task<SchemaInfo> PostSchemaAsync(SchemaRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets schema from the schema repository.
     /// </summary>
-    Task<object> GetSchemaByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> GetSchemaByIdAsync(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
@@ -93,7 +93,7 @@ public partial class SchemaApiClient : ISchemaApiClient
     /// <summary>
     /// Searches SchemaInfo repository
     /// </summary>
-    public async Task<SchemaInfoResponse> GetSchemaAsync(string dataPartitionId, string authority = default, string source = default, string entityType = default, long? schemaVersionMajor = default, long? schemaVersionMinor = default, long? schemaVersionPatch = default, string status = default, string scope = default, bool? latestVersion = default, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
+    public async Task<SchemaInfoResponse> GetSchemaAsync(string authority = default, string source = default, string entityType = default, long? schemaVersionMajor = default, long? schemaVersionMinor = default, long? schemaVersionPatch = default, string status = default, string scope = default, bool? latestVersion = default, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (authority is not null)
@@ -122,7 +122,6 @@ public partial class SchemaApiClient : ISchemaApiClient
         var requestUrl = $"{_baseUrl}/schema{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -133,12 +132,11 @@ public partial class SchemaApiClient : ISchemaApiClient
     /// <summary>
     /// Creates/Updates a schema in development status
     /// </summary>
-    public async Task<SchemaInfo> PutSchemaAsync(string dataPartitionId, SchemaRequest body, CancellationToken cancellationToken = default)
+    public async Task<SchemaInfo> PutSchemaAsync(SchemaRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/schema";
 
         using var request = new HttpRequestMessage(HttpMethod.Put, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -150,12 +148,11 @@ public partial class SchemaApiClient : ISchemaApiClient
     /// <summary>
     /// Adds a schema to the schema repository.
     /// </summary>
-    public async Task<SchemaInfo> PostSchemaAsync(string dataPartitionId, SchemaRequest body, CancellationToken cancellationToken = default)
+    public async Task<SchemaInfo> PostSchemaAsync(SchemaRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/schema";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -167,12 +164,11 @@ public partial class SchemaApiClient : ISchemaApiClient
     /// <summary>
     /// Gets schema from the schema repository.
     /// </summary>
-    public async Task<object> GetSchemaByIdAsync(string id, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> GetSchemaByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/schema/{id}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

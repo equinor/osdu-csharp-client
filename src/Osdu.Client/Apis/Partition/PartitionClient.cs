@@ -23,22 +23,22 @@ public interface IPartitionApiClient
     /// <summary>
     /// List all Partitions
     /// </summary>
-    Task<List<string>> GetPartitionsAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<List<string>> GetPartitionsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get Partition Info
     /// </summary>
-    Task<Map> GetPartitionsByPartitionIdAsync(string partitionId, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<Map> GetPartitionsByPartitionIdAsync(string partitionId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetLivenessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
 }
 
@@ -62,12 +62,11 @@ public partial class PartitionApiClient : IPartitionApiClient
     /// <summary>
     /// List all Partitions
     /// </summary>
-    public async Task<List<string>> GetPartitionsAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<List<string>> GetPartitionsAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/partitions";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -78,12 +77,11 @@ public partial class PartitionApiClient : IPartitionApiClient
     /// <summary>
     /// Get Partition Info
     /// </summary>
-    public async Task<Map> GetPartitionsByPartitionIdAsync(string partitionId, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<Map> GetPartitionsByPartitionIdAsync(string partitionId, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/partitions/{partitionId}";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -94,12 +92,11 @@ public partial class PartitionApiClient : IPartitionApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetLivenessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/liveness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -109,12 +106,11 @@ public partial class PartitionApiClient : IPartitionApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

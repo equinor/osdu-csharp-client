@@ -23,42 +23,42 @@ public interface IIndexerApiClient
     /// <summary>
     /// Provision partition
     /// </summary>
-    Task<object> PutPartitionsProvisionAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<object> PutPartitionsProvisionAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Re-index given 'kind'
     /// </summary>
-    Task<object> PostReindexAsync(string dataPartitionId, RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default);
+    Task<object> PostReindexAsync(RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Full Re-index by data partition
     /// </summary>
-    Task<string> PatchReindexAsync(string dataPartitionId, bool? forceClean = default, CancellationToken cancellationToken = default);
+    Task<string> PatchReindexAsync(bool? forceClean = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Re-index given records
     /// </summary>
-    Task<object> PostReindexRecordsAsync(string dataPartitionId, ReindexRecordsRequest body, CancellationToken cancellationToken = default);
+    Task<object> PostReindexRecordsAsync(ReindexRecordsRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    Task<string> GetReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetReadinessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> GetLivenessCheckAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Version info
     /// </summary>
-    Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Delete Index for the given kind
     /// </summary>
-    Task<string> DeleteIndexAsync(string kind, string dataPartitionId, CancellationToken cancellationToken = default);
+    Task<string> DeleteIndexAsync(string kind, CancellationToken cancellationToken = default);
 
 }
 
@@ -82,12 +82,11 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Provision partition
     /// </summary>
-    public async Task<object> PutPartitionsProvisionAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<object> PutPartitionsProvisionAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/partitions/provision";
 
         using var request = new HttpRequestMessage(HttpMethod.Put, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -98,7 +97,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Re-index given 'kind'
     /// </summary>
-    public async Task<object> PostReindexAsync(string dataPartitionId, RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default)
+    public async Task<object> PostReindexAsync(RecordReindexRequest body, bool? forceClean = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (forceClean.HasValue)
@@ -107,7 +106,6 @@ public partial class IndexerApiClient : IIndexerApiClient
         var requestUrl = $"{_baseUrl}/reindex{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -119,7 +117,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Full Re-index by data partition
     /// </summary>
-    public async Task<string> PatchReindexAsync(string dataPartitionId, bool? forceClean = default, CancellationToken cancellationToken = default)
+    public async Task<string> PatchReindexAsync(bool? forceClean = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (forceClean.HasValue)
@@ -128,7 +126,6 @@ public partial class IndexerApiClient : IIndexerApiClient
         var requestUrl = $"{_baseUrl}/reindex{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Patch, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -138,12 +135,11 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Re-index given records
     /// </summary>
-    public async Task<object> PostReindexRecordsAsync(string dataPartitionId, ReindexRecordsRequest body, CancellationToken cancellationToken = default)
+    public async Task<object> PostReindexRecordsAsync(ReindexRecordsRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/reindex/records";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -155,12 +151,11 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Readiness Check endpoint
     /// </summary>
-    public async Task<string> GetReadinessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetReadinessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/readiness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -170,12 +165,11 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Liveness Check endpoint
     /// </summary>
-    public async Task<string> GetLivenessCheckAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> GetLivenessCheckAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/liveness_check";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -185,12 +179,11 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Version info
     /// </summary>
-    public async Task<VersionInfo> GetInfoAsync(string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<VersionInfo> GetInfoAsync(CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/info";
 
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
@@ -201,7 +194,7 @@ public partial class IndexerApiClient : IIndexerApiClient
     /// <summary>
     /// Delete Index for the given kind
     /// </summary>
-    public async Task<string> DeleteIndexAsync(string kind, string dataPartitionId, CancellationToken cancellationToken = default)
+    public async Task<string> DeleteIndexAsync(string kind, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         queryParts.Add($"kind={Uri.EscapeDataString(kind.ToString()!)}");
@@ -209,7 +202,6 @@ public partial class IndexerApiClient : IIndexerApiClient
         var requestUrl = $"{_baseUrl}/index{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();

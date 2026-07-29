@@ -23,12 +23,12 @@ public interface ISearchApiClient
     /// <summary>
     /// Queries the index using cursor for the input request criteria.
     /// </summary>
-    Task<CursorQueryResponse> PostQueryWithCursorAsync(string dataPartitionId, CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default);
+    Task<CursorQueryResponse> PostQueryWithCursorAsync(CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Queries the index for the input request criteria.
     /// </summary>
-    Task<QueryResponse> PostQueryAsync(string dataPartitionId, QueryRequest body, CancellationToken cancellationToken = default);
+    Task<QueryResponse> PostQueryAsync(QueryRequest body, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Readiness Check endpoint
@@ -48,7 +48,7 @@ public interface ISearchApiClient
     /// <summary>
     /// Closes a cursor-based pagination context.
     /// </summary>
-    Task<CursorQueryResponse> DeleteQueryWithCursorByCursorAsync(string cursor, string dataPartitionId, bool? searchAfter = default, CancellationToken cancellationToken = default);
+    Task<CursorQueryResponse> DeleteQueryWithCursorByCursorAsync(string cursor, bool? searchAfter = default, CancellationToken cancellationToken = default);
 
 }
 
@@ -72,7 +72,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Queries the index using cursor for the input request criteria.
     /// </summary>
-    public async Task<CursorQueryResponse> PostQueryWithCursorAsync(string dataPartitionId, CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default)
+    public async Task<CursorQueryResponse> PostQueryWithCursorAsync(CursorQueryRequest body, bool? searchAfter = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (searchAfter.HasValue)
@@ -81,7 +81,6 @@ public partial class SearchApiClient : ISearchApiClient
         var requestUrl = $"{_baseUrl}/query_with_cursor{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -93,12 +92,11 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Queries the index for the input request criteria.
     /// </summary>
-    public async Task<QueryResponse> PostQueryAsync(string dataPartitionId, QueryRequest body, CancellationToken cancellationToken = default)
+    public async Task<QueryResponse> PostQueryAsync(QueryRequest body, CancellationToken cancellationToken = default)
     {
         var requestUrl = $"{_baseUrl}/query";
 
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
@@ -153,7 +151,7 @@ public partial class SearchApiClient : ISearchApiClient
     /// <summary>
     /// Closes a cursor-based pagination context.
     /// </summary>
-    public async Task<CursorQueryResponse> DeleteQueryWithCursorByCursorAsync(string cursor, string dataPartitionId, bool? searchAfter = default, CancellationToken cancellationToken = default)
+    public async Task<CursorQueryResponse> DeleteQueryWithCursorByCursorAsync(string cursor, bool? searchAfter = default, CancellationToken cancellationToken = default)
     {
         var queryParts = new List<string>();
         if (searchAfter.HasValue)
@@ -162,7 +160,6 @@ public partial class SearchApiClient : ISearchApiClient
         var requestUrl = $"{_baseUrl}/query_with_cursor/{cursor}{queryString}";
 
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
-        request.Headers.Add("data-partition-id", dataPartitionId);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
         response.EnsureSuccessStatusCode();
