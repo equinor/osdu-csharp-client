@@ -9,6 +9,7 @@
 using System;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Osdu.Client.Apis;
 
 using Osdu.Client.Apis.CrsCatalog;
 using Osdu.Client.Apis.CrsConversion;
@@ -60,6 +61,9 @@ public static class ServicesExtension
         services.AddHttpClient<IStorageApiClient, StorageApiClient>(client => { configureClient?.Invoke(client); });
         services.AddHttpClient<IUnitApiClient, UnitApiClient>(client => { configureClient?.Invoke(client); });
         services.AddHttpClient<IWellboreDdmsApiClient, WellboreDdmsApiClient>(client => { configureClient?.Invoke(client); });
+
+        services.AddScoped<IOsduClient, OsduClient>();
+
         return services;
     }
 }

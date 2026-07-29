@@ -14,15 +14,18 @@ public class CodeGenerator
     private readonly ApiGenerator _apiGenerator;
     private readonly SchemaGenerator _schemaGenerator;
     private readonly ServicesExtensionGenerator _servicesExtensionGenerator;
+    private readonly OsduClientGenerator _osduClientGenerator;
 
     public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator,
-        SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator)
+        SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator,
+        OsduClientGenerator osduClientGenerator)
     {
         _logger = logger;
         _configuration = configuration;
         _apiGenerator = apiGenerator;
         _schemaGenerator = schemaGenerator;
         _servicesExtensionGenerator = servicesExtensionGenerator;
+        _osduClientGenerator = osduClientGenerator;
     }
 
     public static void BuildAutogenComment(StringBuilder sb)
@@ -81,10 +84,11 @@ public class CodeGenerator
             _schemaGenerator.GenerateNew(jsonFile, outputDir, apiNamespace);
         }
 
-        // Generate the ServicesExtension class
+        // Generate the ServicesExtension class and IOsduClient/OsduClient
         if (apiClientNames.Count > 0)
         {
             _servicesExtensionGenerator.Generate(apiClientNames);
+            _osduClientGenerator.Generate(apiClientNames);
         }
     }
 

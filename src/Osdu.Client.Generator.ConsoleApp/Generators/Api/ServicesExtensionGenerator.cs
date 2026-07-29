@@ -67,7 +67,11 @@ public class ServicesExtensionGenerator
                             """);
         }
 
+        // Register the aggregated IOsduClient / OsduClient
+        sb.AppendLine();
+        sb.AppendLine("        services.AddScoped<IOsduClient, OsduClient>();");
         sb.AppendLine("""
+                      
                               return services;
                           }
                       }
@@ -81,11 +85,12 @@ public class ServicesExtensionGenerator
 
     public void BuildUsings(StringBuilder sb)
     {
-        sb.AppendLine($$"""
-                        using System;
-                        using System.Net.Http;
-                        using Microsoft.Extensions.DependencyInjection;
+        sb.AppendLine($"""
+                       using System;
+                       using System.Net.Http;
+                       using Microsoft.Extensions.DependencyInjection;
+                       using {_configuration.Api.Namespace};
 
-                        """);
+                       """);
     }
 }

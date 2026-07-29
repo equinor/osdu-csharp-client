@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Windows;
+using Osdu.Client.Apis;
 using Osdu.Client.Apis.Search;
 
 namespace Osdu.Client.ExampleApp;
@@ -9,12 +10,12 @@ namespace Osdu.Client.ExampleApp;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ISearchApiClient _searchClient;
+    private readonly IOsduClient _osduClient;
 
-    public MainWindow(ISearchApiClient searchClient)
+    public MainWindow(IOsduClient osduClient)
     {
         InitializeComponent();
-        _searchClient = searchClient;
+        _osduClient = osduClient;
     }
 
     private async void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -25,14 +26,14 @@ public partial class MainWindow : Window
 
         try
         {
-            var request = new QueryRequest
+            QueryRequest request = new QueryRequest
             {
                 Kind = KindTextBox.Text,
                 Limit = 20,
                 Query = "*"
             };
 
-            QueryResponse? response = await _searchClient.PostQueryAsync(request);
+            QueryResponse? response = await _osduClient.Search.PostQueryAsync(request);
 
             StatusText.Text = $"Found {response.TotalCount} result(s).";
 
