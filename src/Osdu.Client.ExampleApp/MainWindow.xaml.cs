@@ -32,7 +32,7 @@ public partial class MainWindow : Window
                 Limit = 20,
                 Query = "*"
             };
-
+            
             QueryResponse? response = await _osduClient.Search.PostQueryAsync(request);
 
             StatusText.Text = $"Found {response.TotalCount} result(s).";

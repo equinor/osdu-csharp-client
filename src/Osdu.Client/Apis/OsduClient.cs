@@ -32,7 +32,6 @@ namespace Osdu.Client.Apis;
   /// </summary>
   public interface IOsduClient
   {
-
     ICrsCatalogApiClient CrsCatalog { get; }
     ICrsConversionApiClient CrsConversion { get; }
     IDatasetApiClient Dataset { get; }

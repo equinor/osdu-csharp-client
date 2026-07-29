@@ -27,6 +27,7 @@ internal class ServiceCollectionBuilder
         _services.AddScoped<SchemaGenerator>();
         _services.AddScoped<ServicesExtensionGenerator>();
         _services.AddScoped<OsduClientGenerator>();
+        _services.AddScoped<ObjectExtensionsGenerator>();
 
         return this;
     }

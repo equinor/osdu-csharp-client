@@ -15,10 +15,11 @@ public class CodeGenerator
     private readonly SchemaGenerator _schemaGenerator;
     private readonly ServicesExtensionGenerator _servicesExtensionGenerator;
     private readonly OsduClientGenerator _osduClientGenerator;
+    private readonly ObjectExtensionsGenerator _objectExtensionsGenerator;
 
     public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator,
         SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator,
-        OsduClientGenerator osduClientGenerator)
+        OsduClientGenerator osduClientGenerator, ObjectExtensionsGenerator objectExtensionsGenerator)
     {
         _logger = logger;
         _configuration = configuration;
@@ -26,6 +27,7 @@ public class CodeGenerator
         _schemaGenerator = schemaGenerator;
         _servicesExtensionGenerator = servicesExtensionGenerator;
         _osduClientGenerator = osduClientGenerator;
+        _objectExtensionsGenerator = objectExtensionsGenerator;
     }
 
     public static void BuildAutogenComment(StringBuilder sb)
@@ -46,6 +48,13 @@ public class CodeGenerator
     {
         GenerateApiClientsAndSchemas();
         GenerateDataSchemas();
+        GenerateExtensions();
+    }
+
+    private void GenerateExtensions()
+    {
+        _logger.LogInformation("Generating extension helpers...");
+        _objectExtensionsGenerator.Generate();
     }
 
     private void GenerateApiClientsAndSchemas()
@@ -119,16 +128,6 @@ public class CodeGenerator
 
             // Generate data schema
             _schemaGenerator.GenerateNew(jsonFile, outputDir, schemaNamespace, false);
-
-            //counter++;
-
-            //if (counter > 10)
-            //{
-            //    break;
-            //}
-            ////break; // Remove this break statement to process all files        
         }
     }
-
-
 }
