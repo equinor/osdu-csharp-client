@@ -14,7 +14,7 @@ public static class ObjectExtensions
     {
         return obj switch
         {
-            JsonElement element => element.Deserialize<T>(options)!,
+            JsonElement element => JsonSerializer.Deserialize<T>(element, options)!,        
             T typed => typed,
             _ => JsonSerializer.Deserialize<T>(JsonSerializer.Serialize(obj, options), options)!
         };

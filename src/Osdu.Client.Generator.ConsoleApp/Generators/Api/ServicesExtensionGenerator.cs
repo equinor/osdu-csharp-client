@@ -82,8 +82,6 @@ public class ServicesExtensionGenerator
     public void BuildUsings(StringBuilder sb)
     {
         sb.AppendLine($$"""
-                        #nullable enable
-                        
                         using System;
                         using System.Net.Http;
                         using Microsoft.Extensions.DependencyInjection;
