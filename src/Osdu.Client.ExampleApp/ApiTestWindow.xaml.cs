@@ -284,55 +284,15 @@ public partial class ApiTestWindow : Window
 
         var stack = new StackPanel();
 
-        // ─── Dynamic Parameters UI ───────────────────────────────────
+        // ─── Dynamic Parameters UI (hidden until expanded) ───────────
         var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
         var parameters = example.Parameters;
 
+        StackPanel? paramsContent = null;
+
         if (parameters.Count > 0)
         {
-            var paramsExpander = new Expander
-            {
-                IsExpanded = false,
-                Background = Brushes.Transparent,
-                BorderThickness = new Thickness(0),
-                Foreground = _currentTheme.TextPrimaryBrush,
-                Margin = new Thickness(0, 0, 0, 4)
-            };
-
-            var paramsHeader = new StackPanel { Orientation = Orientation.Horizontal };
-            paramsHeader.Children.Add(new TextBlock
-            {
-                Text = "⚙️",
-                FontSize = 13,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 6, 0)
-            });
-            paramsHeader.Children.Add(new TextBlock
-            {
-                Text = "Parameters",
-                FontWeight = FontWeights.SemiBold,
-                FontSize = 13,
-                Foreground = _currentTheme.TextPrimaryBrush,
-                VerticalAlignment = VerticalAlignment.Center
-            });
-            paramsHeader.Children.Add(new Border
-            {
-                Background = _currentTheme.TagBrush,
-                CornerRadius = new CornerRadius(8),
-                Padding = new Thickness(6, 1, 6, 1),
-                Margin = new Thickness(8, 0, 0, 0),
-                VerticalAlignment = VerticalAlignment.Center,
-                Child = new TextBlock
-                {
-                    Text = parameters.Count.ToString(),
-                    Foreground = _currentTheme.TextMutedBrush,
-                    FontSize = 10,
-                    FontFamily = monoFont
-                }
-            });
-            paramsExpander.Header = paramsHeader;
-
-            var paramsContent = new StackPanel { Margin = new Thickness(0, 8, 0, 0) };
+            paramsContent = new StackPanel { Margin = new Thickness(0, 12, 0, 0), Visibility = Visibility.Collapsed };
 
             foreach (var param in parameters)
             {
@@ -348,7 +308,6 @@ public partial class ApiTestWindow : Window
 
                 var paramStack = new StackPanel();
 
-                // Label row
                 var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 4) };
                 labelRow.Children.Add(new TextBlock
                 {
@@ -397,7 +356,6 @@ public partial class ApiTestWindow : Window
                     });
                 }
 
-                // Create the appropriate input control based on type
                 var currentValue = param.GetValue(example);
                 FrameworkElement inputControl = CreateParameterInput(param, currentValue, monoFont);
 
@@ -407,19 +365,79 @@ public partial class ApiTestWindow : Window
 
                 parameterControls.Add((param, inputControl));
             }
-
-            paramsExpander.Content = paramsContent;
-            stack.Children.Add(paramsExpander);
         }
 
-        // ─── Run Button ──────────────────────────────────────────────
+        // ─── Source Code Panel (hidden until toggled) ────────────────
+        var sourceCodePanel = new Border
+        {
+            Background = _currentTheme.InputBrush,
+            BorderBrush = _currentTheme.BorderBrush,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(16, 12, 16, 12),
+            Margin = new Thickness(0, 12, 0, 0),
+            Visibility = Visibility.Collapsed
+        };
+
+        var sourceCodeTextBox = new TextBox
+        {
+            Text = example.SourceCode,
+            IsReadOnly = true,
+            Background = Brushes.Transparent,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            BorderThickness = new Thickness(0),
+            FontFamily = monoFont,
+            FontSize = 12,
+            AcceptsReturn = true,
+            TextWrapping = TextWrapping.NoWrap,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            MaxHeight = 300
+        };
+        sourceCodePanel.Child = sourceCodeTextBox;
+
+        // ─── Action Row: Run | Parameters | Source Code ──────────────
+        var actionRow = new StackPanel { Orientation = Orientation.Horizontal };
+
         var runButton = CreateRunButton();
+        actionRow.Children.Add(runButton);
+
+        if (parameters.Count > 0)
+        {
+            var capturedParamsContent = paramsContent!;
+            var paramsToggle = CreateToggleButton($"⚙️ Parameters ({parameters.Count})", _currentTheme.TagBrush);
+            paramsToggle.Click += (_, _) =>
+            {
+                capturedParamsContent.Visibility = capturedParamsContent.Visibility == Visibility.Visible
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+            };
+            actionRow.Children.Add(paramsToggle);
+        }
+
+        var capturedSourcePanel = sourceCodePanel;
+        var sourceToggle = CreateToggleButton("💻 View Source Code", _currentTheme.TagBrush);
+        sourceToggle.Click += (_, _) =>
+        {
+            capturedSourcePanel.Visibility = capturedSourcePanel.Visibility == Visibility.Visible
+                ? Visibility.Collapsed
+                : Visibility.Visible;
+        };
+        actionRow.Children.Add(sourceToggle);
+
+        stack.Children.Add(actionRow);
+
+        // Add collapsible panels below the action row
+        if (paramsContent != null)
+            stack.Children.Add(paramsContent);
+        stack.Children.Add(sourceCodePanel);
+
+        // ─── Run Button Click Handler ────────────────────────────────
         var capturedExample = example;
         var capturedParamControls = parameterControls;
 
         runButton.Click += async (_, _) =>
         {
-            // Apply parameter values from UI to example properties
             foreach (var (info, control) in capturedParamControls)
             {
                 try
@@ -437,7 +455,6 @@ public partial class ApiTestWindow : Window
                 }
             }
 
-            // Validate required parameters
             foreach (var (info, control) in capturedParamControls)
             {
                 if (info.Required)
@@ -488,66 +505,6 @@ public partial class ApiTestWindow : Window
                 runButton.IsEnabled = true;
             }
         };
-
-        stack.Children.Add(runButton);
-
-        // ─── Source Code Expander ────────────────────────────────────
-        var sourceExpander = new Expander
-        {
-            IsExpanded = false,
-            Margin = new Thickness(0, 16, 0, 0),
-            Background = Brushes.Transparent,
-            BorderThickness = new Thickness(0),
-            Foreground = _currentTheme.TextPrimaryBrush
-        };
-
-        var sourceHeader = new StackPanel { Orientation = Orientation.Horizontal };
-        sourceHeader.Children.Add(new TextBlock
-        {
-            Text = "💻",
-            FontSize = 13,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(0, 0, 6, 0)
-        });
-        sourceHeader.Children.Add(new TextBlock
-        {
-            Text = "View Source Code",
-            FontWeight = FontWeights.SemiBold,
-            FontSize = 12,
-            Foreground = _currentTheme.TextPrimaryBrush,
-            VerticalAlignment = VerticalAlignment.Center
-        });
-        sourceExpander.Header = sourceHeader;
-
-        var sourceCodeBorder = new Border
-        {
-            Background = _currentTheme.InputBrush,
-            BorderBrush = _currentTheme.BorderBrush,
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(6),
-            Padding = new Thickness(16, 12, 16, 12),
-            Margin = new Thickness(0, 8, 0, 0)
-        };
-
-        var sourceCodeTextBox = new TextBox
-        {
-            Text = example.SourceCode,
-            IsReadOnly = true,
-            Background = Brushes.Transparent,
-            Foreground = _currentTheme.TextPrimaryBrush,
-            BorderThickness = new Thickness(0),
-            FontFamily = monoFont,
-            FontSize = 12,
-            AcceptsReturn = true,
-            TextWrapping = TextWrapping.NoWrap,
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            MaxHeight = 300
-        };
-
-        sourceCodeBorder.Child = sourceCodeTextBox;
-        sourceExpander.Content = sourceCodeBorder;
-        stack.Children.Add(sourceExpander);
 
         card.Child = stack;
         EndpointsPanel.Children.Add(card);
@@ -742,6 +699,44 @@ public partial class ApiTestWindow : Window
         disabledTrigger.Setters.Add(new Setter(Border.BackgroundProperty, _currentTheme.TagBrush, "ButtonBorder"));
         disabledTrigger.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
         buttonTemplate.Triggers.Add(disabledTrigger);
+
+        button.Template = buttonTemplate;
+        return button;
+    }
+
+    private Button CreateToggleButton(string text, SolidColorBrush background)
+    {
+        var button = new Button
+        {
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Margin = new Thickness(8, 12, 0, 0),
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+
+        var buttonTemplate = new ControlTemplate(typeof(Button));
+        var borderFactory = new FrameworkElementFactory(typeof(Border));
+        borderFactory.SetValue(Border.BackgroundProperty, background);
+        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
+        borderFactory.SetValue(Border.PaddingProperty, new Thickness(14, 8, 14, 8));
+        borderFactory.Name = "ButtonBorder";
+
+        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
+        textFactory.SetValue(TextBlock.TextProperty, text);
+        textFactory.SetValue(TextBlock.ForegroundProperty, _currentTheme.TextPrimaryBrush);
+        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
+        textFactory.SetValue(TextBlock.FontSizeProperty, 12.0);
+        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+
+        borderFactory.AppendChild(textFactory);
+        buttonTemplate.VisualTree = borderFactory;
+
+        var hoverBg = _currentTheme.IsDark
+            ? new SolidColorBrush(Color.FromRgb(60, 60, 72))
+            : new SolidColorBrush(Color.FromRgb(220, 222, 232));
+
+        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
+        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, hoverBg, "ButtonBorder"));
+        buttonTemplate.Triggers.Add(hoverTrigger);
 
         button.Template = buttonTemplate;
         return button;
