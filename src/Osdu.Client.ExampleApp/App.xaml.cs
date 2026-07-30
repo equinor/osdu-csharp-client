@@ -1,5 +1,3 @@
-using System.Configuration;
-using System.Data;
 using System.Reflection;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +8,7 @@ using Osdu.Client.Extensions;
 
 namespace Osdu.Client.ExampleApp;
 
-// <summary>
+/// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
@@ -38,6 +36,13 @@ public partial class App : Application
         services.AddTransient<OsduAuthHandler>(_ =>
             new OsduAuthHandler(tenantId, clientId, clientSecret, scope));
 
+        // Register a named HttpClient for the dynamic API explorer
+        services.AddHttpClient("OsduApi", client =>
+        {
+            client.BaseAddress = new Uri(baseUrl);
+            client.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
+        }).AddHttpMessageHandler<OsduAuthHandler>();
+
         services.AddOsduApiClients(client =>
         {
             client.BaseAddress = new Uri(baseUrl);
@@ -54,10 +59,11 @@ public partial class App : Application
         });
 
         services.AddTransient<MainWindow>();
+        services.AddTransient<ApiTestWindow>();
 
         Services = services.BuildServiceProvider();
 
-        MainWindow mainWindow = Services.GetRequiredService<MainWindow>();
-        mainWindow.Show();
+        ApiTestWindow testWindow = Services.GetRequiredService<ApiTestWindow>();
+        testWindow.Show();
     }
 }
