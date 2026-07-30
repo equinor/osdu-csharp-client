@@ -26,7 +26,13 @@ public partial class ApiTestWindow : Window
     private IExample? _lastSelectedExample;
     private SidebarMode _activeMode = SidebarMode.Apis;
 
+    // Track example execution results
+    private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
+    private readonly Dictionary<IExample, Button> _exampleButtons = new();
+
     private enum SidebarMode { Apis, Examples }
+
+    private record ExampleResult(bool Success, string Output, long ElapsedMs);
 
     public ApiTestWindow(IHttpClientFactory httpClientFactory, IEnumerable<IExample> examples)
     {
@@ -92,6 +98,7 @@ public partial class ApiTestWindow : Window
     {
         ApiButtonsPanel.Children.Clear();
         _selectedButton = null;
+        _exampleButtons.Clear();
 
         if (_activeMode == SidebarMode.Apis)
             RebuildApiButtons();
@@ -122,6 +129,11 @@ public partial class ApiTestWindow : Window
 
     private void RebuildExampleButtons()
     {
+        // "Run All" button at the top
+        var runAllButton = CreateActionSidebarButton("▶ Run All Examples");
+        runAllButton.Click += async (_, _) => await RunExamplesAsync(_examples);
+        ApiButtonsPanel.Children.Add(runAllButton);
+
         var grouped = _examples
             .GroupBy(ex => ex.Category)
             .OrderBy(g => g.Key);
@@ -138,6 +150,24 @@ public partial class ApiTestWindow : Window
             };
 
             var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            // Run category button
+            var runCategoryButton = new Button
+            {
+                Content = "▶",
+                Background = Brushes.Transparent,
+                Foreground = _currentTheme.TextMutedBrush,
+                BorderThickness = new Thickness(0),
+                Padding = new Thickness(4, 0, 6, 0),
+                FontSize = 10,
+                Cursor = System.Windows.Input.Cursors.Hand,
+                VerticalAlignment = VerticalAlignment.Center,
+                ToolTip = $"Run all '{group.Key}' examples"
+            };
+            var capturedGroup = group.ToList();
+            runCategoryButton.Click += async (_, _) => await RunExamplesAsync(capturedGroup);
+            headerPanel.Children.Add(runCategoryButton);
+
             headerPanel.Children.Add(new TextBlock
             {
                 Text = group.Key,
@@ -166,23 +196,88 @@ public partial class ApiTestWindow : Window
 
             foreach (var example in group)
             {
-                var button = CreateSidebarButton(example.Text, example);
+                var button = CreateExampleSidebarButton(example);
                 button.Click += ExampleButton_Click;
                 itemsPanel.Children.Add(button);
+                _exampleButtons[example] = button;
 
                 if (example == _lastSelectedExample)
                 {
                     _selectedButton = button;
-                    button.Foreground = _currentTheme.AccentBrush;
                 }
             }
 
             categoryExpander.Content = itemsPanel;
             ApiButtonsPanel.Children.Add(categoryExpander);
         }
+
+        // Re-apply status colors
+        ApplyResultColors();
     }
 
-    private Button CreateSidebarButton(String content, object tag)
+    private Button CreateExampleSidebarButton(IExample example)
+    {
+        var statusIndicator = "○";
+        var statusColor = _currentTheme.TextMutedBrush;
+
+        if (_exampleResults.TryGetValue(example, out var result))
+        {
+            statusIndicator = result.Success ? "●" : "●";
+            statusColor = result.Success
+                ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
+                : new SolidColorBrush(Color.FromRgb(249, 80, 80));
+        }
+
+        var content = new StackPanel { Orientation = Orientation.Horizontal };
+        content.Children.Add(new TextBlock
+        {
+            Text = statusIndicator,
+            Foreground = statusColor,
+            FontSize = 10,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 8, 0)
+        });
+        content.Children.Add(new TextBlock
+        {
+            Text = example.Text,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+
+        var isSelected = example == _lastSelectedExample;
+
+        return new Button
+        {
+            Content = content,
+            Tag = example,
+            Background = Brushes.Transparent,
+            Foreground = isSelected ? _currentTheme.AccentBrush : _currentTheme.TextSecondaryBrush,
+            BorderThickness = new Thickness(0),
+            Padding = new Thickness(14, 8, 14, 8),
+            HorizontalContentAlignment = HorizontalAlignment.Left,
+            FontSize = 13,
+            FontWeight = FontWeights.Medium,
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+    }
+
+    private Button CreateActionSidebarButton(string text)
+    {
+        var button = new Button
+        {
+            Content = text,
+            Background = Brushes.Transparent,
+            Foreground = _currentTheme.AccentBrush,
+            BorderThickness = new Thickness(0),
+            Padding = new Thickness(14, 10, 14, 10),
+            HorizontalContentAlignment = HorizontalAlignment.Left,
+            FontSize = 12,
+            FontWeight = FontWeights.Bold,
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+        return button;
+    }
+
+    private Button CreateSidebarButton(string content, object tag)
     {
         return new Button
         {
@@ -202,10 +297,234 @@ public partial class ApiTestWindow : Window
     private void SelectButton(Button button)
     {
         if (_selectedButton != null)
-            _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
+        {
+            // Restore previous button color (check if it has a result)
+            if (_selectedButton.Tag is IExample prevExample && _exampleResults.ContainsKey(prevExample))
+                _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
+            else
+                _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
+        }
 
         _selectedButton = button;
         _selectedButton.Foreground = _currentTheme.AccentBrush;
+    }
+
+    private void ApplyResultColors()
+    {
+        foreach (var (example, button) in _exampleButtons)
+        {
+            if (example == _lastSelectedExample)
+            {
+                button.Foreground = _currentTheme.AccentBrush;
+                continue;
+            }
+            button.Foreground = _currentTheme.TextSecondaryBrush;
+        }
+    }
+
+    private void UpdateExampleButtonStatus(IExample example)
+    {
+        if (!_exampleButtons.TryGetValue(example, out var button)) return;
+
+        if (button.Content is StackPanel sp && sp.Children[0] is TextBlock indicator)
+        {
+            if (_exampleResults.TryGetValue(example, out var result))
+            {
+                indicator.Text = "●";
+                indicator.Foreground = result.Success
+                    ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
+                    : new SolidColorBrush(Color.FromRgb(249, 80, 80));
+            }
+            else
+            {
+                indicator.Text = "○";
+                indicator.Foreground = _currentTheme.TextMutedBrush;
+            }
+        }
+    }
+
+    // ─── Run Examples ────────────────────────────────────────────────
+
+    private async Task RunExamplesAsync(IEnumerable<IExample> examples)
+    {
+        var exampleList = examples.ToList();
+        ResponseTextBox.Clear();
+        ResponseStatusText.Text = $"⏳ Running {exampleList.Count} example(s)...";
+        ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
+
+        ApiTitleText.Text = "Running Examples";
+        ApiDescriptionText.Text = $"Executing {exampleList.Count} example(s)...";
+        EndpointsPanel.Children.Clear();
+
+        int passed = 0;
+        int failed = 0;
+        var summaryBuilder = new StringBuilder();
+
+        foreach (var example in exampleList)
+        {
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            try
+            {
+                // Apply default parameter values (they're already set as defaults)
+                var result = await example.RunAsync();
+                sw.Stop();
+
+                _exampleResults[example] = new ExampleResult(true, result, sw.ElapsedMilliseconds);
+                passed++;
+                summaryBuilder.AppendLine($"  ✅ {example.Text} ({sw.ElapsedMilliseconds}ms)");
+            }
+            catch (Exception ex)
+            {
+                sw.Stop();
+                var errorOutput = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
+                _exampleResults[example] = new ExampleResult(false, errorOutput, sw.ElapsedMilliseconds);
+                failed++;
+                summaryBuilder.AppendLine($"  ❌ {example.Text} ({sw.ElapsedMilliseconds}ms) - {ex.GetType().Name}: {ex.Message}");
+            }
+
+            UpdateExampleButtonStatus(example);
+
+            // Update status in real time
+            ResponseStatusText.Text = $"⏳ Running... ({passed + failed}/{exampleList.Count})";
+        }
+
+        // Final summary
+        var totalMs = _exampleResults
+            .Where(r => exampleList.Contains(r.Key))
+            .Sum(r => r.Value.ElapsedMs);
+
+        var statusEmoji = failed == 0 ? "✅" : "⚠️";
+        ResponseStatusText.Text = $"{statusEmoji} {passed} passed, {failed} failed — {totalMs}ms total";
+        ResponseStatusText.Foreground = failed == 0
+            ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
+            : new SolidColorBrush(Color.FromRgb(249, 80, 80));
+
+        ApiTitleText.Text = "Run Results";
+        ApiDescriptionText.Text = $"{passed} passed, {failed} failed out of {exampleList.Count} examples.";
+
+        var output = new StringBuilder();
+        output.AppendLine($"═══ Execution Summary ═══");
+        output.AppendLine($"Total: {exampleList.Count}  |  Passed: {passed}  |  Failed: {failed}  |  Time: {totalMs}ms");
+        output.AppendLine();
+        output.Append(summaryBuilder);
+
+        ResponseTextBox.Text = output.ToString();
+
+        // Build results cards in the content area
+        BuildResultsSummaryUi(exampleList);
+    }
+
+    private void BuildResultsSummaryUi(List<IExample> examples)
+    {
+        EndpointsPanel.Children.Clear();
+        var monoFont = new FontFamily("Cascadia Code, Consolas, monospace");
+
+        foreach (var example in examples)
+        {
+            if (!_exampleResults.TryGetValue(example, out var result)) continue;
+
+            var statusColor = result.Success
+                ? Color.FromRgb(73, 204, 144)
+                : Color.FromRgb(249, 80, 80);
+
+            var card = new Border
+            {
+                Background = _currentTheme.CardBrush,
+                BorderBrush = new SolidColorBrush(Color.FromArgb(80, statusColor.R, statusColor.G, statusColor.B)),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(6),
+                Padding = new Thickness(14, 10, 14, 10),
+                Margin = new Thickness(0, 0, 0, 6),
+                Cursor = System.Windows.Input.Cursors.Hand
+            };
+
+            var row = new DockPanel();
+
+            var statusBadge = new TextBlock
+            {
+                Text = result.Success ? "✅" : "❌",
+                FontSize = 14,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 10, 0)
+            };
+            DockPanel.SetDock(statusBadge, Dock.Left);
+            row.Children.Add(statusBadge);
+
+            var timeBadge = new Border
+            {
+                Background = _currentTheme.TagBrush,
+                CornerRadius = new CornerRadius(4),
+                Padding = new Thickness(6, 2, 6, 2),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            timeBadge.Child = new TextBlock
+            {
+                Text = $"{result.ElapsedMs}ms",
+                FontSize = 10,
+                FontFamily = monoFont,
+                Foreground = _currentTheme.TextMutedBrush
+            };
+            DockPanel.SetDock(timeBadge, Dock.Right);
+            row.Children.Add(timeBadge);
+
+            var nameBlock = new TextBlock
+            {
+                Text = example.Text,
+                FontWeight = FontWeights.Medium,
+                FontSize = 12.5,
+                Foreground = _currentTheme.TextPrimaryBrush,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 8, 0)
+            };
+            row.Children.Add(nameBlock);
+
+            card.Child = row;
+
+            // Click to show result details
+            var capturedExample = example;
+            card.MouseLeftButtonUp += (_, _) =>
+            {
+                ShowExampleResult(capturedExample);
+            };
+
+            EndpointsPanel.Children.Add(card);
+        }
+    }
+
+    private void ShowExampleResult(IExample example)
+    {
+        if (!_exampleResults.TryGetValue(example, out var result)) return;
+
+        _lastSelectedExample = example;
+
+        // Update sidebar selection
+        if (_exampleButtons.TryGetValue(example, out var btn))
+        {
+            SelectButton(btn);
+        }
+
+        ApiTitleText.Text = example.Text;
+        ApiDescriptionText.Text = result.Success
+            ? $"✅ Completed successfully in {result.ElapsedMs}ms"
+            : $"❌ Failed after {result.ElapsedMs}ms";
+
+        ResponseStatusText.Text = result.Success
+            ? $"✅ {result.ElapsedMs}ms"
+            : $"❌ {result.ElapsedMs}ms";
+        ResponseStatusText.Foreground = result.Success
+            ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
+            : new SolidColorBrush(Color.FromRgb(249, 80, 80));
+
+        // Pretty-print if JSON
+        var output = result.Output;
+        try
+        {
+            var jsonDoc = JsonDocument.Parse(output);
+            output = JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true });
+        }
+        catch { }
+
+        ResponseTextBox.Text = output;
     }
 
     // ─── API Mode ────────────────────────────────────────────────────
@@ -258,16 +577,31 @@ public partial class ApiTestWindow : Window
 
         SelectButton(button);
         _lastSelectedExample = example;
-        ShowExample(example);
+
+        // If there's a stored result, show it; otherwise show the run card
+        if (_exampleResults.TryGetValue(example, out _))
+        {
+            ShowExampleResult(example);
+            // Also show the run card below
+            ShowExample(example, showResultInResponse: true);
+        }
+        else
+        {
+            ShowExample(example, showResultInResponse: false);
+        }
     }
 
-    private void ShowExample(IExample example)
+    private void ShowExample(IExample example, bool showResultInResponse = false)
     {
         ApiTitleText.Text = example.Text;
         ApiDescriptionText.Text = example.ShortDescription;
         EndpointsPanel.Children.Clear();
-        ResponseTextBox.Clear();
-        ResponseStatusText.Text = "";
+
+        if (!showResultInResponse)
+        {
+            ResponseTextBox.Clear();
+            ResponseStatusText.Text = "";
+        }
 
         var monoFont = new FontFamily("Cascadia Code, Consolas, monospace");
 
@@ -511,6 +845,9 @@ public partial class ApiTestWindow : Window
                 var result = await capturedExample.RunAsync();
                 sw.Stop();
 
+                _exampleResults[capturedExample] = new ExampleResult(true, result, sw.ElapsedMilliseconds);
+                UpdateExampleButtonStatus(capturedExample);
+
                 ResponseStatusText.Text = $"✅ Completed — {sw.ElapsedMilliseconds}ms";
                 ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(73, 204, 144));
 
@@ -526,9 +863,13 @@ public partial class ApiTestWindow : Window
             catch (Exception ex)
             {
                 sw.Stop();
+                var errorOutput = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
+                _exampleResults[capturedExample] = new ExampleResult(false, errorOutput, sw.ElapsedMilliseconds);
+                UpdateExampleButtonStatus(capturedExample);
+
                 ResponseStatusText.Text = $"❌ Error — {sw.ElapsedMilliseconds}ms";
                 ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
-                ResponseTextBox.Text = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
+                ResponseTextBox.Text = errorOutput;
             }
             finally
             {
