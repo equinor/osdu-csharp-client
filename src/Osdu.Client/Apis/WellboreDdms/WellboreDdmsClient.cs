@@ -469,7 +469,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<AboutResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -484,7 +488,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<VersionDetailsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -499,7 +507,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -514,7 +526,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -528,7 +544,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -543,7 +563,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -559,7 +583,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -574,7 +602,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -589,7 +621,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -603,7 +639,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -618,7 +658,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -634,7 +678,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -649,7 +697,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -664,7 +716,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -678,7 +734,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -693,7 +753,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -709,7 +773,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -724,7 +792,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -739,7 +811,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -753,7 +829,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -768,7 +848,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -784,7 +868,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -799,7 +887,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -814,7 +906,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -828,7 +924,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -843,7 +943,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -859,7 +963,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -874,7 +982,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -893,7 +1005,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -907,7 +1023,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -922,7 +1042,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -938,7 +1062,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -953,7 +1081,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -972,7 +1104,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -986,7 +1122,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1001,7 +1141,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1017,7 +1161,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1033,7 +1181,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1048,7 +1200,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Session>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1063,7 +1219,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1079,7 +1239,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CommitSessionResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1095,7 +1259,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1124,7 +1292,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1140,7 +1312,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<DataframeBasicDescribe>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1169,7 +1345,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1185,7 +1365,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1200,7 +1384,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Session>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1215,7 +1403,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1231,7 +1423,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CommitSessionResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1247,7 +1443,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1276,7 +1476,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1292,7 +1496,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<DataframeBasicDescribe>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1321,7 +1529,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1340,7 +1552,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<BulkDataStatisticsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1359,7 +1575,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<BulkDataStatisticsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1374,7 +1594,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1390,7 +1614,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1405,7 +1633,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Session>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1420,7 +1652,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1436,7 +1672,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CommitSessionResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1452,7 +1692,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1481,7 +1725,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1497,7 +1745,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<DataframeBasicDescribe>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1526,7 +1778,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1542,7 +1798,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1557,7 +1817,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Session>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1572,7 +1836,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Session>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1588,7 +1856,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CommitSessionResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1604,7 +1876,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1633,7 +1909,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1649,7 +1929,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<DataframeBasicDescribe>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1678,7 +1962,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1693,7 +1981,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1712,7 +2004,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -1726,7 +2022,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1741,7 +2041,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1757,7 +2061,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1772,7 +2080,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1791,7 +2103,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -1805,7 +2121,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersions>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1820,7 +2140,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Record>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1836,7 +2160,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1852,7 +2180,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<GuessResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -1868,7 +2200,11 @@ public partial class WellboreDdmsApiClient : IWellboreDdmsApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<CreateUpdateRecordsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }

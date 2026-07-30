@@ -105,7 +105,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<GetCreateUpdateDatasetRegistryResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -125,7 +129,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<GetDatasetStorageInstructionsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -144,7 +152,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -163,7 +175,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RetrievalInstructionsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -183,7 +199,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RetrievalInstructionsResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -198,7 +218,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<GetCreateUpdateDatasetRegistryResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -213,7 +237,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -230,7 +258,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<GetCreateUpdateDatasetRegistryResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -246,7 +278,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<GetCreateUpdateDatasetRegistryResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -261,7 +297,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -275,7 +315,11 @@ public partial class DatasetApiClient : IDatasetApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<VersionInfo>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }

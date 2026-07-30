@@ -80,7 +80,7 @@ public class ServicesExtensionGenerator
         string outputFile = Path.Combine(outputDir, "ServicesExtension.cs");
         File.WriteAllText(outputFile, sb.ToString());
 
-        _logger.LogInformation($"    Generated services extension: ServicesExtension.cs with {apiClientNames.Count} API client(s)");
+        _logger.LogInformation($"Generated services extension: {outputFile}");
     }
 
     public void BuildUsings(StringBuilder sb)

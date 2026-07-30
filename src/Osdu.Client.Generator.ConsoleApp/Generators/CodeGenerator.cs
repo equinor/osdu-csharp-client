@@ -1,6 +1,5 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
-using Osdu.Client.Generator.ConsoleApp;
 using Osdu.Client.Generator.ConsoleApp.Extensions;
 using Osdu.Client.Generator.ConsoleApp.Generators.Api;
 using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
@@ -16,10 +15,12 @@ public class CodeGenerator
     private readonly ServicesExtensionGenerator _servicesExtensionGenerator;
     private readonly OsduClientGenerator _osduClientGenerator;
     private readonly ObjectExtensionsGenerator _objectExtensionsGenerator;
+    private readonly OsduApiExceptionGenerator _osduApiExceptionGenerator;
 
     public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator,
         SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator,
-        OsduClientGenerator osduClientGenerator, ObjectExtensionsGenerator objectExtensionsGenerator)
+        OsduClientGenerator osduClientGenerator, ObjectExtensionsGenerator objectExtensionsGenerator,
+        OsduApiExceptionGenerator osduApiExceptionGenerator)
     {
         _logger = logger;
         _configuration = configuration;
@@ -28,6 +29,7 @@ public class CodeGenerator
         _servicesExtensionGenerator = servicesExtensionGenerator;
         _osduClientGenerator = osduClientGenerator;
         _objectExtensionsGenerator = objectExtensionsGenerator;
+        _osduApiExceptionGenerator = osduApiExceptionGenerator;
     }
 
     public static void BuildAutogenComment(StringBuilder sb)
@@ -98,6 +100,7 @@ public class CodeGenerator
         {
             _servicesExtensionGenerator.Generate(apiClientNames);
             _osduClientGenerator.Generate(apiClientNames);
+            _osduApiExceptionGenerator.Generate();
         }
     }
 

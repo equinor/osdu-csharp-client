@@ -95,7 +95,11 @@ public partial class FileApiClient : IFileApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -110,7 +114,11 @@ public partial class FileApiClient : IFileApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<FileMetadataResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -125,7 +133,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -139,7 +151,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -153,7 +169,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<VersionInfo>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -168,7 +188,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<RecordVersion>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -183,7 +207,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -201,7 +229,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<DownloadUrlResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -220,7 +252,11 @@ public partial class FileApiClient : IFileApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<LocationResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }

@@ -157,7 +157,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -171,7 +175,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<ChallengeResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -184,7 +192,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -199,7 +211,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<ChallengeResponse>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -215,7 +231,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -232,7 +252,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Subscription>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -248,7 +272,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Subscription>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -266,7 +294,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Ddms>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -282,7 +314,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Ddms>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -298,7 +334,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Action>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -314,7 +354,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<ParsedAction>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -330,7 +374,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         request.Content = JsonContent.Create(body, options: _jsonOptions);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Action>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -345,7 +393,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Topic>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -357,7 +409,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<object>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -369,7 +425,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<List<Subscription>>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -384,7 +444,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<SubscriptionInfo>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -399,7 +463,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -413,7 +481,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<VersionInfo>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -428,7 +500,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Ddms>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -443,7 +519,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -457,7 +537,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -471,7 +555,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -485,7 +573,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 
@@ -499,7 +591,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadFromJsonAsync<Action>(_jsonOptions, cancellationToken)
             ?? throw new InvalidOperationException("Response deserialization returned null.");
     }
@@ -514,7 +610,11 @@ public partial class RegisterApiClient : IRegisterApiClient
         using var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
 
         using var response = await _httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+        }
         return await response.Content.ReadAsStringAsync(cancellationToken);
     }
 

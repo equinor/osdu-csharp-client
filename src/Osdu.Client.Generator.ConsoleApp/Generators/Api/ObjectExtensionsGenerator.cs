@@ -67,6 +67,6 @@ public class ObjectExtensionsGenerator
         string outputPath = Path.Combine(outputDir, "ObjectExtensions.cs");
         File.WriteAllText(outputPath, sb.ToString());
 
-        _logger.LogInformation($"  Generated ObjectExtensions: {outputPath}");
+        _logger.LogInformation($"Generated ObjectExtensions: {outputPath}");
     }
 }

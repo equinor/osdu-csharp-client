@@ -95,6 +95,6 @@ public class OsduClientGenerator
         string outputFile = Path.Combine(outputDir, "OsduClient.cs");
         File.WriteAllText(outputFile, sb.ToString());
 
-        _logger.LogInformation($"    Generated OsduClient.cs with {apiClientNames.Count} API client(s)");
+        _logger.LogInformation($"Generated OsduClient with {apiClientNames.Count} API client(s): {outputFile}");
     }
 }

@@ -125,9 +125,16 @@ public class ApiMethodGenerator
             sb.AppendLine($"        request.Content = JsonContent.Create({bodyParam.CSharpName}, options: _jsonOptions);");
         }
 
-        sb.AppendLine();
-        sb.AppendLine("        using var response = await _httpClient.SendAsync(request, cancellationToken);");
-        sb.AppendLine("        response.EnsureSuccessStatusCode();");
+        sb.AppendLine("""
+                      
+                              using var response = await _httpClient.SendAsync(request, cancellationToken);
+                              if (!response.IsSuccessStatusCode)
+                              {
+                                  string errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+                                  throw new OsduApiException(response.StatusCode, errorBody, requestUrl);
+                              }
+                      """);
+
 
         if (returnType == "string")
         {

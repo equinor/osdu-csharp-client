@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Osdu.Client.Generator.ConsoleApp;
 using Osdu.Client.Generator.ConsoleApp.Generators;
 using Osdu.Client.Generator.ConsoleApp.Generators.Api;
 using Osdu.Client.Generator.ConsoleApp.Generators.Schema;
@@ -28,6 +27,7 @@ internal class ServiceCollectionBuilder
         _services.AddScoped<ServicesExtensionGenerator>();
         _services.AddScoped<OsduClientGenerator>();
         _services.AddScoped<ObjectExtensionsGenerator>();
+        _services.AddScoped<OsduApiExceptionGenerator>();
 
         return this;
     }
