@@ -57,7 +57,53 @@
                     </DockPanel>
                 </Border>
 
-                <!-- Sidebar API Buttons -->
+                <!-- Tab Toggle: APIs / Examples -->
+                <Border x:Name="TabToggleBorder" DockPanel.Dock="Top" Padding="8,8,8,4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="ApisTabButton" Grid.Column="0" Content="🔌 APIs"
+                                FontSize="12" FontWeight="SemiBold" Padding="0,8"
+                                BorderThickness="0" Cursor="Hand"
+                                Click="ApisTab_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="6,0,0,6" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Opacity" Value="0.85"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="ExamplesTabButton" Grid.Column="1" Content="📝 Examples"
+                                FontSize="12" FontWeight="SemiBold" Padding="0,8"
+                                BorderThickness="0" Cursor="Hand"
+                                Click="ExamplesTab_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="0,6,6,0" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Opacity" Value="0.85"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <!-- Sidebar Items -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="4,8">
                     <StackPanel x:Name="ApiButtonsPanel"/>
                 </ScrollViewer>
@@ -77,7 +123,7 @@
                 <RowDefinition Height="240" MinHeight="100"/>
             </Grid.RowDefinitions>
 
-            <!-- API Title Bar -->
+            <!-- Title Bar -->
             <Border x:Name="TitleBarBorder" Grid.Row="0" Padding="24,20,24,16" BorderThickness="0,0,0,1">
                 <StackPanel>
                     <TextBlock x:Name="ApiTitleText" FontSize="22" FontWeight="SemiBold"
@@ -87,7 +133,7 @@
                 </StackPanel>
             </Border>
 
-            <!-- Endpoints Area -->
+            <!-- Endpoints / Content Area -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,16">
                 <StackPanel x:Name="EndpointsPanel"/>
             </ScrollViewer>

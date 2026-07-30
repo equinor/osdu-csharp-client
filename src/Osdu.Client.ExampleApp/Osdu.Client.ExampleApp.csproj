@@ -9,6 +9,10 @@
     <UserSecretsId>55b978a3-6edf-48a2-a246-204b25d233ae</UserSecretsId>
   </PropertyGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="Examples\*Example.cs" LogicalName="%(Filename)%(Extension)" />
+    </ItemGroup>
+
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Definitions\Api\crs-catalog.json" />

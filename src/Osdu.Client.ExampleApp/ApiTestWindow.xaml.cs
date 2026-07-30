@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Osdu.Client.ExampleApp.Examples;
 
 namespace Osdu.Client.ExampleApp;
 
@@ -17,57 +19,99 @@ public partial class ApiTestWindow : Window
 {
     private readonly string _definitionsPath;
     private readonly HttpClient _httpClient;
+    private readonly IEnumerable<IExample> _examples;
     private Button? _selectedButton;
     private AppTheme _currentTheme = AppTheme.Light;
     private string? _lastLoadedFilePath;
+    private IExample? _lastSelectedExample;
+    private SidebarMode _activeMode = SidebarMode.Apis;
 
-    public ApiTestWindow(IHttpClientFactory httpClientFactory)
+    private enum SidebarMode { Apis, Examples }
+
+    public ApiTestWindow(IHttpClientFactory httpClientFactory, IEnumerable<IExample> examples)
     {
         InitializeComponent();
         _definitionsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "Api");
         _httpClient = httpClientFactory.CreateClient("OsduApi");
+        _examples = examples;
         ApplyTheme();
-        LoadApiFiles();
+        ApplyTabStyles();
+        RebuildSidebarForCurrentMode();
     }
 
-    private void LoadApiFiles()
+    // ─── Tab Switching ───────────────────────────────────────────────
+
+    private void ApisTab_Click(object sender, RoutedEventArgs e)
     {
-        if (!Directory.Exists(_definitionsPath))
-        {
-            ResponseTextBox.Text = $"Definitions folder not found: {_definitionsPath}";
-            return;
-        }
-
-        RebuildSidebarButtons();
+        if (_activeMode == SidebarMode.Apis) return;
+        _activeMode = SidebarMode.Apis;
+        _selectedButton = null;
+        ApplyTabStyles();
+        RebuildSidebarForCurrentMode();
+        ClearContent("Select an API from the sidebar", "Choose a service on the left to view its endpoints.");
     }
 
-    private void RebuildSidebarButtons()
+    private void ExamplesTab_Click(object sender, RoutedEventArgs e)
+    {
+        if (_activeMode == SidebarMode.Examples) return;
+        _activeMode = SidebarMode.Examples;
+        _selectedButton = null;
+        ApplyTabStyles();
+        RebuildSidebarForCurrentMode();
+        ClearContent("Select an Example", "Choose an example on the left to run it against the OSDU platform.");
+    }
+
+    private void ClearContent(string title, string description)
+    {
+        ApiTitleText.Text = title;
+        ApiDescriptionText.Text = description;
+        EndpointsPanel.Children.Clear();
+        ResponseTextBox.Clear();
+        ResponseStatusText.Text = "";
+    }
+
+    private void ApplyTabStyles()
+    {
+        var activeBackground = _currentTheme.AccentBrush;
+        var activeForeground = Brushes.White;
+        var inactiveBackground = _currentTheme.TagBrush;
+        var inactiveForeground = _currentTheme.TextSecondaryBrush;
+
+        ApisTabButton.Background = _activeMode == SidebarMode.Apis ? activeBackground : inactiveBackground;
+        ApisTabButton.Foreground = _activeMode == SidebarMode.Apis ? activeForeground : inactiveForeground;
+        ExamplesTabButton.Background = _activeMode == SidebarMode.Examples ? activeBackground : inactiveBackground;
+        ExamplesTabButton.Foreground = _activeMode == SidebarMode.Examples ? activeForeground : inactiveForeground;
+
+        SidebarTitle.Text = _activeMode == SidebarMode.Apis ? "🔌 APIs" : "📝 Examples";
+        SidebarSubtitle.Text = _activeMode == SidebarMode.Apis ? "Select a service" : "Select an example";
+    }
+
+    // ─── Sidebar Rebuilding ──────────────────────────────────────────
+
+    private void RebuildSidebarForCurrentMode()
     {
         ApiButtonsPanel.Children.Clear();
         _selectedButton = null;
+
+        if (_activeMode == SidebarMode.Apis)
+            RebuildApiButtons();
+        else
+            RebuildExampleButtons();
+    }
+
+    private void RebuildApiButtons()
+    {
+        if (!Directory.Exists(_definitionsPath)) return;
 
         var jsonFiles = Directory.GetFiles(_definitionsPath, "*.json");
 
         foreach (var file in jsonFiles)
         {
             var fileName = System.IO.Path.GetFileNameWithoutExtension(file);
-            var button = new Button
-            {
-                Content = fileName[..1].ToUpperInvariant() + fileName[1..],
-                Tag = file,
-                Background = Brushes.Transparent,
-                Foreground = _currentTheme.TextSecondaryBrush,
-                BorderThickness = new Thickness(0),
-                Padding = new Thickness(14, 10, 14, 10),
-                HorizontalContentAlignment = HorizontalAlignment.Left,
-                FontSize = 13,
-                FontWeight = FontWeights.Medium,
-                Cursor = System.Windows.Input.Cursors.Hand
-            };
+            var button = CreateSidebarButton(fileName[..1].ToUpperInvariant() + fileName[1..], file);
             button.Click += ApiButton_Click;
             ApiButtonsPanel.Children.Add(button);
 
-            // Re-select previously active API
             if (file == _lastLoadedFilePath)
             {
                 _selectedButton = button;
@@ -76,20 +120,56 @@ public partial class ApiTestWindow : Window
         }
     }
 
+    private void RebuildExampleButtons()
+    {
+        foreach (var example in _examples)
+        {
+            var button = CreateSidebarButton(example.Text, example);
+            button.Click += ExampleButton_Click;
+            ApiButtonsPanel.Children.Add(button);
+
+            if (example == _lastSelectedExample)
+            {
+                _selectedButton = button;
+                button.Foreground = _currentTheme.AccentBrush;
+            }
+        }
+    }
+
+    private Button CreateSidebarButton(string content, object tag)
+    {
+        return new Button
+        {
+            Content = content,
+            Tag = tag,
+            Background = Brushes.Transparent,
+            Foreground = _currentTheme.TextSecondaryBrush,
+            BorderThickness = new Thickness(0),
+            Padding = new Thickness(14, 10, 14, 10),
+            HorizontalContentAlignment = HorizontalAlignment.Left,
+            FontSize = 13,
+            FontWeight = FontWeights.Medium,
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+    }
+
+    private void SelectButton(Button button)
+    {
+        if (_selectedButton != null)
+            _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
+
+        _selectedButton = button;
+        _selectedButton.Foreground = _currentTheme.AccentBrush;
+    }
+
+    // ─── API Mode ────────────────────────────────────────────────────
+
     private void ApiButton_Click(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
         var filePath = (string)button.Tag;
 
-        // Update sidebar selection highlight
-        if (_selectedButton != null)
-        {
-            _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
-        }
-
-        _selectedButton = button;
-        _selectedButton.Foreground = _currentTheme.AccentBrush;
-
+        SelectButton(button);
         _lastLoadedFilePath = filePath;
         LoadApiFromFile(filePath);
     }
@@ -123,42 +203,251 @@ public partial class ApiTestWindow : Window
         }
     }
 
+    // ─── Examples Mode ───────────────────────────────────────────────
+
+    private void ExampleButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var example = (IExample)button.Tag;
+
+        SelectButton(button);
+        _lastSelectedExample = example;
+        ShowExample(example);
+    }
+
+    private void ShowExample(IExample example)
+    {
+        ApiTitleText.Text = example.Text;
+        ApiDescriptionText.Text = example.ShortDescription;
+        EndpointsPanel.Children.Clear();
+        ResponseTextBox.Clear();
+        ResponseStatusText.Text = "";
+
+        // Build a simple run card
+        var card = new Border
+        {
+            Background = _currentTheme.CardBrush,
+            BorderBrush = _currentTheme.BorderBrush,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(8),
+            Padding = new Thickness(20),
+            Margin = new Thickness(0, 0, 0, 12)
+        };
+
+        var stack = new StackPanel();
+
+        stack.Children.Add(new TextBlock
+        {
+            Text = example.Text,
+            FontSize = 16,
+            FontWeight = FontWeights.SemiBold,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            Margin = new Thickness(0, 0, 0, 6)
+        });
+
+        stack.Children.Add(new TextBlock
+        {
+            Text = example.ShortDescription,
+            Foreground = _currentTheme.TextSecondaryBrush,
+            FontSize = 12.5,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 0, 0, 16)
+        });
+
+        var runButton = CreateRunButton();
+        var capturedExample = example;
+
+        runButton.Click += async (_, _) =>
+        {
+            runButton.IsEnabled = false;
+            ResponseTextBox.Clear();
+            ResponseStatusText.Text = "⏳ Running...";
+            ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
+
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            try
+            {
+                var result = await capturedExample.RunAsync();
+                sw.Stop();
+
+                ResponseStatusText.Text = $"✅ Completed — {sw.ElapsedMilliseconds}ms";
+                ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(73, 204, 144));
+
+                // Try to pretty-print if JSON
+                try
+                {
+                    var jsonDoc = JsonDocument.Parse(result);
+                    result = JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true });
+                }
+                catch { }
+
+                ResponseTextBox.Text = result;
+            }
+            catch (Exception ex)
+            {
+                sw.Stop();
+                ResponseStatusText.Text = $"❌ Error — {sw.ElapsedMilliseconds}ms";
+                ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
+                ResponseTextBox.Text = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
+            }
+            finally
+            {
+                runButton.IsEnabled = true;
+            }
+        };
+
+        stack.Children.Add(runButton);
+
+        // Source code expander
+        var sourceExpander = new Expander
+        {
+            IsExpanded = false,
+            Margin = new Thickness(0, 16, 0, 0),
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            Foreground = _currentTheme.TextPrimaryBrush
+        };
+
+        var sourceHeader = new StackPanel { Orientation = Orientation.Horizontal };
+        sourceHeader.Children.Add(new TextBlock
+        {
+            Text = "💻",
+            FontSize = 13,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 6, 0)
+        });
+        sourceHeader.Children.Add(new TextBlock
+        {
+            Text = "View Source Code",
+            FontWeight = FontWeights.SemiBold,
+            FontSize = 12,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+        sourceExpander.Header = sourceHeader;
+
+        var sourceCodeBorder = new Border
+        {
+            Background = _currentTheme.InputBrush,
+            BorderBrush = _currentTheme.BorderBrush,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(16, 12, 16, 12),
+            Margin = new Thickness(0, 8, 0, 0)
+        };
+
+        var sourceCodeTextBox = new TextBox
+        {
+            Text = example.SourceCode,
+            IsReadOnly = true,
+            Background = Brushes.Transparent,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            BorderThickness = new Thickness(0),
+            FontFamily = new FontFamily("Cascadia Code, Consolas, monospace"),
+            FontSize = 12,
+            AcceptsReturn = true,
+            TextWrapping = TextWrapping.NoWrap,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            MaxHeight = 300
+        };
+
+        sourceCodeBorder.Child = sourceCodeTextBox;
+        sourceExpander.Content = sourceCodeBorder;
+        stack.Children.Add(sourceExpander);
+
+        card.Child = stack;
+        EndpointsPanel.Children.Add(card);
+    }
+
+    private Button CreateRunButton()
+    {
+        var accentColor = _currentTheme.Accent;
+        var button = new Button
+        {
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+
+        var buttonTemplate = new ControlTemplate(typeof(Button));
+        var borderFactory = new FrameworkElementFactory(typeof(Border));
+        borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(accentColor));
+        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
+        borderFactory.SetValue(Border.PaddingProperty, new Thickness(20, 8, 20, 8));
+        borderFactory.Name = "ButtonBorder";
+
+        var contentFactory = new FrameworkElementFactory(typeof(StackPanel));
+        contentFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+
+        var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
+        iconFactory.SetValue(TextBlock.TextProperty, "▶");
+        iconFactory.SetValue(TextBlock.FontSizeProperty, 10.0);
+        iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 8, 0));
+        iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+        contentFactory.AppendChild(iconFactory);
+
+        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
+        textFactory.SetValue(TextBlock.TextProperty, "Run Example");
+        textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
+        textFactory.SetValue(TextBlock.FontSizeProperty, 12.5);
+        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+        contentFactory.AppendChild(textFactory);
+
+        borderFactory.AppendChild(contentFactory);
+        buttonTemplate.VisualTree = borderFactory;
+
+        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
+        var hoverColor = Color.FromArgb(255,
+            (byte)Math.Min(accentColor.R + 20, 255),
+            (byte)Math.Min(accentColor.G + 20, 255),
+            (byte)Math.Min(accentColor.B + 20, 255));
+        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, new SolidColorBrush(hoverColor), "ButtonBorder"));
+        buttonTemplate.Triggers.Add(hoverTrigger);
+
+        var disabledTrigger = new Trigger { Property = UIElement.IsEnabledProperty, Value = false };
+        disabledTrigger.Setters.Add(new Setter(Border.BackgroundProperty, _currentTheme.TagBrush, "ButtonBorder"));
+        disabledTrigger.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
+        buttonTemplate.Triggers.Add(disabledTrigger);
+
+        button.Template = buttonTemplate;
+        return button;
+    }
+
+    // ─── Theme ───────────────────────────────────────────────────────
+
     private void ThemeToggle_Click(object sender, RoutedEventArgs e)
     {
         _currentTheme = _currentTheme.IsDark ? AppTheme.Light : AppTheme.Dark;
         ApplyTheme();
-        RebuildSidebarButtons();
+        ApplyTabStyles();
+        RebuildSidebarForCurrentMode();
 
-        // Reload current API if one was loaded
-        if (_lastLoadedFilePath != null)
-        {
+        if (_activeMode == SidebarMode.Apis && _lastLoadedFilePath != null)
             LoadApiFromFile(_lastLoadedFilePath);
-        }
+        else if (_activeMode == SidebarMode.Examples && _lastSelectedExample != null)
+            ShowExample(_lastSelectedExample);
     }
 
     private void ApplyTheme()
     {
-        // Window background
         Background = _currentTheme.SurfaceBrush;
 
-        // Sidebar
         SidebarBorder.Background = _currentTheme.SidebarBrush;
         SidebarBorder.BorderBrush = _currentTheme.BorderBrush;
         SidebarTitle.Foreground = _currentTheme.TextPrimaryBrush;
         SidebarSubtitle.Foreground = _currentTheme.TextSecondaryBrush;
         SidebarHeaderBorder.BorderBrush = _currentTheme.BorderBrush;
 
-        // Theme toggle button
         ThemeToggleButton.Content = _currentTheme.IsDark ? "☀️ Light" : "🌙 Dark";
         ThemeToggleButton.Foreground = _currentTheme.TextSecondaryBrush;
         ThemeToggleButton.Background = _currentTheme.TagBrush;
 
-        // Title bar
         TitleBarBorder.BorderBrush = _currentTheme.BorderBrush;
         ApiTitleText.Foreground = _currentTheme.TextPrimaryBrush;
         ApiDescriptionText.Foreground = _currentTheme.TextSecondaryBrush;
 
-        // Response panel
         ResponsePanelBorder.Background = _currentTheme.ResponseBgBrush;
         ResponsePanelBorder.BorderBrush = _currentTheme.BorderBrush;
         ResponseHeaderBorder.BorderBrush = _currentTheme.BorderBrush;
@@ -170,11 +459,9 @@ public partial class ApiTestWindow : Window
             : _currentTheme.TextPrimaryBrush;
         ResponseTextBox.CaretBrush = _currentTheme.TextPrimaryBrush;
 
-        // Splitters
         ColumnSplitter.Background = _currentTheme.BorderBrush;
         RowSplitter.Background = _currentTheme.BorderBrush;
 
-        // Main area
         ContentGrid.Background = _currentTheme.SurfaceBrush;
     }
 }

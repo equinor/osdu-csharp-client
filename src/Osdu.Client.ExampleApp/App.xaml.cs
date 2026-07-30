@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http;
 using Osdu.Client.ExampleApp.Authentication;
+using Osdu.Client.ExampleApp.Examples;
 using Osdu.Client.Extensions;
 
 namespace Osdu.Client.ExampleApp;
@@ -57,6 +58,16 @@ public partial class App : Application
                 builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<OsduAuthHandler>());
             });
         });
+
+        // Auto-discover and register all IExample implementations
+        var exampleTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t is { IsClass: true, IsAbstract: false } && t.IsAssignableTo(typeof(IExample)));
+
+        foreach (var type in exampleTypes)
+        {
+            services.AddTransient(typeof(IExample), type);
+        }
 
         services.AddTransient<MainWindow>();
         services.AddTransient<ApiTestWindow>();
