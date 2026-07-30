@@ -6,11 +6,13 @@ namespace Osdu.Client.ExampleApp.Examples;
 
 /// <summary>
 /// Base class for examples that automatically extracts the RunAsync source code
-/// from the implementing class's embedded source file at runtime.
+/// from the implementing class's embedded source file at runtime,
+/// and discovers user-configurable parameters via <see cref="ExampleParameterAttribute"/>.
 /// </summary>
 public abstract class ExampleBase : IExample
 {
     private string? _cachedSourceCode;
+    private IReadOnlyList<ExampleParameterInfo>? _cachedParameters;
 
     public abstract string Text { get; }
 
@@ -18,7 +20,28 @@ public abstract class ExampleBase : IExample
 
     public string SourceCode => _cachedSourceCode ??= ExtractRunAsyncBody();
 
+    public IReadOnlyList<ExampleParameterInfo> Parameters => _cachedParameters ??= DiscoverParameters();
+
     public abstract Task<string> RunAsync(CancellationToken cancellationToken = default);
+
+    private IReadOnlyList<ExampleParameterInfo> DiscoverParameters()
+    {
+        return GetType()
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Select(p => (Property: p, Attribute: p.GetCustomAttribute<ExampleParameterAttribute>()))
+            .Where(x => x.Attribute is not null)
+            .OrderBy(x => x.Attribute!.Order)
+            .Select(x => new ExampleParameterInfo
+            {
+                DisplayName = x.Attribute!.DisplayName,
+                Description = x.Attribute.Description,
+                Required = x.Attribute.Required,
+                Order = x.Attribute.Order,
+                Property = x.Property,
+                PropertyType = x.Property.PropertyType
+            })
+            .ToList();
+    }
 
     private string ExtractRunAsyncBody()
     {
@@ -98,30 +121,6 @@ public abstract class ExampleBase : IExample
             else
                 sb.AppendLine(line.Length >= minIndent ? line[minIndent..] : line);
         }
-
-        return sb.ToString().Trim();
-    }
-
-    private string ExtractWholeSouceCode()
-    {
-        var assembly = GetType().Assembly;
-        var resourceName = $"{GetType().Name}.cs";
-
-        using var stream = assembly.GetManifestResourceStream(resourceName);
-        if (stream is null)
-            return $"// Embedded resource '{resourceName}' not found.";
-
-        using var reader = new StreamReader(stream);
-        var lines = reader.ReadToEnd().Split('\n');
-
-        var sb = new StringBuilder();
-        foreach (var line in lines)
-        {
-            if (line.Trim().Length == 0)
-                sb.AppendLine();
-            else
-                sb.AppendLine(line);
-        }   
 
         return sb.ToString().Trim();
     }

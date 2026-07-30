@@ -21,6 +21,11 @@ public interface IExample
     string SourceCode { get; }
 
     /// <summary>
+    /// Returns metadata for all user-configurable parameters on this example.
+    /// </summary>
+    IReadOnlyList<ExampleParameterInfo> Parameters { get; }
+
+    /// <summary>
     /// Executes the example and returns the result as a string.
     /// </summary>
     Task<string> RunAsync(CancellationToken cancellationToken = default);

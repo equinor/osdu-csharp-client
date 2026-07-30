@@ -223,7 +223,9 @@ public partial class ApiTestWindow : Window
         ResponseTextBox.Clear();
         ResponseStatusText.Text = "";
 
-        // Build a simple run card
+        var monoFont = new FontFamily("Cascadia Code, Consolas, monospace");
+
+        // Build the run card
         var card = new Border
         {
             Background = _currentTheme.CardBrush,
@@ -254,11 +256,137 @@ public partial class ApiTestWindow : Window
             Margin = new Thickness(0, 0, 0, 16)
         });
 
+        // ─── Dynamic Parameters UI ───────────────────────────────────
+        var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
+        var parameters = example.Parameters;
+
+        if (parameters.Count > 0)
+        {
+            stack.Children.Add(new TextBlock
+            {
+                Text = "Parameters",
+                FontWeight = FontWeights.SemiBold,
+                FontSize = 13,
+                Foreground = _currentTheme.TextPrimaryBrush,
+                Margin = new Thickness(0, 0, 0, 10)
+            });
+
+            foreach (var param in parameters)
+            {
+                var paramBorder = new Border
+                {
+                    Background = _currentTheme.InputBrush,
+                    BorderBrush = _currentTheme.BorderBrush,
+                    BorderThickness = new Thickness(1),
+                    CornerRadius = new CornerRadius(6),
+                    Padding = new Thickness(12, 10, 12, 10),
+                    Margin = new Thickness(0, 0, 0, 6)
+                };
+
+                var paramStack = new StackPanel();
+
+                // Label row
+                var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 4) };
+                labelRow.Children.Add(new TextBlock
+                {
+                    Text = param.DisplayName,
+                    FontWeight = FontWeights.SemiBold,
+                    FontSize = 12,
+                    FontFamily = monoFont,
+                    Foreground = _currentTheme.TextPrimaryBrush
+                });
+                if (param.Required)
+                {
+                    labelRow.Children.Add(new TextBlock
+                    {
+                        Text = " *",
+                        Foreground = _currentTheme.RequiredBrush,
+                        FontWeight = FontWeights.Bold,
+                        FontSize = 12
+                    });
+                }
+                labelRow.Children.Add(new Border
+                {
+                    Background = _currentTheme.TagBrush,
+                    CornerRadius = new CornerRadius(3),
+                    Padding = new Thickness(6, 1, 6, 1),
+                    Margin = new Thickness(8, 0, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Child = new TextBlock
+                    {
+                        Text = GetFriendlyTypeName(param.PropertyType),
+                        Foreground = _currentTheme.TextMutedBrush,
+                        FontSize = 10,
+                        FontFamily = monoFont
+                    }
+                });
+                paramStack.Children.Add(labelRow);
+
+                if (!string.IsNullOrEmpty(param.Description))
+                {
+                    paramStack.Children.Add(new TextBlock
+                    {
+                        Text = param.Description,
+                        Foreground = _currentTheme.TextMutedBrush,
+                        FontSize = 11,
+                        TextWrapping = TextWrapping.Wrap,
+                        Margin = new Thickness(0, 0, 0, 6)
+                    });
+                }
+
+                // Create the appropriate input control based on type
+                var currentValue = param.GetValue(example);
+                FrameworkElement inputControl = CreateParameterInput(param, currentValue, monoFont);
+
+                paramStack.Children.Add(inputControl);
+                paramBorder.Child = paramStack;
+                stack.Children.Add(paramBorder);
+
+                parameterControls.Add((param, inputControl));
+            }
+        }
+
+        // ─── Run Button ──────────────────────────────────────────────
         var runButton = CreateRunButton();
         var capturedExample = example;
+        var capturedParamControls = parameterControls;
 
         runButton.Click += async (_, _) =>
         {
+            // Apply parameter values from UI to example properties
+            foreach (var (info, control) in capturedParamControls)
+            {
+                try
+                {
+                    var rawValue = GetParameterValue(control);
+                    var converted = ConvertParameterValue(rawValue, info.PropertyType);
+                    info.SetValue(capturedExample, converted);
+                }
+                catch (Exception ex)
+                {
+                    ResponseStatusText.Text = $"❌ Invalid parameter '{info.DisplayName}'";
+                    ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
+                    ResponseTextBox.Text = $"Could not convert value for '{info.DisplayName}': {ex.Message}";
+                    return;
+                }
+            }
+
+            // Validate required parameters
+            foreach (var (info, control) in capturedParamControls)
+            {
+                if (info.Required)
+                {
+                    var value = info.GetValue(capturedExample);
+                    if (value is null || (value is string s && string.IsNullOrWhiteSpace(s)))
+                    {
+                        ResponseStatusText.Text = $"❌ '{info.DisplayName}' is required";
+                        ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
+                        ResponseTextBox.Text = $"Parameter '{info.DisplayName}' is required but has no value.";
+                        return;
+                    }
+                }
+            }
+
             runButton.IsEnabled = false;
             ResponseTextBox.Clear();
             ResponseStatusText.Text = "⏳ Running...";
@@ -273,7 +401,6 @@ public partial class ApiTestWindow : Window
                 ResponseStatusText.Text = $"✅ Completed — {sw.ElapsedMilliseconds}ms";
                 ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(73, 204, 144));
 
-                // Try to pretty-print if JSON
                 try
                 {
                     var jsonDoc = JsonDocument.Parse(result);
@@ -298,7 +425,7 @@ public partial class ApiTestWindow : Window
 
         stack.Children.Add(runButton);
 
-        // Source code expander
+        // ─── Source Code Expander ────────────────────────────────────
         var sourceExpander = new Expander
         {
             IsExpanded = false,
@@ -343,7 +470,7 @@ public partial class ApiTestWindow : Window
             Background = Brushes.Transparent,
             Foreground = _currentTheme.TextPrimaryBrush,
             BorderThickness = new Thickness(0),
-            FontFamily = new FontFamily("Cascadia Code, Consolas, monospace"),
+            FontFamily = monoFont,
             FontSize = 12,
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
@@ -360,59 +487,83 @@ public partial class ApiTestWindow : Window
         EndpointsPanel.Children.Add(card);
     }
 
-    private Button CreateRunButton()
+    // ─── Parameter UI Helpers ────────────────────────────────────────
+
+    private FrameworkElement CreateParameterInput(ExampleParameterInfo param, object? currentValue, FontFamily monoFont)
     {
-        var accentColor = _currentTheme.Accent;
-        var button = new Button
+        if (param.PropertyType == typeof(bool))
         {
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Cursor = System.Windows.Input.Cursors.Hand
+            return new CheckBox
+            {
+                IsChecked = currentValue is true,
+                Foreground = _currentTheme.TextPrimaryBrush,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+        }
+
+        return new TextBox
+        {
+            Text = currentValue?.ToString() ?? "",
+            Padding = new Thickness(8, 6, 8, 6),
+            Background = _currentTheme.InputFieldBrush,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            CaretBrush = _currentTheme.TextPrimaryBrush,
+            BorderBrush = _currentTheme.BorderBrush,
+            BorderThickness = new Thickness(1),
+            FontFamily = monoFont,
+            FontSize = 12
         };
+    }
 
-        var buttonTemplate = new ControlTemplate(typeof(Button));
-        var borderFactory = new FrameworkElementFactory(typeof(Border));
-        borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(accentColor));
-        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
-        borderFactory.SetValue(Border.PaddingProperty, new Thickness(20, 8, 20, 8));
-        borderFactory.Name = "ButtonBorder";
+    private static string GetParameterValue(FrameworkElement control)
+    {
+        return control switch
+        {
+            TextBox tb => tb.Text,
+            CheckBox cb => cb.IsChecked == true ? "true" : "false",
+            _ => ""
+        };
+    }
 
-        var contentFactory = new FrameworkElementFactory(typeof(StackPanel));
-        contentFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+    private static object? ConvertParameterValue(string rawValue, Type targetType)
+    {
+        if (targetType == typeof(string))
+            return rawValue;
+        if (targetType == typeof(bool))
+            return bool.Parse(rawValue);
+        if (targetType == typeof(int))
+            return int.Parse(rawValue);
+        if (targetType == typeof(long))
+            return long.Parse(rawValue);
+        if (targetType == typeof(double))
+            return double.Parse(rawValue);
+        if (targetType == typeof(float))
+            return float.Parse(rawValue);
+        if (targetType == typeof(decimal))
+            return decimal.Parse(rawValue);
+        if (targetType == typeof(int?))
+            return string.IsNullOrWhiteSpace(rawValue) ? null : int.Parse(rawValue);
+        if (targetType == typeof(double?))
+            return string.IsNullOrWhiteSpace(rawValue) ? null : double.Parse(rawValue);
+        if (targetType == typeof(bool?))
+            return string.IsNullOrWhiteSpace(rawValue) ? null : bool.Parse(rawValue);
 
-        var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
-        iconFactory.SetValue(TextBlock.TextProperty, "▶");
-        iconFactory.SetValue(TextBlock.FontSizeProperty, 10.0);
-        iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
-        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 8, 0));
-        iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-        contentFactory.AppendChild(iconFactory);
+        return Convert.ChangeType(rawValue, targetType);
+    }
 
-        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
-        textFactory.SetValue(TextBlock.TextProperty, "Run Example");
-        textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
-        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
-        textFactory.SetValue(TextBlock.FontSizeProperty, 12.5);
-        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-        contentFactory.AppendChild(textFactory);
-
-        borderFactory.AppendChild(contentFactory);
-        buttonTemplate.VisualTree = borderFactory;
-
-        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
-        var hoverColor = Color.FromArgb(255,
-            (byte)Math.Min(accentColor.R + 20, 255),
-            (byte)Math.Min(accentColor.G + 20, 255),
-            (byte)Math.Min(accentColor.B + 20, 255));
-        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, new SolidColorBrush(hoverColor), "ButtonBorder"));
-        buttonTemplate.Triggers.Add(hoverTrigger);
-
-        var disabledTrigger = new Trigger { Property = UIElement.IsEnabledProperty, Value = false };
-        disabledTrigger.Setters.Add(new Setter(Border.BackgroundProperty, _currentTheme.TagBrush, "ButtonBorder"));
-        disabledTrigger.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
-        buttonTemplate.Triggers.Add(disabledTrigger);
-
-        button.Template = buttonTemplate;
-        return button;
+    private static string GetFriendlyTypeName(Type type)
+    {
+        if (type == typeof(string)) return "string";
+        if (type == typeof(int)) return "int";
+        if (type == typeof(long)) return "long";
+        if (type == typeof(double)) return "double";
+        if (type == typeof(float)) return "float";
+        if (type == typeof(decimal)) return "decimal";
+        if (type == typeof(bool)) return "bool";
+        if (type == typeof(int?)) return "int?";
+        if (type == typeof(double?)) return "double?";
+        if (type == typeof(bool?)) return "bool?";
+        return type.Name;
     }
 
     // ─── Theme ───────────────────────────────────────────────────────
@@ -463,5 +614,61 @@ public partial class ApiTestWindow : Window
         RowSplitter.Background = _currentTheme.BorderBrush;
 
         ContentGrid.Background = _currentTheme.SurfaceBrush;
+    }
+
+    private Button CreateRunButton()
+    {
+        var accentColor = _currentTheme.Accent;
+        var button = new Button
+        {
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Margin = new Thickness(0, 12, 0, 0),
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+
+        var buttonTemplate = new ControlTemplate(typeof(Button));
+        var borderFactory = new FrameworkElementFactory(typeof(Border));
+        borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(accentColor));
+        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
+        borderFactory.SetValue(Border.PaddingProperty, new Thickness(20, 8, 20, 8));
+        borderFactory.Name = "ButtonBorder";
+
+        var contentFactory = new FrameworkElementFactory(typeof(StackPanel));
+        contentFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+
+        var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
+        iconFactory.SetValue(TextBlock.TextProperty, "▶");
+        iconFactory.SetValue(TextBlock.FontSizeProperty, 10.0);
+        iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 8, 0));
+        iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+        contentFactory.AppendChild(iconFactory);
+
+        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
+        textFactory.SetValue(TextBlock.TextProperty, "Run Example");
+        textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
+        textFactory.SetValue(TextBlock.FontSizeProperty, 12.5);
+        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+        contentFactory.AppendChild(textFactory);
+
+        borderFactory.AppendChild(contentFactory);
+        buttonTemplate.VisualTree = borderFactory;
+
+        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
+        var hoverColor = Color.FromArgb(255,
+            (byte)Math.Min(accentColor.R + 20, 255),
+            (byte)Math.Min(accentColor.G + 20, 255),
+            (byte)Math.Min(accentColor.B + 20, 255));
+        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, new SolidColorBrush(hoverColor), "ButtonBorder"));
+        buttonTemplate.Triggers.Add(hoverTrigger);
+
+        var disabledTrigger = new Trigger { Property = UIElement.IsEnabledProperty, Value = false };
+        disabledTrigger.Setters.Add(new Setter(Border.BackgroundProperty, _currentTheme.TagBrush, "ButtonBorder"));
+        disabledTrigger.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
+        buttonTemplate.Triggers.Add(disabledTrigger);
+
+        button.Template = buttonTemplate;
+        return button;
     }
 }
