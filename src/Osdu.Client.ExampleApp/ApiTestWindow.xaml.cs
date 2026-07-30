@@ -262,14 +262,49 @@ public partial class ApiTestWindow : Window
 
         if (parameters.Count > 0)
         {
-            stack.Children.Add(new TextBlock
+            var paramsExpander = new Expander
+            {
+                IsExpanded = false,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Foreground = _currentTheme.TextPrimaryBrush,
+                Margin = new Thickness(0, 0, 0, 4)
+            };
+
+            var paramsHeader = new StackPanel { Orientation = Orientation.Horizontal };
+            paramsHeader.Children.Add(new TextBlock
+            {
+                Text = "⚙️",
+                FontSize = 13,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 6, 0)
+            });
+            paramsHeader.Children.Add(new TextBlock
             {
                 Text = "Parameters",
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 13,
                 Foreground = _currentTheme.TextPrimaryBrush,
-                Margin = new Thickness(0, 0, 0, 10)
+                VerticalAlignment = VerticalAlignment.Center
             });
+            paramsHeader.Children.Add(new Border
+            {
+                Background = _currentTheme.TagBrush,
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(6, 1, 6, 1),
+                Margin = new Thickness(8, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Child = new TextBlock
+                {
+                    Text = parameters.Count.ToString(),
+                    Foreground = _currentTheme.TextMutedBrush,
+                    FontSize = 10,
+                    FontFamily = monoFont
+                }
+            });
+            paramsExpander.Header = paramsHeader;
+
+            var paramsContent = new StackPanel { Margin = new Thickness(0, 8, 0, 0) };
 
             foreach (var param in parameters)
             {
@@ -340,10 +375,13 @@ public partial class ApiTestWindow : Window
 
                 paramStack.Children.Add(inputControl);
                 paramBorder.Child = paramStack;
-                stack.Children.Add(paramBorder);
+                paramsContent.Children.Add(paramBorder);
 
                 parameterControls.Add((param, inputControl));
             }
+
+            paramsExpander.Content = paramsContent;
+            stack.Children.Add(paramsExpander);
         }
 
         // ─── Run Button ──────────────────────────────────────────────
