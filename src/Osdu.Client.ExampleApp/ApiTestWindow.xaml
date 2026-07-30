@@ -3,50 +3,115 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Osdu.Client.ExampleApp"
         mc:Ignorable="d"
-        Title="ApiTestWindow" Height="450" Width="800">
+        Title="OSDU API Explorer" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="GridSplitter">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridSplitter">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="220" MinWidth="160" MaxWidth="350"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Left Panel: API List -->
-        <Border Grid.Column="0" Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="0,0,1,0">
+        <!-- Left Sidebar -->
+        <Border x:Name="SidebarBorder" Grid.Column="0" BorderThickness="0,0,1,0">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Top" Text="APIs" FontWeight="Bold" FontSize="16"
-                           Margin="12,12,12,8"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="ApiButtonsPanel" Margin="8,0,8,8"/>
+                <!-- Sidebar Header -->
+                <Border x:Name="SidebarHeaderBorder" DockPanel.Dock="Top" Padding="16,16,16,12" BorderThickness="0,0,0,1">
+                    <DockPanel>
+                        <Button x:Name="ThemeToggleButton" DockPanel.Dock="Right"
+                                Content="☀️ Light" FontSize="11" Padding="8,4"
+                                BorderThickness="0" Cursor="Hand"
+                                VerticalAlignment="Top"
+                                Click="ThemeToggle_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                            CornerRadius="4" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Opacity" Value="0.8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <StackPanel>
+                            <TextBlock x:Name="SidebarTitle" Text="🔌 APIs" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock x:Name="SidebarSubtitle" Text="Select a service" FontSize="11" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+
+                <!-- Sidebar API Buttons -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="4,8">
+                    <StackPanel x:Name="ApiButtonsPanel"/>
                 </ScrollViewer>
             </DockPanel>
         </Border>
 
-        <!-- Right Panel: Dynamic UI -->
-        <Grid Grid.Column="1" Margin="16">
+        <!-- Column Splitter -->
+        <GridSplitter x:Name="ColumnSplitter" Grid.Column="1" Width="4"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" Cursor="SizeWE"/>
+
+        <!-- Right Content -->
+        <Grid x:Name="ContentGrid" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="240" MinHeight="100"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="ApiTitleText" Grid.Row="0" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+            <!-- API Title Bar -->
+            <Border x:Name="TitleBarBorder" Grid.Row="0" Padding="24,20,24,16" BorderThickness="0,0,0,1">
+                <StackPanel>
+                    <TextBlock x:Name="ApiTitleText" FontSize="22" FontWeight="SemiBold"
+                               Text="Select an API from the sidebar"/>
+                    <TextBlock x:Name="ApiDescriptionText" FontSize="12" Margin="0,4,0,0"
+                               TextWrapping="Wrap" Text="Choose a service on the left to view its endpoints."/>
+                </StackPanel>
+            </Border>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <!-- Endpoints Area -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,16">
                 <StackPanel x:Name="EndpointsPanel"/>
             </ScrollViewer>
 
-            <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch" Background="#CCCCCC" Margin="0,8"/>
+            <!-- Response Splitter -->
+            <GridSplitter x:Name="RowSplitter" Grid.Row="2" Height="4"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Center" Cursor="SizeNS"/>
 
-            <DockPanel Grid.Row="3">
-                <TextBlock DockPanel.Dock="Top" Text="Response" FontWeight="Bold" Margin="0,4,0,4"/>
-                <TextBox x:Name="ResponseTextBox" IsReadOnly="True"
-                         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                         TextWrapping="Wrap" FontFamily="Consolas" FontSize="11"
-                         AcceptsReturn="True" Background="#1E1E1E" Foreground="#D4D4D4"/>
-            </DockPanel>
+            <!-- Response Panel -->
+            <Border x:Name="ResponsePanelBorder" Grid.Row="3" BorderThickness="0,1,0,0">
+                <DockPanel>
+                    <Border x:Name="ResponseHeaderBorder" DockPanel.Dock="Top" Padding="24,10,24,8" BorderThickness="0,0,0,1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📋" FontSize="13" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ResponseLabel" Text="Response" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ResponseStatusText" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <TextBox x:Name="ResponseTextBox" IsReadOnly="True"
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                             TextWrapping="Wrap" FontFamily="Cascadia Code, Consolas, monospace" FontSize="12"
+                             AcceptsReturn="True" Padding="24,12" BorderThickness="0"/>
+                </DockPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

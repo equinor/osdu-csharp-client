@@ -6,7 +6,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace Osdu.Client.ExampleApp;
 
@@ -15,13 +17,24 @@ namespace Osdu.Client.ExampleApp;
 /// </summary>
 public class ApiUiBuilder
 {
-    private readonly TextBox _responseTextBox;
-    private readonly HttpClient _httpClient;
+    private static readonly Color GetColor = Color.FromRgb(97, 175, 254);
+    private static readonly Color PostColor = Color.FromRgb(73, 204, 144);
+    private static readonly Color PutColor = Color.FromRgb(252, 161, 48);
+    private static readonly Color DeleteColor = Color.FromRgb(249, 80, 80);
+    private static readonly Color PatchColor = Color.FromRgb(80, 227, 194);
+    private static readonly FontFamily MonoFont = new("Cascadia Code, Consolas, monospace");
 
-    public ApiUiBuilder(TextBox responseTextBox, HttpClient httpClient)
+    private readonly TextBox _responseTextBox;
+    private readonly TextBlock _responseStatusText;
+    private readonly HttpClient _httpClient;
+    private readonly AppTheme _theme;
+
+    public ApiUiBuilder(TextBox responseTextBox, TextBlock responseStatusText, HttpClient httpClient, AppTheme theme)
     {
         _responseTextBox = responseTextBox;
+        _responseStatusText = responseStatusText;
         _httpClient = httpClient;
+        _theme = theme;
     }
 
     public void BuildEndpointsUi(JsonElement root, StackPanel container)
@@ -32,7 +45,6 @@ public class ApiUiBuilder
         var schemas = root.TryGetProperty("components", out var components)
             && components.TryGetProperty("schemas", out var s) ? s : default;
 
-        // Extract base path from servers
         var basePath = "";
         if (root.TryGetProperty("servers", out var servers))
         {
@@ -46,88 +58,181 @@ public class ApiUiBuilder
             }
         }
 
+        // Group by tag
+        var grouped = new Dictionary<string, List<(string Path, string Method, JsonElement Operation)>>();
+
         foreach (var path in paths.EnumerateObject())
         {
             foreach (var method in path.Value.EnumerateObject())
             {
-                var endpointPanel = CreateEndpointPanel(basePath, path.Name, method.Name, method.Value, schemas);
-                container.Children.Add(endpointPanel);
+                var tag = "default";
+                if (method.Value.TryGetProperty("tags", out var tags))
+                {
+                    foreach (var t in tags.EnumerateArray())
+                    {
+                        tag = t.GetString() ?? "default";
+                        break;
+                    }
+                }
+
+                if (!grouped.ContainsKey(tag))
+                    grouped[tag] = [];
+
+                grouped[tag].Add((path.Name, method.Name, method.Value));
+            }
+        }
+
+        foreach (var group in grouped)
+        {
+            var tagHeader = new TextBlock
+            {
+                Text = FormatTagName(group.Key),
+                FontSize = 15,
+                FontWeight = FontWeights.SemiBold,
+                Foreground = _theme.TextPrimaryBrush,
+                Margin = new Thickness(0, 8, 0, 12)
+            };
+            container.Children.Add(tagHeader);
+
+            foreach (var (endpointPath, httpMethod, operation) in group.Value)
+            {
+                var panel = CreateEndpointPanel(basePath, endpointPath, httpMethod, operation, schemas);
+                container.Children.Add(panel);
             }
         }
     }
 
     private Border CreateEndpointPanel(string basePath, string path, string httpMethod, JsonElement operation, JsonElement schemas)
     {
-        var methodColor = httpMethod.ToUpperInvariant() switch
-        {
-            "GET" => Color.FromRgb(97, 175, 254),
-            "POST" => Color.FromRgb(73, 204, 144),
-            "PUT" => Color.FromRgb(252, 161, 48),
-            "DELETE" => Color.FromRgb(249, 62, 62),
-            "PATCH" => Color.FromRgb(80, 227, 194),
-            _ => Color.FromRgb(128, 128, 128)
-        };
+        var methodColor = GetMethodColor(httpMethod);
+        var methodBrush = new SolidColorBrush(methodColor);
+        var methodBgAlpha = (byte)(_theme.IsDark ? 20 : 30);
+        var methodBgBrush = new SolidColorBrush(Color.FromArgb(methodBgAlpha, methodColor.R, methodColor.G, methodColor.B));
 
         var border = new Border
         {
-            BorderBrush = new SolidColorBrush(methodColor),
+            Background = _theme.CardBrush,
+            BorderBrush = _theme.BorderBrush,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(4),
-            Margin = new Thickness(0, 0, 0, 12),
-            Padding = new Thickness(12)
+            CornerRadius = new CornerRadius(8),
+            Margin = new Thickness(0, 0, 0, 8),
+            Effect = new DropShadowEffect
+            {
+                BlurRadius = 8,
+                ShadowDepth = 1,
+                Opacity = _theme.ShadowOpacity,
+                Color = Colors.Black
+            }
         };
 
-        var mainStack = new StackPanel();
+        // Build the expander header
+        var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
 
-        // Header: METHOD + PATH
-        var headerStack = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 8) };
-        headerStack.Children.Add(new Border
+        var methodBadge = new Border
         {
-            Background = new SolidColorBrush(methodColor),
-            CornerRadius = new CornerRadius(3),
-            Padding = new Thickness(8, 2, 8, 2),
-            Margin = new Thickness(0, 0, 8, 0),
+            Background = methodBrush,
+            CornerRadius = new CornerRadius(4),
+            Padding = new Thickness(10, 4, 10, 4),
+            Margin = new Thickness(0, 0, 12, 0),
+            VerticalAlignment = VerticalAlignment.Center,
             Child = new TextBlock
             {
                 Text = httpMethod.ToUpperInvariant(),
                 Foreground = Brushes.White,
                 FontWeight = FontWeights.Bold,
-                FontSize = 12
+                FontSize = 11,
+                FontFamily = MonoFont
             }
-        });
-        headerStack.Children.Add(new TextBlock
+        };
+        headerPanel.Children.Add(methodBadge);
+
+        var pathText = new TextBlock
         {
             Text = path,
             FontWeight = FontWeights.SemiBold,
-            VerticalAlignment = VerticalAlignment.Center
-        });
-        mainStack.Children.Add(headerStack);
+            FontSize = 13,
+            FontFamily = MonoFont,
+            Foreground = _theme.TextPrimaryBrush,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 12, 0)
+        };
+        headerPanel.Children.Add(pathText);
 
-        // Summary
-        if (operation.TryGetProperty("summary", out var summary))
+        if (operation.TryGetProperty("summary", out var summaryEl))
         {
-            mainStack.Children.Add(new TextBlock
+            var summaryText = summaryEl.GetString() ?? "";
+            if (summaryText.Length > 60)
+                summaryText = summaryText[..57] + "...";
+
+            headerPanel.Children.Add(new TextBlock
             {
-                Text = summary.GetString(),
-                Foreground = Brushes.Gray,
-                Margin = new Thickness(0, 0, 0, 8),
-                TextWrapping = TextWrapping.Wrap
+                Text = summaryText,
+                Foreground = _theme.TextMutedBrush,
+                FontSize = 11,
+                VerticalAlignment = VerticalAlignment.Center
             });
         }
 
-        // Expander for details
-        var expander = new Expander { Header = "Parameters & Body", IsExpanded = false };
-        var detailsStack = new StackPanel();
+        var endpointExpander = new Expander
+        {
+            Header = headerPanel,
+            IsExpanded = false,
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            Foreground = _theme.TextPrimaryBrush,
+            Padding = new Thickness(0)
+        };
 
-        // Query parameters (skip header params)
+        // Expander content
+        var contentStack = new StackPanel { Margin = new Thickness(16, 12, 16, 12) };
+
+        if (operation.TryGetProperty("summary", out var summary))
+        {
+            contentStack.Children.Add(new TextBlock
+            {
+                Text = summary.GetString(),
+                Foreground = _theme.TextSecondaryBrush,
+                FontSize = 12.5,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 0, 0, 4)
+            });
+        }
+
+        if (operation.TryGetProperty("description", out var descEl))
+        {
+            contentStack.Children.Add(new TextBlock
+            {
+                Text = descEl.GetString(),
+                Foreground = _theme.TextMutedBrush,
+                FontSize = 11.5,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 0, 0, 12)
+            });
+        }
+
+        // Parameters
         var inputControls = new Dictionary<string, (FrameworkElement Control, string Location)>();
 
         if (operation.TryGetProperty("parameters", out var parameters))
         {
+            var hasVisibleParams = false;
             foreach (var param in parameters.EnumerateArray())
             {
                 var inValue = param.GetProperty("in").GetString();
-                if (inValue == "header") continue; // skip headers
+                if (inValue == "header") continue;
+
+                if (!hasVisibleParams)
+                {
+                    contentStack.Children.Add(new TextBlock
+                    {
+                        Text = "Parameters",
+                        FontWeight = FontWeights.SemiBold,
+                        FontSize = 12,
+                        Foreground = _theme.TextPrimaryBrush,
+                        Margin = new Thickness(0, 0, 0, 8)
+                    });
+                    hasVisibleParams = true;
+                }
 
                 var paramName = param.GetProperty("name").GetString()!;
                 var required = param.TryGetProperty("required", out var req) && req.GetBoolean();
@@ -137,7 +242,7 @@ public class ApiUiBuilder
                     paramType = pt.GetString()!;
 
                 var control = CreateParameterControl(paramName, paramType, required, description, inValue!);
-                detailsStack.Children.Add(control.Panel);
+                contentStack.Children.Add(control.Panel);
                 inputControls[paramName] = (control.Input, inValue!);
             }
         }
@@ -147,13 +252,32 @@ public class ApiUiBuilder
         if (operation.TryGetProperty("requestBody", out var requestBody))
         {
             var bodySchema = GetRequestBodySchema(requestBody, schemas);
-            var bodyLabel = new TextBlock
+
+            var bodyHeader = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 12, 0, 6) };
+            bodyHeader.Children.Add(new TextBlock
             {
-                Text = "Request Body (JSON):",
+                Text = "Request Body",
                 FontWeight = FontWeights.SemiBold,
-                Margin = new Thickness(0, 8, 0, 4)
-            };
-            detailsStack.Children.Add(bodyLabel);
+                FontSize = 12,
+                Foreground = _theme.TextPrimaryBrush,
+                VerticalAlignment = VerticalAlignment.Center
+            });
+            bodyHeader.Children.Add(new Border
+            {
+                Background = _theme.TagBrush,
+                CornerRadius = new CornerRadius(3),
+                Padding = new Thickness(6, 2, 6, 2),
+                Margin = new Thickness(8, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Child = new TextBlock
+                {
+                    Text = "application/json",
+                    FontSize = 10,
+                    FontFamily = MonoFont,
+                    Foreground = _theme.TextMutedBrush
+                }
+            });
+            contentStack.Children.Add(bodyHeader);
 
             bodyTextBox = new TextBox
             {
@@ -161,30 +285,24 @@ public class ApiUiBuilder
                 AcceptsTab = true,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                FontFamily = new FontFamily("Consolas"),
-                FontSize = 11,
-                MinHeight = 120,
-                MaxHeight = 300,
+                FontFamily = MonoFont,
+                FontSize = 12,
+                MinHeight = 140,
+                MaxHeight = 350,
                 TextWrapping = TextWrapping.NoWrap,
-                Text = bodySchema
+                Text = bodySchema,
+                Background = _theme.InputBrush,
+                Foreground = _theme.TextPrimaryBrush,
+                CaretBrush = _theme.TextPrimaryBrush,
+                BorderBrush = _theme.BorderBrush,
+                BorderThickness = new Thickness(1),
+                Padding = new Thickness(12, 10, 12, 10)
             };
-            detailsStack.Children.Add(bodyTextBox);
+            contentStack.Children.Add(bodyTextBox);
         }
 
-        expander.Content = detailsStack;
-        mainStack.Children.Add(expander);
-
         // Execute button
-        var executeButton = new Button
-        {
-            Content = "Execute",
-            Padding = new Thickness(16, 6, 16, 6),
-            Margin = new Thickness(0, 8, 0, 0),
-            Background = new SolidColorBrush(methodColor),
-            Foreground = Brushes.White,
-            FontWeight = FontWeights.Bold,
-            HorizontalAlignment = HorizontalAlignment.Left
-        };
+        var executeButton = CreateExecuteButton(methodColor);
 
         var capturedBasePath = basePath;
         var capturedPath = path;
@@ -197,10 +315,79 @@ public class ApiUiBuilder
             await ExecuteRequestAsync(executeButton, capturedBasePath, capturedPath, capturedMethod, capturedInputs, capturedBody);
         };
 
-        mainStack.Children.Add(executeButton);
+        contentStack.Children.Add(executeButton);
 
-        border.Child = mainStack;
+        endpointExpander.Content = contentStack;
+
+        var wrapperStack = new StackPanel();
+
+        var accentBar = new Border
+        {
+            Background = methodBgBrush,
+            CornerRadius = new CornerRadius(8, 8, 0, 0),
+            Padding = new Thickness(12, 8, 12, 8),
+            Child = endpointExpander
+        };
+
+        wrapperStack.Children.Add(accentBar);
+        border.Child = wrapperStack;
         return border;
+    }
+
+    private Button CreateExecuteButton(Color accentColor)
+    {
+        var button = new Button
+        {
+            Padding = new Thickness(20, 8, 20, 8),
+            Margin = new Thickness(0, 12, 0, 0),
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+
+        var buttonTemplate = new ControlTemplate(typeof(Button));
+        var borderFactory = new FrameworkElementFactory(typeof(Border));
+        borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(accentColor));
+        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
+        borderFactory.SetValue(Border.PaddingProperty, new Thickness(20, 8, 20, 8));
+        borderFactory.Name = "ButtonBorder";
+
+        var contentFactory = new FrameworkElementFactory(typeof(StackPanel));
+        contentFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+
+        var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
+        iconFactory.SetValue(TextBlock.TextProperty, "▶");
+        iconFactory.SetValue(TextBlock.FontSizeProperty, 10.0);
+        iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 8, 0));
+        iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+        contentFactory.AppendChild(iconFactory);
+
+        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
+        textFactory.SetValue(TextBlock.TextProperty, "Execute");
+        textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
+        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
+        textFactory.SetValue(TextBlock.FontSizeProperty, 12.5);
+        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+        contentFactory.AppendChild(textFactory);
+
+        borderFactory.AppendChild(contentFactory);
+        buttonTemplate.VisualTree = borderFactory;
+
+        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
+        var hoverColor = Color.FromArgb(255,
+            (byte)Math.Min(accentColor.R + 20, 255),
+            (byte)Math.Min(accentColor.G + 20, 255),
+            (byte)Math.Min(accentColor.B + 20, 255));
+        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, new SolidColorBrush(hoverColor), "ButtonBorder"));
+        buttonTemplate.Triggers.Add(hoverTrigger);
+
+        var disabledTrigger = new Trigger { Property = UIElement.IsEnabledProperty, Value = false };
+        disabledTrigger.Setters.Add(new Setter(Border.BackgroundProperty, _theme.TagBrush, "ButtonBorder"));
+        disabledTrigger.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
+        buttonTemplate.Triggers.Add(disabledTrigger);
+
+        button.Template = buttonTemplate;
+        return button;
     }
 
     private async Task ExecuteRequestAsync(
@@ -212,7 +399,8 @@ public class ApiUiBuilder
         TextBox? bodyTextBox)
     {
         executeButton.IsEnabled = false;
-        _responseTextBox.Text = "Sending request...";
+        _responseTextBox.Text = "";
+        _responseStatusText.Text = "⏳ Sending...";
 
         try
         {
@@ -226,7 +414,7 @@ public class ApiUiBuilder
 
                 if (kvp.Value.Location == "path")
                     pathResolved = pathResolved.Replace($"{{{kvp.Key}}}", Uri.EscapeDataString(value));
-                else // query
+                else
                     queryParams.Add($"{kvp.Key}={Uri.EscapeDataString(value)}");
             }
 
@@ -243,32 +431,33 @@ public class ApiUiBuilder
                 request.Content = new StringContent(bodyTextBox.Text, Encoding.UTF8, "application/json");
             }
 
+            var sw = System.Diagnostics.Stopwatch.StartNew();
             var response = await _httpClient.SendAsync(request);
+            sw.Stop();
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var output = new StringBuilder();
-            output.AppendLine($"--- Response ---");
-            output.AppendLine($"Status: {(int)response.StatusCode} {response.ReasonPhrase}");
-            output.AppendLine();
+            var statusCode = (int)response.StatusCode;
+            var statusEmoji = statusCode < 300 ? "✅" : statusCode < 400 ? "↪️" : "❌";
+            _responseStatusText.Text = $"{statusEmoji} {statusCode} {response.ReasonPhrase} — {sw.ElapsedMilliseconds}ms";
+            _responseStatusText.Foreground = statusCode < 300
+                ? new SolidColorBrush(PostColor)
+                : statusCode < 400 ? new SolidColorBrush(PutColor) : new SolidColorBrush(DeleteColor);
 
-            // Try to pretty-print JSON
             try
             {
                 var jsonDoc = JsonDocument.Parse(responseBody);
                 responseBody = JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true });
             }
-            catch
-            {
-                // Not JSON, use raw response
-            }
+            catch { }
 
-            output.AppendLine(responseBody);
-            _responseTextBox.Text = output.ToString();
+            _responseTextBox.Text = responseBody;
         }
         catch (Exception ex)
         {
-            _responseTextBox.Text = $"--- Error ---\n{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
+            _responseStatusText.Text = "❌ Error";
+            _responseStatusText.Foreground = new SolidColorBrush(DeleteColor);
+            _responseTextBox.Text = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
         }
         finally
         {
@@ -276,53 +465,120 @@ public class ApiUiBuilder
         }
     }
 
-    private (StackPanel Panel, FrameworkElement Input) CreateParameterControl(
+    private (Border Panel, FrameworkElement Input) CreateParameterControl(
         string name, string type, bool required, string? description, string location)
     {
-        var panel = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
-
-        var label = new TextBlock
+        var panel = new Border
         {
-            Margin = new Thickness(0, 0, 0, 2)
+            Background = _theme.InputBrush,
+            BorderBrush = _theme.BorderBrush,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(12, 10, 12, 10),
+            Margin = new Thickness(0, 4, 0, 4)
         };
-        label.Inlines.Add(new System.Windows.Documents.Run(name) { FontWeight = FontWeights.SemiBold });
-        label.Inlines.Add(new System.Windows.Documents.Run($"  ({location}, {type})") { Foreground = Brushes.Gray, FontSize = 11 });
-        if (required)
-            label.Inlines.Add(new System.Windows.Documents.Run(" *") { Foreground = Brushes.Red });
 
-        panel.Children.Add(label);
+        var stack = new StackPanel();
+
+        var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 4) };
+        labelRow.Children.Add(new TextBlock
+        {
+            Text = name,
+            FontWeight = FontWeights.SemiBold,
+            FontSize = 12,
+            FontFamily = MonoFont,
+            Foreground = _theme.TextPrimaryBrush
+        });
+        if (required)
+        {
+            labelRow.Children.Add(new TextBlock
+            {
+                Text = " *",
+                Foreground = _theme.RequiredBrush,
+                FontWeight = FontWeights.Bold,
+                FontSize = 12
+            });
+        }
+        labelRow.Children.Add(new Border
+        {
+            Background = _theme.TagBrush,
+            CornerRadius = new CornerRadius(3),
+            Padding = new Thickness(6, 1, 6, 1),
+            Margin = new Thickness(8, 0, 0, 0),
+            VerticalAlignment = VerticalAlignment.Center,
+            Child = new TextBlock
+            {
+                Text = $"{location} · {type}",
+                Foreground = _theme.TextMutedBrush,
+                FontSize = 10,
+                FontFamily = MonoFont
+            }
+        });
+        stack.Children.Add(labelRow);
 
         if (!string.IsNullOrEmpty(description))
         {
-            panel.Children.Add(new TextBlock
+            stack.Children.Add(new TextBlock
             {
                 Text = description,
-                Foreground = Brushes.Gray,
+                Foreground = _theme.TextMutedBrush,
                 FontSize = 11,
                 TextWrapping = TextWrapping.Wrap,
-                Margin = new Thickness(0, 0, 0, 2)
+                Margin = new Thickness(0, 0, 0, 6)
             });
         }
 
         FrameworkElement input;
         if (type == "boolean")
         {
-            input = new CheckBox { VerticalAlignment = VerticalAlignment.Center };
+            input = new CheckBox
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                Foreground = _theme.TextPrimaryBrush
+            };
         }
         else
         {
             input = new TextBox
             {
-                MinWidth = 300,
-                Padding = new Thickness(4, 2, 4, 2)
+                Padding = new Thickness(8, 6, 8, 6),
+                Background = _theme.InputFieldBrush,
+                Foreground = _theme.TextPrimaryBrush,
+                CaretBrush = _theme.TextPrimaryBrush,
+                BorderBrush = _theme.BorderBrush,
+                BorderThickness = new Thickness(1),
+                FontFamily = MonoFont,
+                FontSize = 12
             };
         }
 
-        panel.Children.Add(input);
+        stack.Children.Add(input);
+        panel.Child = stack;
         return (panel, input);
     }
 
-    private string GetControlValue(FrameworkElement control)
+    private static Color GetMethodColor(string httpMethod)
+    {
+        return httpMethod.ToUpperInvariant() switch
+        {
+            "GET" => GetColor,
+            "POST" => PostColor,
+            "PUT" => PutColor,
+            "DELETE" => DeleteColor,
+            "PATCH" => PatchColor,
+            _ => Color.FromRgb(128, 128, 128)
+        };
+    }
+
+    private static string FormatTagName(string tag)
+    {
+        return tag.Replace("-", " ").Replace("_", " ")
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(w => char.ToUpperInvariant(w[0]) + w[1..])
+            .Aggregate((a, b) => $"{a} {b}");
+    }
+
+    private static string GetControlValue(FrameworkElement control)
     {
         return control switch
         {
@@ -353,7 +609,6 @@ public class ApiUiBuilder
     {
         if (depth > 5) return new Dictionary<string, object?> { ["..."] = "max depth" };
 
-        // Handle $ref
         if (schema.TryGetProperty("$ref", out var refElement))
         {
             var refPath = refElement.GetString()!;
@@ -393,7 +648,6 @@ public class ApiUiBuilder
             return $"<{schemaName}>";
         }
 
-        // anyOf – take first
         if (prop.TryGetProperty("anyOf", out var anyOf))
         {
             foreach (var item in anyOf.EnumerateArray())
