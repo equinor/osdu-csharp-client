@@ -696,26 +696,51 @@ public partial class ApiTestWindow : Window
         // ─── Dynamic Parameters UI (hidden until toggled) ────────────
         var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
         var parameters = example.Parameters;
+        var originalValues = new Dictionary<ExampleParameterInfo, object?>();
 
-        TextBlock? paramsHeading = null;
+        StackPanel? paramsHeaderRow = null;
         StackPanel? paramsContent = null;
 
         if (parameters.Count > 0)
         {
-            paramsHeading = new TextBlock
+            paramsHeaderRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(0, 14, 0, 6),
+                Visibility = Visibility.Visible
+            };
+
+            paramsHeaderRow.Children.Add(new TextBlock
             {
                 Text = "⚙️ Parameters",
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 13,
                 Foreground = _currentTheme.TextPrimaryBrush,
-                Margin = new Thickness(0, 14, 0, 6),
-                Visibility = Visibility.Visible
+                VerticalAlignment = VerticalAlignment.Center
+            });
+
+            var resetParamsButton = new Button
+            {
+                Content = "⟲ Reset",
+                Background = Brushes.Transparent,
+                Foreground = _currentTheme.TextMutedBrush,
+                BorderThickness = new Thickness(0),
+                Padding = new Thickness(6, 2, 6, 2),
+                Margin = new Thickness(10, 0, 0, 0),
+                FontSize = 11,
+                Cursor = System.Windows.Input.Cursors.Hand,
+                VerticalAlignment = VerticalAlignment.Center,
+                ToolTip = "Reset parameters to default values"
             };
+            paramsHeaderRow.Children.Add(resetParamsButton);
 
             paramsContent = new StackPanel { Visibility = Visibility.Visible };
 
             foreach (var param in parameters)
             {
+                var currentValue = param.GetValue(example);
+                originalValues[param] = currentValue;
+
                 var paramBorder = new Border
                 {
                     Background = _currentTheme.InputBrush,
@@ -776,8 +801,8 @@ public partial class ApiTestWindow : Window
                     });
                 }
 
-                var currentValue = param.GetValue(example);
-                FrameworkElement inputControl = CreateParameterInput(param, currentValue, monoFont);
+                var currentVal = param.GetValue(example);
+                FrameworkElement inputControl = CreateParameterInput(param, currentVal, monoFont);
 
                 paramStack.Children.Add(inputControl);
                 paramBorder.Child = paramStack;
@@ -785,6 +810,33 @@ public partial class ApiTestWindow : Window
 
                 parameterControls.Add((param, inputControl));
             }
+
+            // Wire up reset button
+            var capturedControls = parameterControls;
+            var capturedDefaults = originalValues;
+            var capturedEx = example;
+            resetParamsButton.Click += (_, _) =>
+            {
+                foreach (var (info, control) in capturedControls)
+                {
+                    if (!capturedDefaults.TryGetValue(info, out var defaultValue)) continue;
+
+                    info.SetValue(capturedEx, defaultValue);
+
+                    if (control is TextBox tb)
+                    {
+                        tb.Text = defaultValue switch
+                        {
+                            string[] arr => string.Join(", ", arr),
+                            _ => defaultValue?.ToString() ?? ""
+                        };
+                    }
+                    else if (control is CheckBox cb)
+                    {
+                        cb.IsChecked = defaultValue is true;
+                    }
+                }
+            };
         }
 
         // ─── Source Code Panel (hidden until toggled) ────────────────
@@ -833,7 +885,7 @@ public partial class ApiTestWindow : Window
 
         if (parameters.Count > 0)
         {
-            var capturedParamsHeading = paramsHeading!;
+            var capturedParamsHeaderRow = paramsHeaderRow!;
             var capturedParamsContent = paramsContent!;
             var paramsToggle = CreateToggleButton($"⚙️ Parameters ({parameters.Count})", _currentTheme.TagBrush);
             paramsToggle.Click += (_, _) =>
@@ -841,7 +893,7 @@ public partial class ApiTestWindow : Window
                 var newVisibility = capturedParamsContent.Visibility == Visibility.Visible
                     ? Visibility.Collapsed
                     : Visibility.Visible;
-                capturedParamsHeading.Visibility = newVisibility;
+                capturedParamsHeaderRow.Visibility = newVisibility;
                 capturedParamsContent.Visibility = newVisibility;
             };
             actionRow.Children.Add(paramsToggle);
@@ -862,9 +914,9 @@ public partial class ApiTestWindow : Window
 
         stack.Children.Add(actionRow);
 
-        if (paramsHeading != null && paramsContent != null)
+        if (paramsHeaderRow != null && paramsContent != null)
         {
-            stack.Children.Add(paramsHeading);
+            stack.Children.Add(paramsHeaderRow);
             stack.Children.Add(paramsContent);
         }
         stack.Children.Add(sourceHeading);
