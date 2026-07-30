@@ -12,6 +12,9 @@ public class SearchWellLogsExample(IOsduClient osduClient) : ExampleBase
     [ExampleParameter(DisplayName = "Limit", Order = 1, Description = "Maximum number of results to return.")]
     public int Limit { get; set; } = 10;
 
+    [ExampleParameter(DisplayName = "Returned Fields", Order = 2, Description = "Comma-separated list of fields to return.")]
+    public string[] ReturnedFields { get; set; } = ["id", "kind", "createTime"];
+
     public override string Text => "Search Well Logs";
 
     public override string ShortDescription => "Searches for WellLog work product components with projected fields (id, kind, createTime).";
@@ -25,7 +28,7 @@ public class SearchWellLogsExample(IOsduClient osduClient) : ExampleBase
             Kind = Kind,
             Query = "*",
             Limit = Limit,
-            ReturnedFields = ["id", "kind", "createTime"],
+            ReturnedFields = ReturnedFields.ToList(),
         };
 
         var response = await osduClient.Search.PostQueryAsync(request, cancellationToken);

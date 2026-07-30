@@ -182,7 +182,7 @@ public partial class ApiTestWindow : Window
         }
     }
 
-    private Button CreateSidebarButton(string content, object tag)
+    private Button CreateSidebarButton(String content, object tag)
     {
         return new Button
         {
@@ -283,24 +283,6 @@ public partial class ApiTestWindow : Window
         };
 
         var stack = new StackPanel();
-
-        stack.Children.Add(new TextBlock
-        {
-            Text = example.Text,
-            FontSize = 16,
-            FontWeight = FontWeights.SemiBold,
-            Foreground = _currentTheme.TextPrimaryBrush,
-            Margin = new Thickness(0, 0, 0, 6)
-        });
-
-        stack.Children.Add(new TextBlock
-        {
-            Text = example.ShortDescription,
-            Foreground = _currentTheme.TextSecondaryBrush,
-            FontSize = 12.5,
-            TextWrapping = TextWrapping.Wrap,
-            Margin = new Thickness(0, 0, 0, 16)
-        });
 
         // ─── Dynamic Parameters UI ───────────────────────────────────
         var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
@@ -585,9 +567,15 @@ public partial class ApiTestWindow : Window
             };
         }
 
+        var displayValue = currentValue switch
+        {
+            string[] arr => string.Join(", ", arr),
+            _ => currentValue?.ToString() ?? ""
+        };
+
         return new TextBox
         {
-            Text = currentValue?.ToString() ?? "",
+            Text = displayValue,
             Padding = new Thickness(8, 6, 8, 6),
             Background = _currentTheme.InputFieldBrush,
             Foreground = _currentTheme.TextPrimaryBrush,
@@ -613,6 +601,8 @@ public partial class ApiTestWindow : Window
     {
         if (targetType == typeof(string))
             return rawValue;
+        if (targetType == typeof(string[]))
+            return rawValue.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
         if (targetType == typeof(bool))
             return bool.Parse(rawValue);
         if (targetType == typeof(int))
@@ -638,6 +628,7 @@ public partial class ApiTestWindow : Window
     private static string GetFriendlyTypeName(Type type)
     {
         if (type == typeof(string)) return "string";
+        if (type == typeof(string[])) return "string[]";
         if (type == typeof(int)) return "int";
         if (type == typeof(long)) return "long";
         if (type == typeof(double)) return "double";
