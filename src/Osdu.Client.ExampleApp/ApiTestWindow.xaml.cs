@@ -25,6 +25,7 @@ public partial class ApiTestWindow : Window
     private string? _lastLoadedFilePath;
     private IExample? _lastSelectedExample;
     private SidebarMode _activeMode = SidebarMode.Apis;
+    private bool _showOnlyFailed;
 
     // Track example execution results
     private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
@@ -129,17 +130,61 @@ public partial class ApiTestWindow : Window
 
     private void RebuildExampleButtons()
     {
-        // "Run All" button at the top
-        var runAllButton = CreateActionSidebarButton("▶ Run All Examples");
-        runAllButton.Click += async (_, _) => await RunExamplesAsync(_examples);
-        ApiButtonsPanel.Children.Add(runAllButton);
+        // ─── Action toolbar ──────────────────────────────────────────
+        var toolbarRow = new WrapPanel { Margin = new Thickness(8, 6, 8, 2) };
 
+        var runAllButton = CreateActionSidebarButton("▶  Run All");
+        runAllButton.Click += async (_, _) => await RunExamplesAsync(_examples);
+        toolbarRow.Children.Add(runAllButton);
+
+        var resetButton = CreateActionSidebarButton("⟲  Reset");
+        resetButton.Foreground = _currentTheme.TextSecondaryBrush;
+        resetButton.Click += (_, _) =>
+        {
+            _exampleResults.Clear();
+            _showOnlyFailed = false;
+            RebuildSidebarForCurrentMode();
+            ClearContent("Select an Example", "All results cleared. Choose an example on the left to run it.");
+        };
+        toolbarRow.Children.Add(resetButton);
+
+        var failedCount = _exampleResults.Count(r => !r.Value.Success);
+        var filterButton = CreateActionSidebarButton(_showOnlyFailed ? "✕  Show All" : $"⚠  Failed ({failedCount})");
+        filterButton.Foreground = failedCount > 0
+            ? new SolidColorBrush(Color.FromRgb(249, 80, 80))
+            : _currentTheme.TextMutedBrush;
+        filterButton.IsEnabled = failedCount > 0 || _showOnlyFailed;
+        filterButton.Click += (_, _) =>
+        {
+            _showOnlyFailed = !_showOnlyFailed;
+            RebuildSidebarForCurrentMode();
+        };
+        toolbarRow.Children.Add(filterButton);
+
+        ApiButtonsPanel.Children.Add(toolbarRow);
+
+        // ─── Separator ───────────────────────────────────────────────
+        ApiButtonsPanel.Children.Add(new Border
+        {
+            Height = 1,
+            Background = _currentTheme.BorderBrush,
+            Margin = new Thickness(12, 4, 12, 4)
+        });
+
+        // ─── Category groups ─────────────────────────────────────────
         var grouped = _examples
             .GroupBy(ex => ex.Category)
             .OrderBy(g => g.Key);
 
         foreach (var group in grouped)
         {
+            var examplesInGroup = group.ToList();
+            var visibleExamples = _showOnlyFailed
+                ? examplesInGroup.Where(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success).ToList()
+                : examplesInGroup;
+
+            if (visibleExamples.Count == 0) continue;
+
             var categoryExpander = new Expander
             {
                 IsExpanded = true,
@@ -156,15 +201,15 @@ public partial class ApiTestWindow : Window
             {
                 Content = "▶",
                 Background = Brushes.Transparent,
-                Foreground = _currentTheme.TextMutedBrush,
+                Foreground = _currentTheme.AccentBrush,
                 BorderThickness = new Thickness(0),
                 Padding = new Thickness(4, 0, 6, 0),
-                FontSize = 10,
+                FontSize = 13,
                 Cursor = System.Windows.Input.Cursors.Hand,
                 VerticalAlignment = VerticalAlignment.Center,
                 ToolTip = $"Run all '{group.Key}' examples"
             };
-            var capturedGroup = group.ToList();
+            var capturedGroup = examplesInGroup;
             runCategoryButton.Click += async (_, _) => await RunExamplesAsync(capturedGroup);
             headerPanel.Children.Add(runCategoryButton);
 
@@ -176,6 +221,19 @@ public partial class ApiTestWindow : Window
                 Foreground = _currentTheme.TextMutedBrush,
                 VerticalAlignment = VerticalAlignment.Center
             });
+
+            // Count badge
+            var categoryFailed = examplesInGroup.Count(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success);
+            var categoryPassed = examplesInGroup.Count(ex => _exampleResults.TryGetValue(ex, out var r) && r.Success);
+            var badgeText = _exampleResults.Any(r => examplesInGroup.Contains(r.Key))
+                ? $"{categoryPassed}✓ {categoryFailed}✗"
+                : visibleExamples.Count.ToString();
+            var badgeForeground = categoryFailed > 0
+                ? new SolidColorBrush(Color.FromRgb(249, 80, 80))
+                : categoryPassed > 0
+                    ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
+                    : _currentTheme.TextMutedBrush;
+
             headerPanel.Children.Add(new Border
             {
                 Background = _currentTheme.TagBrush,
@@ -185,8 +243,8 @@ public partial class ApiTestWindow : Window
                 VerticalAlignment = VerticalAlignment.Center,
                 Child = new TextBlock
                 {
-                    Text = group.Count().ToString(),
-                    Foreground = _currentTheme.TextMutedBrush,
+                    Text = badgeText,
+                    Foreground = badgeForeground,
                     FontSize = 10
                 }
             });
@@ -194,7 +252,7 @@ public partial class ApiTestWindow : Window
 
             var itemsPanel = new StackPanel { Margin = new Thickness(0, 2, 0, 0) };
 
-            foreach (var example in group)
+            foreach (var example in visibleExamples)
             {
                 var button = CreateExampleSidebarButton(example);
                 button.Click += ExampleButton_Click;
@@ -211,37 +269,51 @@ public partial class ApiTestWindow : Window
             ApiButtonsPanel.Children.Add(categoryExpander);
         }
 
-        // Re-apply status colors
         ApplyResultColors();
     }
 
     private Button CreateExampleSidebarButton(IExample example)
     {
-        var statusIndicator = "○";
-        var statusColor = _currentTheme.TextMutedBrush;
+        var hasResult = _exampleResults.TryGetValue(example, out var result);
 
-        if (_exampleResults.TryGetValue(example, out var result))
-        {
-            statusIndicator = result.Success ? "●" : "●";
-            statusColor = result.Success
+        var statusIndicator = hasResult ? "●" : "○";
+        SolidColorBrush statusColor;
+        if (hasResult)
+            statusColor = result!.Success
                 ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
                 : new SolidColorBrush(Color.FromRgb(249, 80, 80));
-        }
+        else
+            statusColor = _currentTheme.TextMutedBrush;
 
         var content = new StackPanel { Orientation = Orientation.Horizontal };
         content.Children.Add(new TextBlock
         {
             Text = statusIndicator,
             Foreground = statusColor,
-            FontSize = 10,
+            FontSize = 14,
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(0, 0, 8, 0)
         });
-        content.Children.Add(new TextBlock
+
+        var namePanel = new StackPanel();
+        namePanel.Children.Add(new TextBlock
         {
             Text = example.Text,
             VerticalAlignment = VerticalAlignment.Center
         });
+
+        // Show elapsed time if there's a result
+        if (hasResult)
+        {
+            namePanel.Children.Add(new TextBlock
+            {
+                Text = $"{result!.ElapsedMs}ms",
+                FontSize = 10,
+                Foreground = _currentTheme.TextMutedBrush
+            });
+        }
+
+        content.Children.Add(namePanel);
 
         var isSelected = example == _lastSelectedExample;
 
@@ -268,9 +340,9 @@ public partial class ApiTestWindow : Window
             Background = Brushes.Transparent,
             Foreground = _currentTheme.AccentBrush,
             BorderThickness = new Thickness(0),
-            Padding = new Thickness(14, 10, 14, 10),
+            Padding = new Thickness(8, 6, 8, 6),
             HorizontalContentAlignment = HorizontalAlignment.Left,
-            FontSize = 12,
+            FontSize = 11,
             FontWeight = FontWeights.Bold,
             Cursor = System.Windows.Input.Cursors.Hand
         };
@@ -297,13 +369,7 @@ public partial class ApiTestWindow : Window
     private void SelectButton(Button button)
     {
         if (_selectedButton != null)
-        {
-            // Restore previous button color (check if it has a result)
-            if (_selectedButton.Tag is IExample prevExample && _exampleResults.ContainsKey(prevExample))
-                _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
-            else
-                _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
-        }
+            _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
 
         _selectedButton = button;
         _selectedButton.Foreground = _currentTheme.AccentBrush;
@@ -331,13 +397,31 @@ public partial class ApiTestWindow : Window
             if (_exampleResults.TryGetValue(example, out var result))
             {
                 indicator.Text = "●";
+                indicator.FontSize = 14;
                 indicator.Foreground = result.Success
                     ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
                     : new SolidColorBrush(Color.FromRgb(249, 80, 80));
+
+                // Update elapsed time label
+                if (sp.Children[1] is StackPanel namePanel && namePanel.Children.Count > 1
+                    && namePanel.Children[1] is TextBlock timeLabel)
+                {
+                    timeLabel.Text = $"{result.ElapsedMs}ms";
+                }
+                else if (sp.Children[1] is StackPanel np)
+                {
+                    np.Children.Add(new TextBlock
+                    {
+                        Text = $"{result.ElapsedMs}ms",
+                        FontSize = 10,
+                        Foreground = _currentTheme.TextMutedBrush
+                    });
+                }
             }
             else
             {
                 indicator.Text = "○";
+                indicator.FontSize = 14;
                 indicator.Foreground = _currentTheme.TextMutedBrush;
             }
         }
@@ -365,7 +449,6 @@ public partial class ApiTestWindow : Window
             var sw = System.Diagnostics.Stopwatch.StartNew();
             try
             {
-                // Apply default parameter values (they're already set as defaults)
                 var result = await example.RunAsync();
                 sw.Stop();
 
@@ -383,12 +466,12 @@ public partial class ApiTestWindow : Window
             }
 
             UpdateExampleButtonStatus(example);
-
-            // Update status in real time
             ResponseStatusText.Text = $"⏳ Running... ({passed + failed}/{exampleList.Count})";
         }
 
-        // Final summary
+        // Rebuild sidebar to update all badges and filter button count
+        RebuildSidebarForCurrentMode();
+
         var totalMs = _exampleResults
             .Where(r => exampleList.Contains(r.Key))
             .Sum(r => r.Value.ElapsedMs);
@@ -409,8 +492,6 @@ public partial class ApiTestWindow : Window
         output.Append(summaryBuilder);
 
         ResponseTextBox.Text = output.ToString();
-
-        // Build results cards in the content area
         BuildResultsSummaryUi(exampleList);
     }
 
@@ -480,7 +561,6 @@ public partial class ApiTestWindow : Window
 
             card.Child = row;
 
-            // Click to show result details
             var capturedExample = example;
             card.MouseLeftButtonUp += (_, _) =>
             {
@@ -497,7 +577,6 @@ public partial class ApiTestWindow : Window
 
         _lastSelectedExample = example;
 
-        // Update sidebar selection
         if (_exampleButtons.TryGetValue(example, out var btn))
         {
             SelectButton(btn);
@@ -515,7 +594,6 @@ public partial class ApiTestWindow : Window
             ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
             : new SolidColorBrush(Color.FromRgb(249, 80, 80));
 
-        // Pretty-print if JSON
         var output = result.Output;
         try
         {
@@ -578,11 +656,9 @@ public partial class ApiTestWindow : Window
         SelectButton(button);
         _lastSelectedExample = example;
 
-        // If there's a stored result, show it; otherwise show the run card
         if (_exampleResults.TryGetValue(example, out _))
         {
             ShowExampleResult(example);
-            // Also show the run card below
             ShowExample(example, showResultInResponse: true);
         }
         else
@@ -605,7 +681,6 @@ public partial class ApiTestWindow : Window
 
         var monoFont = new FontFamily("Cascadia Code, Consolas, monospace");
 
-        // Build the run card
         var card = new Border
         {
             Background = _currentTheme.CardBrush,
@@ -787,7 +862,6 @@ public partial class ApiTestWindow : Window
 
         stack.Children.Add(actionRow);
 
-        // Add headings and collapsible panels below the action row
         if (paramsHeading != null && paramsContent != null)
         {
             stack.Children.Add(paramsHeading);
@@ -1041,7 +1115,7 @@ public partial class ApiTestWindow : Window
 
         var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
         iconFactory.SetValue(TextBlock.TextProperty, "▶");
-        iconFactory.SetValue(TextBlock.FontSizeProperty, 10.0);
+        iconFactory.SetValue(TextBlock.FontSizeProperty, 13.0);
         iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
         iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 8, 0));
         iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
@@ -1051,7 +1125,7 @@ public partial class ApiTestWindow : Window
         textFactory.SetValue(TextBlock.TextProperty, "Run Example");
         textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
         textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
-        textFactory.SetValue(TextBlock.FontSizeProperty, 12.5);
+        textFactory.SetValue(TextBlock.FontSizeProperty, 13.0);
         textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
         contentFactory.AppendChild(textFactory);
 
