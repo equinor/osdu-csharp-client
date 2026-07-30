@@ -284,15 +284,26 @@ public partial class ApiTestWindow : Window
 
         var stack = new StackPanel();
 
-        // ─── Dynamic Parameters UI (hidden until expanded) ───────────
+        // ─── Dynamic Parameters UI (hidden until toggled) ────────────
         var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
         var parameters = example.Parameters;
 
+        TextBlock? paramsHeading = null;
         StackPanel? paramsContent = null;
 
         if (parameters.Count > 0)
         {
-            paramsContent = new StackPanel { Margin = new Thickness(0, 12, 0, 0), Visibility = Visibility.Collapsed };
+            paramsHeading = new TextBlock
+            {
+                Text = "⚙️ Parameters",
+                FontWeight = FontWeights.SemiBold,
+                FontSize = 13,
+                Foreground = _currentTheme.TextPrimaryBrush,
+                Margin = new Thickness(0, 14, 0, 6),
+                Visibility = Visibility.Visible
+            };
+
+            paramsContent = new StackPanel { Visibility = Visibility.Visible };
 
             foreach (var param in parameters)
             {
@@ -368,6 +379,16 @@ public partial class ApiTestWindow : Window
         }
 
         // ─── Source Code Panel (hidden until toggled) ────────────────
+        var sourceHeading = new TextBlock
+        {
+            Text = "💻 Source Code",
+            FontWeight = FontWeights.SemiBold,
+            FontSize = 13,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            Margin = new Thickness(0, 14, 0, 6),
+            Visibility = Visibility.Collapsed
+        };
+
         var sourceCodePanel = new Border
         {
             Background = _currentTheme.InputBrush,
@@ -375,7 +396,6 @@ public partial class ApiTestWindow : Window
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(6),
             Padding = new Thickness(16, 12, 16, 12),
-            Margin = new Thickness(0, 12, 0, 0),
             Visibility = Visibility.Collapsed
         };
 
@@ -404,32 +424,42 @@ public partial class ApiTestWindow : Window
 
         if (parameters.Count > 0)
         {
+            var capturedParamsHeading = paramsHeading!;
             var capturedParamsContent = paramsContent!;
             var paramsToggle = CreateToggleButton($"⚙️ Parameters ({parameters.Count})", _currentTheme.TagBrush);
             paramsToggle.Click += (_, _) =>
             {
-                capturedParamsContent.Visibility = capturedParamsContent.Visibility == Visibility.Visible
+                var newVisibility = capturedParamsContent.Visibility == Visibility.Visible
                     ? Visibility.Collapsed
                     : Visibility.Visible;
+                capturedParamsHeading.Visibility = newVisibility;
+                capturedParamsContent.Visibility = newVisibility;
             };
             actionRow.Children.Add(paramsToggle);
         }
 
+        var capturedSourceHeading = sourceHeading;
         var capturedSourcePanel = sourceCodePanel;
         var sourceToggle = CreateToggleButton("💻 View Source Code", _currentTheme.TagBrush);
         sourceToggle.Click += (_, _) =>
         {
-            capturedSourcePanel.Visibility = capturedSourcePanel.Visibility == Visibility.Visible
+            var newVisibility = capturedSourcePanel.Visibility == Visibility.Visible
                 ? Visibility.Collapsed
                 : Visibility.Visible;
+            capturedSourceHeading.Visibility = newVisibility;
+            capturedSourcePanel.Visibility = newVisibility;
         };
         actionRow.Children.Add(sourceToggle);
 
         stack.Children.Add(actionRow);
 
-        // Add collapsible panels below the action row
-        if (paramsContent != null)
+        // Add headings and collapsible panels below the action row
+        if (paramsHeading != null && paramsContent != null)
+        {
+            stack.Children.Add(paramsHeading);
             stack.Children.Add(paramsContent);
+        }
+        stack.Children.Add(sourceHeading);
         stack.Children.Add(sourceCodePanel);
 
         // ─── Run Button Click Handler ────────────────────────────────
