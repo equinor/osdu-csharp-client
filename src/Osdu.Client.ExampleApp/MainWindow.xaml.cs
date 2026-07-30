@@ -22,43 +22,43 @@ public partial class MainWindow : Window
         _osduClient = osduClient;
     }
 
-    private async void SearchButton1_Click(object sender, RoutedEventArgs e)
-    {
-        SearchButton.IsEnabled = false;
-        StatusText.Text = "Searching...";
-        ResultsTextBox.Clear();
+    //private async void SearchButton_Click(object sender, RoutedEventArgs e)
+    //{
+    //    SearchButton.IsEnabled = false;
+    //    StatusText.Text = "Working...";
+    //    ResultsTextBox.Clear();
 
-        try
-        {
-            QueryRequest request = new QueryRequest
-            {
-                Kind = KindTextBox.Text,
-                Limit = 20,
-                Query = "*"
-            };
+    //    try
+    //    {
+    //        QueryRequest request = new QueryRequest
+    //        {
+    //            Kind = KindTextBox.Text,
+    //            Limit = 20,
+    //            Query = "*"
+    //        };
 
-            QueryResponse? response = await _osduClient.Search.PostQueryAsync(request);
+    //        QueryResponse? response = await _osduClient.Search.PostQueryAsync(request);
 
-            IEnumerable<Wellbore_1_3_0> wellbores = response.Results.DeserializeList<Wellbore_1_3_0>();
+    //        IEnumerable<Wellbore_1_3_0> wellbores = response.Results.DeserializeList<Wellbore_1_3_0>();
 
-            StatusText.Text = $"Found {response.TotalCount} result(s).";
+    //        StatusText.Text = $"Found {response.TotalCount} result(s).";
 
-            string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
+    //        string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
+    //        {
+    //            WriteIndented = true
+    //        });
 
-            ResultsTextBox.Text = prettyJson;
-        }
-        catch (Exception ex)
-        {
-            StatusText.Text = $"Error: {ex.Message}";
-        }
-        finally
-        {
-            SearchButton.IsEnabled = true;
-        }
-    }
+    //        ResultsTextBox.Text = prettyJson;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        ResultsTextBox.Text = $"Error: {ex.Message}";
+    //    }
+    //    finally
+    //    {
+    //        SearchButton.IsEnabled = true;
+    //    }
+    //}
 
     //private async void SearchButton_Click(object sender, RoutedEventArgs e)
     //{
@@ -82,7 +82,7 @@ public partial class MainWindow : Window
     //    }
     //    catch (Exception ex)
     //    {
-    //        StatusText.Text = $"Error: {ex.Message}";
+    //        ResultsTextBox.Text = $"Error: {ex.Message}";
     //    }
     //    finally
     //    {
@@ -119,56 +119,7 @@ public partial class MainWindow : Window
     //    }
     //    catch (Exception ex)
     //    {
-    //        StatusText.Text = $"Error: {ex.Message}";
-    //    }
-    //    finally
-    //    {
-    //        SearchButton.IsEnabled = true;
-    //    }
-    //}
-
-    //private async void SearchButton_Click(object sender, RoutedEventArgs e)
-    //{
-    //    SearchButton.IsEnabled = false;
-    //    StatusText.Text = "Working...";
-    //    ResultsTextBox.Clear();
-
-    //    try
-    //    {
-    //        WellLog_1_5_0Data wellLog = new WellLog_1_5_0Data()
-    //        {
-    //            WellboreID = "dev:master-data--Wellbore:3728af7d649d4df4805d38d38aeae659",
-    //            TopMeasuredDepth = 1001.0,
-    //            BottomMeasuredDepth = 2001.0,
-    //            IsRegular = true,
-    //            Curves = [new WellLog_1_5_0DataCurves { CurveID = "GR", Mnemonic = "GR", CurveDescription = "MRK Gamma Ray", NumberOfColumns = 1 }]
-    //        };
-
-    //        List<Record> records = new List<Record>()
-    //        {
-    //            new Record()
-    //            {
-    //                Kind = "osdu:wks:work-product-component--WellLog:1.5.0",
-    //                Acl = new StorageAcl {Viewers = ["data.office.global.viewers@dev.dataservices.energy"], Owners = ["data.wellcoredb.owners@dev.dataservices.energy"]},
-    //                Legal = new Legal {Legaltags = ["dev-equinor-private-default"], OtherRelevantDataCountries = ["NO","US"]},
-    //                Data = wellLog
-    //            }
-    //        };
-
-    //        var response = await _osduClient.WellboreDdms.PostDdmsV3WelllogsAsync(records);
-
-    //        string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
-    //        {
-    //            WriteIndented = true
-    //        });
-
-    //        ResultsTextBox.Text = prettyJson;
-
-    //        StatusText.Text = "Done!!!";
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        StatusText.Text = $"Error: {ex.Message}";
+    //        ResultsTextBox.Text = $"Error: {ex.Message}";
     //    }
     //    finally
     //    {
@@ -184,9 +135,27 @@ public partial class MainWindow : Window
 
         try
         {
-            string wellLogId = "dev:work-product-component--WellLog:1c35012eab4d4c5d90eb38b9fb245522";
+            WellLog_1_5_0Data wellLog = new WellLog_1_5_0Data()
+            {
+                WellboreID = "dev:master-data--Wellbore:3728af7d649d4df4805d38d38aeae659",
+                TopMeasuredDepth = 1001.0,
+                BottomMeasuredDepth = 2001.0,
+                IsRegular = true,
+                Curves = [new WellLog_1_5_0DataCurves { CurveID = "GR", Mnemonic = "GR", CurveDescription = "MRK Gamma Ray", NumberOfColumns = 1 }]
+            };
 
-            var response = await _osduClient.Storage.PostRecordsDeleteByIdAsync(wellLogId);
+            List<Record> records = new List<Record>()
+            {
+                new Record()
+                {
+                    Kind = "osdu:wks:work-product-component--WellLog:1.5.0",
+                    Acl = new StorageAcl {Viewers = ["data.office.global.viewers@dev.dataservices.energy"], Owners = ["data.wellcoredb.owners@dev.dataservices.energy"]},
+                    Legal = new Legal {Legaltags = ["dev-equinor-private-default"], OtherRelevantDataCountries = ["NO","US"]},
+                    Data = wellLog
+                }
+            };
+
+            var response = await _osduClient.WellboreDdms.PostDdmsV3WelllogsAsync(records);
 
             string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
             {
@@ -199,12 +168,43 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            StatusText.Text = $"Error: {ex.Message}";
+            ResultsTextBox.Text = $"Error: {ex.Message}";
         }
         finally
         {
             SearchButton.IsEnabled = true;
         }
     }
+
+    //private async void SearchButton_Click(object sender, RoutedEventArgs e)
+    //{
+    //    SearchButton.IsEnabled = false;
+    //    StatusText.Text = "Working...";
+    //    ResultsTextBox.Clear();
+
+    //    try
+    //    {
+    //        string wellLogId = "dev:work-product-component--WellLog:1c35012eab4d4c5d90eb38b9fb245522";
+
+    //        var response = await _osduClient.Storage.PostRecordsDeleteByIdAsync(wellLogId);
+
+    //        string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
+    //        {
+    //            WriteIndented = true
+    //        });
+
+    //        ResultsTextBox.Text = prettyJson;
+
+    //        StatusText.Text = "Done!!!";
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        ResultsTextBox.Text = $"Error: {ex.Message}";
+    //    }
+    //    finally
+    //    {
+    //        SearchButton.IsEnabled = true;
+    //    }
+    //}
 
 }
