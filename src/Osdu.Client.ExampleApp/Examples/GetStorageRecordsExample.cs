@@ -5,15 +5,14 @@ namespace Osdu.Client.ExampleApp.Examples;
 
 public class GetStorageRecordsExample(IOsduClient osduClient) : ExampleBase
 {
-    [ExampleParameter(
-        DisplayName = "Limit",
-        Description = "Maximum number of records to retrieve.",
-        Order = 0)]
+    [ExampleParameter(DisplayName = "Limit", Order = 0, Description = "Maximum number of records to retrieve.")]
     public int Limit { get; set; } = 10;
 
     public override string Text => "Get Storage Records";
 
     public override string ShortDescription => "Retrieves records from the Storage API.";
+
+    public override string Category => "Storage";
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {

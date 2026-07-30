@@ -6,28 +6,20 @@ namespace Osdu.Client.ExampleApp.Examples;
 
 public class SearchWellboresExample(IOsduClient osduClient) : ExampleBase
 {
-    [ExampleParameter(
-        DisplayName = "Kind",
-        Description = "The kind of record to search for (supports wildcards).",
-        Required = true,
-        Order = 0)]
+    [ExampleParameter(DisplayName = "Kind", Required = true, Order = 0, Description = "The kind of record to search for (supports wildcards).")]
     public string Kind { get; set; } = "osdu:wks:master-data--Wellbore:1.3.0";
 
-    [ExampleParameter(
-        DisplayName = "Query",
-        Description = "Lucene query string.",
-        Order = 1)]
+    [ExampleParameter(DisplayName = "Query", Order = 1, Description = "Lucene query string.")]
     public string Query { get; set; } = "*";
 
-    [ExampleParameter(
-        DisplayName = "Limit",
-        Description = "Maximum number of results to return.",
-        Order = 2)]
+    [ExampleParameter(DisplayName = "Limit", Order = 2, Description = "Maximum number of results to return.")]
     public int Limit { get; set; } = 20;
 
     public override string Text => "Search Wellbores";
 
     public override string ShortDescription => "Searches for Wellbore records using the Search API.";
+
+    public override string Category => "Search";
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {

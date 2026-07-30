@@ -18,6 +18,8 @@ public abstract class ExampleBase : IExample
 
     public abstract string ShortDescription { get; }
 
+    public virtual string Category => "General";
+
     public string SourceCode => _cachedSourceCode ??= ExtractRunAsyncBody();
 
     public IReadOnlyList<ExampleParameterInfo> Parameters => _cachedParameters ??= DiscoverParameters();

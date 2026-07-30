@@ -9,6 +9,8 @@ public class WellboreDdmsAboutExample(IOsduClient osduClient) : ExampleBase
 
     public override string ShortDescription => "Calls the Wellbore DDMS /about endpoint to retrieve service version information.";
 
+    public override string Category => "Wellbore DDMS";
+
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
         var response = await osduClient.WellboreDdms.GetAboutAsync(cancellationToken);

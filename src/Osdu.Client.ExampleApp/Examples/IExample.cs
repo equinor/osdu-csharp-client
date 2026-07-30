@@ -16,6 +16,11 @@ public interface IExample
     string ShortDescription { get; }
 
     /// <summary>
+    /// Category used to group examples in the sidebar.
+    /// </summary>
+    string Category { get; }
+
+    /// <summary>
     /// The source code of the RunAsync method for display purposes.
     /// </summary>
     string SourceCode { get; }

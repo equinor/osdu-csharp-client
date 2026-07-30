@@ -6,22 +6,17 @@ namespace Osdu.Client.ExampleApp.Examples;
 
 public class SearchWellLogsExample(IOsduClient osduClient) : ExampleBase
 {
-    [ExampleParameter(
-        DisplayName = "Kind",
-        Description = "The kind of WellLog record to search for.",
-        Required = true,
-        Order = 0)]
+    [ExampleParameter(DisplayName = "Kind", Required = true, Order = 0, Description = "The kind of WellLog record to search for.")]
     public string Kind { get; set; } = "osdu:wks:work-product-component--WellLog:*";
 
-    [ExampleParameter(
-        DisplayName = "Limit",
-        Description = "Maximum number of results to return.",
-        Order = 1)]
+    [ExampleParameter(DisplayName = "Limit", Order = 1, Description = "Maximum number of results to return.")]
     public int Limit { get; set; } = 10;
 
     public override string Text => "Search Well Logs";
 
     public override string ShortDescription => "Searches for WellLog work product components with projected fields (id, kind, createTime).";
+
+    public override string Category => "Search";
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {

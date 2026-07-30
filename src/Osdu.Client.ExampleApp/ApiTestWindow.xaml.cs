@@ -122,17 +122,63 @@ public partial class ApiTestWindow : Window
 
     private void RebuildExampleButtons()
     {
-        foreach (var example in _examples)
-        {
-            var button = CreateSidebarButton(example.Text, example);
-            button.Click += ExampleButton_Click;
-            ApiButtonsPanel.Children.Add(button);
+        var grouped = _examples
+            .GroupBy(ex => ex.Category)
+            .OrderBy(g => g.Key);
 
-            if (example == _lastSelectedExample)
+        foreach (var group in grouped)
+        {
+            var categoryExpander = new Expander
             {
-                _selectedButton = button;
-                button.Foreground = _currentTheme.AccentBrush;
+                IsExpanded = true,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Foreground = _currentTheme.TextPrimaryBrush,
+                Margin = new Thickness(4, 4, 4, 0)
+            };
+
+            var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
+            headerPanel.Children.Add(new TextBlock
+            {
+                Text = group.Key,
+                FontWeight = FontWeights.SemiBold,
+                FontSize = 12,
+                Foreground = _currentTheme.TextMutedBrush,
+                VerticalAlignment = VerticalAlignment.Center
+            });
+            headerPanel.Children.Add(new Border
+            {
+                Background = _currentTheme.TagBrush,
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(6, 1, 6, 1),
+                Margin = new Thickness(6, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Child = new TextBlock
+                {
+                    Text = group.Count().ToString(),
+                    Foreground = _currentTheme.TextMutedBrush,
+                    FontSize = 10
+                }
+            });
+            categoryExpander.Header = headerPanel;
+
+            var itemsPanel = new StackPanel { Margin = new Thickness(0, 2, 0, 0) };
+
+            foreach (var example in group)
+            {
+                var button = CreateSidebarButton(example.Text, example);
+                button.Click += ExampleButton_Click;
+                itemsPanel.Children.Add(button);
+
+                if (example == _lastSelectedExample)
+                {
+                    _selectedButton = button;
+                    button.Foreground = _currentTheme.AccentBrush;
+                }
             }
+
+            categoryExpander.Content = itemsPanel;
+            ApiButtonsPanel.Children.Add(categoryExpander);
         }
     }
 
