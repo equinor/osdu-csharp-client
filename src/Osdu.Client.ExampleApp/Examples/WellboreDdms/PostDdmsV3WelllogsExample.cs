@@ -3,17 +3,18 @@ using Osdu.Client.Apis;
 using Osdu.Client.Apis.WellboreDdms;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
+using Osdu.Client.Schemas.WorkProductComponent;
 
 namespace Osdu.Client.ExampleApp.Examples.WellboreDdms;
 
-public class PostDdmsV3WellboresExample(IOsduClient osduClient) : ExampleBase
+public class PostDdmsV3WelllogsExample(IOsduClient osduClient) : ExampleBase
 {
     public override string Category => ExampleCategory.WellboreDdms;
     public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
     public override string ShortDescription => $"This is an example for 'OsduClient.{Text}' api endpoint";
 
     [ExampleParameter(DisplayName = "Kind", Required = true, Order = 0, Description = "The wellbore kind.")]
-    public string Kind { get; set; } = "osdu:wks:master-data--Wellbore:1.3.0";
+    public string Kind { get; set; } = "osdu:wks:work-product-component--WellLog:1.5.0";
 
     [ExampleParameter(DisplayName = "Legal Tag", Required = true, Order = 1, Description = "Legal tag name.")]
     public string LegalTag { get; set; } = "dev-equinor-private-default";
@@ -24,41 +25,40 @@ public class PostDdmsV3WellboresExample(IOsduClient osduClient) : ExampleBase
     [ExampleParameter(DisplayName = "Owners ACL", Required = true, Order = 3, Description = "ACL owners group.")]
     public string OwnersAcl { get; set; } = "data.wellcoredb.owners@dev.dataservices.energy";
 
-    [ExampleParameter(DisplayName = "Wellbore Name", Order = 4, Description = "Name of the wellbore to create.")]
-    public string WellboreName { get; set; } = "MRK Example Wellbore A-1";
+    [ExampleParameter(DisplayName = "WellboreId", Order = 4, Description = "Wellbore Id")]
+    public string WellboreId { get; set; } = "dev:master-data--Wellbore:3728af7d649d4df4805d38d38aeae659";
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
         //return "Not run as we do not want to add dummy data in OSDU. Just check the code as an example";
 
-        var wellboreData = new Dictionary<string, object>
+        WellLog_1_5_0Data wellLog = new WellLog_1_5_0Data()
         {
-            ["FacilityName"] = WellboreName,
-            ["WellID"] = "dev:master-data--Well:ExampleWell001",
-            ["TrajectoryTypeID"] = "dev:reference-data--WellboreTrajectoryType:Vertical"
+            WellboreID = WellboreId,
+            TopMeasuredDepth = 1002.0,
+            BottomMeasuredDepth = 2002.0,
+            IsRegular = true,
+            Curves = [new WellLog_1_5_0DataCurves { CurveID = "MRKCurve1", Mnemonic = "MRKCurve1", CurveDescription = "MRK Curve1", NumberOfColumns = 1 }]
         };
 
-        var records = new List<Record>
+        List<Record> records = new List<Record>()
         {
-            new()
+            new Record()
             {
                 Kind = Kind,
-                Acl = new StorageAcl
-                {
-                    Viewers = [ViewersAcl],
-                    Owners = [OwnersAcl]
-                },
-                Legal = new Apis.WellboreDdms.Legal
-                {
-                    Legaltags = [LegalTag],
-                    OtherRelevantDataCountries = ["NO", "US"]
-                },
-                Data = wellboreData
+                Acl = new StorageAcl {Viewers = [ViewersAcl], Owners = [OwnersAcl]},
+                Legal = new Apis.WellboreDdms.Legal {Legaltags = [LegalTag], OtherRelevantDataCountries = ["NO","US"]},
+                Data = wellLog
             }
         };
 
-        var response = await osduClient.WellboreDdms.PostDdmsV3WellboresAsync(records, cancellationToken);
+        var response = await osduClient.WellboreDdms.PostDdmsV3WelllogsAsync(records);
 
-        return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
+        string prettyJson = JsonSerializer.Serialize(response, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        return prettyJson;
     }
 }

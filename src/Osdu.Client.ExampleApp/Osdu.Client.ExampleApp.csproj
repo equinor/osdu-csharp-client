@@ -88,6 +88,12 @@
     <Content Include="Examples\Storage\GetRecordsExample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Examples\Storage\PostRecordsDeleteByIdExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\WellboreDdms\PostDdmsV3WelllogsExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -98,7 +104,9 @@
     <Content Include="Examples\Entitlement\GetGroupsExample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Examples\Indexer\GetInfoExample.cs" />
+    <Content Include="Examples\Indexer\GetInfoExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Examples\Legal\GetLegalTagsPropertiesExample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
