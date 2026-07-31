@@ -99,6 +99,7 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
 
         // Content
         var content = new StackPanel { Visibility = Visibility.Visible };
+        Grid.SetIsSharedSizeScope(content, true);
 
         foreach (var param in parameters)
         {
@@ -154,22 +155,29 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
 
         var stack = new StackPanel();
 
-        // Label row
-        var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 6) };
+        // Main row: label + input on same line using Grid for alignment
+        var mainRow = new Grid();
+        mainRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "ParamLabel" });
+        mainRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+        // Label side
+        var labelRow = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
         labelRow.Children.Add(new TextBlock
         {
             Text = param.DisplayName,
             FontWeight = FontWeights.SemiBold,
             FontSize = 12.5,
             FontFamily = MonoFont,
-            Foreground = theme.TextPrimaryBrush
+            Foreground = theme.TextPrimaryBrush,
+            VerticalAlignment = VerticalAlignment.Center
         });
         if (param.Required)
         {
             labelRow.Children.Add(new TextBlock
             {
                 Text = " *", Foreground = theme.RequiredBrush,
-                FontWeight = FontWeights.Bold, FontSize = 13
+                FontWeight = FontWeights.Bold, FontSize = 13,
+                VerticalAlignment = VerticalAlignment.Center
             });
         }
         labelRow.Children.Add(new Border
@@ -186,19 +194,10 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
                 FontSize = 10, FontFamily = MonoFont, FontWeight = FontWeights.Medium
             }
         });
-        stack.Children.Add(labelRow);
+        Grid.SetColumn(labelRow, 0);
+        mainRow.Children.Add(labelRow);
 
-        if (!string.IsNullOrEmpty(param.Description))
-        {
-            stack.Children.Add(new TextBlock
-            {
-                Text = param.Description,
-                Foreground = theme.TextMutedBrush,
-                FontSize = 11.5, TextWrapping = TextWrapping.Wrap,
-                Margin = new Thickness(0, 0, 0, 8), LineHeight = 18
-            });
-        }
-
+        // Input side (fills remaining space, left-aligned across all cards)
         FrameworkElement input;
         if (param.PropertyType == typeof(bool))
         {
@@ -206,7 +205,8 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
             {
                 IsChecked = currentValue is true,
                 Foreground = theme.TextPrimaryBrush,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(12, 0, 0, 0)
             };
         }
         else
@@ -219,17 +219,33 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
             input = new TextBox
             {
                 Text = displayValue,
-                Padding = new Thickness(10, 8, 10, 8),
+                Padding = new Thickness(10, 6, 10, 6),
                 Background = theme.InputFieldBrush,
                 Foreground = theme.TextPrimaryBrush,
                 CaretBrush = theme.TextPrimaryBrush,
                 BorderBrush = theme.BorderBrush,
                 BorderThickness = new Thickness(1),
-                FontFamily = MonoFont, FontSize = 12
+                FontFamily = MonoFont, FontSize = 12,
+                Margin = new Thickness(12, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
             };
         }
+        Grid.SetColumn(input, 1);
+        mainRow.Children.Add(input);
 
-        stack.Children.Add(input);
+        stack.Children.Add(mainRow);
+
+        if (!string.IsNullOrEmpty(param.Description))
+        {
+            stack.Children.Add(new TextBlock
+            {
+                Text = param.Description,
+                Foreground = theme.TextMutedBrush,
+                FontSize = 11.5, TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 6, 0, 0), LineHeight = 18
+            });
+        }
+
         border.Child = stack;
         return (border, input);
     }
