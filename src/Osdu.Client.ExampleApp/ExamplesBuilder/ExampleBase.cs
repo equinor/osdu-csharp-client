@@ -13,6 +13,7 @@ namespace Osdu.Client.ExampleApp.ExamplesBuilder;
 public abstract class ExampleBase : IExample
 {
     private string? _cachedSourceCode;
+    private string? _cachedFullSourceCode;
     private IReadOnlyList<ExampleParameterInfo>? _cachedParameters;
 
     public abstract string Text { get; }
@@ -22,6 +23,8 @@ public abstract class ExampleBase : IExample
     public virtual string Category => "General";
 
     public string SourceCode => _cachedSourceCode ??= ExtractRunAsyncBody();
+
+    public string FullSourceCode => _cachedFullSourceCode ??= ExtractFullSource();
 
     public IReadOnlyList<ExampleParameterInfo> Parameters => _cachedParameters ??= DiscoverParameters();
 
@@ -44,6 +47,19 @@ public abstract class ExampleBase : IExample
                 PropertyType = x.Property.PropertyType
             })
             .ToList();
+    }
+
+    private string ExtractFullSource()
+    {
+        var assembly = GetType().Assembly;
+        var resourceName = $"{GetType().Name}.cs";
+
+        using var stream = assembly.GetManifestResourceStream(resourceName);
+        if (stream is null)
+            return $"// Embedded resource '{resourceName}' not found.";
+
+        using var reader = new StreamReader(stream);
+        return reader.ReadToEnd();
     }
 
     private string ExtractRunAsyncBody()

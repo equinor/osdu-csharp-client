@@ -28,6 +28,11 @@ public interface IExample
     string SourceCode { get; }
 
     /// <summary>
+    /// The full source code of the example class file.
+    /// </summary>
+    string FullSourceCode { get; }
+
+    /// <summary>
     /// Returns metadata for all user-configurable parameters on this example.
     /// </summary>
     IReadOnlyList<ExampleParameterInfo> Parameters { get; }
