@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="OSDU API Explorer" Height="800" Width="1200"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="GridSplitter">
             <Setter Property="Template">
@@ -20,7 +21,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220" MinWidth="160" MaxWidth="350"/>
+            <ColumnDefinition Width="350" MinWidth="160" MaxWidth="350"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>

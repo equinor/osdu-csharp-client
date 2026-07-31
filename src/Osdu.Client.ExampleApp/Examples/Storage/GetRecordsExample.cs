@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using Osdu.Client.Apis;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
@@ -10,8 +13,8 @@ public class GetRecordsExample(IOsduClient osduClient) : ExampleBase
     public override string Category => ExampleCategory.Storage;
     public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
     public override string ShortDescription => $"This is an example for 'OsduClient.{Text}' api endpoint";
-    
-    
+
+
     [ExampleParameter(DisplayName = "Limit", Order = 0, Description = "The maximum number of records to retrieve.")]
     public int Limit { get; set; } = 10;
 
