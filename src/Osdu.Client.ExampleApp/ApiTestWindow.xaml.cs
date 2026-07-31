@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using Osdu.Client.ExampleApp.Examples;
 
 namespace Osdu.Client.ExampleApp;
@@ -30,6 +31,8 @@ public partial class ApiTestWindow : Window
     // Track example execution results
     private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
     private readonly Dictionary<IExample, Button> _exampleButtons = new();
+
+    private static readonly FontFamily MonoFont = new("Cascadia Code, Consolas, monospace");
 
     private enum SidebarMode { Apis, Examples }
 
@@ -131,14 +134,20 @@ public partial class ApiTestWindow : Window
     private void RebuildExampleButtons()
     {
         // ─── Action toolbar ──────────────────────────────────────────
-        var toolbarRow = new WrapPanel { Margin = new Thickness(8, 6, 8, 2) };
+        var toolbarBorder = new Border
+        {
+            Background = _currentTheme.TagBrush,
+            CornerRadius = new CornerRadius(8),
+            Margin = new Thickness(8, 8, 8, 4),
+            Padding = new Thickness(6, 6, 6, 6)
+        };
+        var toolbarRow = new WrapPanel();
 
-        var runAllButton = CreateActionSidebarButton("▶  Run All");
+        var runAllButton = CreateActionSidebarButton("▶  Run All", _currentTheme.AccentBrush);
         runAllButton.Click += async (_, _) => await RunExamplesAsync(_examples);
         toolbarRow.Children.Add(runAllButton);
 
-        var resetButton = CreateActionSidebarButton("⟲  Reset");
-        resetButton.Foreground = _currentTheme.TextSecondaryBrush;
+        var resetButton = CreateActionSidebarButton("⟲  Reset", _currentTheme.TextSecondaryBrush);
         resetButton.Click += (_, _) =>
         {
             _exampleResults.Clear();
@@ -149,10 +158,9 @@ public partial class ApiTestWindow : Window
         toolbarRow.Children.Add(resetButton);
 
         var failedCount = _exampleResults.Count(r => !r.Value.Success);
-        var filterButton = CreateActionSidebarButton(_showOnlyFailed ? "✕  Show All" : $"⚠  Failed ({failedCount})");
-        filterButton.Foreground = failedCount > 0
-            ? new SolidColorBrush(Color.FromRgb(249, 80, 80))
-            : _currentTheme.TextMutedBrush;
+        var filterButton = CreateActionSidebarButton(
+            _showOnlyFailed ? "✕  Show All" : $"⚠  Failed ({failedCount})",
+            failedCount > 0 ? new SolidColorBrush(Color.FromRgb(249, 80, 80)) : _currentTheme.TextMutedBrush);
         filterButton.IsEnabled = failedCount > 0 || _showOnlyFailed;
         filterButton.Click += (_, _) =>
         {
@@ -161,15 +169,8 @@ public partial class ApiTestWindow : Window
         };
         toolbarRow.Children.Add(filterButton);
 
-        ApiButtonsPanel.Children.Add(toolbarRow);
-
-        // ─── Separator ───────────────────────────────────────────────
-        ApiButtonsPanel.Children.Add(new Border
-        {
-            Height = 1,
-            Background = _currentTheme.BorderBrush,
-            Margin = new Thickness(12, 4, 12, 4)
-        });
+        toolbarBorder.Child = toolbarRow;
+        ApiButtonsPanel.Children.Add(toolbarBorder);
 
         // ─── Category groups ─────────────────────────────────────────
         var grouped = _examples
@@ -185,13 +186,24 @@ public partial class ApiTestWindow : Window
 
             if (visibleExamples.Count == 0) continue;
 
+            // Category card
+            var categoryBorder = new Border
+            {
+                Background = _currentTheme.IsDark
+                    ? new SolidColorBrush(Color.FromArgb(30, 255, 255, 255))
+                    : new SolidColorBrush(Color.FromArgb(15, 0, 0, 0)),
+                CornerRadius = new CornerRadius(8),
+                Margin = new Thickness(8, 6, 8, 2),
+                Padding = new Thickness(2)
+            };
+
             var categoryExpander = new Expander
             {
                 IsExpanded = true,
                 Background = Brushes.Transparent,
                 BorderThickness = new Thickness(0),
                 Foreground = _currentTheme.TextPrimaryBrush,
-                Margin = new Thickness(4, 4, 4, 0)
+                Margin = new Thickness(2)
             };
 
             var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
@@ -218,7 +230,7 @@ public partial class ApiTestWindow : Window
                 Text = group.Key,
                 FontWeight = FontWeights.SemiBold,
                 FontSize = 12,
-                Foreground = _currentTheme.TextMutedBrush,
+                Foreground = _currentTheme.TextPrimaryBrush,
                 VerticalAlignment = VerticalAlignment.Center
             });
 
@@ -238,19 +250,20 @@ public partial class ApiTestWindow : Window
             {
                 Background = _currentTheme.TagBrush,
                 CornerRadius = new CornerRadius(8),
-                Padding = new Thickness(6, 1, 6, 1),
-                Margin = new Thickness(6, 0, 0, 0),
+                Padding = new Thickness(7, 2, 7, 2),
+                Margin = new Thickness(8, 0, 0, 0),
                 VerticalAlignment = VerticalAlignment.Center,
                 Child = new TextBlock
                 {
                     Text = badgeText,
                     Foreground = badgeForeground,
-                    FontSize = 10
+                    FontSize = 10,
+                    FontWeight = FontWeights.SemiBold
                 }
             });
             categoryExpander.Header = headerPanel;
 
-            var itemsPanel = new StackPanel { Margin = new Thickness(0, 2, 0, 0) };
+            var itemsPanel = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
 
             foreach (var example in visibleExamples)
             {
@@ -266,7 +279,8 @@ public partial class ApiTestWindow : Window
             }
 
             categoryExpander.Content = itemsPanel;
-            ApiButtonsPanel.Children.Add(categoryExpander);
+            categoryBorder.Child = categoryExpander;
+            ApiButtonsPanel.Children.Add(categoryBorder);
         }
 
         ApplyResultColors();
@@ -292,24 +306,25 @@ public partial class ApiTestWindow : Window
             Foreground = statusColor,
             FontSize = 14,
             VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(0, 0, 8, 0)
+            Margin = new Thickness(0, 0, 10, 0)
         });
 
         var namePanel = new StackPanel();
         namePanel.Children.Add(new TextBlock
         {
             Text = example.Text,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            FontSize = 12.5
         });
 
-        // Show elapsed time if there's a result
         if (hasResult)
         {
             namePanel.Children.Add(new TextBlock
             {
                 Text = $"{result!.ElapsedMs}ms",
                 FontSize = 10,
-                Foreground = _currentTheme.TextMutedBrush
+                Foreground = _currentTheme.TextMutedBrush,
+                Margin = new Thickness(0, 1, 0, 0)
             });
         }
 
@@ -321,32 +336,32 @@ public partial class ApiTestWindow : Window
         {
             Content = content,
             Tag = example,
-            Background = Brushes.Transparent,
+            Background = isSelected
+                ? new SolidColorBrush(Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B))
+                : Brushes.Transparent,
             Foreground = isSelected ? _currentTheme.AccentBrush : _currentTheme.TextSecondaryBrush,
             BorderThickness = new Thickness(0),
             Padding = new Thickness(14, 8, 14, 8),
             HorizontalContentAlignment = HorizontalAlignment.Left,
-            FontSize = 13,
             FontWeight = FontWeights.Medium,
             Cursor = System.Windows.Input.Cursors.Hand
         };
     }
 
-    private Button CreateActionSidebarButton(string text)
+    private Button CreateActionSidebarButton(string text, SolidColorBrush foreground)
     {
-        var button = new Button
+        return new Button
         {
             Content = text,
             Background = Brushes.Transparent,
-            Foreground = _currentTheme.AccentBrush,
+            Foreground = foreground,
             BorderThickness = new Thickness(0),
-            Padding = new Thickness(8, 6, 8, 6),
+            Padding = new Thickness(8, 5, 8, 5),
             HorizontalContentAlignment = HorizontalAlignment.Left,
             FontSize = 11,
             FontWeight = FontWeights.Bold,
             Cursor = System.Windows.Input.Cursors.Hand
         };
-        return button;
     }
 
     private Button CreateSidebarButton(string content, object tag)
@@ -368,11 +383,17 @@ public partial class ApiTestWindow : Window
 
     private void SelectButton(Button button)
     {
+        // Deselect previous
         if (_selectedButton != null)
+        {
             _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
+            _selectedButton.Background = Brushes.Transparent;
+        }
 
         _selectedButton = button;
         _selectedButton.Foreground = _currentTheme.AccentBrush;
+        _selectedButton.Background = new SolidColorBrush(
+            Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B));
     }
 
     private void ApplyResultColors()
@@ -382,9 +403,12 @@ public partial class ApiTestWindow : Window
             if (example == _lastSelectedExample)
             {
                 button.Foreground = _currentTheme.AccentBrush;
+                button.Background = new SolidColorBrush(
+                    Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B));
                 continue;
             }
             button.Foreground = _currentTheme.TextSecondaryBrush;
+            button.Background = Brushes.Transparent;
         }
     }
 
@@ -402,7 +426,6 @@ public partial class ApiTestWindow : Window
                     ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
                     : new SolidColorBrush(Color.FromRgb(249, 80, 80));
 
-                // Update elapsed time label
                 if (sp.Children[1] is StackPanel namePanel && namePanel.Children.Count > 1
                     && namePanel.Children[1] is TextBlock timeLabel)
                 {
@@ -414,7 +437,8 @@ public partial class ApiTestWindow : Window
                     {
                         Text = $"{result.ElapsedMs}ms",
                         FontSize = 10,
-                        Foreground = _currentTheme.TextMutedBrush
+                        Foreground = _currentTheme.TextMutedBrush,
+                        Margin = new Thickness(0, 1, 0, 0)
                     });
                 }
             }
@@ -469,7 +493,6 @@ public partial class ApiTestWindow : Window
             ResponseStatusText.Text = $"⏳ Running... ({passed + failed}/{exampleList.Count})";
         }
 
-        // Rebuild sidebar to update all badges and filter button count
         RebuildSidebarForCurrentMode();
 
         var totalMs = _exampleResults
@@ -498,7 +521,6 @@ public partial class ApiTestWindow : Window
     private void BuildResultsSummaryUi(List<IExample> examples)
     {
         EndpointsPanel.Children.Clear();
-        var monoFont = new FontFamily("Cascadia Code, Consolas, monospace");
 
         foreach (var example in examples)
         {
@@ -511,22 +533,42 @@ public partial class ApiTestWindow : Window
             var card = new Border
             {
                 Background = _currentTheme.CardBrush,
-                BorderBrush = new SolidColorBrush(Color.FromArgb(80, statusColor.R, statusColor.G, statusColor.B)),
-                BorderThickness = new Thickness(1),
-                CornerRadius = new CornerRadius(6),
-                Padding = new Thickness(14, 10, 14, 10),
-                Margin = new Thickness(0, 0, 0, 6),
-                Cursor = System.Windows.Input.Cursors.Hand
+                BorderBrush = new SolidColorBrush(Color.FromArgb(60, statusColor.R, statusColor.G, statusColor.B)),
+                BorderThickness = new Thickness(1, 1, 1, 1),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(16, 12, 16, 12),
+                Margin = new Thickness(0, 0, 0, 8),
+                Cursor = System.Windows.Input.Cursors.Hand,
+                Effect = new DropShadowEffect
+                {
+                    BlurRadius = 6,
+                    ShadowDepth = 2,
+                    Opacity = _currentTheme.ShadowOpacity,
+                    Color = Colors.Black,
+                    Direction = 270
+                }
             };
 
             var row = new DockPanel();
 
+            // Left accent bar
+            var accentBar = new Border
+            {
+                Width = 4,
+                Background = new SolidColorBrush(statusColor),
+                CornerRadius = new CornerRadius(2),
+                Margin = new Thickness(0, 0, 14, 0),
+                VerticalAlignment = VerticalAlignment.Stretch
+            };
+            DockPanel.SetDock(accentBar, Dock.Left);
+            row.Children.Add(accentBar);
+
             var statusBadge = new TextBlock
             {
                 Text = result.Success ? "✅" : "❌",
-                FontSize = 14,
+                FontSize = 16,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 0)
+                Margin = new Thickness(0, 0, 12, 0)
             };
             DockPanel.SetDock(statusBadge, Dock.Left);
             row.Children.Add(statusBadge);
@@ -534,38 +576,42 @@ public partial class ApiTestWindow : Window
             var timeBadge = new Border
             {
                 Background = _currentTheme.TagBrush,
-                CornerRadius = new CornerRadius(4),
-                Padding = new Thickness(6, 2, 6, 2),
+                CornerRadius = new CornerRadius(6),
+                Padding = new Thickness(8, 3, 8, 3),
                 VerticalAlignment = VerticalAlignment.Center
             };
             timeBadge.Child = new TextBlock
             {
                 Text = $"{result.ElapsedMs}ms",
                 FontSize = 10,
-                FontFamily = monoFont,
-                Foreground = _currentTheme.TextMutedBrush
+                FontFamily = MonoFont,
+                Foreground = _currentTheme.TextMutedBrush,
+                FontWeight = FontWeights.Medium
             };
             DockPanel.SetDock(timeBadge, Dock.Right);
             row.Children.Add(timeBadge);
 
-            var nameBlock = new TextBlock
+            var nameStack = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
+            nameStack.Children.Add(new TextBlock
             {
                 Text = example.Text,
-                FontWeight = FontWeights.Medium,
-                FontSize = 12.5,
-                Foreground = _currentTheme.TextPrimaryBrush,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 8, 0)
-            };
-            row.Children.Add(nameBlock);
+                FontWeight = FontWeights.SemiBold,
+                FontSize = 13,
+                Foreground = _currentTheme.TextPrimaryBrush
+            });
+            nameStack.Children.Add(new TextBlock
+            {
+                Text = example.Category,
+                FontSize = 10.5,
+                Foreground = _currentTheme.TextMutedBrush,
+                Margin = new Thickness(0, 2, 0, 0)
+            });
+            row.Children.Add(nameStack);
 
             card.Child = row;
 
             var capturedExample = example;
-            card.MouseLeftButtonUp += (_, _) =>
-            {
-                ShowExampleResult(capturedExample);
-            };
+            card.MouseLeftButtonUp += (_, _) => ShowExampleResult(capturedExample);
 
             EndpointsPanel.Children.Add(card);
         }
@@ -578,9 +624,7 @@ public partial class ApiTestWindow : Window
         _lastSelectedExample = example;
 
         if (_exampleButtons.TryGetValue(example, out var btn))
-        {
             SelectButton(btn);
-        }
 
         ApiTitleText.Text = example.Text;
         ApiDescriptionText.Text = result.Success
@@ -679,21 +723,28 @@ public partial class ApiTestWindow : Window
             ResponseStatusText.Text = "";
         }
 
-        var monoFont = new FontFamily("Cascadia Code, Consolas, monospace");
-
+        // ─── Main card ──────────────────────────────────────────────
         var card = new Border
         {
             Background = _currentTheme.CardBrush,
             BorderBrush = _currentTheme.BorderBrush,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(8),
-            Padding = new Thickness(20),
-            Margin = new Thickness(0, 0, 0, 12)
+            CornerRadius = new CornerRadius(10),
+            Padding = new Thickness(24),
+            Margin = new Thickness(0, 0, 0, 16),
+            Effect = new DropShadowEffect
+            {
+                BlurRadius = 12,
+                ShadowDepth = 3,
+                Opacity = _currentTheme.ShadowOpacity,
+                Color = Colors.Black,
+                Direction = 270
+            }
         };
 
         var stack = new StackPanel();
 
-        // ─── Dynamic Parameters UI (hidden until toggled) ────────────
+        // ─── Dynamic Parameters UI ───────────────────────────────────
         var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
         var parameters = example.Parameters;
         var originalValues = new Dictionary<ExampleParameterInfo, object?>();
@@ -706,7 +757,7 @@ public partial class ApiTestWindow : Window
             paramsHeaderRow = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 14, 0, 6),
+                Margin = new Thickness(0, 18, 0, 10),
                 Visibility = Visibility.Visible
             };
 
@@ -714,25 +765,32 @@ public partial class ApiTestWindow : Window
             {
                 Text = "⚙️ Parameters",
                 FontWeight = FontWeights.SemiBold,
-                FontSize = 13,
+                FontSize = 14,
                 Foreground = _currentTheme.TextPrimaryBrush,
                 VerticalAlignment = VerticalAlignment.Center
             });
 
+            // Reset button with hover-style border
+            var resetParamsBorder = new Border
+            {
+                Background = _currentTheme.TagBrush,
+                CornerRadius = new CornerRadius(4),
+                Margin = new Thickness(10, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
             var resetParamsButton = new Button
             {
                 Content = "⟲ Reset",
                 Background = Brushes.Transparent,
                 Foreground = _currentTheme.TextMutedBrush,
                 BorderThickness = new Thickness(0),
-                Padding = new Thickness(6, 2, 6, 2),
-                Margin = new Thickness(10, 0, 0, 0),
+                Padding = new Thickness(8, 3, 8, 3),
                 FontSize = 11,
                 Cursor = System.Windows.Input.Cursors.Hand,
-                VerticalAlignment = VerticalAlignment.Center,
                 ToolTip = "Reset parameters to default values"
             };
-            paramsHeaderRow.Children.Add(resetParamsButton);
+            resetParamsBorder.Child = resetParamsButton;
+            paramsHeaderRow.Children.Add(resetParamsBorder);
 
             paramsContent = new StackPanel { Visibility = Visibility.Visible };
 
@@ -746,20 +804,28 @@ public partial class ApiTestWindow : Window
                     Background = _currentTheme.InputBrush,
                     BorderBrush = _currentTheme.BorderBrush,
                     BorderThickness = new Thickness(1),
-                    CornerRadius = new CornerRadius(6),
-                    Padding = new Thickness(12, 10, 12, 10),
-                    Margin = new Thickness(0, 0, 0, 6)
+                    CornerRadius = new CornerRadius(8),
+                    Padding = new Thickness(14, 12, 14, 12),
+                    Margin = new Thickness(0, 0, 0, 8),
+                    Effect = new DropShadowEffect
+                    {
+                        BlurRadius = 4,
+                        ShadowDepth = 1,
+                        Opacity = _currentTheme.ShadowOpacity * 0.5,
+                        Color = Colors.Black,
+                        Direction = 270
+                    }
                 };
 
                 var paramStack = new StackPanel();
 
-                var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 4) };
+                var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 6) };
                 labelRow.Children.Add(new TextBlock
                 {
                     Text = param.DisplayName,
                     FontWeight = FontWeights.SemiBold,
-                    FontSize = 12,
-                    FontFamily = monoFont,
+                    FontSize = 12.5,
+                    FontFamily = MonoFont,
                     Foreground = _currentTheme.TextPrimaryBrush
                 });
                 if (param.Required)
@@ -769,22 +835,23 @@ public partial class ApiTestWindow : Window
                         Text = " *",
                         Foreground = _currentTheme.RequiredBrush,
                         FontWeight = FontWeights.Bold,
-                        FontSize = 12
+                        FontSize = 13
                     });
                 }
                 labelRow.Children.Add(new Border
                 {
                     Background = _currentTheme.TagBrush,
-                    CornerRadius = new CornerRadius(3),
-                    Padding = new Thickness(6, 1, 6, 1),
-                    Margin = new Thickness(8, 0, 0, 0),
+                    CornerRadius = new CornerRadius(4),
+                    Padding = new Thickness(7, 2, 7, 2),
+                    Margin = new Thickness(10, 0, 0, 0),
                     VerticalAlignment = VerticalAlignment.Center,
                     Child = new TextBlock
                     {
                         Text = GetFriendlyTypeName(param.PropertyType),
                         Foreground = _currentTheme.TextMutedBrush,
                         FontSize = 10,
-                        FontFamily = monoFont
+                        FontFamily = MonoFont,
+                        FontWeight = FontWeights.Medium
                     }
                 });
                 paramStack.Children.Add(labelRow);
@@ -795,14 +862,14 @@ public partial class ApiTestWindow : Window
                     {
                         Text = param.Description,
                         Foreground = _currentTheme.TextMutedBrush,
-                        FontSize = 11,
+                        FontSize = 11.5,
                         TextWrapping = TextWrapping.Wrap,
-                        Margin = new Thickness(0, 0, 0, 6)
+                        Margin = new Thickness(0, 0, 0, 8),
+                        LineHeight = 18
                     });
                 }
 
-                var currentVal = param.GetValue(example);
-                FrameworkElement inputControl = CreateParameterInput(param, currentVal, monoFont);
+                FrameworkElement inputControl = CreateParameterInput(param, currentValue, MonoFont);
 
                 paramStack.Children.Add(inputControl);
                 paramBorder.Child = paramStack;
@@ -839,14 +906,14 @@ public partial class ApiTestWindow : Window
             };
         }
 
-        // ─── Source Code Panel (hidden until toggled) ────────────────
+        // ─── Source Code Panel ───────────────────────────────────────
         var sourceHeading = new TextBlock
         {
             Text = "💻 Source Code",
             FontWeight = FontWeights.SemiBold,
-            FontSize = 13,
+            FontSize = 14,
             Foreground = _currentTheme.TextPrimaryBrush,
-            Margin = new Thickness(0, 14, 0, 6),
+            Margin = new Thickness(0, 18, 0, 10),
             Visibility = Visibility.Collapsed
         };
 
@@ -855,9 +922,17 @@ public partial class ApiTestWindow : Window
             Background = _currentTheme.InputBrush,
             BorderBrush = _currentTheme.BorderBrush,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(6),
-            Padding = new Thickness(16, 12, 16, 12),
-            Visibility = Visibility.Collapsed
+            CornerRadius = new CornerRadius(8),
+            Padding = new Thickness(18, 14, 18, 14),
+            Visibility = Visibility.Collapsed,
+            Effect = new DropShadowEffect
+            {
+                BlurRadius = 4,
+                ShadowDepth = 1,
+                Opacity = _currentTheme.ShadowOpacity * 0.5,
+                Color = Colors.Black,
+                Direction = 270
+            }
         };
 
         var sourceCodeTextBox = new TextBox
@@ -867,17 +942,17 @@ public partial class ApiTestWindow : Window
             Background = Brushes.Transparent,
             Foreground = _currentTheme.TextPrimaryBrush,
             BorderThickness = new Thickness(0),
-            FontFamily = monoFont,
+            FontFamily = MonoFont,
             FontSize = 12,
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
             HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
             VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            MaxHeight = 300
+            MaxHeight = 350
         };
         sourceCodePanel.Child = sourceCodeTextBox;
 
-        // ─── Action Row: Run | Parameters | Source Code ──────────────
+        // ─── Action Row ─────────────────────────────────────────────
         var actionRow = new StackPanel { Orientation = Orientation.Horizontal };
 
         var runButton = CreateRunButton();
@@ -1030,7 +1105,7 @@ public partial class ApiTestWindow : Window
         return new TextBox
         {
             Text = displayValue,
-            Padding = new Thickness(8, 6, 8, 6),
+            Padding = new Thickness(10, 8, 10, 8),
             Background = _currentTheme.InputFieldBrush,
             Foreground = _currentTheme.TextPrimaryBrush,
             CaretBrush = _currentTheme.TextPrimaryBrush,
@@ -1158,8 +1233,16 @@ public partial class ApiTestWindow : Window
         var buttonTemplate = new ControlTemplate(typeof(Button));
         var borderFactory = new FrameworkElementFactory(typeof(Border));
         borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(accentColor));
-        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
-        borderFactory.SetValue(Border.PaddingProperty, new Thickness(20, 8, 20, 8));
+        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(8));
+        borderFactory.SetValue(Border.PaddingProperty, new Thickness(22, 10, 22, 10));
+        borderFactory.SetValue(Border.EffectProperty, new DropShadowEffect
+        {
+            BlurRadius = 8,
+            ShadowDepth = 2,
+            Opacity = 0.25,
+            Color = accentColor,
+            Direction = 270
+        });
         borderFactory.Name = "ButtonBorder";
 
         var contentFactory = new FrameworkElementFactory(typeof(StackPanel));
@@ -1167,9 +1250,9 @@ public partial class ApiTestWindow : Window
 
         var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
         iconFactory.SetValue(TextBlock.TextProperty, "▶");
-        iconFactory.SetValue(TextBlock.FontSizeProperty, 13.0);
+        iconFactory.SetValue(TextBlock.FontSizeProperty, 14.0);
         iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
-        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 8, 0));
+        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 10, 0));
         iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
         contentFactory.AppendChild(iconFactory);
 
@@ -1177,7 +1260,7 @@ public partial class ApiTestWindow : Window
         textFactory.SetValue(TextBlock.TextProperty, "Run Example");
         textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
         textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
-        textFactory.SetValue(TextBlock.FontSizeProperty, 13.0);
+        textFactory.SetValue(TextBlock.FontSizeProperty, 13.5);
         textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
         contentFactory.AppendChild(textFactory);
 
@@ -1206,15 +1289,17 @@ public partial class ApiTestWindow : Window
         var button = new Button
         {
             HorizontalAlignment = HorizontalAlignment.Left,
-            Margin = new Thickness(8, 12, 0, 0),
+            Margin = new Thickness(10, 12, 0, 0),
             Cursor = System.Windows.Input.Cursors.Hand
         };
 
         var buttonTemplate = new ControlTemplate(typeof(Button));
         var borderFactory = new FrameworkElementFactory(typeof(Border));
         borderFactory.SetValue(Border.BackgroundProperty, background);
-        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
-        borderFactory.SetValue(Border.PaddingProperty, new Thickness(14, 8, 14, 8));
+        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(8));
+        borderFactory.SetValue(Border.PaddingProperty, new Thickness(16, 9, 16, 9));
+        borderFactory.SetValue(Border.BorderBrushProperty, _currentTheme.BorderBrush);
+        borderFactory.SetValue(Border.BorderThicknessProperty, new Thickness(1));
         borderFactory.Name = "ButtonBorder";
 
         var textFactory = new FrameworkElementFactory(typeof(TextBlock));
@@ -1228,8 +1313,8 @@ public partial class ApiTestWindow : Window
         buttonTemplate.VisualTree = borderFactory;
 
         var hoverBg = _currentTheme.IsDark
-            ? new SolidColorBrush(Color.FromRgb(60, 60, 72))
-            : new SolidColorBrush(Color.FromRgb(220, 222, 232));
+            ? new SolidColorBrush(Color.FromRgb(55, 55, 68))
+            : new SolidColorBrush(Color.FromRgb(225, 227, 235));
 
         var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
         hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, hoverBg, "ButtonBorder"));
