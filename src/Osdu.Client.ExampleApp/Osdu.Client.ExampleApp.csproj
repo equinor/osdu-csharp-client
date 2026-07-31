@@ -93,6 +93,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="ExamplesBuilder\IExample.cs" />
+    <EmbeddedResource Include="Examples\Entitlement\GetInfoExample.cs" />
+    <EmbeddedResource Include="Examples\Storage\GetRecordsByIdExample.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -106,6 +108,24 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Osdu.Client\Osdu.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Examples\Dataset\" />
+    <Folder Include="Examples\File\" />
+    <Folder Include="Examples\Indexer\" />
+    <Folder Include="Examples\Legal\" />
+    <Folder Include="Examples\Notification\" />
+    <Folder Include="Examples\Partition\" />
+    <Folder Include="Examples\Policy\" />
+    <Folder Include="Examples\RafsDdms\" />
+    <Folder Include="Examples\Register\" />
+    <Folder Include="Examples\Schema\" />
+    <Folder Include="Examples\Search\" />
+    <Folder Include="Examples\Unit\" />
+    <Folder Include="Examples\WellboreDdms\" />
+    <Folder Include="Examples\CrsConversion\" />
+    <Folder Include="Examples\CrsCatalog\" />
   </ItemGroup>
 
 </Project>
