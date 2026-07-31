@@ -604,7 +604,10 @@ public class ApiUiBuilder
                 });
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            return $"Request body schema could not be resolved. ERROR: {ex.Message}";
+        }
 
         return "{\n  \n}";
     }
