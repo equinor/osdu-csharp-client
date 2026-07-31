@@ -1,16 +1,15 @@
 using System.Text.Json;
 using Osdu.Client.Apis;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
+using Osdu.Client.ExampleApp.Extensions;
 
-namespace Osdu.Client.ExampleApp.Examples;
+namespace Osdu.Client.ExampleApp.Examples.Legal;
 
-public class ListLegalTagsExample(IOsduClient osduClient) : ExampleBase
+public class GetLegalTagsExample(IOsduClient osduClient) : ExampleBase
 {
-    public override string Text => "List Legal Tags";
-
-    public override string ShortDescription => "Retrieves all valid legal tags from the Legal service.";
-
-    public override string Category => "Legal";
+    public override string Category => ExampleCategory.Legal;
+    public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
+    public override string ShortDescription => $"This is an example for 'OsduClient.{Text}' api endpoint";
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {

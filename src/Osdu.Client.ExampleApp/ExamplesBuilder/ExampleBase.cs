@@ -51,28 +51,22 @@ public abstract class ExampleBase : IExample
 
     private string ExtractFullSource()
     {
-        var assembly = GetType().Assembly;
-        var resourceName = $"{GetType().Name}.cs";
+        string exampleFile = GetExampleFile();
 
-        using var stream = assembly.GetManifestResourceStream(resourceName);
-        if (stream is null)
-            return $"// Embedded resource '{resourceName}' not found.";
+        if (!File.Exists(exampleFile))
+            return $"// Example file not found: '{exampleFile}'";
 
-        using var reader = new StreamReader(stream);
-        return reader.ReadToEnd();
+        return File.ReadAllText(exampleFile);
     }
 
     private string ExtractRunAsyncBody()
     {
-        var assembly = GetType().Assembly;
-        var resourceName = $"{GetType().Name}.cs";
+        string exampleFile = GetExampleFile();
 
-        using var stream = assembly.GetManifestResourceStream(resourceName);
-        if (stream is null)
-            return $"// Embedded resource '{resourceName}' not found.";
+        if (!File.Exists(exampleFile))
+            return $"// Example file not found: '{exampleFile}'";
 
-        using var reader = new StreamReader(stream);
-        var lines = reader.ReadToEnd().Split('\n');
+        var lines = File.ReadAllLines(exampleFile);
 
         // Find the RunAsync method signature
         int methodStart = -1;
@@ -142,5 +136,12 @@ public abstract class ExampleBase : IExample
         }
 
         return sb.ToString().Trim();
+    }
+
+    private string GetExampleFile()
+    {
+        string exampleFile = $@"{AppDomain.CurrentDomain.BaseDirectory}Examples\{Category}\{GetType().Name}.cs";
+
+        return exampleFile;
     }
 }

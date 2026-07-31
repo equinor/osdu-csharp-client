@@ -2,11 +2,16 @@ using System.Text.Json;
 using Osdu.Client.Apis;
 using Osdu.Client.Apis.WellboreDdms;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
+using Osdu.Client.ExampleApp.Extensions;
 
-namespace Osdu.Client.ExampleApp.Examples;
+namespace Osdu.Client.ExampleApp.Examples.WellboreDdms;
 
-public class PostWellboreExample(IOsduClient osduClient) : ExampleBase
+public class PostDdmsV3WellboresExample(IOsduClient osduClient) : ExampleBase
 {
+    public override string Category => ExampleCategory.WellboreDdms;
+    public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
+    public override string ShortDescription => $"This is an example for 'OsduClient.{Text}' api endpoint";
+
     [ExampleParameter(DisplayName = "Kind", Required = true, Order = 0, Description = "The wellbore kind.")]
     public string Kind { get; set; } = "osdu:wks:master-data--Wellbore:1.3.0";
 
@@ -21,12 +26,6 @@ public class PostWellboreExample(IOsduClient osduClient) : ExampleBase
 
     [ExampleParameter(DisplayName = "Wellbore Name", Order = 4, Description = "Name of the wellbore to create.")]
     public string WellboreName { get; set; } = "MRK Example Wellbore A-1";
-
-    public override string Text => "Post Wellbore Record";
-
-    public override string ShortDescription => "Creates a Wellbore master-data record via the Wellbore DDMS API.";
-
-    public override string Category => "Wellbore DDMS";
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {

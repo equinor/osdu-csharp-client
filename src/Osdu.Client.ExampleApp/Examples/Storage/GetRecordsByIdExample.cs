@@ -4,7 +4,7 @@ using Osdu.Client.Apis;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
 
-namespace Osdu.Client.ExampleApp.Examples;
+namespace Osdu.Client.ExampleApp.Examples.Storage;
 
 public class GetRecordsByIdExample(IOsduClient osduClient) : ExampleBase
 {

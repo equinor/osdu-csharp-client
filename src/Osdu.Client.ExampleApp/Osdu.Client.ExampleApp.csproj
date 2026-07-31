@@ -13,6 +13,10 @@
         <EmbeddedResource Include="Examples\*Example.cs" LogicalName="%(Filename)%(Extension)" CopyToOutputDirectory="Never" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Examples\Storage\GetRecordsExample.cs" />
+    </ItemGroup>
+
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Definitions\Api\crs-catalog.json" />
@@ -89,12 +93,50 @@
     <Content Include="Definitions\Api\wellbore-ddms.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Examples\Storage\GetRecordsExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="ExamplesBuilder\IExample.cs" />
-    <EmbeddedResource Include="Examples\Entitlement\GetInfoExample.cs" />
-    <EmbeddedResource Include="Examples\Storage\GetRecordsByIdExample.cs" />
+    <Content Include="Examples\Entitlement\GetInfoExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Entitlement\GetGroupsExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Indexer\GetInfoExample.cs" />
+    <Content Include="Examples\Legal\GetLegalTagsPropertiesExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Legal\GetLegalTagsExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Schema\GetInfoExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Schema\GetSchemaExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Search\PostQueryExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Search\SearchWellLogsExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Storage\GetRecordsByIdExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\WellboreDdms\PostDdmsV3WellboresExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\WellboreDdms\GetAboutExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\WellboreDdms\GetVersionExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -113,17 +155,12 @@
   <ItemGroup>
     <Folder Include="Examples\Dataset\" />
     <Folder Include="Examples\File\" />
-    <Folder Include="Examples\Indexer\" />
-    <Folder Include="Examples\Legal\" />
     <Folder Include="Examples\Notification\" />
     <Folder Include="Examples\Partition\" />
     <Folder Include="Examples\Policy\" />
     <Folder Include="Examples\RafsDdms\" />
     <Folder Include="Examples\Register\" />
-    <Folder Include="Examples\Schema\" />
-    <Folder Include="Examples\Search\" />
     <Folder Include="Examples\Unit\" />
-    <Folder Include="Examples\WellboreDdms\" />
     <Folder Include="Examples\CrsConversion\" />
     <Folder Include="Examples\CrsCatalog\" />
   </ItemGroup>

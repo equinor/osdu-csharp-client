@@ -18,5 +18,5 @@ public static class ExampleCategory
     public const string Search = "Search";
     public const string Storage = "Storage";
     public const string Unit = "Unit";
-    public const string WellboreDdms = "Wellbore DDMS";
+    public const string WellboreDdms = "WellboreDdms";
 }

@@ -5,7 +5,7 @@ using Osdu.Client.ExampleApp.Extensions;
 
 namespace Osdu.Client.ExampleApp.Examples.Entitlement;
 
-public class GetInfoExample(IOsduClient osduClient) : ExampleBase
+public class GetGroupsExample(IOsduClient osduClient) : ExampleBase
 {
     public override string Category => ExampleCategory.Entitlement;
     public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
@@ -13,7 +13,7 @@ public class GetInfoExample(IOsduClient osduClient) : ExampleBase
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
-        var response = await osduClient.Entitlement.GetInfoAsync(cancellationToken);
+        var response = await osduClient.Entitlement.GetGroupsAsync(cancellationToken: cancellationToken);
 
         return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
     }
