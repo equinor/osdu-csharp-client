@@ -10,7 +10,7 @@
   </PropertyGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Examples\*Example.cs" LogicalName="%(Filename)%(Extension)" />
+        <EmbeddedResource Include="Examples\*Example.cs" LogicalName="%(Filename)%(Extension)" CopyToOutputDirectory="Never" />
     </ItemGroup>
 
   <ItemGroup>
