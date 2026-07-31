@@ -155,9 +155,10 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
 
         var stack = new StackPanel();
 
-        // Main row: label + input on same line using Grid for alignment
+        // Main row: label + type + input on same line using Grid for alignment
         var mainRow = new Grid();
         mainRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "ParamLabel" });
+        mainRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "ParamType" });
         mainRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
         // Label side
@@ -180,22 +181,27 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
                 VerticalAlignment = VerticalAlignment.Center
             });
         }
-        labelRow.Children.Add(new Border
+        Grid.SetColumn(labelRow, 0);
+        mainRow.Children.Add(labelRow);
+
+        // Type badge
+        var typeBadge = new Border
         {
             Background = theme.TagBrush,
             CornerRadius = new CornerRadius(4),
             Padding = new Thickness(7, 2, 7, 2),
             Margin = new Thickness(10, 0, 0, 0),
             VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
             Child = new TextBlock
             {
                 Text = ParameterConvert.FriendlyTypeName(param.PropertyType),
                 Foreground = theme.TextMutedBrush,
                 FontSize = 10, FontFamily = MonoFont, FontWeight = FontWeights.Medium
             }
-        });
-        Grid.SetColumn(labelRow, 0);
-        mainRow.Children.Add(labelRow);
+        };
+        Grid.SetColumn(typeBadge, 1);
+        mainRow.Children.Add(typeBadge);
 
         // Input side (fills remaining space, left-aligned across all cards)
         FrameworkElement input;
@@ -230,7 +236,7 @@ internal sealed class ParameterPanelBuilder(AppTheme theme)
                 VerticalAlignment = VerticalAlignment.Center
             };
         }
-        Grid.SetColumn(input, 1);
+        Grid.SetColumn(input, 2);
         mainRow.Children.Add(input);
 
         stack.Children.Add(mainRow);
