@@ -28,6 +28,7 @@ public partial class ApiTestWindow : Window
 
     private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
     private readonly Dictionary<IExample, Button> _exampleButtons = new();
+    private readonly List<Expander> _categoryExpanders = new();
 
     private enum SidebarMode
     {
@@ -125,6 +126,8 @@ public partial class ApiTestWindow : Window
 
     private void RebuildExampleButtons()
     {
+        _categoryExpanders.Clear();
+
         // Toolbar
         var toolbar = new Border
         {
@@ -160,6 +163,16 @@ public partial class ApiTestWindow : Window
         };
         row.Children.Add(filter);
 
+        var expandCollapse = CreateActionButton("⊟  Collapse All", _currentTheme.TextSecondaryBrush);
+        expandCollapse.Click += (_, _) =>
+        {
+            var allExpanded = _categoryExpanders.All(exp => exp.IsExpanded);
+            foreach (var exp in _categoryExpanders)
+                exp.IsExpanded = !allExpanded;
+            expandCollapse.Content = allExpanded ? "⊞  Expand All" : "⊟  Collapse All";
+        };
+        row.Children.Add(expandCollapse);
+
         toolbar.Child = row;
         ApiButtonsPanel.Children.Add(toolbar);
 
@@ -191,6 +204,7 @@ public partial class ApiTestWindow : Window
             // Hide default toggle arrow
             expander.SetResourceReference(Expander.StyleProperty, "ExpanderWithoutToggle");
             expander.Header = BuildCategoryHeader(group.Key, all, expander);
+            _categoryExpanders.Add(expander);
 
             var items = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
             foreach (var example in visible)
