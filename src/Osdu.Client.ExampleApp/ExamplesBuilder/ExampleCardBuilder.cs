@@ -102,7 +102,7 @@ internal sealed class ExampleCardBuilder(AppTheme theme)
                 var error = capturedParams.ApplyValues(capturedExample);
                 if (error != null)
                 {
-                    // Error is surfaced via RunRequested returning
+                    MessageBox.Show(error, "Parameter Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
             }
