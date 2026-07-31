@@ -8,14 +8,11 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
 using Osdu.Client.ExampleApp.Examples;
+using Osdu.Client.ExampleApp.ExamplesBuilder;
 
 namespace Osdu.Client.ExampleApp;
 
-/// <summary>
-/// Interaction logic for ApiTestWindow.xaml
-/// </summary>
 public partial class ApiTestWindow : Window
 {
     private readonly string _definitionsPath;
@@ -28,20 +25,16 @@ public partial class ApiTestWindow : Window
     private SidebarMode _activeMode = SidebarMode.Apis;
     private bool _showOnlyFailed;
 
-    // Track example execution results
     private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
     private readonly Dictionary<IExample, Button> _exampleButtons = new();
 
-    private static readonly FontFamily MonoFont = new("Cascadia Code, Consolas, monospace");
-
     private enum SidebarMode { Apis, Examples }
-
     private record ExampleResult(bool Success, string Output, long ElapsedMs);
 
     public ApiTestWindow(IHttpClientFactory httpClientFactory, IEnumerable<IExample> examples)
     {
         InitializeComponent();
-        _definitionsPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "Api");
+        _definitionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "Api");
         _httpClient = httpClientFactory.CreateClient("OsduApi");
         _examples = examples;
         ApplyTheme();
@@ -82,21 +75,16 @@ public partial class ApiTestWindow : Window
 
     private void ApplyTabStyles()
     {
-        var activeBackground = _currentTheme.AccentBrush;
-        var activeForeground = Brushes.White;
-        var inactiveBackground = _currentTheme.TagBrush;
-        var inactiveForeground = _currentTheme.TextSecondaryBrush;
-
-        ApisTabButton.Background = _activeMode == SidebarMode.Apis ? activeBackground : inactiveBackground;
-        ApisTabButton.Foreground = _activeMode == SidebarMode.Apis ? activeForeground : inactiveForeground;
-        ExamplesTabButton.Background = _activeMode == SidebarMode.Examples ? activeBackground : inactiveBackground;
-        ExamplesTabButton.Foreground = _activeMode == SidebarMode.Examples ? activeForeground : inactiveForeground;
+        ApisTabButton.Background = _activeMode == SidebarMode.Apis ? _currentTheme.AccentBrush : _currentTheme.TagBrush;
+        ApisTabButton.Foreground = _activeMode == SidebarMode.Apis ? Brushes.White : _currentTheme.TextSecondaryBrush;
+        ExamplesTabButton.Background = _activeMode == SidebarMode.Examples ? _currentTheme.AccentBrush : _currentTheme.TagBrush;
+        ExamplesTabButton.Foreground = _activeMode == SidebarMode.Examples ? Brushes.White : _currentTheme.TextSecondaryBrush;
 
         SidebarTitle.Text = _activeMode == SidebarMode.Apis ? "🔌 APIs" : "📝 Examples";
         SidebarSubtitle.Text = _activeMode == SidebarMode.Apis ? "Select a service" : "Select an example";
     }
 
-    // ─── Sidebar Rebuilding ──────────────────────────────────────────
+    // ─── Sidebar ─────────────────────────────────────────────────────
 
     private void RebuildSidebarForCurrentMode()
     {
@@ -104,22 +92,18 @@ public partial class ApiTestWindow : Window
         _selectedButton = null;
         _exampleButtons.Clear();
 
-        if (_activeMode == SidebarMode.Apis)
-            RebuildApiButtons();
-        else
-            RebuildExampleButtons();
+        if (_activeMode == SidebarMode.Apis) RebuildApiButtons();
+        else RebuildExampleButtons();
     }
 
     private void RebuildApiButtons()
     {
         if (!Directory.Exists(_definitionsPath)) return;
 
-        var jsonFiles = Directory.GetFiles(_definitionsPath, "*.json");
-
-        foreach (var file in jsonFiles)
+        foreach (var file in Directory.GetFiles(_definitionsPath, "*.json"))
         {
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(file);
-            var button = CreateSidebarButton(fileName[..1].ToUpperInvariant() + fileName[1..], file);
+            var name = Path.GetFileNameWithoutExtension(file);
+            var button = CreateSidebarButton(name[..1].ToUpperInvariant() + name[1..], file);
             button.Click += ApiButton_Click;
             ApiButtonsPanel.Children.Add(button);
 
@@ -133,212 +117,113 @@ public partial class ApiTestWindow : Window
 
     private void RebuildExampleButtons()
     {
-        // ─── Action toolbar ──────────────────────────────────────────
-        var toolbarBorder = new Border
+        // Toolbar
+        var toolbar = new Border
         {
             Background = _currentTheme.TagBrush,
             CornerRadius = new CornerRadius(8),
             Margin = new Thickness(8, 8, 8, 4),
-            Padding = new Thickness(6, 6, 6, 6)
+            Padding = new Thickness(6)
         };
-        var toolbarRow = new WrapPanel();
+        var row = new WrapPanel();
 
-        var runAllButton = CreateActionSidebarButton("▶  Run All", _currentTheme.AccentBrush);
-        runAllButton.Click += async (_, _) => await RunExamplesAsync(_examples);
-        toolbarRow.Children.Add(runAllButton);
+        var runAll = CreateActionButton("▶  Run All", _currentTheme.AccentBrush);
+        runAll.Click += async (_, _) => await RunExamplesAsync(_examples);
+        row.Children.Add(runAll);
 
-        var resetButton = CreateActionSidebarButton("⟲  Reset", _currentTheme.TextSecondaryBrush);
-        resetButton.Click += (_, _) =>
-        {
-            _exampleResults.Clear();
-            _showOnlyFailed = false;
-            RebuildSidebarForCurrentMode();
-            ClearContent("Select an Example", "All results cleared. Choose an example on the left to run it.");
-        };
-        toolbarRow.Children.Add(resetButton);
+        var reset = CreateActionButton("⟲  Reset", _currentTheme.TextSecondaryBrush);
+        reset.Click += (_, _) => { _exampleResults.Clear(); _showOnlyFailed = false; RebuildSidebarForCurrentMode(); ClearContent("Select an Example", "All results cleared."); };
+        row.Children.Add(reset);
 
         var failedCount = _exampleResults.Count(r => !r.Value.Success);
-        var filterButton = CreateActionSidebarButton(
-            _showOnlyFailed ? "✕  Show All" : $"⚠  Failed ({failedCount})",
-            failedCount > 0 ? new SolidColorBrush(Color.FromRgb(249, 80, 80)) : _currentTheme.TextMutedBrush);
-        filterButton.IsEnabled = failedCount > 0 || _showOnlyFailed;
-        filterButton.Click += (_, _) =>
+        var filter = CreateActionButton(_showOnlyFailed ? "✕  Show All" : $"⚠  Failed ({failedCount})",
+            failedCount > 0 ? ExampleColors.FailureBrush : _currentTheme.TextMutedBrush);
+        filter.IsEnabled = failedCount > 0 || _showOnlyFailed;
+        filter.Click += (_, _) => { _showOnlyFailed = !_showOnlyFailed; RebuildSidebarForCurrentMode(); };
+        row.Children.Add(filter);
+
+        toolbar.Child = row;
+        ApiButtonsPanel.Children.Add(toolbar);
+
+        // Categories
+        foreach (var group in _examples.GroupBy(ex => ex.Category).OrderBy(g => g.Key))
         {
-            _showOnlyFailed = !_showOnlyFailed;
-            RebuildSidebarForCurrentMode();
-        };
-        toolbarRow.Children.Add(filterButton);
+            var all = group.ToList();
+            var visible = _showOnlyFailed
+                ? all.Where(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success).ToList()
+                : all;
 
-        toolbarBorder.Child = toolbarRow;
-        ApiButtonsPanel.Children.Add(toolbarBorder);
+            if (visible.Count == 0) continue;
 
-        // ─── Category groups ─────────────────────────────────────────
-        var grouped = _examples
-            .GroupBy(ex => ex.Category)
-            .OrderBy(g => g.Key);
-
-        foreach (var group in grouped)
-        {
-            var examplesInGroup = group.ToList();
-            var visibleExamples = _showOnlyFailed
-                ? examplesInGroup.Where(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success).ToList()
-                : examplesInGroup;
-
-            if (visibleExamples.Count == 0) continue;
-
-            // Category card
-            var categoryBorder = new Border
+            var catBorder = new Border
             {
-                Background = _currentTheme.IsDark
-                    ? new SolidColorBrush(Color.FromArgb(30, 255, 255, 255))
-                    : new SolidColorBrush(Color.FromArgb(15, 0, 0, 0)),
+                Background = _currentTheme.IsDark ? new SolidColorBrush(Color.FromArgb(30, 255, 255, 255)) : new SolidColorBrush(Color.FromArgb(15, 0, 0, 0)),
                 CornerRadius = new CornerRadius(8),
                 Margin = new Thickness(8, 6, 8, 2),
                 Padding = new Thickness(2)
             };
 
-            var categoryExpander = new Expander
+            var expander = new Expander { IsExpanded = true, Background = Brushes.Transparent, BorderThickness = new Thickness(0), Foreground = _currentTheme.TextPrimaryBrush, Margin = new Thickness(2) };
+            expander.Header = BuildCategoryHeader(group.Key, all);
+
+            var items = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
+            foreach (var example in visible)
             {
-                IsExpanded = true,
-                Background = Brushes.Transparent,
-                BorderThickness = new Thickness(0),
-                Foreground = _currentTheme.TextPrimaryBrush,
-                Margin = new Thickness(2)
-            };
-
-            var headerPanel = new StackPanel { Orientation = Orientation.Horizontal };
-
-            // Run category button
-            var runCategoryButton = new Button
-            {
-                Content = "▶",
-                Background = Brushes.Transparent,
-                Foreground = _currentTheme.AccentBrush,
-                BorderThickness = new Thickness(0),
-                Padding = new Thickness(4, 0, 6, 0),
-                FontSize = 13,
-                Cursor = System.Windows.Input.Cursors.Hand,
-                VerticalAlignment = VerticalAlignment.Center,
-                ToolTip = $"Run all '{group.Key}' examples"
-            };
-            var capturedGroup = examplesInGroup;
-            runCategoryButton.Click += async (_, _) => await RunExamplesAsync(capturedGroup);
-            headerPanel.Children.Add(runCategoryButton);
-
-            headerPanel.Children.Add(new TextBlock
-            {
-                Text = group.Key,
-                FontWeight = FontWeights.SemiBold,
-                FontSize = 12,
-                Foreground = _currentTheme.TextPrimaryBrush,
-                VerticalAlignment = VerticalAlignment.Center
-            });
-
-            // Count badge
-            var categoryFailed = examplesInGroup.Count(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success);
-            var categoryPassed = examplesInGroup.Count(ex => _exampleResults.TryGetValue(ex, out var r) && r.Success);
-            var badgeText = _exampleResults.Any(r => examplesInGroup.Contains(r.Key))
-                ? $"{categoryPassed}✓ {categoryFailed}✗"
-                : visibleExamples.Count.ToString();
-            var badgeForeground = categoryFailed > 0
-                ? new SolidColorBrush(Color.FromRgb(249, 80, 80))
-                : categoryPassed > 0
-                    ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
-                    : _currentTheme.TextMutedBrush;
-
-            headerPanel.Children.Add(new Border
-            {
-                Background = _currentTheme.TagBrush,
-                CornerRadius = new CornerRadius(8),
-                Padding = new Thickness(7, 2, 7, 2),
-                Margin = new Thickness(8, 0, 0, 0),
-                VerticalAlignment = VerticalAlignment.Center,
-                Child = new TextBlock
-                {
-                    Text = badgeText,
-                    Foreground = badgeForeground,
-                    FontSize = 10,
-                    FontWeight = FontWeights.SemiBold
-                }
-            });
-            categoryExpander.Header = headerPanel;
-
-            var itemsPanel = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
-
-            foreach (var example in visibleExamples)
-            {
-                var button = CreateExampleSidebarButton(example);
-                button.Click += ExampleButton_Click;
-                itemsPanel.Children.Add(button);
-                _exampleButtons[example] = button;
-
-                if (example == _lastSelectedExample)
-                {
-                    _selectedButton = button;
-                }
+                var btn = CreateExampleButton(example);
+                btn.Click += ExampleButton_Click;
+                items.Children.Add(btn);
+                _exampleButtons[example] = btn;
+                if (example == _lastSelectedExample) _selectedButton = btn;
             }
 
-            categoryExpander.Content = itemsPanel;
-            categoryBorder.Child = categoryExpander;
-            ApiButtonsPanel.Children.Add(categoryBorder);
+            expander.Content = items;
+            catBorder.Child = expander;
+            ApiButtonsPanel.Children.Add(catBorder);
         }
 
         ApplyResultColors();
     }
 
-    private Button CreateExampleSidebarButton(IExample example)
+    private StackPanel BuildCategoryHeader(string categoryName, List<IExample> all)
+    {
+        var header = new StackPanel { Orientation = Orientation.Horizontal };
+
+        var runCat = new Button { Content = "▶", Background = Brushes.Transparent, Foreground = _currentTheme.AccentBrush, BorderThickness = new Thickness(0), Padding = new Thickness(4, 0, 6, 0), FontSize = 13, Cursor = System.Windows.Input.Cursors.Hand, VerticalAlignment = VerticalAlignment.Center };
+        runCat.Click += async (_, _) => await RunExamplesAsync(all);
+        header.Children.Add(runCat);
+
+        header.Children.Add(new TextBlock { Text = categoryName, FontWeight = FontWeights.SemiBold, FontSize = 12, Foreground = _currentTheme.TextPrimaryBrush, VerticalAlignment = VerticalAlignment.Center });
+
+        var failed = all.Count(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success);
+        var passed = all.Count(ex => _exampleResults.TryGetValue(ex, out var r) && r.Success);
+        var badgeText = _exampleResults.Any(r => all.Contains(r.Key)) ? $"{passed}✓ {failed}✗" : all.Count.ToString();
+        var badgeColor = failed > 0 ? ExampleColors.FailureBrush : passed > 0 ? ExampleColors.SuccessBrush : _currentTheme.TextMutedBrush;
+
+        header.Children.Add(new Border { Background = _currentTheme.TagBrush, CornerRadius = new CornerRadius(8), Padding = new Thickness(7, 2, 7, 2), Margin = new Thickness(8, 0, 0, 0), VerticalAlignment = VerticalAlignment.Center, Child = new TextBlock { Text = badgeText, Foreground = badgeColor, FontSize = 10, FontWeight = FontWeights.SemiBold } });
+
+        return header;
+    }
+
+    private Button CreateExampleButton(IExample example)
     {
         var hasResult = _exampleResults.TryGetValue(example, out var result);
-
-        var statusIndicator = hasResult ? "●" : "○";
-        SolidColorBrush statusColor;
-        if (hasResult)
-            statusColor = result!.Success
-                ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
-                : new SolidColorBrush(Color.FromRgb(249, 80, 80));
-        else
-            statusColor = _currentTheme.TextMutedBrush;
+        var statusColor = hasResult ? ExampleColors.StatusBrush(result!.Success) : _currentTheme.TextMutedBrush;
 
         var content = new StackPanel { Orientation = Orientation.Horizontal };
-        content.Children.Add(new TextBlock
-        {
-            Text = statusIndicator,
-            Foreground = statusColor,
-            FontSize = 14,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(0, 0, 10, 0)
-        });
+        content.Children.Add(new TextBlock { Text = hasResult ? "●" : "○", Foreground = statusColor, FontSize = 14, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0) });
 
         var namePanel = new StackPanel();
-        namePanel.Children.Add(new TextBlock
-        {
-            Text = example.Text,
-            VerticalAlignment = VerticalAlignment.Center,
-            FontSize = 12.5
-        });
-
+        namePanel.Children.Add(new TextBlock { Text = example.Text, FontSize = 12.5, VerticalAlignment = VerticalAlignment.Center });
         if (hasResult)
-        {
-            namePanel.Children.Add(new TextBlock
-            {
-                Text = $"{result!.ElapsedMs}ms",
-                FontSize = 10,
-                Foreground = _currentTheme.TextMutedBrush,
-                Margin = new Thickness(0, 1, 0, 0)
-            });
-        }
-
+            namePanel.Children.Add(new TextBlock { Text = $"{result!.ElapsedMs}ms", FontSize = 10, Foreground = _currentTheme.TextMutedBrush, Margin = new Thickness(0, 1, 0, 0) });
         content.Children.Add(namePanel);
 
         var isSelected = example == _lastSelectedExample;
-
         return new Button
         {
             Content = content,
             Tag = example,
-            Background = isSelected
-                ? new SolidColorBrush(Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B))
-                : Brushes.Transparent,
+            Background = isSelected ? AccentTint() : Brushes.Transparent,
             Foreground = isSelected ? _currentTheme.AccentBrush : _currentTheme.TextSecondaryBrush,
             BorderThickness = new Thickness(0),
             Padding = new Thickness(14, 8, 14, 8),
@@ -348,304 +233,140 @@ public partial class ApiTestWindow : Window
         };
     }
 
-    private Button CreateActionSidebarButton(string text, SolidColorBrush foreground)
+    private Button CreateSidebarButton(string content, object tag) => new()
     {
-        return new Button
-        {
-            Content = text,
-            Background = Brushes.Transparent,
-            Foreground = foreground,
-            BorderThickness = new Thickness(0),
-            Padding = new Thickness(8, 5, 8, 5),
-            HorizontalContentAlignment = HorizontalAlignment.Left,
-            FontSize = 11,
-            FontWeight = FontWeights.Bold,
-            Cursor = System.Windows.Input.Cursors.Hand
-        };
-    }
+        Content = content,
+        Tag = tag,
+        Background = Brushes.Transparent,
+        Foreground = _currentTheme.TextSecondaryBrush,
+        BorderThickness = new Thickness(0),
+        Padding = new Thickness(14, 10, 14, 10),
+        HorizontalContentAlignment = HorizontalAlignment.Left,
+        FontSize = 13,
+        FontWeight = FontWeights.Medium,
+        Cursor = System.Windows.Input.Cursors.Hand
+    };
 
-    private Button CreateSidebarButton(string content, object tag)
+    private Button CreateActionButton(string text, SolidColorBrush foreground) => new()
     {
-        return new Button
-        {
-            Content = content,
-            Tag = tag,
-            Background = Brushes.Transparent,
-            Foreground = _currentTheme.TextSecondaryBrush,
-            BorderThickness = new Thickness(0),
-            Padding = new Thickness(14, 10, 14, 10),
-            HorizontalContentAlignment = HorizontalAlignment.Left,
-            FontSize = 13,
-            FontWeight = FontWeights.Medium,
-            Cursor = System.Windows.Input.Cursors.Hand
-        };
-    }
+        Content = text,
+        Background = Brushes.Transparent,
+        Foreground = foreground,
+        BorderThickness = new Thickness(0),
+        Padding = new Thickness(8, 5, 8, 5),
+        HorizontalContentAlignment = HorizontalAlignment.Left,
+        FontSize = 11,
+        FontWeight = FontWeights.Bold,
+        Cursor = System.Windows.Input.Cursors.Hand
+    };
+
+    private SolidColorBrush AccentTint() => new(Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B));
 
     private void SelectButton(Button button)
     {
-        // Deselect previous
-        if (_selectedButton != null)
-        {
-            _selectedButton.Foreground = _currentTheme.TextSecondaryBrush;
-            _selectedButton.Background = Brushes.Transparent;
-        }
-
+        if (_selectedButton != null) { _selectedButton.Foreground = _currentTheme.TextSecondaryBrush; _selectedButton.Background = Brushes.Transparent; }
         _selectedButton = button;
         _selectedButton.Foreground = _currentTheme.AccentBrush;
-        _selectedButton.Background = new SolidColorBrush(
-            Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B));
+        _selectedButton.Background = AccentTint();
     }
 
     private void ApplyResultColors()
     {
         foreach (var (example, button) in _exampleButtons)
         {
-            if (example == _lastSelectedExample)
-            {
-                button.Foreground = _currentTheme.AccentBrush;
-                button.Background = new SolidColorBrush(
-                    Color.FromArgb(20, _currentTheme.Accent.R, _currentTheme.Accent.G, _currentTheme.Accent.B));
-                continue;
-            }
-            button.Foreground = _currentTheme.TextSecondaryBrush;
-            button.Background = Brushes.Transparent;
+            var selected = example == _lastSelectedExample;
+            button.Foreground = selected ? _currentTheme.AccentBrush : _currentTheme.TextSecondaryBrush;
+            button.Background = selected ? AccentTint() : Brushes.Transparent;
         }
     }
 
     private void UpdateExampleButtonStatus(IExample example)
     {
         if (!_exampleButtons.TryGetValue(example, out var button)) return;
+        if (button.Content is not StackPanel sp || sp.Children[0] is not TextBlock indicator) return;
 
-        if (button.Content is StackPanel sp && sp.Children[0] is TextBlock indicator)
+        if (_exampleResults.TryGetValue(example, out var result))
         {
-            if (_exampleResults.TryGetValue(example, out var result))
+            indicator.Text = "●";
+            indicator.Foreground = ExampleColors.StatusBrush(result.Success);
+            if (sp.Children[1] is StackPanel np)
             {
-                indicator.Text = "●";
-                indicator.FontSize = 14;
-                indicator.Foreground = result.Success
-                    ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
-                    : new SolidColorBrush(Color.FromRgb(249, 80, 80));
-
-                if (sp.Children[1] is StackPanel namePanel && namePanel.Children.Count > 1
-                    && namePanel.Children[1] is TextBlock timeLabel)
-                {
-                    timeLabel.Text = $"{result.ElapsedMs}ms";
-                }
-                else if (sp.Children[1] is StackPanel np)
-                {
-                    np.Children.Add(new TextBlock
-                    {
-                        Text = $"{result.ElapsedMs}ms",
-                        FontSize = 10,
-                        Foreground = _currentTheme.TextMutedBrush,
-                        Margin = new Thickness(0, 1, 0, 0)
-                    });
-                }
+                if (np.Children.Count > 1 && np.Children[1] is TextBlock t) t.Text = $"{result.ElapsedMs}ms";
+                else np.Children.Add(new TextBlock { Text = $"{result.ElapsedMs}ms", FontSize = 10, Foreground = _currentTheme.TextMutedBrush, Margin = new Thickness(0, 1, 0, 0) });
             }
-            else
-            {
-                indicator.Text = "○";
-                indicator.FontSize = 14;
-                indicator.Foreground = _currentTheme.TextMutedBrush;
-            }
+        }
+        else
+        {
+            indicator.Text = "○";
+            indicator.Foreground = _currentTheme.TextMutedBrush;
         }
     }
 
     // ─── Run Examples ────────────────────────────────────────────────
 
-    private async Task RunExamplesAsync(IEnumerable<IExample> examples)
+    private async System.Threading.Tasks.Task RunExamplesAsync(IEnumerable<IExample> examples)
     {
-        var exampleList = examples.ToList();
+        var list = examples.ToList();
         ResponseTextBox.Clear();
-        ResponseStatusText.Text = $"⏳ Running {exampleList.Count} example(s)...";
+        ResponseStatusText.Text = $"⏳ Running {list.Count} example(s)...";
         ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
-
         ApiTitleText.Text = "Running Examples";
-        ApiDescriptionText.Text = $"Executing {exampleList.Count} example(s)...";
+        ApiDescriptionText.Text = $"Executing {list.Count} example(s)...";
         EndpointsPanel.Children.Clear();
 
-        int passed = 0;
-        int failed = 0;
-        var summaryBuilder = new StringBuilder();
+        int passed = 0, failed = 0;
+        var summary = new StringBuilder();
 
-        foreach (var example in exampleList)
+        foreach (var example in list)
         {
             var sw = System.Diagnostics.Stopwatch.StartNew();
             try
             {
                 var result = await example.RunAsync();
                 sw.Stop();
-
                 _exampleResults[example] = new ExampleResult(true, result, sw.ElapsedMilliseconds);
                 passed++;
-                summaryBuilder.AppendLine($"  ✅ {example.Text} ({sw.ElapsedMilliseconds}ms)");
+                summary.AppendLine($"  ✅ {example.Text} ({sw.ElapsedMilliseconds}ms)");
             }
             catch (Exception ex)
             {
                 sw.Stop();
-                var errorOutput = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
-                _exampleResults[example] = new ExampleResult(false, errorOutput, sw.ElapsedMilliseconds);
+                _exampleResults[example] = new ExampleResult(false, $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}", sw.ElapsedMilliseconds);
                 failed++;
-                summaryBuilder.AppendLine($"  ❌ {example.Text} ({sw.ElapsedMilliseconds}ms) - {ex.GetType().Name}: {ex.Message}");
+                summary.AppendLine($"  ❌ {example.Text} ({sw.ElapsedMilliseconds}ms) - {ex.GetType().Name}: {ex.Message}");
             }
-
             UpdateExampleButtonStatus(example);
-            ResponseStatusText.Text = $"⏳ Running... ({passed + failed}/{exampleList.Count})";
+            ResponseStatusText.Text = $"⏳ Running... ({passed + failed}/{list.Count})";
         }
 
         RebuildSidebarForCurrentMode();
 
-        var totalMs = _exampleResults
-            .Where(r => exampleList.Contains(r.Key))
-            .Sum(r => r.Value.ElapsedMs);
-
-        var statusEmoji = failed == 0 ? "✅" : "⚠️";
-        ResponseStatusText.Text = $"{statusEmoji} {passed} passed, {failed} failed — {totalMs}ms total";
-        ResponseStatusText.Foreground = failed == 0
-            ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
-            : new SolidColorBrush(Color.FromRgb(249, 80, 80));
-
+        var totalMs = _exampleResults.Where(r => list.Contains(r.Key)).Sum(r => r.Value.ElapsedMs);
+        ResponseStatusText.Text = $"{(failed == 0 ? "✅" : "⚠️")} {passed} passed, {failed} failed — {totalMs}ms total";
+        ResponseStatusText.Foreground = failed == 0 ? ExampleColors.SuccessBrush : ExampleColors.FailureBrush;
         ApiTitleText.Text = "Run Results";
-        ApiDescriptionText.Text = $"{passed} passed, {failed} failed out of {exampleList.Count} examples.";
+        ApiDescriptionText.Text = $"{passed} passed, {failed} failed out of {list.Count} examples.";
+        ResponseTextBox.Text = $"═══ Execution Summary ═══\nTotal: {list.Count}  |  Passed: {passed}  |  Failed: {failed}  |  Time: {totalMs}ms\n\n{summary}";
 
-        var output = new StringBuilder();
-        output.AppendLine($"═══ Execution Summary ═══");
-        output.AppendLine($"Total: {exampleList.Count}  |  Passed: {passed}  |  Failed: {failed}  |  Time: {totalMs}ms");
-        output.AppendLine();
-        output.Append(summaryBuilder);
-
-        ResponseTextBox.Text = output.ToString();
-        BuildResultsSummaryUi(exampleList);
-    }
-
-    private void BuildResultsSummaryUi(List<IExample> examples)
-    {
-        EndpointsPanel.Children.Clear();
-
-        foreach (var example in examples)
-        {
-            if (!_exampleResults.TryGetValue(example, out var result)) continue;
-
-            var statusColor = result.Success
-                ? Color.FromRgb(73, 204, 144)
-                : Color.FromRgb(249, 80, 80);
-
-            var card = new Border
-            {
-                Background = _currentTheme.CardBrush,
-                BorderBrush = new SolidColorBrush(Color.FromArgb(60, statusColor.R, statusColor.G, statusColor.B)),
-                BorderThickness = new Thickness(1, 1, 1, 1),
-                CornerRadius = new CornerRadius(8),
-                Padding = new Thickness(16, 12, 16, 12),
-                Margin = new Thickness(0, 0, 0, 8),
-                Cursor = System.Windows.Input.Cursors.Hand,
-                Effect = new DropShadowEffect
-                {
-                    BlurRadius = 6,
-                    ShadowDepth = 2,
-                    Opacity = _currentTheme.ShadowOpacity,
-                    Color = Colors.Black,
-                    Direction = 270
-                }
-            };
-
-            var row = new DockPanel();
-
-            // Left accent bar
-            var accentBar = new Border
-            {
-                Width = 4,
-                Background = new SolidColorBrush(statusColor),
-                CornerRadius = new CornerRadius(2),
-                Margin = new Thickness(0, 0, 14, 0),
-                VerticalAlignment = VerticalAlignment.Stretch
-            };
-            DockPanel.SetDock(accentBar, Dock.Left);
-            row.Children.Add(accentBar);
-
-            var statusBadge = new TextBlock
-            {
-                Text = result.Success ? "✅" : "❌",
-                FontSize = 16,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 12, 0)
-            };
-            DockPanel.SetDock(statusBadge, Dock.Left);
-            row.Children.Add(statusBadge);
-
-            var timeBadge = new Border
-            {
-                Background = _currentTheme.TagBrush,
-                CornerRadius = new CornerRadius(6),
-                Padding = new Thickness(8, 3, 8, 3),
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            timeBadge.Child = new TextBlock
-            {
-                Text = $"{result.ElapsedMs}ms",
-                FontSize = 10,
-                FontFamily = MonoFont,
-                Foreground = _currentTheme.TextMutedBrush,
-                FontWeight = FontWeights.Medium
-            };
-            DockPanel.SetDock(timeBadge, Dock.Right);
-            row.Children.Add(timeBadge);
-
-            var nameStack = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
-            nameStack.Children.Add(new TextBlock
-            {
-                Text = example.Text,
-                FontWeight = FontWeights.SemiBold,
-                FontSize = 13,
-                Foreground = _currentTheme.TextPrimaryBrush
-            });
-            nameStack.Children.Add(new TextBlock
-            {
-                Text = example.Category,
-                FontSize = 10.5,
-                Foreground = _currentTheme.TextMutedBrush,
-                Margin = new Thickness(0, 2, 0, 0)
-            });
-            row.Children.Add(nameStack);
-
-            card.Child = row;
-
-            var capturedExample = example;
-            card.MouseLeftButtonUp += (_, _) => ShowExampleResult(capturedExample);
-
-            EndpointsPanel.Children.Add(card);
-        }
+        var resultsBuilder = new ResultsSummaryBuilder(_currentTheme);
+        resultsBuilder.OnExampleClicked += ShowExampleResult;
+        var dict = _exampleResults.ToDictionary(r => r.Key, r => (r.Value.Success, r.Value.Output, r.Value.ElapsedMs));
+        resultsBuilder.Build(EndpointsPanel, list, dict);
     }
 
     private void ShowExampleResult(IExample example)
     {
         if (!_exampleResults.TryGetValue(example, out var result)) return;
-
         _lastSelectedExample = example;
-
-        if (_exampleButtons.TryGetValue(example, out var btn))
-            SelectButton(btn);
+        if (_exampleButtons.TryGetValue(example, out var btn)) SelectButton(btn);
 
         ApiTitleText.Text = example.Text;
-        ApiDescriptionText.Text = result.Success
-            ? $"✅ Completed successfully in {result.ElapsedMs}ms"
-            : $"❌ Failed after {result.ElapsedMs}ms";
-
-        ResponseStatusText.Text = result.Success
-            ? $"✅ {result.ElapsedMs}ms"
-            : $"❌ {result.ElapsedMs}ms";
-        ResponseStatusText.Foreground = result.Success
-            ? new SolidColorBrush(Color.FromRgb(73, 204, 144))
-            : new SolidColorBrush(Color.FromRgb(249, 80, 80));
+        ApiDescriptionText.Text = result.Success ? $"✅ Completed in {result.ElapsedMs}ms" : $"❌ Failed after {result.ElapsedMs}ms";
+        ResponseStatusText.Text = $"{(result.Success ? "✅" : "❌")} {result.ElapsedMs}ms";
+        ResponseStatusText.Foreground = ExampleColors.StatusBrush(result.Success);
 
         var output = result.Output;
-        try
-        {
-            var jsonDoc = JsonDocument.Parse(output);
-            output = JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true });
-        }
-        catch { }
-
+        try { output = JsonSerializer.Serialize(JsonDocument.Parse(output), new JsonSerializerOptions { WriteIndented = true }); } catch { }
         ResponseTextBox.Text = output;
     }
 
@@ -654,40 +375,23 @@ public partial class ApiTestWindow : Window
     private void ApiButton_Click(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
-        var filePath = (string)button.Tag;
-
         SelectButton(button);
-        _lastLoadedFilePath = filePath;
-        LoadApiFromFile(filePath);
+        _lastLoadedFilePath = (string)button.Tag;
+        LoadApiFromFile(_lastLoadedFilePath);
     }
 
     private void LoadApiFromFile(string filePath)
     {
         try
         {
-            var json = File.ReadAllText(filePath);
-            var doc = JsonDocument.Parse(json);
+            var doc = JsonDocument.Parse(File.ReadAllText(filePath));
             var root = doc.RootElement;
-
-            var title = root.GetProperty("info").GetProperty("title").GetString() ?? "API";
-            ApiTitleText.Text = title;
-
-            var description = root.GetProperty("info").TryGetProperty("description", out var desc)
-                ? desc.GetString() ?? ""
-                : "";
-            ApiDescriptionText.Text = description;
-
-            EndpointsPanel.Children.Clear();
-            ResponseTextBox.Clear();
-            ResponseStatusText.Text = "";
-
-            var generator = new ApiUiBuilder(ResponseTextBox, ResponseStatusText, _httpClient, _currentTheme);
-            generator.BuildEndpointsUi(root, EndpointsPanel);
+            ApiTitleText.Text = root.GetProperty("info").GetProperty("title").GetString() ?? "API";
+            ApiDescriptionText.Text = root.GetProperty("info").TryGetProperty("description", out var d) ? d.GetString() ?? "" : "";
+            EndpointsPanel.Children.Clear(); ResponseTextBox.Clear(); ResponseStatusText.Text = "";
+            new ApiUiBuilder(ResponseTextBox, ResponseStatusText, _httpClient, _currentTheme).BuildEndpointsUi(root, EndpointsPanel);
         }
-        catch (Exception ex)
-        {
-            ResponseTextBox.Text = $"Error loading API: {ex.Message}";
-        }
+        catch (Exception ex) { ResponseTextBox.Text = $"Error loading API: {ex.Message}"; }
     }
 
     // ─── Examples Mode ───────────────────────────────────────────────
@@ -696,478 +400,52 @@ public partial class ApiTestWindow : Window
     {
         var button = (Button)sender;
         var example = (IExample)button.Tag;
-
         SelectButton(button);
         _lastSelectedExample = example;
 
-        if (_exampleResults.TryGetValue(example, out _))
-        {
-            ShowExampleResult(example);
-            ShowExample(example, showResultInResponse: true);
-        }
-        else
-        {
-            ShowExample(example, showResultInResponse: false);
-        }
+        if (_exampleResults.ContainsKey(example)) ShowExampleResult(example);
+        ShowExample(example);
     }
 
-    private void ShowExample(IExample example, bool showResultInResponse = false)
+    private void ShowExample(IExample example)
     {
         ApiTitleText.Text = example.Text;
         ApiDescriptionText.Text = example.ShortDescription;
         EndpointsPanel.Children.Clear();
 
-        if (!showResultInResponse)
-        {
-            ResponseTextBox.Clear();
-            ResponseStatusText.Text = "";
-        }
-
-        // ─── Main card ──────────────────────────────────────────────
-        var card = new Border
-        {
-            Background = _currentTheme.CardBrush,
-            BorderBrush = _currentTheme.BorderBrush,
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(10),
-            Padding = new Thickness(24),
-            Margin = new Thickness(0, 0, 0, 16),
-            Effect = new DropShadowEffect
-            {
-                BlurRadius = 12,
-                ShadowDepth = 3,
-                Opacity = _currentTheme.ShadowOpacity,
-                Color = Colors.Black,
-                Direction = 270
-            }
-        };
-
-        var stack = new StackPanel();
-
-        // ─── Dynamic Parameters UI ───────────────────────────────────
-        var parameterControls = new List<(ExampleParameterInfo Info, FrameworkElement Control)>();
-        var parameters = example.Parameters;
-        var originalValues = new Dictionary<ExampleParameterInfo, object?>();
-
-        StackPanel? paramsHeaderRow = null;
-        StackPanel? paramsContent = null;
-
-        if (parameters.Count > 0)
-        {
-            paramsHeaderRow = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 18, 0, 10),
-                Visibility = Visibility.Visible
-            };
-
-            paramsHeaderRow.Children.Add(new TextBlock
-            {
-                Text = "⚙️ Parameters",
-                FontWeight = FontWeights.SemiBold,
-                FontSize = 14,
-                Foreground = _currentTheme.TextPrimaryBrush,
-                VerticalAlignment = VerticalAlignment.Center
-            });
-
-            // Reset button with hover-style border
-            var resetParamsBorder = new Border
-            {
-                Background = _currentTheme.TagBrush,
-                CornerRadius = new CornerRadius(4),
-                Margin = new Thickness(10, 0, 0, 0),
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            var resetParamsButton = new Button
-            {
-                Content = "⟲ Reset",
-                Background = Brushes.Transparent,
-                Foreground = _currentTheme.TextMutedBrush,
-                BorderThickness = new Thickness(0),
-                Padding = new Thickness(8, 3, 8, 3),
-                FontSize = 11,
-                Cursor = System.Windows.Input.Cursors.Hand,
-                ToolTip = "Reset parameters to default values"
-            };
-            resetParamsBorder.Child = resetParamsButton;
-            paramsHeaderRow.Children.Add(resetParamsBorder);
-
-            paramsContent = new StackPanel { Visibility = Visibility.Visible };
-
-            foreach (var param in parameters)
-            {
-                var currentValue = param.GetValue(example);
-                originalValues[param] = currentValue;
-
-                var paramBorder = new Border
-                {
-                    Background = _currentTheme.InputBrush,
-                    BorderBrush = _currentTheme.BorderBrush,
-                    BorderThickness = new Thickness(1),
-                    CornerRadius = new CornerRadius(8),
-                    Padding = new Thickness(14, 12, 14, 12),
-                    Margin = new Thickness(0, 0, 0, 8),
-                    Effect = new DropShadowEffect
-                    {
-                        BlurRadius = 4,
-                        ShadowDepth = 1,
-                        Opacity = _currentTheme.ShadowOpacity * 0.5,
-                        Color = Colors.Black,
-                        Direction = 270
-                    }
-                };
-
-                var paramStack = new StackPanel();
-
-                var labelRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 6) };
-                labelRow.Children.Add(new TextBlock
-                {
-                    Text = param.DisplayName,
-                    FontWeight = FontWeights.SemiBold,
-                    FontSize = 12.5,
-                    FontFamily = MonoFont,
-                    Foreground = _currentTheme.TextPrimaryBrush
-                });
-                if (param.Required)
-                {
-                    labelRow.Children.Add(new TextBlock
-                    {
-                        Text = " *",
-                        Foreground = _currentTheme.RequiredBrush,
-                        FontWeight = FontWeights.Bold,
-                        FontSize = 13
-                    });
-                }
-                labelRow.Children.Add(new Border
-                {
-                    Background = _currentTheme.TagBrush,
-                    CornerRadius = new CornerRadius(4),
-                    Padding = new Thickness(7, 2, 7, 2),
-                    Margin = new Thickness(10, 0, 0, 0),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Child = new TextBlock
-                    {
-                        Text = GetFriendlyTypeName(param.PropertyType),
-                        Foreground = _currentTheme.TextMutedBrush,
-                        FontSize = 10,
-                        FontFamily = MonoFont,
-                        FontWeight = FontWeights.Medium
-                    }
-                });
-                paramStack.Children.Add(labelRow);
-
-                if (!string.IsNullOrEmpty(param.Description))
-                {
-                    paramStack.Children.Add(new TextBlock
-                    {
-                        Text = param.Description,
-                        Foreground = _currentTheme.TextMutedBrush,
-                        FontSize = 11.5,
-                        TextWrapping = TextWrapping.Wrap,
-                        Margin = new Thickness(0, 0, 0, 8),
-                        LineHeight = 18
-                    });
-                }
-
-                FrameworkElement inputControl = CreateParameterInput(param, currentValue, MonoFont);
-
-                paramStack.Children.Add(inputControl);
-                paramBorder.Child = paramStack;
-                paramsContent.Children.Add(paramBorder);
-
-                parameterControls.Add((param, inputControl));
-            }
-
-            // Wire up reset button
-            var capturedControls = parameterControls;
-            var capturedDefaults = originalValues;
-            var capturedEx = example;
-            resetParamsButton.Click += (_, _) =>
-            {
-                foreach (var (info, control) in capturedControls)
-                {
-                    if (!capturedDefaults.TryGetValue(info, out var defaultValue)) continue;
-
-                    info.SetValue(capturedEx, defaultValue);
-
-                    if (control is TextBox tb)
-                    {
-                        tb.Text = defaultValue switch
-                        {
-                            string[] arr => string.Join(", ", arr),
-                            _ => defaultValue?.ToString() ?? ""
-                        };
-                    }
-                    else if (control is CheckBox cb)
-                    {
-                        cb.IsChecked = defaultValue is true;
-                    }
-                }
-            };
-        }
-
-        // ─── Source Code Panel ───────────────────────────────────────
-        var sourceHeading = new TextBlock
-        {
-            Text = "💻 Source Code",
-            FontWeight = FontWeights.SemiBold,
-            FontSize = 14,
-            Foreground = _currentTheme.TextPrimaryBrush,
-            Margin = new Thickness(0, 18, 0, 10),
-            Visibility = Visibility.Collapsed
-        };
-
-        var sourceCodePanel = new Border
-        {
-            Background = _currentTheme.InputBrush,
-            BorderBrush = _currentTheme.BorderBrush,
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(8),
-            Padding = new Thickness(18, 14, 18, 14),
-            Visibility = Visibility.Collapsed,
-            Effect = new DropShadowEffect
-            {
-                BlurRadius = 4,
-                ShadowDepth = 1,
-                Opacity = _currentTheme.ShadowOpacity * 0.5,
-                Color = Colors.Black,
-                Direction = 270
-            }
-        };
-
-        var sourceCodeTextBox = new TextBox
-        {
-            Text = example.SourceCode,
-            IsReadOnly = true,
-            Background = Brushes.Transparent,
-            Foreground = _currentTheme.TextPrimaryBrush,
-            BorderThickness = new Thickness(0),
-            FontFamily = MonoFont,
-            FontSize = 12,
-            AcceptsReturn = true,
-            TextWrapping = TextWrapping.NoWrap,
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            MaxHeight = 350
-        };
-        sourceCodePanel.Child = sourceCodeTextBox;
-
-        // ─── Action Row ─────────────────────────────────────────────
-        var actionRow = new StackPanel { Orientation = Orientation.Horizontal };
-
-        var runButton = CreateRunButton();
-        actionRow.Children.Add(runButton);
-
-        if (parameters.Count > 0)
-        {
-            var capturedParamsHeaderRow = paramsHeaderRow!;
-            var capturedParamsContent = paramsContent!;
-            var paramsToggle = CreateToggleButton($"⚙️ Parameters ({parameters.Count})", _currentTheme.TagBrush);
-            paramsToggle.Click += (_, _) =>
-            {
-                var newVisibility = capturedParamsContent.Visibility == Visibility.Visible
-                    ? Visibility.Collapsed
-                    : Visibility.Visible;
-                capturedParamsHeaderRow.Visibility = newVisibility;
-                capturedParamsContent.Visibility = newVisibility;
-            };
-            actionRow.Children.Add(paramsToggle);
-        }
-
-        var capturedSourceHeading = sourceHeading;
-        var capturedSourcePanel = sourceCodePanel;
-        var sourceToggle = CreateToggleButton("💻 View Source Code", _currentTheme.TagBrush);
-        sourceToggle.Click += (_, _) =>
-        {
-            var newVisibility = capturedSourcePanel.Visibility == Visibility.Visible
-                ? Visibility.Collapsed
-                : Visibility.Visible;
-            capturedSourceHeading.Visibility = newVisibility;
-            capturedSourcePanel.Visibility = newVisibility;
-        };
-        actionRow.Children.Add(sourceToggle);
-
-        stack.Children.Add(actionRow);
-
-        if (paramsHeaderRow != null && paramsContent != null)
-        {
-            stack.Children.Add(paramsHeaderRow);
-            stack.Children.Add(paramsContent);
-        }
-        stack.Children.Add(sourceHeading);
-        stack.Children.Add(sourceCodePanel);
-
-        // ─── Run Button Click Handler ────────────────────────────────
-        var capturedExample = example;
-        var capturedParamControls = parameterControls;
-
-        runButton.Click += async (_, _) =>
-        {
-            foreach (var (info, control) in capturedParamControls)
-            {
-                try
-                {
-                    var rawValue = GetParameterValue(control);
-                    var converted = ConvertParameterValue(rawValue, info.PropertyType);
-                    info.SetValue(capturedExample, converted);
-                }
-                catch (Exception ex)
-                {
-                    ResponseStatusText.Text = $"❌ Invalid parameter '{info.DisplayName}'";
-                    ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
-                    ResponseTextBox.Text = $"Could not convert value for '{info.DisplayName}': {ex.Message}";
-                    return;
-                }
-            }
-
-            foreach (var (info, control) in capturedParamControls)
-            {
-                if (info.Required)
-                {
-                    var value = info.GetValue(capturedExample);
-                    if (value is null || (value is string s && string.IsNullOrWhiteSpace(s)))
-                    {
-                        ResponseStatusText.Text = $"❌ '{info.DisplayName}' is required";
-                        ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
-                        ResponseTextBox.Text = $"Parameter '{info.DisplayName}' is required but has no value.";
-                        return;
-                    }
-                }
-            }
-
-            runButton.IsEnabled = false;
-            ResponseTextBox.Clear();
-            ResponseStatusText.Text = "⏳ Running...";
-            ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
-
-            var sw = System.Diagnostics.Stopwatch.StartNew();
-            try
-            {
-                var result = await capturedExample.RunAsync();
-                sw.Stop();
-
-                _exampleResults[capturedExample] = new ExampleResult(true, result, sw.ElapsedMilliseconds);
-                UpdateExampleButtonStatus(capturedExample);
-
-                ResponseStatusText.Text = $"✅ Completed — {sw.ElapsedMilliseconds}ms";
-                ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(73, 204, 144));
-
-                try
-                {
-                    var jsonDoc = JsonDocument.Parse(result);
-                    result = JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true });
-                }
-                catch { }
-
-                ResponseTextBox.Text = result;
-            }
-            catch (Exception ex)
-            {
-                sw.Stop();
-                var errorOutput = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
-                _exampleResults[capturedExample] = new ExampleResult(false, errorOutput, sw.ElapsedMilliseconds);
-                UpdateExampleButtonStatus(capturedExample);
-
-                ResponseStatusText.Text = $"❌ Error — {sw.ElapsedMilliseconds}ms";
-                ResponseStatusText.Foreground = new SolidColorBrush(Color.FromRgb(249, 80, 80));
-                ResponseTextBox.Text = errorOutput;
-            }
-            finally
-            {
-                runButton.IsEnabled = true;
-            }
-        };
-
-        card.Child = stack;
-        EndpointsPanel.Children.Add(card);
+        var cardBuilder = new ExampleCardBuilder(_currentTheme);
+        cardBuilder.RunRequested += async ex => await RunSingleExampleAsync(ex);
+        EndpointsPanel.Children.Add(cardBuilder.Build(example));
     }
 
-    // ─── Parameter UI Helpers ────────────────────────────────────────
-
-    private FrameworkElement CreateParameterInput(ExampleParameterInfo param, object? currentValue, FontFamily monoFont)
+    private async System.Threading.Tasks.Task RunSingleExampleAsync(IExample example)
     {
-        if (param.PropertyType == typeof(bool))
+        ResponseTextBox.Clear();
+        ResponseStatusText.Text = "⏳ Running...";
+        ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
+
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        try
         {
-            return new CheckBox
-            {
-                IsChecked = currentValue is true,
-                Foreground = _currentTheme.TextPrimaryBrush,
-                VerticalAlignment = VerticalAlignment.Center
-            };
+            var result = await example.RunAsync();
+            sw.Stop();
+            _exampleResults[example] = new ExampleResult(true, result, sw.ElapsedMilliseconds);
+            UpdateExampleButtonStatus(example);
+            ResponseStatusText.Text = $"✅ Completed — {sw.ElapsedMilliseconds}ms";
+            ResponseStatusText.Foreground = ExampleColors.SuccessBrush;
+            try { result = JsonSerializer.Serialize(JsonDocument.Parse(result), new JsonSerializerOptions { WriteIndented = true }); } catch { }
+            ResponseTextBox.Text = result;
         }
-
-        var displayValue = currentValue switch
+        catch (Exception ex)
         {
-            string[] arr => string.Join(", ", arr),
-            _ => currentValue?.ToString() ?? ""
-        };
-
-        return new TextBox
-        {
-            Text = displayValue,
-            Padding = new Thickness(10, 8, 10, 8),
-            Background = _currentTheme.InputFieldBrush,
-            Foreground = _currentTheme.TextPrimaryBrush,
-            CaretBrush = _currentTheme.TextPrimaryBrush,
-            BorderBrush = _currentTheme.BorderBrush,
-            BorderThickness = new Thickness(1),
-            FontFamily = monoFont,
-            FontSize = 12
-        };
-    }
-
-    private static string GetParameterValue(FrameworkElement control)
-    {
-        return control switch
-        {
-            TextBox tb => tb.Text,
-            CheckBox cb => cb.IsChecked == true ? "true" : "false",
-            _ => ""
-        };
-    }
-
-    private static object? ConvertParameterValue(string rawValue, Type targetType)
-    {
-        if (targetType == typeof(string))
-            return rawValue;
-        if (targetType == typeof(string[]))
-            return rawValue.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-        if (targetType == typeof(bool))
-            return bool.Parse(rawValue);
-        if (targetType == typeof(int))
-            return int.Parse(rawValue);
-        if (targetType == typeof(long))
-            return long.Parse(rawValue);
-        if (targetType == typeof(double))
-            return double.Parse(rawValue);
-        if (targetType == typeof(float))
-            return float.Parse(rawValue);
-        if (targetType == typeof(decimal))
-            return decimal.Parse(rawValue);
-        if (targetType == typeof(int?))
-            return string.IsNullOrWhiteSpace(rawValue) ? null : int.Parse(rawValue);
-        if (targetType == typeof(double?))
-            return string.IsNullOrWhiteSpace(rawValue) ? null : double.Parse(rawValue);
-        if (targetType == typeof(bool?))
-            return string.IsNullOrWhiteSpace(rawValue) ? null : bool.Parse(rawValue);
-
-        return Convert.ChangeType(rawValue, targetType);
-    }
-
-    private static string GetFriendlyTypeName(Type type)
-    {
-        if (type == typeof(string)) return "string";
-        if (type == typeof(string[])) return "string[]";
-        if (type == typeof(int)) return "int";
-        if (type == typeof(long)) return "long";
-        if (type == typeof(double)) return "double";
-        if (type == typeof(float)) return "float";
-        if (type == typeof(decimal)) return "decimal";
-        if (type == typeof(bool)) return "bool";
-        if (type == typeof(int?)) return "int?";
-        if (type == typeof(double?)) return "double?";
-        if (type == typeof(bool?)) return "bool?";
-        return type.Name;
+            sw.Stop();
+            var error = $"{ex.GetType().Name}: {ex.Message}\n\n{ex.StackTrace}";
+            _exampleResults[example] = new ExampleResult(false, error, sw.ElapsedMilliseconds);
+            UpdateExampleButtonStatus(example);
+            ResponseStatusText.Text = $"❌ Error — {sw.ElapsedMilliseconds}ms";
+            ResponseStatusText.Foreground = ExampleColors.FailureBrush;
+            ResponseTextBox.Text = error;
+        }
     }
 
     // ─── Theme ───────────────────────────────────────────────────────
@@ -1178,149 +456,34 @@ public partial class ApiTestWindow : Window
         ApplyTheme();
         ApplyTabStyles();
         RebuildSidebarForCurrentMode();
-
-        if (_activeMode == SidebarMode.Apis && _lastLoadedFilePath != null)
-            LoadApiFromFile(_lastLoadedFilePath);
-        else if (_activeMode == SidebarMode.Examples && _lastSelectedExample != null)
-            ShowExample(_lastSelectedExample);
+        if (_activeMode == SidebarMode.Apis && _lastLoadedFilePath != null) LoadApiFromFile(_lastLoadedFilePath);
+        else if (_activeMode == SidebarMode.Examples && _lastSelectedExample != null) ShowExample(_lastSelectedExample);
     }
 
     private void ApplyTheme()
     {
         Background = _currentTheme.SurfaceBrush;
-
         SidebarBorder.Background = _currentTheme.SidebarBrush;
         SidebarBorder.BorderBrush = _currentTheme.BorderBrush;
         SidebarTitle.Foreground = _currentTheme.TextPrimaryBrush;
         SidebarSubtitle.Foreground = _currentTheme.TextSecondaryBrush;
         SidebarHeaderBorder.BorderBrush = _currentTheme.BorderBrush;
-
         ThemeToggleButton.Content = _currentTheme.IsDark ? "☀️ Light" : "🌙 Dark";
         ThemeToggleButton.Foreground = _currentTheme.TextSecondaryBrush;
         ThemeToggleButton.Background = _currentTheme.TagBrush;
-
         TitleBarBorder.BorderBrush = _currentTheme.BorderBrush;
         ApiTitleText.Foreground = _currentTheme.TextPrimaryBrush;
         ApiDescriptionText.Foreground = _currentTheme.TextSecondaryBrush;
-
         ResponsePanelBorder.Background = _currentTheme.ResponseBgBrush;
         ResponsePanelBorder.BorderBrush = _currentTheme.BorderBrush;
         ResponseHeaderBorder.BorderBrush = _currentTheme.BorderBrush;
         ResponseLabel.Foreground = _currentTheme.TextPrimaryBrush;
         ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
         ResponseTextBox.Background = Brushes.Transparent;
-        ResponseTextBox.Foreground = _currentTheme.IsDark
-            ? new SolidColorBrush(Color.FromRgb(200, 200, 212))
-            : _currentTheme.TextPrimaryBrush;
+        ResponseTextBox.Foreground = _currentTheme.IsDark ? new SolidColorBrush(Color.FromRgb(200, 200, 212)) : _currentTheme.TextPrimaryBrush;
         ResponseTextBox.CaretBrush = _currentTheme.TextPrimaryBrush;
-
         ColumnSplitter.Background = _currentTheme.BorderBrush;
         RowSplitter.Background = _currentTheme.BorderBrush;
-
         ContentGrid.Background = _currentTheme.SurfaceBrush;
-    }
-
-    private Button CreateRunButton()
-    {
-        var accentColor = _currentTheme.Accent;
-        var button = new Button
-        {
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Margin = new Thickness(0, 12, 0, 0),
-            Cursor = System.Windows.Input.Cursors.Hand
-        };
-
-        var buttonTemplate = new ControlTemplate(typeof(Button));
-        var borderFactory = new FrameworkElementFactory(typeof(Border));
-        borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(accentColor));
-        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(8));
-        borderFactory.SetValue(Border.PaddingProperty, new Thickness(22, 10, 22, 10));
-        borderFactory.SetValue(Border.EffectProperty, new DropShadowEffect
-        {
-            BlurRadius = 8,
-            ShadowDepth = 2,
-            Opacity = 0.25,
-            Color = accentColor,
-            Direction = 270
-        });
-        borderFactory.Name = "ButtonBorder";
-
-        var contentFactory = new FrameworkElementFactory(typeof(StackPanel));
-        contentFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-
-        var iconFactory = new FrameworkElementFactory(typeof(TextBlock));
-        iconFactory.SetValue(TextBlock.TextProperty, "▶");
-        iconFactory.SetValue(TextBlock.FontSizeProperty, 14.0);
-        iconFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
-        iconFactory.SetValue(TextBlock.MarginProperty, new Thickness(0, 0, 10, 0));
-        iconFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-        contentFactory.AppendChild(iconFactory);
-
-        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
-        textFactory.SetValue(TextBlock.TextProperty, "Run Example");
-        textFactory.SetValue(TextBlock.ForegroundProperty, Brushes.White);
-        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
-        textFactory.SetValue(TextBlock.FontSizeProperty, 13.5);
-        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-        contentFactory.AppendChild(textFactory);
-
-        borderFactory.AppendChild(contentFactory);
-        buttonTemplate.VisualTree = borderFactory;
-
-        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
-        var hoverColor = Color.FromArgb(255,
-            (byte)Math.Min(accentColor.R + 20, 255),
-            (byte)Math.Min(accentColor.G + 20, 255),
-            (byte)Math.Min(accentColor.B + 20, 255));
-        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, new SolidColorBrush(hoverColor), "ButtonBorder"));
-        buttonTemplate.Triggers.Add(hoverTrigger);
-
-        var disabledTrigger = new Trigger { Property = UIElement.IsEnabledProperty, Value = false };
-        disabledTrigger.Setters.Add(new Setter(Border.BackgroundProperty, _currentTheme.TagBrush, "ButtonBorder"));
-        disabledTrigger.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
-        buttonTemplate.Triggers.Add(disabledTrigger);
-
-        button.Template = buttonTemplate;
-        return button;
-    }
-
-    private Button CreateToggleButton(string text, SolidColorBrush background)
-    {
-        var button = new Button
-        {
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Margin = new Thickness(10, 12, 0, 0),
-            Cursor = System.Windows.Input.Cursors.Hand
-        };
-
-        var buttonTemplate = new ControlTemplate(typeof(Button));
-        var borderFactory = new FrameworkElementFactory(typeof(Border));
-        borderFactory.SetValue(Border.BackgroundProperty, background);
-        borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(8));
-        borderFactory.SetValue(Border.PaddingProperty, new Thickness(16, 9, 16, 9));
-        borderFactory.SetValue(Border.BorderBrushProperty, _currentTheme.BorderBrush);
-        borderFactory.SetValue(Border.BorderThicknessProperty, new Thickness(1));
-        borderFactory.Name = "ButtonBorder";
-
-        var textFactory = new FrameworkElementFactory(typeof(TextBlock));
-        textFactory.SetValue(TextBlock.TextProperty, text);
-        textFactory.SetValue(TextBlock.ForegroundProperty, _currentTheme.TextPrimaryBrush);
-        textFactory.SetValue(TextBlock.FontWeightProperty, FontWeights.SemiBold);
-        textFactory.SetValue(TextBlock.FontSizeProperty, 12.0);
-        textFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-
-        borderFactory.AppendChild(textFactory);
-        buttonTemplate.VisualTree = borderFactory;
-
-        var hoverBg = _currentTheme.IsDark
-            ? new SolidColorBrush(Color.FromRgb(55, 55, 68))
-            : new SolidColorBrush(Color.FromRgb(225, 227, 235));
-
-        var hoverTrigger = new Trigger { Property = UIElement.IsMouseOverProperty, Value = true };
-        hoverTrigger.Setters.Add(new Setter(Border.BackgroundProperty, hoverBg, "ButtonBorder"));
-        buttonTemplate.Triggers.Add(hoverTrigger);
-
-        button.Template = buttonTemplate;
-        return button;
     }
 }
