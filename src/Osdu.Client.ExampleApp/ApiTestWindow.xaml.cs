@@ -163,7 +163,7 @@ public partial class ApiTestWindow : Window
         };
         row.Children.Add(filter);
 
-        var expandCollapse = CreateActionButton("⊟  Collapse All", _currentTheme.TextSecondaryBrush);
+        var expandCollapse = CreateActionButton("⊞  Expand All", _currentTheme.TextSecondaryBrush);
         expandCollapse.Click += (_, _) =>
         {
             var allExpanded = _categoryExpanders.All(exp => exp.IsExpanded);
@@ -198,7 +198,7 @@ public partial class ApiTestWindow : Window
 
             var expander = new Expander
             {
-                IsExpanded = true, Background = Brushes.Transparent, BorderThickness = new Thickness(0),
+                IsExpanded = false, Background = Brushes.Transparent, BorderThickness = new Thickness(0),
                 Foreground = _currentTheme.TextPrimaryBrush, Margin = new Thickness(2)
             };
             // Hide default toggle arrow
