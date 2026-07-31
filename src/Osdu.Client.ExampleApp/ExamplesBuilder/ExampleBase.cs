@@ -1,8 +1,9 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Osdu.Client.ExampleApp.Examples;
 
-namespace Osdu.Client.ExampleApp.Examples;
+namespace Osdu.Client.ExampleApp.ExamplesBuilder;
 
 /// <summary>
 /// Base class for examples that automatically extracts the RunAsync source code

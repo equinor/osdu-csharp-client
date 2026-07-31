@@ -1,4 +1,6 @@
-namespace Osdu.Client.ExampleApp.Examples;
+using Osdu.Client.ExampleApp.Examples;
+
+namespace Osdu.Client.ExampleApp.ExamplesBuilder;
 
 /// <summary>
 /// Marks a property on an <see cref="IExample"/> as a user-configurable parameter.

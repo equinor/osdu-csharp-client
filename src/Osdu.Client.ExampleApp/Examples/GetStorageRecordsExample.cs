@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Osdu.Client.Apis;
+using Osdu.Client.ExampleApp.ExamplesBuilder;
 
 namespace Osdu.Client.ExampleApp.Examples;
 

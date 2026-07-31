@@ -1,6 +1,7 @@
 using System.Reflection;
+using Osdu.Client.ExampleApp.Examples;
 
-namespace Osdu.Client.ExampleApp.Examples;
+namespace Osdu.Client.ExampleApp.ExamplesBuilder;
 
 /// <summary>
 /// Metadata about a single parameter on an example, discovered via reflection.

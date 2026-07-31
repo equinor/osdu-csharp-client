@@ -1,3 +1,5 @@
+using Osdu.Client.ExampleApp.ExamplesBuilder;
+
 namespace Osdu.Client.ExampleApp.Examples;
 
 /// <summary>
