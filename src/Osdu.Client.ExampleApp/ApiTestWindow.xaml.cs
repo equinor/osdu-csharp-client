@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using Osdu.Client.ExampleApp.Examples;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
@@ -187,7 +188,9 @@ public partial class ApiTestWindow : Window
                 IsExpanded = true, Background = Brushes.Transparent, BorderThickness = new Thickness(0),
                 Foreground = _currentTheme.TextPrimaryBrush, Margin = new Thickness(2)
             };
-            expander.Header = BuildCategoryHeader(group.Key, all);
+            // Hide default toggle arrow
+            expander.SetResourceReference(Expander.StyleProperty, "ExpanderWithoutToggle");
+            expander.Header = BuildCategoryHeader(group.Key, all, expander);
 
             var items = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
             foreach (var example in visible)
@@ -207,9 +210,23 @@ public partial class ApiTestWindow : Window
         ApplyResultColors();
     }
 
-    private StackPanel BuildCategoryHeader(string categoryName, List<IExample> all)
+    private StackPanel BuildCategoryHeader(string categoryName, List<IExample> all, Expander expander)
     {
         var header = new StackPanel { Orientation = Orientation.Horizontal };
+
+        var toggle = new TextBlock
+        {
+            Text = expander.IsExpanded ? "−" : "+",
+            FontSize = 14,
+            FontWeight = FontWeights.Bold,
+            Foreground = _currentTheme.TextSecondaryBrush,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 6, 0),
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+        expander.Expanded += (_, _) => toggle.Text = "−";
+        expander.Collapsed += (_, _) => toggle.Text = "+";
+        header.Children.Add(toggle);
 
         var runCat = new Button
         {
@@ -583,5 +600,68 @@ public partial class ApiTestWindow : Window
     {
         if (!string.IsNullOrEmpty(ResponseTextBox.Text))
             Clipboard.SetText(ResponseTextBox.Text);
+    }
+
+    private Style CreateExpanderStyle()
+    {
+        var style = new Style(typeof(Expander));
+
+        var template = new ControlTemplate(typeof(Expander));
+
+        var border = new FrameworkElementFactory(typeof(DockPanel));
+
+        // Header row
+        var headerRow = new FrameworkElementFactory(typeof(DockPanel));
+        headerRow.SetValue(DockPanel.DockProperty, Dock.Top);
+
+        var toggleButton = new FrameworkElementFactory(typeof(ToggleButton));
+        toggleButton.SetValue(ToggleButton.BackgroundProperty, Brushes.Transparent);
+        toggleButton.SetValue(ToggleButton.BorderThicknessProperty, new Thickness(0));
+        toggleButton.SetValue(ToggleButton.PaddingProperty, new Thickness(4, 0, 6, 0));
+        toggleButton.SetValue(ToggleButton.FontSizeProperty, 14.0);
+        toggleButton.SetValue(ToggleButton.FontWeightProperty, FontWeights.Bold);
+        toggleButton.SetValue(ToggleButton.CursorProperty, System.Windows.Input.Cursors.Hand);
+        toggleButton.SetValue(ToggleButton.VerticalAlignmentProperty, VerticalAlignment.Center);
+        toggleButton.SetValue(ToggleButton.ForegroundProperty, _currentTheme.TextSecondaryBrush);
+        toggleButton.SetValue(ToggleButton.ContentProperty, "+");
+        toggleButton.SetBinding(ToggleButton.IsCheckedProperty,
+            new System.Windows.Data.Binding("IsExpanded")
+            {
+                Source = new System.Windows.Data.RelativeSource(System.Windows.Data.RelativeSourceMode.TemplatedParent)
+            });
+
+        // Use triggers on the toggle to swap +/-
+        var checkedTrigger = new System.Windows.Trigger { Property = ToggleButton.IsCheckedProperty, Value = true };
+        checkedTrigger.Setters.Add(new Setter(ToggleButton.ContentProperty, "−"));
+
+        var toggleStyle = new Style(typeof(ToggleButton));
+        toggleStyle.Triggers.Add(checkedTrigger);
+        toggleButton.SetValue(ToggleButton.StyleProperty, toggleStyle);
+
+        headerRow.AppendChild(toggleButton);
+
+        var contentPresenterHeader = new FrameworkElementFactory(typeof(ContentPresenter));
+        contentPresenterHeader.SetValue(ContentPresenter.ContentSourceProperty, "Header");
+        contentPresenterHeader.SetValue(ContentPresenter.VerticalAlignmentProperty, VerticalAlignment.Center);
+        headerRow.AppendChild(contentPresenterHeader);
+
+        border.AppendChild(headerRow);
+
+        var contentHost = new FrameworkElementFactory(typeof(ContentPresenter));
+        contentHost.SetValue(UIElement.VisibilityProperty, Visibility.Collapsed);
+        contentHost.SetValue(ContentPresenter.ContentSourceProperty, "Content");
+        contentHost.SetBinding(UIElement.VisibilityProperty,
+            new System.Windows.Data.Binding("IsExpanded")
+            {
+                RelativeSource =
+                    new System.Windows.Data.RelativeSource(System.Windows.Data.RelativeSourceMode.TemplatedParent),
+                Converter = new System.Windows.Controls.BooleanToVisibilityConverter()
+            });
+        border.AppendChild(contentHost);
+
+        template.VisualTree = border;
+        style.Setters.Add(new Setter(Expander.TemplateProperty, template));
+
+        return style;
     }
 }
