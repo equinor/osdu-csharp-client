@@ -16,6 +16,7 @@ internal sealed class ExampleCardBuilder(AppTheme theme)
     private static readonly FontFamily MonoFont = new("Cascadia Code, Consolas, monospace");
 
     public event Func<IExample, System.Threading.Tasks.Task>? RunRequested;
+    public event Action<string>? ValidationFailed;
 
     public Border Build(IExample example)
     {
@@ -102,7 +103,7 @@ internal sealed class ExampleCardBuilder(AppTheme theme)
                 var error = capturedParams.ApplyValues(capturedExample);
                 if (error != null)
                 {
-                    MessageBox.Show(error, "Parameter Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    ValidationFailed?.Invoke(error);
                     return;
                 }
             }

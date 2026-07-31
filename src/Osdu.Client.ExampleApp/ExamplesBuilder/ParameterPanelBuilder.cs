@@ -29,7 +29,7 @@ internal sealed record ParameterPanelResult(
             }
             catch (Exception ex)
             {
-                return $"Could not convert value for '{info.DisplayName}': {ex.Message}";
+                return $"Parameter '{info.DisplayName}' value could not converted. Error: {ex.Message}";
             }
         }
 

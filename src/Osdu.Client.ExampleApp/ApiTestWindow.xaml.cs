@@ -527,6 +527,12 @@ public partial class ApiTestWindow : Window
 
         var cardBuilder = new ExampleCardBuilder(_currentTheme);
         cardBuilder.RunRequested += async ex => await RunSingleExampleAsync(ex);
+        cardBuilder.ValidationFailed += error =>
+        {
+            ResponseStatusText.Text = "❌ Validation Error";
+            ResponseStatusText.Foreground = ExampleColors.FailureBrush;
+            ResponseTextBox.Text = error;
+        };
         EndpointsPanel.Children.Add(cardBuilder.Build(example));
     }
 
