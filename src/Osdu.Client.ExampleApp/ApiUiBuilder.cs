@@ -597,7 +597,11 @@ public class ApiUiBuilder
                 && jsonContent.TryGetProperty("schema", out var schema))
             {
                 var resolved = ResolveSchema(schema, schemas);
-                return JsonSerializer.Serialize(resolved, new JsonSerializerOptions { WriteIndented = true });
+                return JsonSerializer.Serialize(resolved, new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                });
             }
         }
         catch { }
@@ -664,6 +668,8 @@ public class ApiUiBuilder
                 JsonValueKind.Number => example.GetDouble(),
                 JsonValueKind.True => true,
                 JsonValueKind.False => false,
+                JsonValueKind.Array => JsonSerializer.Deserialize<List<object?>>(example.GetRawText()),
+                JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(example.GetRawText()),
                 _ => example.ToString()
             };
         }
