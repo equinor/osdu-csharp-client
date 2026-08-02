@@ -122,7 +122,7 @@
     <Content Include="Examples\Search\PostQueryExample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Examples\Search\SearchWellLogsExample.cs">
+    <Content Include="Examples\Search\PostQueryWellLogsExample.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Examples\Storage\GetRecordsByIdExample.cs">
