@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -104,6 +105,7 @@ public class FaultInterpretation_1_1_0Data : AbstractCommonResources_1_0_0 // Al
     /// Specifies whether the fault is considered listric
     /// </summary>
     [JsonPropertyName("IsListric")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsListric { get; set; }
 
     /// <summary>
@@ -128,6 +130,7 @@ public class FaultInterpretation_1_1_0Data : AbstractCommonResources_1_0_0 // Al
     /// Specifies whether the fault is considered sealed
     /// </summary>
     [JsonPropertyName("IsSealed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsSealed { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

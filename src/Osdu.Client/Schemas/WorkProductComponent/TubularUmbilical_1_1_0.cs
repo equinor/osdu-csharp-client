@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -132,6 +133,7 @@ public class TubularUmbilical_1_1_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Flag describing the existence of a cut (accidentally or intentionally) in the line
     /// </summary>
     [JsonPropertyName("Cut")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Cut { get; set; }
 
     /// <summary>

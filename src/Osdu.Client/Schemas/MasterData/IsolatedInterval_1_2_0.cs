@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -158,6 +159,7 @@ public class IsolatedInterval_1_2_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Does the Isolated Interval include commingled production?
     /// </summary>
     [JsonPropertyName("IsCommingled")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCommingled { get; set; }
 
     /// <summary>

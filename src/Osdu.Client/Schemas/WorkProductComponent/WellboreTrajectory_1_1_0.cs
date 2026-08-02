@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -139,6 +140,7 @@ public class WellboreTrajectory_1_1_0Data : AbstractCommonResources_1_0_0 // Als
     /// A flag indicating if the survey is currently active or valid within his lifecycle stage, not necessarily the definitive survey.
     /// </summary>
     [JsonPropertyName("ActiveIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ActiveIndicator { get; set; }
 
     /// <summary>

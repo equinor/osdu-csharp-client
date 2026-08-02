@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -40,12 +41,14 @@ public class AbstractWPCGroupType_1_2_0
     /// A flag that indicates if the work product component is undergoing an extended load.  It reflects the fact that the work product component is in an early stage and may be updated before finalization.
     /// </summary>
     [JsonPropertyName("IsExtendedLoad")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsExtendedLoad { get; set; }
 
     /// <summary>
     /// A flag that indicates if the work product component is searchable, which means covered in the search index.
     /// </summary>
     [JsonPropertyName("IsDiscoverable")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsDiscoverable { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -134,6 +135,7 @@ public class Basin_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: A
     /// Indicator showing whether the basin is considered prospective for hydrocarbons.
     /// </summary>
     [JsonPropertyName("ProspectFlag")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ProspectFlag { get; set; }
 
     /// <summary>

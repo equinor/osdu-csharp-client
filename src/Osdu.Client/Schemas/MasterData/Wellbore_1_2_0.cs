@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -194,24 +195,28 @@ public class Wellbore_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes
     /// Identifies, for the purpose of current use, if the Business Interest [Well Interest Type] for this Well has ever been FinancialOperated in the past.
     /// </summary>
     [JsonPropertyName("WasBusinessInterestFinancialOperated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? WasBusinessInterestFinancialOperated { get; set; }
 
     /// <summary>
     /// Identifies, for the purpose of current use, if the Business Interest [Well Interest Type] for this Well has ever been FinancialNonOperated in the past.
     /// </summary>
     [JsonPropertyName("WasBusinessInterestFinancialNonOperated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? WasBusinessInterestFinancialNonOperated { get; set; }
 
     /// <summary>
     /// Identifies, for the purpose of current use, if the Business Interest [Well Interest Type] for this Well has ever been Obligatory in the past.
     /// </summary>
     [JsonPropertyName("WasBusinessInterestObligatory")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? WasBusinessInterestObligatory { get; set; }
 
     /// <summary>
     /// Identifies, for the purpose of current use, if the Business Interest [Well Interest Type] for this Well has ever been Technical in the past.
     /// </summary>
     [JsonPropertyName("WasBusinessInterestTechnical")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? WasBusinessInterestTechnical { get; set; }
 
     /// <summary>

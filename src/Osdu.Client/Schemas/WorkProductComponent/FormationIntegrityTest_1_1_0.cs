@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -172,12 +173,14 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Was the Formation Integrity test performed without a Riser (offshore wells only)
     /// </summary>
     [JsonPropertyName("IsRiserless")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRiserless { get; set; }
 
     /// <summary>
     /// Was the Formation Integrity test performed with a Managed Pressure Drilling applied to the well
     /// </summary>
     [JsonPropertyName("IsMPD")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsMPD { get; set; }
 
     /// <summary>
@@ -221,12 +224,14 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Was a static Mud Weight measured prior to test?
     /// </summary>
     [JsonPropertyName("IsStaticMWMeasured")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsStaticMWMeasured { get; set; }
 
     /// <summary>
     /// Is there a permeable formation in the open hole segment at time of test?
     /// </summary>
     [JsonPropertyName("IsPermeableFormationInOH")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPermeableFormationInOH { get; set; }
 
     /// <summary>
@@ -356,6 +361,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Does Pressure While Drilling data include inflection point?
     /// </summary>
     [JsonPropertyName("IsPWDInflectionPoint")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPWDInflectionPoint { get; set; }
 
     /// <summary>
@@ -485,6 +491,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Test performed while drilling hole section (not shoe test)
     /// </summary>
     [JsonPropertyName("IsExtendedHole")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsExtendedHole { get; set; }
 
     /// <summary>
@@ -497,6 +504,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Is Lost Circulation Material in fluid during test
     /// </summary>
     [JsonPropertyName("IsLCMUsedInTest")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsLCMUsedInTest { get; set; }
 
     /// <summary>
@@ -521,6 +529,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// continuous test indicator. N = Step Test.
     /// </summary>
     [JsonPropertyName("IsTestContinuous")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTestContinuous { get; set; }
 
     /// <summary>
@@ -581,6 +590,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// QA/QC indicator
     /// </summary>
     [JsonPropertyName("IsInterpreterReviewed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsInterpreterReviewed { get; set; }
 
     /// <summary>
@@ -606,6 +616,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Test Data Quality Indicator. True = Representative of formation response
     /// </summary>
     [JsonPropertyName("TestDataQualityIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? TestDataQualityIndicator { get; set; }
 
     /// <summary>

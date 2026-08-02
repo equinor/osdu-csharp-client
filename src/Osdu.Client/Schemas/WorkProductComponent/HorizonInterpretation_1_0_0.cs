@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -98,12 +99,14 @@ public class HorizonInterpretation_1_0_0Data : AbstractCommonResources_1_0_0 // 
     /// Defines whether the stratigraphic unit above the horizon is conformable
     /// </summary>
     [JsonPropertyName("isConformableAbove")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsConformableAbove { get; set; }
 
     /// <summary>
     /// Defines whether the stratigraphic unit below the horizon is conformable
     /// </summary>
     [JsonPropertyName("isConformableBelow")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsConformableBelow { get; set; }
 
     /// <summary>

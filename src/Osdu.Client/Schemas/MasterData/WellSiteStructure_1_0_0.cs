@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -120,6 +121,7 @@ public class WellSiteStructure_1_0_0Data : AbstractCommonResources_1_0_0 // Also
     /// Is the WellSiteStructure origin coordinate for the Field
     /// </summary>
     [JsonPropertyName("IsFieldCentre")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFieldCentre { get; set; }
 
     /// <summary>

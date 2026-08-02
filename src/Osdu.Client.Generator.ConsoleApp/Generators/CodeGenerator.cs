@@ -16,11 +16,12 @@ public class CodeGenerator
     private readonly OsduClientGenerator _osduClientGenerator;
     private readonly ObjectExtensionsGenerator _objectExtensionsGenerator;
     private readonly OsduApiExceptionGenerator _osduApiExceptionGenerator;
+    private readonly ConvertersGenerator _convertersGenerator;
 
     public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator,
         SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator,
         OsduClientGenerator osduClientGenerator, ObjectExtensionsGenerator objectExtensionsGenerator,
-        OsduApiExceptionGenerator osduApiExceptionGenerator)
+        OsduApiExceptionGenerator osduApiExceptionGenerator, ConvertersGenerator convertersGenerator)
     {
         _logger = logger;
         _configuration = configuration;
@@ -30,6 +31,7 @@ public class CodeGenerator
         _osduClientGenerator = osduClientGenerator;
         _objectExtensionsGenerator = objectExtensionsGenerator;
         _osduApiExceptionGenerator = osduApiExceptionGenerator;
+        _convertersGenerator = convertersGenerator;
     }
 
     public static void BuildAutogenComment(StringBuilder sb)
@@ -48,9 +50,16 @@ public class CodeGenerator
 
     public void Generate()
     {
+        GenerateConverters();
         GenerateApiClientsAndSchemas();
         GenerateDataSchemas();
         GenerateExtensions();
+    }
+
+    private void GenerateConverters()
+    {
+        _logger.LogInformation("Generating converters...");
+        _convertersGenerator.Generate();
     }
 
     private void GenerateExtensions()

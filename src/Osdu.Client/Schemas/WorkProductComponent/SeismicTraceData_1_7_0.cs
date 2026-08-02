@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -250,6 +251,7 @@ public class SeismicTraceData_1_7_0Data : AbstractCommonResources_1_0_1 // Also 
     /// Indicates if the volume is a product of the difference between 4D surveys
     /// </summary>
     [JsonPropertyName("Difference")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Difference { get; set; }
 
     /// <summary>
@@ -514,6 +516,7 @@ public class SeismicTraceData_1_7_0Data : AbstractCommonResources_1_0_1 // Also 
     /// Indicates if the volume has not been stacked
     /// </summary>
     [JsonPropertyName("IsPreStack")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPreStack { get; set; }
 
     /// <summary>

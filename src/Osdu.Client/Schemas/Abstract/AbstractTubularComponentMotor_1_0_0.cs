@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -83,12 +84,14 @@ public class AbstractTubularComponentMotor_1_0_0
     /// Is Rotor Catcher Present
     /// </summary>
     [JsonPropertyName("IsRotorCatcherPresent")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRotorCatcherPresent { get; set; }
 
     /// <summary>
     /// Is Dump Valve Present
     /// </summary>
     [JsonPropertyName("IsDumpValvePresent")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsDumpValvePresent { get; set; }
 
     /// <summary>
@@ -101,6 +104,7 @@ public class AbstractTubularComponentMotor_1_0_0
     /// Is Motor Rotatable
     /// </summary>
     [JsonPropertyName("IsMotorRotatable")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsMotorRotatable { get; set; }
 
     /// <summary>

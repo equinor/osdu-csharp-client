@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -281,6 +282,7 @@ public class BusinessAssociate_1_0_0DataAddresses
     /// A Y/N flag indicating whether this Organisation Address is currently either active / valid (Y) or inactive / invalid (N).
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>
@@ -322,6 +324,7 @@ public class BusinessAssociate_1_0_0DataAddresses
     /// A flag indicating this contact information is primary or preferred for the given AddressTypeID.
     /// </summary>
     [JsonPropertyName("IsPreferred")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPreferred { get; set; }
 
     /// <summary>
@@ -350,6 +353,7 @@ public class BusinessAssociate_1_0_0DataAuthorities
     /// A flag indicating whether this data is currently either active / valid (True) or inactive / invalid (False).
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>
@@ -409,6 +413,7 @@ public class BusinessAssociate_1_0_0DataServices
     /// A flag indicating whether this Service is currently either active/valid (True) or inactive/invalid (False).
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>

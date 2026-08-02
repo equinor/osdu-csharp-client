@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -46,6 +47,7 @@ public class AbstractFacilitySpecification_1_0_0
     /// The actual indicator value of the parameter.
     /// </summary>
     [JsonPropertyName("FacilitySpecificationIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? FacilitySpecificationIndicator { get; set; }
 
     /// <summary>

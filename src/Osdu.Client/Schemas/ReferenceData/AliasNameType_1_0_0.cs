@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -98,6 +99,7 @@ public class AliasNameType_1_0_0Data : AbstractCommonResources_1_0_0 // Also com
     /// Indicates whether the value for alias names of a given alias name type must be universally unique. 'Y' indicates that there is a requirement for unique values. 'N' indicates that there is no requirement for unique values.
     /// </summary>
     [JsonPropertyName("AliasNameUniqueValueIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? AliasNameUniqueValueIndicator { get; set; }
 
     /// <summary>

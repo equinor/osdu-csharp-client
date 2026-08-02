@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -157,6 +158,7 @@ public class Coring_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// Indicates if the core was oriented.
     /// </summary>
     [JsonPropertyName("IsOriented")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOriented { get; set; }
 
     /// <summary>
@@ -176,6 +178,7 @@ public class Coring_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// Flag indicating whether a detailed tripping schedule is available. Available tripping schedules are usually a sign of controlled coring sample quality.
     /// </summary>
     [JsonPropertyName("HasTrippingSchedule")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasTrippingSchedule { get; set; }
 
     /// <summary>

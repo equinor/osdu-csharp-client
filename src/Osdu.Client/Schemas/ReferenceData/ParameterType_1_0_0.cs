@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -142,6 +143,7 @@ public class ParameterType_1_0_0Data : AbstractCommonResources_1_0_0 // Also com
     /// Indicates whether something is applicable to to the Entity. This can be Y or N.
     /// </summary>
     [JsonPropertyName("ParameterTypeDefaultValueIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ParameterTypeDefaultValueIndicator { get; set; }
 
     /// <summary>

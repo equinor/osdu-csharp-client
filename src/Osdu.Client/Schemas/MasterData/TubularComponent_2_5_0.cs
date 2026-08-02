@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -337,6 +338,7 @@ public class TubularComponent_2_5_0Data : AbstractCommonResources_1_0_1 // Also 
     /// Is thread lock used when making up the pipe?
     /// </summary>
     [JsonPropertyName("IsThreadLockUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsThreadLockUsed { get; set; }
 
     /// <summary>
@@ -421,6 +423,7 @@ public class TubularComponent_2_5_0Data : AbstractCommonResources_1_0_1 // Also 
     /// Is Radioactive
     /// </summary>
     [JsonPropertyName("IsRadioActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRadioActive { get; set; }
 
     /// <summary>

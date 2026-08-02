@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Apis.Storage;
 
@@ -72,6 +73,7 @@ public class DeleteRecordsExceptionCauseStackTrace
     public int? LineNumber { get; set; }
 
     [JsonPropertyName("nativeMethod")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NativeMethod { get; set; }
 
     [JsonPropertyName("className")]
@@ -113,6 +115,7 @@ public class DeleteRecordsExceptionCauseSuppressedStackTrace
     public int? LineNumber { get; set; }
 
     [JsonPropertyName("nativeMethod")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NativeMethod { get; set; }
 
     [JsonPropertyName("className")]
@@ -141,6 +144,7 @@ public class DeleteRecordsExceptionStackTrace
     public int? LineNumber { get; set; }
 
     [JsonPropertyName("nativeMethod")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NativeMethod { get; set; }
 
     [JsonPropertyName("className")]
@@ -182,6 +186,7 @@ public class DeleteRecordsExceptionSuppressedStackTrace
     public int? LineNumber { get; set; }
 
     [JsonPropertyName("nativeMethod")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NativeMethod { get; set; }
 
     [JsonPropertyName("className")]

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -98,6 +99,7 @@ public class WellLicense_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// A Y/N flag indicating whether this license is currently either active / valid (Y) or inactive / invalid (N).
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>
@@ -199,6 +201,7 @@ public class WellLicense_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// When a license is delayed, set this flag to True.  Details about the application can be found in the application object.
     /// </summary>
     [JsonPropertyName("IsDelayed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsDelayed { get; set; }
 
     /// <summary>
@@ -211,6 +214,7 @@ public class WellLicense_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// When the license expires, set the expiry date to the appropriate date, and set this flag to True.
     /// </summary>
     [JsonPropertyName("IsExpired")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsExpired { get; set; }
 
     /// <summary>

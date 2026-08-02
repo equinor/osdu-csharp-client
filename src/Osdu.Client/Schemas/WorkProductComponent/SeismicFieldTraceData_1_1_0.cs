@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -175,6 +176,7 @@ public class SeismicFieldTraceData_1_1_0Data : AbstractCommonResources_1_0_0 // 
     /// Indicates if the volume is a product of the difference between 4D surveys
     /// </summary>
     [JsonPropertyName("Difference")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Difference { get; set; }
 
     /// <summary>

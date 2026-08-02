@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -173,6 +174,7 @@ public class BlowoutPreventer_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Is this a rotating blowout preventer?
     /// </summary>
     [JsonPropertyName("IsRotating")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRotating { get; set; }
 
     /// <summary>

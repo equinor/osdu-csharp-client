@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -22,6 +23,7 @@ public class AbstractCompressionInfo_1_1_0
     /// Boolean that warns that an imperfect compression algorithm has been applied to the bulk binary data.  Details of the compression method need to be discovered from the format properties and file access methods.
     /// </summary>
     [JsonPropertyName("LossyCompressionIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? LossyCompressionIndicator { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -139,6 +140,7 @@ public class WellboreTrajectory_1_4_0Data : AbstractCommonResources_1_0_0 // Als
     /// A flag indicating if the survey is currently active or valid within his lifecycle stage, not necessarily the definitive survey.
     /// </summary>
     [JsonPropertyName("ActiveIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ActiveIndicator { get; set; }
 
     /// <summary>
@@ -375,18 +377,21 @@ public class WellboreTrajectory_1_4_0Data : AbstractCommonResources_1_0_0 // Als
     /// True indicates that this trajectory is definitive for this wellbore as provided by the survey contractor. False or not given indicates otherwise. There can only be one trajectory per wellbore with definitive=true and it must define the geometry of the whole wellbore (surface to TD). The definitive trajectory may represent a composite of survey data from one or more other trajectories.
     /// </summary>
     [JsonPropertyName("IsDefinitive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsDefinitive { get; set; }
 
     /// <summary>
     /// Is trajectory a result of a memory dump from a tool?
     /// </summary>
     [JsonPropertyName("IsMemory")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsMemory { get; set; }
 
     /// <summary>
     /// From the survey contractors perspective providing the survey to the Operator is the trajectory final (true) or intermediate/preliminary (false)? Does not mean that the trajectory cannot be worked on further by the Operator.
     /// </summary>
     [JsonPropertyName("IsFinal")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFinal { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

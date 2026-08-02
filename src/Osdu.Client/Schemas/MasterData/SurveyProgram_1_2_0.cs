@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -195,6 +196,7 @@ public class SurveyProgram_1_2_0DataSurveySections
     /// Normally true, higher index trajectory takes precedence over overlapping section of previous trajectory.  Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsOverwrite")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOverwrite { get; set; }
 
     /// <summary>

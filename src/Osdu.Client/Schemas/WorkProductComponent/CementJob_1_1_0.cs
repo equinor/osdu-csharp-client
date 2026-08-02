@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -212,18 +213,21 @@ public class CementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also compose
     /// Were fluid circulated/returned to seabed. Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsReturnsToSeabed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsReturnsToSeabed { get; set; }
 
     /// <summary>
     /// Pipe being reciprocated.  Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsReciprocating")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsReciprocating { get; set; }
 
     /// <summary>
     /// Is pipe rotated during job.   Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsRotating")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRotating { get; set; }
 
     /// <summary>
@@ -352,6 +356,7 @@ public class CementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also compose
     /// Plug fully drilled out
     /// </summary>
     [JsonPropertyName("IsPlugDrilledOut")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPlugDrilledOut { get; set; }
 
     /// <summary>
@@ -403,6 +408,7 @@ public class CementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also compose
     /// Coiled Tubing Used in the job (true=CTU used). Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsCoilTubing")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCoilTubing { get; set; }
 
     /// <summary>
@@ -422,6 +428,7 @@ public class CementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also compose
     /// Is the pipe pulled wet (or dry) from cementing operation depth to surface for Plugs
     /// </summary>
     [JsonPropertyName("IsPipePulledWet")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPipePulledWet { get; set; }
 
     /// <summary>
@@ -440,6 +447,7 @@ public class CementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also compose
     /// Is Viscous Pilled Used
     /// </summary>
     [JsonPropertyName("IsViscousPillUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsViscousPillUsed { get; set; }
 
     /// <summary>
@@ -800,30 +808,35 @@ public class CementJob_1_1_0DataCementStages
     /// Annular flow (back flow) present after the stage was completed?
     /// </summary>
     [JsonPropertyName("IsAnnularFlowAfter")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsAnnularFlowAfter { get; set; }
 
     /// <summary>
     /// Annular Pressure Held after job?
     /// </summary>
     [JsonPropertyName("IsAnnularPressureHeld")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsAnnularPressureHeld { get; set; }
 
     /// <summary>
     /// Float Held?
     /// </summary>
     [JsonPropertyName("IsFloatHeld")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFloatHeld { get; set; }
 
     /// <summary>
     /// Top plug used?
     /// </summary>
     [JsonPropertyName("IsTopPlugUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTopPlugUsed { get; set; }
 
     /// <summary>
     /// Bottom plug used?
     /// </summary>
     [JsonPropertyName("IsBottomPlugUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsBottomPlugUsed { get; set; }
 
     /// <summary>
@@ -836,6 +849,7 @@ public class CementJob_1_1_0DataCementStages
     /// Is Plug Bumped?
     /// </summary>
     [JsonPropertyName("IsPlugBumped")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPlugBumped { get; set; }
 
     /// <summary>
@@ -855,18 +869,21 @@ public class CementJob_1_1_0DataCementStages
     /// Pill below cement plug?
     /// </summary>
     [JsonPropertyName("IsPillBelowPlug")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPillBelowPlug { get; set; }
 
     /// <summary>
     /// Plug or Dart catcher?
     /// </summary>
     [JsonPropertyName("IsPlugCatcher")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPlugCatcher { get; set; }
 
     /// <summary>
     /// Hesitation when squeezing?
     /// </summary>
     [JsonPropertyName("IsHesitation")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsHesitation { get; set; }
 
     /// <summary>
@@ -1049,6 +1066,7 @@ public class CementJob_1_1_0DataCementStages
     /// Tail pipe/stinger used for setting a plug?
     /// </summary>
     [JsonPropertyName("IsTailPipeUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTailPipeUsed { get; set; }
 
     /// <summary>
@@ -1061,6 +1079,7 @@ public class CementJob_1_1_0DataCementStages
     /// Tailpipe/stringer perforated?
     /// </summary>
     [JsonPropertyName("IsTailPipePerforated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTailPipePerforated { get; set; }
 
     /// <summary>
@@ -1170,6 +1189,7 @@ public class CementJob_1_1_0DataCementStages
     /// Is Squeeze Obtained/Successful?
     /// </summary>
     [JsonPropertyName("IsSqueezeObtained")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsSqueezeObtained { get; set; }
 
     /// <summary>
@@ -1642,6 +1662,7 @@ public class CementJob_1_1_0DataCementStagesCementingFluid
     /// Foam used indicator
     /// </summary>
     [JsonPropertyName("IsFoamUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFoamUsed { get; set; }
 
     /// <summary>
@@ -2405,18 +2426,21 @@ public class CementJob_1_1_0DataLogEvaluation
     /// Bottom Hole Temperature Log Run?
     /// </summary>
     [JsonPropertyName("IsBHTRun")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsBHTRun { get; set; }
 
     /// <summary>
     /// Cement Evaluation Tool Run?
     /// </summary>
     [JsonPropertyName("IsCETRun")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCETRun { get; set; }
 
     /// <summary>
     /// Cement Bond Log tool run?
     /// </summary>
     [JsonPropertyName("IsCBLRun")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCBLRun { get; set; }
 
     /// <summary>
@@ -2454,12 +2478,14 @@ public class CementJob_1_1_0DataLogEvaluation
     /// Cement Found On Tool during Evaluation Log run
     /// </summary>
     [JsonPropertyName("IsCementFoundOnTool")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCementFoundOnTool { get; set; }
 
     /// <summary>
     /// Cement Found Between Shoe Collar during Evaluation Log run
     /// </summary>
     [JsonPropertyName("IsCementFoundBetweenShoeCollar")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCementFoundBetweenShoeCollar { get; set; }
 
     /// <summary>
@@ -2491,6 +2517,7 @@ public class CementJob_1_1_0DataLogEvaluationLogEvaluationDepths
     /// Is Isolated
     /// </summary>
     [JsonPropertyName("IsIsolated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsIsolated { get; set; }
 
     /// <summary>
@@ -2522,6 +2549,7 @@ public class CementJob_1_1_0DataShoeTest
     /// Shoe Test Tool Used
     /// </summary>
     [JsonPropertyName("IsShoeTestToolUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsShoeTestToolUsed { get; set; }
 
     /// <summary>
@@ -2572,12 +2600,14 @@ public class CementJob_1_1_0DataTOCInterpretation
     /// TOC Sufficient?
     /// </summary>
     [JsonPropertyName("IsTopOfCementSufficient")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTopOfCementSufficient { get; set; }
 
     /// <summary>
     /// Remedial Cement Required?
     /// </summary>
     [JsonPropertyName("IsRemedialCementRequired")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRemedialCementRequired { get; set; }
 
     /// <summary>
@@ -2688,6 +2718,7 @@ public class CementJob_1_1_0DataLinerTopTest
     /// Cement Found On Tool?
     /// </summary>
     [JsonPropertyName("IsCementFoundOnTool")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCementFoundOnTool { get; set; }
 
     /// <summary>
@@ -2725,6 +2756,7 @@ public class CementJob_1_1_0DataShoetrackCement
     /// Is Hard Cement?
     /// </summary>
     [JsonPropertyName("IsHardCement")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsHardCement { get; set; }
 
     /// <summary>

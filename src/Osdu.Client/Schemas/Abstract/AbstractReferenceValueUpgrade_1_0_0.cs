@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -34,6 +35,7 @@ public class AbstractReferenceValueUpgrade_1_0_0
     /// Indicator whether the LookUp mappings are complex, i.e., require moving values to different properties with references to different reference-data types. If false or absent, the LookUp table refers only to a single reference-data type list, i.e., the values are simply swapped out in-place.
     /// </summary>
     [JsonPropertyName("IsComplexUpgrade")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsComplexUpgrade { get; set; }
 
 }

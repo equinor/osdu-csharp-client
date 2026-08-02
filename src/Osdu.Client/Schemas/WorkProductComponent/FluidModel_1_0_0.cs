@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -136,6 +137,7 @@ public class FluidModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also compos
     /// Indicates whether or not this model can be applied for simulation of thermal systems (thermodynamic systems in which the temperature of the system varies, as opposed to isothermal systems, in which the temperature remains constant).
     /// </summary>
     [JsonPropertyName("IsApplicableForThermalSimulation")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsApplicableForThermalSimulation { get; set; }
 
     /// <summary>
@@ -149,6 +151,7 @@ public class FluidModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also compos
     /// Indicates whether or not this fluid model consists of composition or other fluid properties (implied by Fluid Model Type) that vary by depth.
     /// </summary>
     [JsonPropertyName("HasVariableDepthFluidProperties")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasVariableDepthFluidProperties { get; set; }
 
     /// <summary>
@@ -196,24 +199,28 @@ public class FluidModel_1_0_0DataBasisOfModelling
     /// Indicates whether or not this model is intended to be applied for enhanced recovery studies.
     /// </summary>
     [JsonPropertyName("IsOptimizedForEnhancedRecoveryStudies")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOptimizedForEnhancedRecoveryStudies { get; set; }
 
     /// <summary>
     /// Indicates whether or not this fluid model is optimized or generated from an optimized application model using required PVT data.
     /// </summary>
     [JsonPropertyName("IsModelPvtOptimized")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsModelPvtOptimized { get; set; }
 
     /// <summary>
     /// Indicates whether or not the fluid model is optimized or generated from an optimized application model on validated viscosity data.
     /// </summary>
     [JsonPropertyName("IsModelViscosityOptimized")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsModelViscosityOptimized { get; set; }
 
     /// <summary>
     /// Indicates whether or not the components described in the model are lumped, meaning the list of components has some components combined together, resulting in a more limited list as compared with the reported compositional analysis, which has the full, extended, component list. A "false" value indicates the components are not lumped, but rather extended, as found in the full compositional analysis. This is mostly applicable in Equation of State Model scenarios, with "true" being most common to support the Reservoir Simulation workflow.
     /// </summary>
     [JsonPropertyName("IsCompositionLumped")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCompositionLumped { get; set; }
 
     /// <summary>

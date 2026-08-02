@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.Type;
@@ -134,6 +135,7 @@ public class Type_1_0_0Data : AbstractCommonResources_1_0_0
     /// The flag indicating that this type is a reference value type.
     /// </summary>
     [JsonPropertyName("IsReferenceValueType")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsReferenceValueType { get; set; }
 
     /// <summary>

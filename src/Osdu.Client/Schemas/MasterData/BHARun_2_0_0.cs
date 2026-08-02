@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -239,12 +240,14 @@ public class BHARun_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// Part or all of the BHA is left in the hole
     /// </summary>
     [JsonPropertyName("IsLeftInHole")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsLeftInHole { get; set; }
 
     /// <summary>
     /// The BHA component(s) contained a Nuclear Source.
     /// </summary>
     [JsonPropertyName("IsNuclearSource")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsNuclearSource { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Apis.Search;
 
@@ -72,12 +73,14 @@ public class QueryRequest
     /// The queryAsOwner switches between viewer and owner to return results that you are entitled to view or results you are the owner of.
     /// </summary>
     [JsonPropertyName("queryAsOwner")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? QueryAsOwner { get; set; }
 
     /// <summary>
     /// Tracks accurate record count matching the query if 'true', partial count otherwise. Partial count queries are more performant. Default is 'false' and returns 10000 if matching records are higher than 10000.
     /// </summary>
     [JsonPropertyName("trackTotalCount")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? TrackTotalCount { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -436,6 +437,7 @@ public class StimulationStage_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Did screen out occur? True (true or 1) indicates that screen out occurred. False (false or 0) or not given indicates otherwise.
     /// </summary>
     [JsonPropertyName("IsScreenedOut")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsScreenedOut { get; set; }
 
     /// <summary>
@@ -1214,6 +1216,7 @@ public class StimulationStage_1_0_0DataJobStepFluid
     /// Is the fluid a kill fluid?
     /// </summary>
     [JsonPropertyName("IsKillFluid")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsKillFluid { get; set; }
 
     /// <summary>
@@ -1550,6 +1553,7 @@ public class StimulationStage_1_0_0DataPumpDiagnosticSession
     /// Are the calculations corrected for temperature? A value of true (or 1) indicates that the calculations were corrected for temperature. A value of false (or 0) or not given indicates otherwise.
     /// </summary>
     [JsonPropertyName("IsTemperatureCorrectionApplied")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTemperatureCorrectionApplied { get; set; }
 
     /// <summary>

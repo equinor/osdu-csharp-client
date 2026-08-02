@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -238,6 +239,7 @@ public class WellLogAcquisition_1_0_0DataLogRunsLogPasses
     /// True means all reference curve values are regularly spaced (see SamplingInterval). False means irregular or discrete sample spacing.
     /// </summary>
     [JsonPropertyName("IsRegularSamplingInterval")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRegularSamplingInterval { get; set; }
 
     /// <summary>

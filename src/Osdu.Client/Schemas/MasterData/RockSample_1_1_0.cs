@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -214,18 +215,21 @@ public class RockSample_1_1_0Data : AbstractCommonResources_1_0_0 // Also compos
     /// A flag to denote whether a particular core has been slabbed or not.
     /// </summary>
     [JsonPropertyName("IsCoreSlabbed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCoreSlabbed { get; set; }
 
     /// <summary>
     /// For sample plugs: a flag indicating whether the plug has been cleaned. More details in the associated RockSampleAnalysis.
     /// </summary>
     [JsonPropertyName("IsPlugCleaned")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPlugCleaned { get; set; }
 
     /// <summary>
     /// For cuttings: a flag indication whether the cuttings were washed and dried. More details in the associated RockSampleAnalysis.
     /// </summary>
     [JsonPropertyName("AreCuttingsWashedAndDried")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? AreCuttingsWashedAndDried { get; set; }
 
     /// <summary>

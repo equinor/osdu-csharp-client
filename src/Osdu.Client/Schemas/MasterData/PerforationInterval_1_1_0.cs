@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -279,6 +280,7 @@ public class PerforationInterval_1_1_0Data : AbstractCommonResources_1_0_0 // Al
     /// Additional shot Y/N (+1 to Tot Shots calc)
     /// </summary>
     [JsonPropertyName("IsAdditionalShot")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsAdditionalShot { get; set; }
 
     /// <summary>

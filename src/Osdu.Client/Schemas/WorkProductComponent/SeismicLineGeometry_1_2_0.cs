@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -149,12 +150,14 @@ public class SeismicLineGeometry_1_2_0Data : AbstractCommonResources_1_0_0 // Al
     /// Indicates that the station label (SP name) changes monotonically with respect to CMP.
     /// </summary>
     [JsonPropertyName("HasMonotonicLabelling")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasMonotonicLabelling { get; set; }
 
     /// <summary>
     /// Indicates that CMP numbering increases regularly by 1.
     /// </summary>
     [JsonPropertyName("HasCMPIncreaseByOne")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasCMPIncreaseByOne { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

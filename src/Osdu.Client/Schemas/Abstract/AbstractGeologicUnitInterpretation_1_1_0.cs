@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -49,6 +50,7 @@ public class AbstractGeologicUnitInterpretation_1_1_0
     /// Corresponding to Energistics GeologicUnitMaterialEmplacement 'intrusive' and 'non-intrusive'.
     /// </summary>
     [JsonPropertyName("IsIntrusive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsIntrusive { get; set; }
 
     /// <summary>

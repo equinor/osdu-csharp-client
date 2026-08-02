@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -130,6 +131,7 @@ public class WellPressureTestInterpretation_1_0_0Data : AbstractCommonResources_
     /// Boolean indicating where this Interpretation is the preferred record where multiple interpretations may have been performed over time e.g. re-interpretation
     /// </summary>
     [JsonPropertyName("IsPreferred")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPreferred { get; set; }
 
     /// <summary>
@@ -191,6 +193,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResults
     /// Boolean indicating where this Interpretation result is the preferred where multiple interpretation results are present
     /// </summary>
     [JsonPropertyName("IsPreferred")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPreferred { get; set; }
 
     /// <summary>

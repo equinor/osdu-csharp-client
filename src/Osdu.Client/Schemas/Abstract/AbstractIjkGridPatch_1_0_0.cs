@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -34,12 +35,14 @@ public class AbstractIjkGridPatch_1_0_0 : AbstractColumnLayerGridPatch_1_0_0
     /// Indicates that the IJK grid is right handed, as determined by the triple product of tangent vectors in the I, J, and K directions.
     /// </summary>
     [JsonPropertyName("IsRightHanded")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRightHanded { get; set; }
 
     /// <summary>
     /// TRUE if the grid is periodic in J, i.e., has the topology of a complete 360 degree circle.
     /// </summary>
     [JsonPropertyName("IsRadial")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRadial { get; set; }
 
 }

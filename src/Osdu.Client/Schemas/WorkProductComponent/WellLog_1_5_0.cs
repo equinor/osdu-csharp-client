@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -309,6 +310,7 @@ public class WellLog_1_5_0Data : AbstractCommonResources_1_0_0 // Also composes:
     /// Boolean property indicating the sampling mode of the ReferenceCurveID. True means all reference curve values are regularly spaced (see SamplingInterval); false means irregular or discrete sample spacing.
     /// </summary>
     [JsonPropertyName("IsRegular")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRegular { get; set; }
 
     /// <summary>
@@ -392,18 +394,21 @@ public class WellLog_1_5_0DataCurves
     /// Indicates if the curve is regularly or irregularly sampled. Not to be confused with the `data.IsRegular` attribute at Log Level which indicates regularity of the reference curve only.
     /// </summary>
     [JsonPropertyName("IsRegularlySampled")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRegularlySampled { get; set; }
 
     /// <summary>
     /// DEPRECATED: Highly subjective and difficult to ascertain what "Processed" means. Indicates if the curve has been processed or re-processed. This could include both wellsite downhole processing during acquisition or post-job processing from the office
     /// </summary>
     [JsonPropertyName("IsProcessed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsProcessed { get; set; }
 
     /// <summary>
     /// Indicates that there is no measurement within the curve. This attribute is required for the Wellbore DDMS.
     /// </summary>
     [JsonPropertyName("NullValue")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NullValue { get; set; }
 
     /// <summary>
@@ -417,6 +422,7 @@ public class WellLog_1_5_0DataCurves
     /// DEPRECATED: Any curve can be interpreted. Whether curve can be interpolated or not
     /// </summary>
     [JsonPropertyName("Interpolate")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Interpolate { get; set; }
 
     /// <summary>

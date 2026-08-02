@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -390,6 +391,7 @@ public class WellBarrierElementTest_1_3_0DataTestStepsHighPressureCriteria
     /// Boolean that states if the criteria are for the high pressure stage (low pressure stage otherwise)
     /// </summary>
     [JsonPropertyName("IsHigh")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsHigh { get; set; }
 
 }
@@ -439,6 +441,7 @@ public class WellBarrierElementTest_1_3_0DataTestStepsLowPressureCriteria
     /// Boolean that states if the criteria are for the high pressure stage (low pressure stage otherwise)
     /// </summary>
     [JsonPropertyName("IsHigh")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsHigh { get; set; }
 
 }

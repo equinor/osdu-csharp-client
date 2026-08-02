@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -40,6 +41,7 @@ public class AbstractReferenceType_1_0_0
     /// By default reference values are considered as 'active'. An absent 'InactiveIndicator' property value means the reference value is in active use. When 'InactiveIndicator' is set true the reverence value is no longer in use and should no longer be offered as a choice.
     /// </summary>
     [JsonPropertyName("InactiveIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? InactiveIndicator { get; set; }
 
     /// <summary>

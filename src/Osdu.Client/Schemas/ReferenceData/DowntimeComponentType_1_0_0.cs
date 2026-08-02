@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -98,6 +99,7 @@ public class DowntimeComponentType_1_0_0Data : AbstractCommonResources_1_0_0 // 
     /// Boolean property identifying if the location of the component is at the surface, or subsurface. A value of true indicates that the component is at the surface, otherwise a value of false indicates it is subsurface
     /// </summary>
     [JsonPropertyName("Surface")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Surface { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -186,12 +187,14 @@ public class TubularAssembly_2_1_0Data : AbstractCommonResources_1_0_0 // Also c
     /// True if the assembly is a mixed string, else false. True where the Tubular Assembly is made up of joints with different Diameters, Weights, Grades, Connection, Tensile Strengths, Collapse Resistance or  Yield Strengths.
     /// </summary>
     [JsonPropertyName("IsMixedString")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsMixedString { get; set; }
 
     /// <summary>
     /// Indicates if the Tubular Assembly is currently downhole.
     /// </summary>
     [JsonPropertyName("IsInstalled")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsInstalled { get; set; }
 
     /// <summary>
@@ -303,12 +306,14 @@ public class TubularAssembly_2_1_0Data : AbstractCommonResources_1_0_0 // Also c
     /// Is Fluid Lost
     /// </summary>
     [JsonPropertyName("IsFluidLost")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFluidLost { get; set; }
 
     /// <summary>
     /// Is Parallel/Dual Assembly
     /// </summary>
     [JsonPropertyName("IsParallel")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsParallel { get; set; }
 
     /// <summary>

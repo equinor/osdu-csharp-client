@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -300,6 +301,7 @@ public class StimulationJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Is the stimulation conveyed via coiled tubing?
     /// </summary>
     [JsonPropertyName("IsCoiledTubingConveyed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCoiledTubingConveyed { get; set; }
 
     /// <summary>

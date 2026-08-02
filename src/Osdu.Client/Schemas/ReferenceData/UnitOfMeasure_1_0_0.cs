@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -111,6 +112,7 @@ public class UnitOfMeasure_1_0_0Data : AbstractCommonResources_1_0_0 // Also com
     /// True if the unit is a base unit for the unit quantity. If the property is absent, it means the unit is not a base unit.
     /// </summary>
     [JsonPropertyName("IsBaseUnit")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsBaseUnit { get; set; }
 
     /// <summary>

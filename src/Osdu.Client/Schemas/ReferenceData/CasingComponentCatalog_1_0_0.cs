@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -264,6 +265,7 @@ public class CasingComponentCatalog_1_0_0Data : AbstractCommonResources_1_0_1 //
     /// Premium or non-premium (Gas-tight or non-Gas-tight).
     /// </summary>
     [JsonPropertyName("Premium")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Premium { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -35,6 +36,7 @@ public class AbstractColumnLayerGridPatch_1_0_0
     /// Indicate if at least two adjacent nodes in K Direction are collocated. Also known as pinched node. Usually occur in erosional context.
     /// </summary>
     [JsonPropertyName("HasCollocatedNodeInKDirection")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasCollocatedNodeInKDirection { get; set; }
 
     /// <summary>
@@ -48,30 +50,35 @@ public class AbstractColumnLayerGridPatch_1_0_0
     /// Indicate that it exists at least one gap in the lateral direction of the grid. A gap is really a hole, it is not a slice of dead cells.
     /// </summary>
     [JsonPropertyName("HasLateralGaps")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasLateralGaps { get; set; }
 
     /// <summary>
     /// Indicate that it exists at least one gap in the whole K direction of the grid. A gap is really a hole, it is not a layer of dead cells.
     /// </summary>
     [JsonPropertyName("HasKGaps")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasKGaps { get; set; }
 
     /// <summary>
     /// Indicate that the nodes of the grid are given by means of a parameter along the pillar. Otherwise nodes of the grid are explicitly given by means of an XYZ triplet.
     /// </summary>
     [JsonPropertyName("HasParametricGeometry")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasParametricGeometry { get; set; }
 
     /// <summary>
     /// Indicate that the grid contains some split nodes i.e some node which are not on a pillar.
     /// </summary>
     [JsonPropertyName("HasSplitNode")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasSplitNode { get; set; }
 
     /// <summary>
     /// Indicate that some of the pillars of the grid are truncated (Fault contact in Y shape for example)
     /// </summary>
     [JsonPropertyName("HasTruncations")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasTruncations { get; set; }
 
     /// <summary>

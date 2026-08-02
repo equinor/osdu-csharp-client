@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -79,6 +80,7 @@ public class AbstractActivityParameter_1_2_0
     /// The boolean parameter value, if ParameterKindID refers to the Boolean type.
     /// </summary>
     [JsonPropertyName("BooleanParameter")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? BooleanParameter { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -142,6 +143,7 @@ public class PerforationJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Is a tractor used during the job to help convey guns
     /// </summary>
     [JsonPropertyName("IsTractorUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTractorUsed { get; set; }
 
     /// <summary>
@@ -209,6 +211,7 @@ public class PerforationJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Underbalance indicator
     /// </summary>
     [JsonPropertyName("Underbalanced")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Underbalanced { get; set; }
 
     /// <summary>

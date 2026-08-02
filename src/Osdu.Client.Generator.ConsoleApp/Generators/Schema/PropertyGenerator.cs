@@ -41,6 +41,11 @@ public class PropertyGenerator
         sb.AppendLine($"{prefix}[JsonPropertyName(\"{propName}\")]");
 
         var typeName = _typeNameResolver.ResolveTypeName(propSchema, parentName, propName);
+
+        // Add FlexibleBooleanConverter for boolean properties to handle non-standard JSON boolean values
+        if (typeName == "bool")
+            sb.AppendLine($"{prefix}[JsonConverter(typeof(BooleanConverter))]");
+
         var nullable = !isRequired && SchemaHelpers.IsNullableType(propSchema) ? "?" : "";
 
         sb.AppendLine($"{prefix}public {typeName}{nullable} {csharpName} {{ get; set; }}");

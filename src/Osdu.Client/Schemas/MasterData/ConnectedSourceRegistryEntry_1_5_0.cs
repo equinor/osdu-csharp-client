@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -110,6 +111,7 @@ public class ConnectedSourceRegistryEntry_1_5_0Data : AbstractCommonResources_1_
     /// Flag that determines whether the external source has a full OSDU implementation (true) or a wrapper facade over proprietary APIs (false)
     /// </summary>
     [JsonPropertyName("FullOSDUImplementationIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? FullOSDUImplementationIndicator { get; set; }
 
     /// <summary>
@@ -343,12 +345,14 @@ public class ConnectedSourceRegistryEntry_1_5_0DataSmtpSchemes
     /// Type of protocol connection (Explicit TLS).
     /// </summary>
     [JsonPropertyName("SmtpStartTLS")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? SmtpStartTLS { get; set; }
 
     /// <summary>
     /// Type of protocol for connection (Implicit SSL/TLS).
     /// </summary>
     [JsonPropertyName("SmtpSSL")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? SmtpSSL { get; set; }
 
     /// <summary>

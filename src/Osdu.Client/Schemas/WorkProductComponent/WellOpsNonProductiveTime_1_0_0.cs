@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -161,6 +162,7 @@ public class WellOpsNonProductiveTime_1_0_0Data : AbstractCommonResources_1_0_0 
     /// Used to flag NPT Events which were later classified as not NPT
     /// </summary>
     [JsonPropertyName("IsExcludeFromNPT")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsExcludeFromNPT { get; set; }
 
     /// <summary>
@@ -456,6 +458,7 @@ public class WellOpsNonProductiveTime_1_0_0Data : AbstractCommonResources_1_0_0 
     /// Is Investigation Waived
     /// </summary>
     [JsonPropertyName("IsInvestigationWaived")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsInvestigationWaived { get; set; }
 
     /// <summary>

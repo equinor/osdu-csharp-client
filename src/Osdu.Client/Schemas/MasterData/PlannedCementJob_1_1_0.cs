@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -144,6 +145,7 @@ public class PlannedCementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Offshore job? Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsOffshoreJob")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOffshoreJob { get; set; }
 
     /// <summary>
@@ -156,12 +158,14 @@ public class PlannedCementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Returns to seabed? Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsReturnsToSeabed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsReturnsToSeabed { get; set; }
 
     /// <summary>
     /// Pipe being reciprocated.  Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsReciprocating")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsReciprocating { get; set; }
 
     /// <summary>
@@ -241,6 +245,7 @@ public class PlannedCementJob_1_1_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Coiled Tubing Used (true=CTU used). Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsCoilTubing")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCoilTubing { get; set; }
 
     /// <summary>
@@ -679,6 +684,7 @@ public class PlannedCementJob_1_1_0DataCementStagesCementingFluid
     /// Foam used indicator.  Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsFoamUsed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFoamUsed { get; set; }
 
     /// <summary>

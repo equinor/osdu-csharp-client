@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -365,6 +366,7 @@ public class RockSampleAnalysis_1_0_0DataRoutineCoreAnalysisRCAMeasurementsOther
     /// The indicator value of the parameter.
     /// </summary>
     [JsonPropertyName("SpecificationIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? SpecificationIndicator { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -656,18 +657,21 @@ public class WellOperationsReport_2_1_0DataOperationsActivity
     /// Is the activity optimum? Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsOptimum")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOptimum { get; set; }
 
     /// <summary>
     /// Does activity bring closer to objective?  Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsProductive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsProductive { get; set; }
 
     /// <summary>
     /// Is the activity an Offline activity, Values are "true" (or "1") and "false" (or "0").
     /// </summary>
     [JsonPropertyName("IsOffline")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOffline { get; set; }
 
     /// <summary>
@@ -1770,18 +1774,21 @@ public class WellOperationsReport_2_1_0DataCost
     /// Is this an estimated cost?
     /// </summary>
     [JsonPropertyName("IsEstimated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsEstimated { get; set; }
 
     /// <summary>
     /// Is this item carried from day to day?
     /// </summary>
     [JsonPropertyName("IsCarryOver")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCarryOver { get; set; }
 
     /// <summary>
     /// Is this item a rental?
     /// </summary>
     [JsonPropertyName("IsRental")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsRental { get; set; }
 
     /// <summary>
@@ -1867,6 +1874,7 @@ public class WellOperationsReport_2_1_0DataCost
     /// Used to indicate if Equipment or Service in scope for the Cost Item is being used. Can drive different Standby/In Use Rental Rates where applicable.
     /// </summary>
     [JsonPropertyName("InUse")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? InUse { get; set; }
 
     /// <summary>
@@ -1971,6 +1979,7 @@ public class WellOperationsReport_2_1_0DataHSE
     /// Inspection non-compliance notice served?
     /// </summary>
     [JsonPropertyName("NonComplianceIssued")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NonComplianceIssued { get; set; }
 
     /// <summary>
@@ -2031,6 +2040,7 @@ public class WellOperationsReport_2_1_0DataHSE
     /// Governmental regulatory inspection agency inspection?
     /// </summary>
     [JsonPropertyName("RegulatoryAgencyInspection")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? RegulatoryAgencyInspection { get; set; }
 
     /// <summary>
@@ -2105,6 +2115,7 @@ public class WellOperationsReport_2_1_0DataIncident
     /// Near miss incident occurrence?
     /// </summary>
     [JsonPropertyName("IsNearMiss")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsNearMiss { get; set; }
 
     /// <summary>

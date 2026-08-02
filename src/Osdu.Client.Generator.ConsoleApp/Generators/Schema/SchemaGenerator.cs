@@ -198,6 +198,7 @@ public class SchemaGenerator
         sb.AppendLine("using System.Collections.Generic;");
         sb.AppendLine("using System.ComponentModel.DataAnnotations;");
         sb.AppendLine("using System.Text.Json.Serialization;");
+        sb.AppendLine("using Osdu.Client.Converters;");
 
         foreach (var ns in additionalUsings)
         {

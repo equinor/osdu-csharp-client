@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -110,6 +111,7 @@ public class UserProfile_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// An indicator of whether this User Profile is currently considered active.
     /// </summary>
     [JsonPropertyName("IsUserCurrentlyActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsUserCurrentlyActive { get; set; }
 
     /// <summary>

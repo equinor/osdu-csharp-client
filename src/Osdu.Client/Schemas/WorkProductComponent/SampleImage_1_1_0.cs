@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -230,6 +231,7 @@ public class SampleImage_1_1_0DataImageParameters
     /// The image parameter value of type "Boolean" under which the image was acquired.
     /// </summary>
     [JsonPropertyName("BooleanParameterValue")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? BooleanParameterValue { get; set; }
 
     /// <summary>

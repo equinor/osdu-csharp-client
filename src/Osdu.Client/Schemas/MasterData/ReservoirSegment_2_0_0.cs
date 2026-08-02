@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -126,6 +127,7 @@ public class ReservoirSegment_2_0_0Data : AbstractCommonResources_1_0_0 // Also 
     /// This flag indicates that this reservoir segment (usually a fault block) is hydraulically isolated (i.e., not in pressure communication) from other segments in the reservoir.
     /// </summary>
     [JsonPropertyName("IsIsolated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsIsolated { get; set; }
 
     /// <summary>

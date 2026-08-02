@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -148,6 +149,7 @@ public class RigSpecifications_1_0_0Data : AbstractCommonResources_1_0_1 // Also
     /// Indicates that the rig supports Managed Pressure Drilling
     /// </summary>
     [JsonPropertyName("MPDCapable")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? MPDCapable { get; set; }
 
     /// <summary>
@@ -179,6 +181,7 @@ public class RigSpecifications_1_0_0Data : AbstractCommonResources_1_0_1 // Also
     /// Are the thrusters azimuth?  Help maintain stability and position without the need of mooring lines.
     /// </summary>
     [JsonPropertyName("IsThrusterAzimuth")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsThrusterAzimuth { get; set; }
 
     /// <summary>
@@ -389,6 +392,7 @@ public class RigSpecifications_1_0_0Data : AbstractCommonResources_1_0_1 // Also
     /// Indicates that the rig has a Programmer Control Room Operating System
     /// </summary>
     [JsonPropertyName("AutomationPCROS")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? AutomationPCROS { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

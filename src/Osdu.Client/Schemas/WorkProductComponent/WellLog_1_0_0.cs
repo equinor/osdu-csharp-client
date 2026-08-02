@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -266,12 +267,14 @@ public class WellLog_1_0_0DataCurves
     /// Indicates if the curve has been (pre)processed or if it is a raw recording
     /// </summary>
     [JsonPropertyName("IsProcessed")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsProcessed { get; set; }
 
     /// <summary>
     /// Indicates that there is no measurement within the curve
     /// </summary>
     [JsonPropertyName("NullValue")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NullValue { get; set; }
 
     /// <summary>
@@ -285,6 +288,7 @@ public class WellLog_1_0_0DataCurves
     /// Whether curve can be interpolated or not
     /// </summary>
     [JsonPropertyName("Interpolate")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Interpolate { get; set; }
 
     /// <summary>

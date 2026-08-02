@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Apis.Storage;
 
@@ -28,6 +29,7 @@ public class FeatureFlagState
     /// Whether the feature flag is currently enabled.
     /// </summary>
     [JsonPropertyName("enabled")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Enabled { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.Dataset;
@@ -98,6 +99,7 @@ public class FileCollection_SEGA_1_1_0Data : AbstractCommonResources_1_0_0 // Al
     /// The dataset is accessible online if true, else offline.
     /// </summary>
     [JsonPropertyName("IsOnline")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOnline { get; set; }
 
     /// <summary>

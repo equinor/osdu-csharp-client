@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -164,12 +165,14 @@ public class DepthShift_1_0_0DataDepthShiftedSamples
     /// Indicates whether the author of this depth shift intends for it to be applied to all rock samples that are subsampled from the specified SampleID. This could be used as a trigger for an application to find all child samples and apply this depth shift to those.
     /// </summary>
     [JsonPropertyName("CanDepthShiftBeAppliedToChildSamples")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? CanDepthShiftBeAppliedToChildSamples { get; set; }
 
     /// <summary>
     /// Indicates whether the author of this depth shift intends for it to be applied to all samples/specimens that were subsampled from the same parent sample (e.g., other core plugs taken from the same slab, but for which a depth shift data record is not explicitly generated). This could be used as a trigger for an application to find all sibling samples and apply this depth shift.
     /// </summary>
     [JsonPropertyName("CanDepthShiftBeAppliedToSiblingSamples")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? CanDepthShiftBeAppliedToSiblingSamples { get; set; }
 
 }

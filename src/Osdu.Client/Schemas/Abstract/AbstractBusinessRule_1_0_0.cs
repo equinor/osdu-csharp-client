@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -48,6 +49,7 @@ public class AbstractBusinessRule_1_0_0DataRuleSets
     /// True if data ruleset rule has passed, False if data ruleset rule dit not pass.
     /// </summary>
     [JsonPropertyName("DataRuleSetRunStatus")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? DataRuleSetRunStatus { get; set; }
 
 }
@@ -68,6 +70,7 @@ public class AbstractBusinessRule_1_0_0DataRules
     /// True if data rule has passed, False if data rule did not pass.
     /// </summary>
     [JsonPropertyName("DataRuleRunStatus")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? DataRuleRunStatus { get; set; }
 
 }

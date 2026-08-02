@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -110,6 +111,7 @@ public class GeoPoliticalEntity_1_0_0Data : AbstractCommonResources_1_0_0 // Als
     /// Indicates whether the GeoPolitical entity has a disputed status.
     /// </summary>
     [JsonPropertyName("DisputedIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? DisputedIndicator { get; set; }
 
     /// <summary>

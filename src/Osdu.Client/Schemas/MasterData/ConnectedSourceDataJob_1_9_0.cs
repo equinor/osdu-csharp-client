@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -111,6 +112,7 @@ public class ConnectedSourceDataJob_1_9_0Data : AbstractCommonResources_1_0_1 //
     /// Indicates if a scheduled job is active (will be executed) or not (won't be executed)
     /// </summary>
     [JsonPropertyName("ActiveIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ActiveIndicator { get; set; }
 
     /// <summary>
@@ -213,6 +215,7 @@ public class ConnectedSourceDataJob_1_9_0Data : AbstractCommonResources_1_0_1 //
     /// Indicates if the dummy parent data mapping should be considered or not, by default it will be false (and false if absent), if true ParentDataMappingDummyMasterIDs should be set.
     /// </summary>
     [JsonPropertyName("IsDummyParentMappingEnabled")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsDummyParentMappingEnabled { get; set; }
 
     /// <summary>
@@ -225,6 +228,7 @@ public class ConnectedSourceDataJob_1_9_0Data : AbstractCommonResources_1_0_1 //
     /// TriggerNaturalizationDAG (default false) triggers, if true, a naturalization DAG (directed acyclic graph) that will add the data file (SEG-Y, LAS, etc.) to the target OSDU Platform from the source system and convert the WPC's child dataset from "external" to "internal".
     /// </summary>
     [JsonPropertyName("TriggerNaturalizationDAG")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? TriggerNaturalizationDAG { get; set; }
 
     /// <summary>
@@ -250,6 +254,7 @@ public class ConnectedSourceDataJob_1_9_0Data : AbstractCommonResources_1_0_1 //
     /// If the FailedRecords array is populated, this flag determines whether to retry ingesting those records in the next scheduled run, or skip retrying and leave the array unchanged.
     /// </summary>
     [JsonPropertyName("RetryOnFailedRecords")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? RetryOnFailedRecords { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

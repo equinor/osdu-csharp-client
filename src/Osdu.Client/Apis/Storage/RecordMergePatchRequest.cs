@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Apis.Storage;
 
@@ -58,6 +59,7 @@ public class RecordMergePatchRequest
     /// Soft delete flag - set to false to undelete
     /// </summary>
     [JsonPropertyName("deleted")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Deleted { get; set; }
 
     /// <summary>

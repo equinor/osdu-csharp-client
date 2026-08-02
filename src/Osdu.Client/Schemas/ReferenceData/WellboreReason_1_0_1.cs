@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -98,6 +99,7 @@ public class WellboreReason_1_0_1Data : AbstractCommonResources_1_0_0 // Also co
     /// Flag indicating whether the WellboreReason implies a side-track Wellbore.
     /// </summary>
     [JsonPropertyName("IsTechnicalSideTrack")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTechnicalSideTrack { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]

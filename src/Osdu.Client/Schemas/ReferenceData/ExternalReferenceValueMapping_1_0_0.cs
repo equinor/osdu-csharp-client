@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -112,6 +113,7 @@ public class ExternalReferenceValueMapping_1_0_0Data : AbstractCommonResources_1
     /// A flag — if true — indicating that this mapping has global scope and does not apply to specific external entity types only. If false, the Scope is required. Scope should be made part of the Code and id
     /// </summary>
     [JsonPropertyName("HasGlobalScope")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasGlobalScope { get; set; }
 
     /// <summary>

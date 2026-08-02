@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -248,6 +249,7 @@ public class VelocityModeling_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Boolean to show that datum reference is not a constant.  Any description or horizon information must be described in model file(s).
     /// </summary>
     [JsonPropertyName("FloatingDatumIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? FloatingDatumIndicator { get; set; }
 
     /// <summary>

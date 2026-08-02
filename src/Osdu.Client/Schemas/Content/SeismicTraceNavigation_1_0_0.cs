@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.Content;
@@ -94,12 +95,14 @@ public class SeismicTraceNavigation_1_0_0LineSegments
     /// Has the segment been extrapolated to cover the entire trace range?
     /// </summary>
     [JsonPropertyName("IsExtrapolated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsExtrapolated { get; set; }
 
     /// <summary>
     /// Has the segment been interpolated?
     /// </summary>
     [JsonPropertyName("IsInterpolated")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsInterpolated { get; set; }
 
 }

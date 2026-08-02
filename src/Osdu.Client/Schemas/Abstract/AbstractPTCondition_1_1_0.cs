@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -38,6 +39,7 @@ public class AbstractPTCondition_1_1_0
     /// Capture
     /// </summary>
     [JsonPropertyName("IsStandardConditions")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsStandardConditions { get; set; }
 
     /// <summary>

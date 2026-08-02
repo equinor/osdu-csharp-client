@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.ReferenceData;
@@ -98,12 +99,14 @@ public class DowntimeReasonType_1_0_0Data : AbstractCommonResources_1_0_0 // Als
     /// Boolean property identifying if the reason activity was planned, or unplanned. A value of true indicates that the activity was planned, otherwise a value of false indicates it was unplanned
     /// </summary>
     [JsonPropertyName("Planned")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Planned { get; set; }
 
     /// <summary>
     /// Boolean property identifying if the reason activity was controllable, or uncontrollable. A value of true indicates that the activity was controllable, otherwise a value of false indicates it was uncontrollable
     /// </summary>
     [JsonPropertyName("Controllable")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Controllable { get; set; }
 
     /// <summary>

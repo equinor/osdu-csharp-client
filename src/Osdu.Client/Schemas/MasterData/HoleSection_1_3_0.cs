@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -151,6 +152,7 @@ public class HoleSection_1_3_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// Flag if Hole Section was drilled as a pilot hole
     /// </summary>
     [JsonPropertyName("IsPilotHole")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsPilotHole { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -248,6 +249,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatform
     /// This should be true if any of the below moving platform properties could be populated now or in the future.
     /// </summary>
     [JsonPropertyName("IsMovingPlatformSurvey")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsMovingPlatformSurvey { get; set; }
 
     /// <summary>

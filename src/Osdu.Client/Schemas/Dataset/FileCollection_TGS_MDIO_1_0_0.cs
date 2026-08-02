@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.Dataset;
@@ -105,6 +106,7 @@ public class FileCollection_TGS_MDIO_1_0_0Data : AbstractCommonResources_1_0_0 /
     /// A "true" flag indicates that the data compression applied does not lose data (aka lossless), and therefore can be perfectly reconstructed. "False" indicates the compression is "lossy".
     /// </summary>
     [JsonPropertyName("IsLossless")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsLossless { get; set; }
 
     /// <summary>
@@ -134,6 +136,7 @@ public class FileCollection_TGS_MDIO_1_0_0DataGridOverrides
     /// It is recommended to use ApplyChannelWrap when ingesting 3D Streamer Shots with sequential "channel" numbers in the headers and unknown "cable" number identifiers. Designed to be run in after (and in conjunction with) "CalculateCable".
     /// </summary>
     [JsonPropertyName("ApplyChannelWrap")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ApplyChannelWrap { get; set; }
 
     /// <summary>
@@ -147,12 +150,14 @@ public class FileCollection_TGS_MDIO_1_0_0DataGridOverrides
     /// It is recommended to use this setting when ingesting 3D Streamer Shots with sequential "channel" numbers in the headers and unknown "cable" number identifiers. Designed to be run in prior to (and in conjunction with) "ApplyChannelWrap" when cable numbers are needed.
     /// </summary>
     [JsonPropertyName("CalculateCable")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? CalculateCable { get; set; }
 
     /// <summary>
     /// Setting this to “true” directs the system to apply a channel-numbering transformation based solely on values found in the seismic headers. Unlike “ApplyChannelWrap,” which requires an explicit “ChannelsPerCable” value, “AutoChannelWrap” uses built-in header data (cable number key "cable" and channel header key "channel"). Cannot be enabled at the same time as “ApplyChannelWrap.”
     /// </summary>
     [JsonPropertyName("ApplyAutoChannelWrap")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ApplyAutoChannelWrap { get; set; }
 
 }

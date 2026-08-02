@@ -11,6 +11,8 @@ public class AppConfiguration
 
     public ExtensionConfiguration Extension { get; init; }
 
+    public ConverterConfiguration Converter { get; init; }
+
     public SchemaConfiguration Schema { get; init; }
 
     public void ResolvePaths()
@@ -25,6 +27,8 @@ public class AppConfiguration
         Api.OutputDir = Path.Combine(OutputBaseDir, Api.OutputDir);
 
         Extension.OutputDir = Path.Combine(OutputBaseDir, Extension.OutputDir);
+
+        Converter.OutputDir = Path.Combine(OutputBaseDir, Converter.OutputDir);
 
         Schema.DefinitionsDir = Path.Combine(appDir, Schema.DefinitionsDir);
         Schema.OutputDir = Path.Combine(OutputBaseDir, Schema.OutputDir);
@@ -55,6 +59,13 @@ public class SchemaConfiguration
 }
 
 public class ExtensionConfiguration
+{
+    public required string OutputDir { get; set; }
+
+    public required string Namespace { get; set; }
+}
+
+public class ConverterConfiguration
 {
     public required string OutputDir { get; set; }
 

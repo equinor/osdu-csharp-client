@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -141,6 +142,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0Data : AbstractCommonResou
     /// If false, fluid saturation is calculated at the center of the block. If true, the block is subdivided based on the value defined by FineScaleEquilibration.InitialFluidsInPlaceCalculationAccuracy.
     /// </summary>
     [JsonPropertyName("EnableFineScaleEquilibration")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? EnableFineScaleEquilibration { get; set; }
 
     /// <summary>
@@ -345,12 +347,14 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataFineScaleEquilibration
     /// This indicates whether or not the subdivision should be made parallel to the tilted cell structure in place (true) or purely horizontally (false).
     /// </summary>
     [JsonPropertyName("EnableTiltedBlockEquilibration")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? EnableTiltedBlockEquilibration { get; set; }
 
     /// <summary>
     /// If true, the quiescence option computes a modification to the pressure field such that the reservoir is in hydrostatic equilibrium with respect to the saturations. The pressure modifications are then applied during the rest of the simulation.
     /// </summary>
     [JsonPropertyName("IsQuiescenceActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsQuiescenceActive { get; set; }
 
     /// <summary>

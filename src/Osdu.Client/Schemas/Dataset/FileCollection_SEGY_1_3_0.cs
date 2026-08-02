@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.Dataset;
@@ -107,6 +108,7 @@ public class FileCollection_SEGY_1_3_0Data : AbstractCommonResources_1_0_0 // Al
     /// If TRUE, this means the dataset is a 3D dataset and the trace header values HeaderKeyName:Inline and HeaderKeyName:Crossline are expected to be populated. If FALSE the dataset is interpreted as 2D and HeaderKeyName:SP and HeaderKeyName:CMP are expected to be populated.
     /// </summary>
     [JsonPropertyName("Is3D")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? Is3D { get; set; }
 
     /// <summary>

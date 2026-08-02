@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -40,6 +41,7 @@ public class AbstractWellLicenseViolation_1_0_0
     /// Indicates whether this violation is still in effect, or has not been fully resolved.
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>

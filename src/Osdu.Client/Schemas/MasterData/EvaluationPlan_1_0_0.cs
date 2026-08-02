@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -200,6 +201,7 @@ public class EvaluationPlan_1_0_0DataFormationIntegrityEvaluations
     /// Indicates if a leak off has occurred during the test
     /// </summary>
     [JsonPropertyName("HasLeakOffOccurred")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasLeakOffOccurred { get; set; }
 
     /// <summary>

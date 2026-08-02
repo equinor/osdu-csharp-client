@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.Dataset;
@@ -124,6 +125,7 @@ public class File_TabularData_1_0_0Data : AbstractCommonResources_1_0_1 // Also 
     /// If set to true, the first data row contains the ColumnName values or labels for the purpose of checking/constraining the ColumnName in Columns[]/KeyColumns[].
     /// </summary>
     [JsonPropertyName("ColumnNamesInFirstRow")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ColumnNamesInFirstRow { get; set; }
 
     /// <summary>

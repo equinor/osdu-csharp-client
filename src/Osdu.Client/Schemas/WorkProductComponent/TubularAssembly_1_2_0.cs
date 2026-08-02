@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -187,6 +188,7 @@ public class TubularAssembly_1_2_0Data : AbstractCommonResources_1_0_0 // Also c
     /// Indicates if the Assembly is activated or not
     /// </summary>
     [JsonPropertyName("ActiveIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ActiveIndicator { get; set; }
 
     /// <summary>

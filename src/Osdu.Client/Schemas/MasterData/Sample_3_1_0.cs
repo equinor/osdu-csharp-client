@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -475,12 +476,14 @@ public class Sample_3_1_0DataSampleAcquisitionSampleAcquisitionDetail
     /// Indicates whether the rock was cryogenically frozen when it was acquired. In this process, the drilling fluid is pushed aside from the coring zone, liquid nitrogen or similar cryogenic agent is injected through a specialized cryogenic coring tool, and then a core barrel retrieves the stabilized core sample.
     /// </summary>
     [JsonPropertyName("WasCryogenicallyAcquired")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? WasCryogenicallyAcquired { get; set; }
 
     /// <summary>
     /// Indicates whether the fluid sample consists of fluids from multiple reservoir zones and/or wellbore openings mixed into one production flow stream before being collected.
     /// </summary>
     [JsonPropertyName("IsCommingledProductionFluid")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsCommingledProductionFluid { get; set; }
 
 }

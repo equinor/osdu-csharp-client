@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -134,6 +135,7 @@ public class ActivityTemplate_1_1_0DataParameters
     /// </summary>
     [Required]
     [JsonPropertyName("IsInput")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool IsInput { get; set; }
 
     /// <summary>
@@ -147,6 +149,7 @@ public class ActivityTemplate_1_1_0DataParameters
     /// </summary>
     [Required]
     [JsonPropertyName("IsOutput")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool IsOutput { get; set; }
 
     /// <summary>

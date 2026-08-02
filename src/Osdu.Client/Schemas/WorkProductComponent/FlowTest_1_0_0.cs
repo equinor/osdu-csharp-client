@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -144,6 +145,7 @@ public class FlowTest_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes
     /// Flag to indicate if an approved valid flow test should be used for allocation or for information purposes only.
     /// </summary>
     [JsonPropertyName("UsedInAllocation")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? UsedInAllocation { get; set; }
 
     /// <summary>

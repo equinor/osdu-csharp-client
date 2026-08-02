@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -173,6 +174,7 @@ public class SaturationFunctionSet_1_0_0DataSaturationFunctions
     /// </summary>
     [Required]
     [JsonPropertyName("HasRelativePermeability")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool HasRelativePermeability { get; set; }
 
     /// <summary>
@@ -180,6 +182,7 @@ public class SaturationFunctionSet_1_0_0DataSaturationFunctions
     /// </summary>
     [Required]
     [JsonPropertyName("HasCapillaryPressure")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool HasCapillaryPressure { get; set; }
 
 }

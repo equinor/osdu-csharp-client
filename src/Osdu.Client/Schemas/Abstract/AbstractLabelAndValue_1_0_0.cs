@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -42,6 +43,7 @@ public class AbstractLabelAndValue_1_0_0
     /// A Boolean label value. Only populated if the associated labelType data.ValueType is 'boolean'. The label type's ValueCount must be 1.
     /// </summary>
     [JsonPropertyName("ValueAsBoolean")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ValueAsBoolean { get; set; }
 
     /// <summary>

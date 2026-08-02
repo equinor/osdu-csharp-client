@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -30,6 +31,7 @@ public class AbstractWellLicenseStatus_1_0_0
     /// A flag that indicates whether a particular status is currently in effect.  Historical status information can be retained for legal, administrative or analysis purposes.  Future status information can be projected based on the terms of a license and may also be captured in this data object.
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>

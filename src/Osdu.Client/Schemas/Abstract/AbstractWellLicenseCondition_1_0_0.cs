@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -24,6 +25,7 @@ public class AbstractWellLicenseCondition_1_0_0
     /// A flag indicating whether this condition is currently either active / valid (true) or inactive / invalid (false).
     /// </summary>
     [JsonPropertyName("IsActive")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActive { get; set; }
 
     /// <summary>
@@ -92,6 +94,7 @@ public class AbstractWellLicenseCondition_1_0_0
     /// A flag indicating that this condition has been fulfilled. This is applicable when a condition is met once.
     /// </summary>
     [JsonPropertyName("IsFulfilled")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsFulfilled { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -35,6 +36,7 @@ public class AbstractGridRepresentation_1_0_0 : AbstractRepresentation_1_0_0
     /// Indicate that at least on coordinate of one node of the grid is NaN. It is different than a dead cell which may have a geometry while it is disabled.
     /// </summary>
     [JsonPropertyName("HasNaNGeometry")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasNaNGeometry { get; set; }
 
     /// <summary>
@@ -60,12 +62,14 @@ public class AbstractGridRepresentation_1_0_0 : AbstractRepresentation_1_0_0
     /// Indicate if the grid has got some finite element subnodes for defining higher order grid geometry and properties. This is mainly used in geomechanical context.
     /// </summary>
     [JsonPropertyName("HasFiniteElementSubnodes")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasFiniteElementSubnodes { get; set; }
 
     /// <summary>
     /// Indicate that the grid has no geometry. It is common when one wants a grid only as a collection of cell connections (i.e. pipe network).
     /// </summary>
     [JsonPropertyName("HasNoGeometry")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? HasNoGeometry { get; set; }
 
 }

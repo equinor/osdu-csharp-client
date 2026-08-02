@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.WorkProductComponent;
@@ -202,6 +203,7 @@ public class WellPressureTestRawMeasurement_1_0_0DataMeasurements
     /// Boolean that indicates the measurement is tubular (meaning proceeded inside the installed tubular) - or annular otherwise.
     /// </summary>
     [JsonPropertyName("IsTubular")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsTubular { get; set; }
 
     /// <summary>
@@ -263,6 +265,7 @@ public class WellPressureTestRawMeasurement_1_0_0DataCurves
     /// Indicates that there is no measurement within the curve
     /// </summary>
     [JsonPropertyName("NullValue")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? NullValue { get; set; }
 
     /// <summary>

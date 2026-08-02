@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -111,6 +112,7 @@ public class ConnectedSourceDataJob_1_2_0Data : AbstractCommonResources_1_0_0 //
     /// Indicates if a scheduled job is active (will be executed) or not (won't be executed)
     /// </summary>
     [JsonPropertyName("ActiveIndicator")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? ActiveIndicator { get; set; }
 
     /// <summary>

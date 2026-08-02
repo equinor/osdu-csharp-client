@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 
 namespace Osdu.Client.Schemas.Abstract;
 
@@ -34,6 +35,7 @@ public class AbstractGenericReservoirUnit_2_0_0
     /// This flag indicates that this reservoir is composed of reservoir segments, and that the characteristics of the segments should be aggregated to best describe the characteristics of the reservoir. When not segmented, the single reservoir segment describes the properties of the entire reservoir. If more than one reservoir segment is defined for this reservoir, this flag should be set and the characteristics for the reservoir should be calculated as summary data over all its reservoir segments.
     /// </summary>
     [JsonPropertyName("IsSegmented")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsSegmented { get; set; }
 
     /// <summary>
@@ -59,6 +61,7 @@ public class AbstractGenericReservoirUnit_2_0_0
     /// Indicates whether the condition of a Reservoir or Reservoir Segment is Active, meaning there is at least one well intentionally and currently interacting with the reservoir or reservoir segment. The absence of a value should not be assumed to mean true (Active) or false (Inactive).
     /// </summary>
     [JsonPropertyName("IsActiveCondition")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsActiveCondition { get; set; }
 
     /// <summary>

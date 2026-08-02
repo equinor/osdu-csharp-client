@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -244,6 +245,7 @@ public class ActivityPlan_1_2_0DataWellPlanningActivities
     /// Flag used to indicates this particular activity is optional in the plan.
     /// </summary>
     [JsonPropertyName("IsOptional")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsOptional { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Osdu.Client.Converters;
 using Osdu.Client.Schemas.Abstract;
 
 namespace Osdu.Client.Schemas.MasterData;
@@ -131,12 +132,14 @@ public class BlowoutPreventerComponent_1_0_0Data : AbstractCommonResources_1_0_0
     /// Is the blowout preventer component vertical?
     /// </summary>
     [JsonPropertyName("IsVertical")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsVertical { get; set; }
 
     /// <summary>
     /// Is ram bore variable?
     /// </summary>
     [JsonPropertyName("IsVariable")]
+    [JsonConverter(typeof(BooleanConverter))]
     public bool? IsVariable { get; set; }
 
     /// <summary>
