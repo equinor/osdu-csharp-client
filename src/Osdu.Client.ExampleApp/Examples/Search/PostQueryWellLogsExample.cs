@@ -26,7 +26,7 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
     public string[] ReturnedFields { get; set; } = []; //["id", "kind", "createTime"];
 
     [ExampleParameter(DisplayName = "Show Full Response", Order = 3, Description = "Whether to show the full response or only curve information (using strongly-typed result).")]
-    public bool ShowFullResponse { get; set; } = false;
+    public bool ShowFullResponse { get; set; } = true;
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
