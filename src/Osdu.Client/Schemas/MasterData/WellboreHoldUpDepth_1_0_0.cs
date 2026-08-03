@@ -89,11 +89,11 @@ public class WellboreHoldUpDepth_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreHoldUpDepth_1_0_0Data? Data { get; set; }
+    public WellboreHoldUpDepth_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellboreHoldUpDepth_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class WellboreHoldUpDepth_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Business natural key or code of the Wellbore to which this record belongs
@@ -118,7 +118,7 @@ public class WellboreHoldUpDepth_1_0_0Data : AbstractCommonResources_1_0_0 // Al
     /// The life cycle state (status) history the Hold Up Depth has been through.
     /// </summary>
     [JsonPropertyName("HoldUpDepthStatesID")]
-    public List<WellboreHoldUpDepth_1_0_0DataHoldUpDepthStatesID> HoldUpDepthStatesID { get; set; }
+    public List<WellboreHoldUpDepth_1_0_0_Data_HoldUpDepthStatesID> HoldUpDepthStatesID { get; set; }
 
     [JsonPropertyName("VerticalMeasurement")]
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
@@ -219,7 +219,7 @@ public class WellboreHoldUpDepth_1_0_0Data : AbstractCommonResources_1_0_0 // Al
 /// <summary>
 /// The lifecycle status history for a Hold Up Depth
 /// </summary>
-public class WellboreHoldUpDepth_1_0_0DataHoldUpDepthStatesID
+public class WellboreHoldUpDepth_1_0_0_Data_HoldUpDepthStatesID
 {
     /// <summary>
     /// The date and time at which the HoldUpDepth state becomes effective.

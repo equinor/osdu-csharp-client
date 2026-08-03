@@ -89,17 +89,17 @@ public class ConnectedSource_Generic_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ConnectedSource_Generic_1_0_0Data? Data { get; set; }
+    public ConnectedSource_Generic_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ConnectedSource_Generic_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0
+public class ConnectedSource_Generic_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0
 {
     /// <summary>
     /// Properties specific to a dataset via a connected source.
     /// </summary>
     [JsonPropertyName("DatasetProperties")]
-    public ConnectedSource_Generic_1_0_0DataDatasetProperties? DatasetProperties { get; set; }
+    public ConnectedSource_Generic_1_0_0_Data_DatasetProperties? DatasetProperties { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,7 +109,7 @@ public class ConnectedSource_Generic_1_0_0Data : AbstractCommonResources_1_0_0 /
 /// <summary>
 /// Properties specific to a dataset via a connected source.
 /// </summary>
-public class ConnectedSource_Generic_1_0_0DataDatasetProperties
+public class ConnectedSource_Generic_1_0_0_Data_DatasetProperties
 {
     /// <summary>
     /// The relationship to the OSDU -compliant external, connected data source.

@@ -89,11 +89,11 @@ public class ActivityPlan_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ActivityPlan_1_1_0Data? Data { get; set; }
+    public ActivityPlan_1_1_0_Data? Data { get; set; }
 
 }
 
-public class ActivityPlan_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0
+public class ActivityPlan_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// A reference to the wellbore that is the subject of this activity plan
@@ -106,7 +106,7 @@ public class ActivityPlan_1_1_0Data : AbstractCommonResources_1_0_0 // Also comp
     /// The activities that compose this plan
     /// </summary>
     [JsonPropertyName("WellPlanningActivities")]
-    public List<ActivityPlan_1_1_0DataWellPlanningActivities> WellPlanningActivities { get; set; }
+    public List<ActivityPlan_1_1_0_Data_WellPlanningActivities> WellPlanningActivities { get; set; }
 
     /// <summary>
     /// Name of Activity Plan
@@ -122,7 +122,7 @@ public class ActivityPlan_1_1_0Data : AbstractCommonResources_1_0_0 // Also comp
 /// <summary>
 /// Information regarding an individual activity that is part of the ActivityPlan
 /// </summary>
-public class ActivityPlan_1_1_0DataWellPlanningActivities
+public class ActivityPlan_1_1_0_Data_WellPlanningActivities
 {
     /// <summary>
     /// A name given to this activity
@@ -141,7 +141,7 @@ public class ActivityPlan_1_1_0DataWellPlanningActivities
     /// The depth range over which the the activity takes place
     /// </summary>
     [JsonPropertyName("DepthRange")]
-    public ActivityPlan_1_1_0DataWellPlanningActivitiesDepthRange? DepthRange { get; set; }
+    public ActivityPlan_1_1_0_Data_WellPlanningActivities_DepthRange? DepthRange { get; set; }
 
     /// <summary>
     /// The parent activity to this activity
@@ -178,19 +178,19 @@ public class ActivityPlan_1_1_0DataWellPlanningActivities
     /// Statistics that define the expected productivity time of this activity
     /// </summary>
     [JsonPropertyName("ProductiveTimeStatistics")]
-    public List<ActivityPlan_1_1_0DataWellPlanningActivitiesProductiveTimeStatistics> ProductiveTimeStatistics { get; set; }
+    public List<ActivityPlan_1_1_0_Data_WellPlanningActivities_ProductiveTimeStatistics> ProductiveTimeStatistics { get; set; }
 
     /// <summary>
     /// Statistics that define the non productive time of this activity
     /// </summary>
     [JsonPropertyName("NonProductiveTimeStatistics")]
-    public List<ActivityPlan_1_1_0DataWellPlanningActivitiesNonProductiveTimeStatistics> NonProductiveTimeStatistics { get; set; }
+    public List<ActivityPlan_1_1_0_Data_WellPlanningActivities_NonProductiveTimeStatistics> NonProductiveTimeStatistics { get; set; }
 
     /// <summary>
     /// Statistics that define the rate of penetration of this activity
     /// </summary>
     [JsonPropertyName("RateOfPenetrationStatistics")]
-    public List<ActivityPlan_1_1_0DataWellPlanningActivitiesRateOfPenetrationStatistics> RateOfPenetrationStatistics { get; set; }
+    public List<ActivityPlan_1_1_0_Data_WellPlanningActivities_RateOfPenetrationStatistics> RateOfPenetrationStatistics { get; set; }
 
     /// <summary>
     /// Free form comments associated with this activity
@@ -259,7 +259,7 @@ public class ActivityPlan_1_1_0DataWellPlanningActivities
 /// <summary>
 /// The depth range over which the the activity takes place
 /// </summary>
-public class ActivityPlan_1_1_0DataWellPlanningActivitiesDepthRange
+public class ActivityPlan_1_1_0_Data_WellPlanningActivities_DepthRange
 {
     /// <summary>
     /// The depth of the hole at the start of the activity. Depth relative to Planned wellbore ZDP. Navigate via WellboreID to the side-car WellPlanningWellbore, which holds the depth reference in data.VerticalMeasurement.
@@ -290,7 +290,7 @@ public class ActivityPlan_1_1_0DataWellPlanningActivitiesDepthRange
 /// <summary>
 /// Structure that describes a individual statistic record of the operations from an activity.
 /// </summary>
-public class ActivityPlan_1_1_0DataWellPlanningActivitiesProductiveTimeStatistics
+public class ActivityPlan_1_1_0_Data_WellPlanningActivities_ProductiveTimeStatistics
 {
     /// <summary>
     /// Record of the statistic estimation
@@ -312,7 +312,7 @@ public class ActivityPlan_1_1_0DataWellPlanningActivitiesProductiveTimeStatistic
 /// <summary>
 /// Structure that describes a individual statistic record of the operations from an activity.
 /// </summary>
-public class ActivityPlan_1_1_0DataWellPlanningActivitiesNonProductiveTimeStatistics
+public class ActivityPlan_1_1_0_Data_WellPlanningActivities_NonProductiveTimeStatistics
 {
     /// <summary>
     /// Record of the statistic estimation
@@ -334,7 +334,7 @@ public class ActivityPlan_1_1_0DataWellPlanningActivitiesNonProductiveTimeStatis
 /// <summary>
 /// Individual Statistics that define the rate of penetration of an activity
 /// </summary>
-public class ActivityPlan_1_1_0DataWellPlanningActivitiesRateOfPenetrationStatistics
+public class ActivityPlan_1_1_0_Data_WellPlanningActivities_RateOfPenetrationStatistics
 {
     /// <summary>
     /// Record of the statistic estimation

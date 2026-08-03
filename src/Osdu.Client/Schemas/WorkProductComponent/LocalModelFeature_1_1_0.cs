@@ -89,11 +89,11 @@ public class LocalModelFeature_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public LocalModelFeature_1_1_0Data? Data { get; set; }
+    public LocalModelFeature_1_1_0_Data? Data { get; set; }
 
 }
 
-public class LocalModelFeature_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class LocalModelFeature_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The scope of this local model feature can be extended by this relationship to a master-data ModelFeature with wider or global scope.

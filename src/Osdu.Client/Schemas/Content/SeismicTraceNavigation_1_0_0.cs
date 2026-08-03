@@ -31,7 +31,7 @@ public class SeismicTraceNavigation_1_0_0 : AbstractContent_1_0_0
     /// The summary data for each line segment. At least one segment is expected. If only one segment is defined, the feature type is AnyCrsLineString/LineString, otherwise AnyCrsMultiLineString/MultiLineString.
     /// </summary>
     [JsonPropertyName("LineSegments")]
-    public List<SeismicTraceNavigation_1_0_0LineSegments> LineSegments { get; set; }
+    public List<SeismicTraceNavigation_1_0_0_LineSegments> LineSegments { get; set; }
 
     /// <summary>
     /// The total number of coordinates equalling the total number of traces in the seismic trace dataset.
@@ -47,7 +47,7 @@ public class SeismicTraceNavigation_1_0_0 : AbstractContent_1_0_0
 /// <summary>
 /// Context summary data for each line segment as well as name references to link back to source navigation and seismic.
 /// </summary>
-public class SeismicTraceNavigation_1_0_0LineSegments
+public class SeismicTraceNavigation_1_0_0_LineSegments
 {
     /// <summary>
     /// The original name of the line defined by the navigation.
@@ -71,25 +71,25 @@ public class SeismicTraceNavigation_1_0_0LineSegments
     /// The shot point range.
     /// </summary>
     [JsonPropertyName("ShotPointRange")]
-    public SeismicTraceNavigation_1_0_0LineSegmentsShotPointRange? ShotPointRange { get; set; }
+    public SeismicTraceNavigation_1_0_0_LineSegments_ShotPointRange? ShotPointRange { get; set; }
 
     /// <summary>
     /// The common mid-point range.
     /// </summary>
     [JsonPropertyName("CommonMidPointRange")]
-    public SeismicTraceNavigation_1_0_0LineSegmentsCommonMidPointRange? CommonMidPointRange { get; set; }
+    public SeismicTraceNavigation_1_0_0_LineSegments_CommonMidPointRange? CommonMidPointRange { get; set; }
 
     /// <summary>
     /// The ratio definition between shot point and common mid-point numbers.
     /// </summary>
     [JsonPropertyName("ShotPointCommonMidPointRatio")]
-    public SeismicTraceNavigation_1_0_0LineSegmentsShotPointCommonMidPointRatio? ShotPointCommonMidPointRatio { get; set; }
+    public SeismicTraceNavigation_1_0_0_LineSegments_ShotPointCommonMidPointRatio? ShotPointCommonMidPointRatio { get; set; }
 
     /// <summary>
     /// Generic text labels for the first and last coordinate.
     /// </summary>
     [JsonPropertyName("GenericLabels")]
-    public SeismicTraceNavigation_1_0_0LineSegmentsGenericLabels? GenericLabels { get; set; }
+    public SeismicTraceNavigation_1_0_0_LineSegments_GenericLabels? GenericLabels { get; set; }
 
     /// <summary>
     /// Has the segment been extrapolated to cover the entire trace range?
@@ -110,7 +110,7 @@ public class SeismicTraceNavigation_1_0_0LineSegments
 /// <summary>
 /// The shot point range.
 /// </summary>
-public class SeismicTraceNavigation_1_0_0LineSegmentsShotPointRange
+public class SeismicTraceNavigation_1_0_0_LineSegments_ShotPointRange
 {
     /// <summary>
     /// The start point number of the range.
@@ -131,7 +131,7 @@ public class SeismicTraceNavigation_1_0_0LineSegmentsShotPointRange
 /// <summary>
 /// The common mid-point range.
 /// </summary>
-public class SeismicTraceNavigation_1_0_0LineSegmentsCommonMidPointRange
+public class SeismicTraceNavigation_1_0_0_LineSegments_CommonMidPointRange
 {
     /// <summary>
     /// The start point number of the range.
@@ -152,7 +152,7 @@ public class SeismicTraceNavigation_1_0_0LineSegmentsCommonMidPointRange
 /// <summary>
 /// The ratio definition between shot point and common mid-point numbers.
 /// </summary>
-public class SeismicTraceNavigation_1_0_0LineSegmentsShotPointCommonMidPointRatio
+public class SeismicTraceNavigation_1_0_0_LineSegments_ShotPointCommonMidPointRatio
 {
     /// <summary>
     /// The number of shot point(s) (dividend) per common mid-point.
@@ -179,7 +179,7 @@ public class SeismicTraceNavigation_1_0_0LineSegmentsShotPointCommonMidPointRati
 /// <summary>
 /// Generic text labels for the first and last coordinate.
 /// </summary>
-public class SeismicTraceNavigation_1_0_0LineSegmentsGenericLabels
+public class SeismicTraceNavigation_1_0_0_LineSegments_GenericLabels
 {
     /// <summary>
     /// The first label of the line segment.

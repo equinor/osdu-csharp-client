@@ -89,11 +89,11 @@ public class ActivityCode_1_0_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ActivityCode_1_0_1Data? Data { get; set; }
+    public ActivityCode_1_0_1_Data? Data { get; set; }
 
 }
 
-public class ActivityCode_1_0_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class ActivityCode_1_0_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The relationship to the ActivityLevel record describing the ActivityCode's position in the hierarchy.

@@ -43,7 +43,7 @@ public class TypeNameResolver
             if (signature is not null && _context.OneOfUnionCache.TryGetValue(signature, out var cachedType))
                 return cachedType;
 
-            var unionName = SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+            var unionName = SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
             if (signature is not null)
                 _context.OneOfUnionCache[signature] = unionName;
 
@@ -70,7 +70,7 @@ public class TypeNameResolver
             if (signature is not null && _context.OneOfUnionCache.TryGetValue(signature, out var cachedType))
                 return cachedType;
 
-            var unionName = SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+            var unionName = SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
             if (signature is not null)
                 _context.OneOfUnionCache[signature] = unionName;
 
@@ -81,7 +81,7 @@ public class TypeNameResolver
         {
             var refs = schema.AllOf.OfType<OpenApiSchemaReference>().ToList();
             if (refs.Count > 1)
-                return SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+                return SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
 
             if (refs.Count == 1)
             {
@@ -91,7 +91,7 @@ public class TypeNameResolver
                     .ToList();
 
                 if (inlineProps.Count > 0)
-                    return SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+                    return SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
 
                 return SchemaHelpers.Sanitize(refs[0].Reference.Id);
             }
@@ -103,7 +103,7 @@ public class TypeNameResolver
         if (SchemaHelpers.HasFlag(type, JsonSchemaType.String))
         {
             if (schema.Enum is { Count: > 0 })
-                return SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+                return SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
             return format switch
             {
                 "date-time" => "DateTimeOffset",
@@ -152,7 +152,7 @@ public class TypeNameResolver
                     if (signature is not null && _context.OneOfUnionCache.TryGetValue(signature, out var cachedType))
                         return $"List<{cachedType}>";
 
-                    var unionName = SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+                    var unionName = SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
                     if (signature is not null)
                         _context.OneOfUnionCache[signature] = unionName;
 
@@ -170,7 +170,7 @@ public class TypeNameResolver
             if (schema.AdditionalProperties is not null)
                 return $"Dictionary<string, {ResolveTypeName(schema.AdditionalProperties, parentName, propertyName)}>";
             if (schema.Properties?.Count > 0)
-                return SchemaHelpers.Sanitize($"{parentName}{propertyName.ToPascalCase()}");
+                return SchemaHelpers.Sanitize($"{parentName}_{propertyName.ToPascalCase()}");
         }
 
         return "object";

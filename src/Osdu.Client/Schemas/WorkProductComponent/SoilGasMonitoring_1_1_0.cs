@@ -89,11 +89,11 @@ public class SoilGasMonitoring_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SoilGasMonitoring_1_1_0Data? Data { get; set; }
+    public SoilGasMonitoring_1_1_0_Data? Data { get; set; }
 
 }
 
-public class SoilGasMonitoring_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class SoilGasMonitoring_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Unique or Distinctive Reference Number, Job Number, File Number, Identifier, Label, Name, etc. as indicated on a report, file, etc
@@ -157,7 +157,7 @@ public class SoilGasMonitoring_1_1_0Data : AbstractCommonResources_1_0_0 // Also
     /// An array which lists the start and end date of the acquisition data
     /// </summary>
     [JsonPropertyName("AcquisitionDateRanges")]
-    public List<SoilGasMonitoring_1_1_0DataAcquisitionDateRanges> AcquisitionDateRanges { get; set; }
+    public List<SoilGasMonitoring_1_1_0_Data_AcquisitionDateRanges> AcquisitionDateRanges { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -167,7 +167,7 @@ public class SoilGasMonitoring_1_1_0Data : AbstractCommonResources_1_0_0 // Also
 /// <summary>
 /// Defines the start and end date of data acquisition with a remark
 /// </summary>
-public class SoilGasMonitoring_1_1_0DataAcquisitionDateRanges
+public class SoilGasMonitoring_1_1_0_Data_AcquisitionDateRanges
 {
     /// <summary>
     /// Start date of the data acquisition

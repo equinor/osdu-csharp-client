@@ -25,7 +25,7 @@ namespace Osdu.Client.Apis.CrsConversion;
 public class GeoJsonBase
 {
     [JsonPropertyName("geoJsonVariantInternal")]
-    public GeoJsonBaseGeoJsonVariantInternal GeoJsonVariantInternal { get; set; }
+    public GeoJsonBase_GeoJsonVariantInternal GeoJsonVariantInternal { get; set; }
 
     [Required]
     [MinLength(1)]
@@ -38,7 +38,7 @@ public class GeoJsonBase
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum GeoJsonBaseGeoJsonVariantInternal
+public enum GeoJsonBase_GeoJsonVariantInternal
 {
     [JsonStringEnumMemberName("GEO_JSON")]
     GEOJSON,

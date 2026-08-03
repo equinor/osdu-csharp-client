@@ -89,11 +89,11 @@ public class VelocityAnalysisMethod_1_0_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public VelocityAnalysisMethod_1_0_1Data? Data { get; set; }
+    public VelocityAnalysisMethod_1_0_1_Data? Data { get; set; }
 
 }
 
-public class VelocityAnalysisMethod_1_0_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class VelocityAnalysisMethod_1_0_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

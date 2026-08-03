@@ -37,14 +37,14 @@ public class AbstractDefinitiveDepthShift_1_0_0
     /// Identifies the attributes impacted by the depth shift and their persisted depth-shifted values.
     /// </summary>
     [JsonPropertyName("DepthShiftedAttributes")]
-    public List<AbstractDefinitiveDepthShift_1_0_0DepthShiftedAttributes> DepthShiftedAttributes { get; set; }
+    public List<AbstractDefinitiveDepthShift_1_0_0_DepthShiftedAttributes> DepthShiftedAttributes { get; set; }
 
 }
 
 /// <summary>
 /// Identifies an attribute impacted by the depth shift and its persisted depth-shifted values.
 /// </summary>
-public class AbstractDefinitiveDepthShift_1_0_0DepthShiftedAttributes
+public class AbstractDefinitiveDepthShift_1_0_0_DepthShiftedAttributes
 {
     /// <summary>
     /// Identifies the attribute name in this data record that is impacted by the depth shift.

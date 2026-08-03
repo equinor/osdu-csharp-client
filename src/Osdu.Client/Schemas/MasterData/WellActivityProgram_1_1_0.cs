@@ -89,11 +89,11 @@ public class WellActivityProgram_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellActivityProgram_1_1_0Data? Data { get; set; }
+    public WellActivityProgram_1_1_0_Data? Data { get; set; }
 
 }
 
-public class WellActivityProgram_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
+public class WellActivityProgram_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// A reference to the object that holds the information about the rig used in this drilling program
@@ -112,7 +112,7 @@ public class WellActivityProgram_1_1_0Data : AbstractCommonResources_1_0_0 // Al
     /// The set of multiple phases that compose the whole program
     /// </summary>
     [JsonPropertyName("Phases")]
-    public List<WellActivityProgram_1_1_0DataPhases> Phases { get; set; }
+    public List<WellActivityProgram_1_1_0_Data_Phases> Phases { get; set; }
 
     /// <summary>
     /// The type of well activity program. The default value for this is "Primary" (For example, they may have  "primary" program and "backup" programs)
@@ -130,7 +130,7 @@ public class WellActivityProgram_1_1_0Data : AbstractCommonResources_1_0_0 // Al
 /// Description of an individual phase that compose the WellActivityProgram. A phase describes the key milestones and is usually based on the major sections of the well or non-well-related work.
 /// (Such as "Acces Well", "Suspend ", "Wellhead Removal "...)
 /// </summary>
-public class WellActivityProgram_1_1_0DataPhases
+public class WellActivityProgram_1_1_0_Data_Phases
 {
     /// <summary>
     /// A reference to the object that holds the information about the type of phase that is described (such as Workover, Completion…)

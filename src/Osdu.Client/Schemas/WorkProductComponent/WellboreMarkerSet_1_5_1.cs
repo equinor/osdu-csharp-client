@@ -89,11 +89,11 @@ public class WellboreMarkerSet_1_5_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreMarkerSet_1_5_1Data? Data { get; set; }
+    public WellboreMarkerSet_1_5_1_Data? Data { get; set; }
 
 }
 
-public class WellboreMarkerSet_1_5_1Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class WellboreMarkerSet_1_5_1_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The Wellbore ID, to which the markers in this set belong.
@@ -109,13 +109,13 @@ public class WellboreMarkerSet_1_5_1Data : AbstractCommonResources_1_0_1 // Also
     /// The array of MarkerProperty definitions describing the available properties for this instance of WellboreMarkerSet.
     /// </summary>
     [JsonPropertyName("AvailableMarkerProperties")]
-    public List<WellboreMarkerSet_1_5_1DataAvailableMarkerProperties> AvailableMarkerProperties { get; set; }
+    public List<WellboreMarkerSet_1_5_1_Data_AvailableMarkerProperties> AvailableMarkerProperties { get; set; }
 
     /// <summary>
     /// The array of marker meta data in this set. Markers are externally identified by data.Markers[].MarkerID, ideally a UUID. Older versions of the WellboreMarkerSet schema do not have this identifier. In this case, the string-converted array index is used as MarkerID. The the first index is "0".
     /// </summary>
     [JsonPropertyName("Markers")]
-    public List<WellboreMarkerSet_1_5_1DataMarkers> Markers { get; set; }
+    public List<WellboreMarkerSet_1_5_1_Data_Markers> Markers { get; set; }
 
     /// <summary>
     /// The optional reference to a stratigraphic column (referring to multiple StratigraphicColumnRankInterpretation) providing the stratigraphic framework for the WellboreMarkerSet. It demonstrates the intent to describe complex, potentially overlapping stratigraphic intervals. Only one of the properties StratigraphicColumnID or StratigraphicColumnRankInterpretationID should be populated.
@@ -145,7 +145,7 @@ public class WellboreMarkerSet_1_5_1Data : AbstractCommonResources_1_0_1 // Also
 /// <summary>
 /// A set of properties describing a marker property which is available for this instance of a WellboreMarkerSet.
 /// </summary>
-public class WellboreMarkerSet_1_5_1DataAvailableMarkerProperties
+public class WellboreMarkerSet_1_5_1_Data_AvailableMarkerProperties
 {
     /// <summary>
     /// The reference to a marker property type - or if interpreted as CSV columns, the 'well-known column type. It is a relationship to a reference-data--MarkerPropertyType record id.
@@ -172,7 +172,7 @@ public class WellboreMarkerSet_1_5_1DataAvailableMarkerProperties
 /// <summary>
 /// The array of marker meta data in this set.
 /// </summary>
-public class WellboreMarkerSet_1_5_1DataMarkers
+public class WellboreMarkerSet_1_5_1_Data_Markers
 {
     /// <summary>
     /// Name of the Marker

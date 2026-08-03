@@ -24,13 +24,13 @@ public class AbstractGeoJson_PropertiesBinGridCorners_1_0_0
     /// </summary>
     [Required]
     [JsonPropertyName("Kind")]
-    public AbstractGeoJson_PropertiesBinGridCorners_1_0_0Kind Kind { get; set; }
+    public AbstractGeoJson_PropertiesBinGridCorners_1_0_0_Kind Kind { get; set; }
 
     /// <summary>
     /// Corner point information for each point in the Feature/AnyCrsFeature.
     /// </summary>
     [JsonPropertyName("PointProperties")]
-    public List<AbstractGeoJson_PropertiesBinGridCorners_1_0_0PointProperties> PointProperties { get; set; }
+    public List<AbstractGeoJson_PropertiesBinGridCorners_1_0_0_PointProperties> PointProperties { get; set; }
 
 }
 
@@ -38,14 +38,14 @@ public class AbstractGeoJson_PropertiesBinGridCorners_1_0_0
 /// The actual Kind of schema fragment AbstractGeoJson.PropertiesBinGridCorners
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractGeoJson_PropertiesBinGridCorners_1_0_0Kind
+public enum AbstractGeoJson_PropertiesBinGridCorners_1_0_0_Kind
 {
     [JsonStringEnumMemberName("osdu:wks:AbstractGeoJson.PropertiesBinGridCorners:1.0.0")]
     OsduWksAbstractGeoJsonPropertiesBinGridCorners100,
 
 }
 
-public class AbstractGeoJson_PropertiesBinGridCorners_1_0_0PointProperties
+public class AbstractGeoJson_PropertiesBinGridCorners_1_0_0_PointProperties
 {
     /// <summary>
     /// The inline number associated with the bin location (usually an integer) number. Mandatory.

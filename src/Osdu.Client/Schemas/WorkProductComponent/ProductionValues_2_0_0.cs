@@ -89,11 +89,11 @@ public class ProductionValues_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ProductionValues_2_0_0Data? Data { get; set; }
+    public ProductionValues_2_0_0_Data? Data { get; set; }
 
 }
 
-public class ProductionValues_2_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ProductionValues_2_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Remarks intended to provide additional contextual information for one or more sets of production metric values.
@@ -175,7 +175,7 @@ public class ProductionValues_2_0_0Data : AbstractCommonResources_1_0_1 // Also 
     /// A collection comprising one or more sets of production metric value properties.
     /// </summary>
     [JsonPropertyName("ProductionMetricValues")]
-    public List<ProductionValues_2_0_0DataProductionMetricValues> ProductionMetricValues { get; set; }
+    public List<ProductionValues_2_0_0_Data_ProductionMetricValues> ProductionMetricValues { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -185,7 +185,7 @@ public class ProductionValues_2_0_0Data : AbstractCommonResources_1_0_1 // Also 
 /// <summary>
 /// A Production Metric Value represents a measured or derived quantity associated with a specific time interval. Multiple Production Metric Values associated with successive time intervals form a time series.
 /// </summary>
-public class ProductionValues_2_0_0DataProductionMetricValues
+public class ProductionValues_2_0_0_Data_ProductionMetricValues
 {
     /// <summary>
     /// The kinds of quantities being recorded for the products.

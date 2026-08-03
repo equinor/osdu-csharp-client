@@ -89,11 +89,11 @@ public class VelocityModeling_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public VelocityModeling_1_2_0Data? Data { get; set; }
+    public VelocityModeling_1_2_0_Data? Data { get; set; }
 
 }
 
-public class VelocityModeling_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class VelocityModeling_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Comments about the velocity model reflecting the thinking of the modeler.  Distinguished from Description which is a general explanation of the model.

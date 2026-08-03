@@ -89,11 +89,11 @@ public class QualityDataRuleSet_2_0_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public QualityDataRuleSet_2_0_1Data? Data { get; set; }
+    public QualityDataRuleSet_2_0_1_Data? Data { get; set; }
 
 }
 
-public class QualityDataRuleSet_2_0_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class QualityDataRuleSet_2_0_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Name of the data ruleset. For example, QualityDataRuleSet collection 1 for wellbore
@@ -111,7 +111,7 @@ public class QualityDataRuleSet_2_0_1Data : AbstractCommonResources_1_0_0 // Als
     /// The list of QualityDataRule items that this QualityDataRuleSet consists of.
     /// </summary>
     [JsonPropertyName("DataRules")]
-    public List<QualityDataRuleSet_2_0_1DataDataRules> DataRules { get; set; }
+    public List<QualityDataRuleSet_2_0_1_Data_DataRules> DataRules { get; set; }
 
     /// <summary>
     /// The kind of the data this ruleset applies to. Version-specific and non-version-specific kind can be defined. For example, osdu:wks:master-data--Well:1 (requiring only the major version and permits any minor and patch version); osdu:wks:master-data--Wellbore:1.0.0 (this is version-specific); osdu:wks:work-product-component--WellLog (this is unspecific accepting any version). Also note: a total wildcard would have to end with a :  like this: osdu:wks:group-type--EntityType:.
@@ -128,7 +128,7 @@ public class QualityDataRuleSet_2_0_1Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// The list of QualityDataRule items that this QualityDataRuleSet consists of.
 /// </summary>
-public class QualityDataRuleSet_2_0_1DataDataRules
+public class QualityDataRuleSet_2_0_1_Data_DataRules
 {
     [RegularExpression(@"^[\w\-\.]+:reference-data\-\-QualityDataRule:[\w\-\.\:\%]+:[0-9]*$")]
     [JsonPropertyName("DataRuleID")]

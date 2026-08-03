@@ -89,11 +89,11 @@ public class FileCollection_Bluware_OpenVDS_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FileCollection_Bluware_OpenVDS_1_1_0Data? Data { get; set; }
+    public FileCollection_Bluware_OpenVDS_1_1_0_Data? Data { get; set; }
 
 }
 
-public class FileCollection_Bluware_OpenVDS_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0, AbstractFileCollection_1_0_0
+public class FileCollection_Bluware_OpenVDS_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0, AbstractFileCollection_1_0_0
 {
     [JsonPropertyName("Compression")]
     public AbstractCompressionInfo_1_1_0? Compression { get; set; }

@@ -89,11 +89,11 @@ public class FileCollection_Esri_Shape_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FileCollection_Esri_Shape_1_1_0Data? Data { get; set; }
+    public FileCollection_Esri_Shape_1_1_0_Data? Data { get; set; }
 
 }
 
-public class FileCollection_Esri_Shape_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1
+public class FileCollection_Esri_Shape_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1
 {
     [JsonPropertyName("SpatialReference")]
     public AbstractSpatialReference_1_0_0? SpatialReference { get; set; }

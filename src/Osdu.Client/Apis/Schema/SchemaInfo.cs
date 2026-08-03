@@ -43,13 +43,13 @@ public class SchemaInfo
     /// </summary>
     [Required]
     [JsonPropertyName("status")]
-    public SchemaInfoStatus Status { get; set; }
+    public SchemaInfo_Status Status { get; set; }
 
     /// <summary>
     /// Schema visibility — INTERNAL (partition-scoped) or SHARED (platform-wide). System-assigned based on the partition-id.
     /// </summary>
     [JsonPropertyName("scope")]
-    public SchemaInfoScope Scope { get; set; }
+    public SchemaInfo_Scope Scope { get; set; }
 
     /// <summary>
     /// The schema identity of the schema that supersedes this one. Present only when this schema has been superseded.
@@ -63,7 +63,7 @@ public class SchemaInfo
 /// Schema lifecycle status
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SchemaInfoStatus
+public enum SchemaInfo_Status
 {
     [JsonStringEnumMemberName("PUBLISHED")]
     PUBLISHED,
@@ -80,7 +80,7 @@ public enum SchemaInfoStatus
 /// Schema visibility — INTERNAL (partition-scoped) or SHARED (platform-wide). System-assigned based on the partition-id.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SchemaInfoScope
+public enum SchemaInfo_Scope
 {
     [JsonStringEnumMemberName("INTERNAL")]
     INTERNAL,

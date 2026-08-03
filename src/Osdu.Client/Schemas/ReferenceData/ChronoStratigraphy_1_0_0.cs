@@ -89,11 +89,11 @@ public class ChronoStratigraphy_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ChronoStratigraphy_1_0_0Data? Data { get; set; }
+    public ChronoStratigraphy_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ChronoStratigraphy_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class ChronoStratigraphy_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The level in the chronostratigraphic hierarchy as defined in https://stratigraphy.org/guide/chron Chapter 9.C expressed via a relationship to the StratigraphicColumnRankUnitType.

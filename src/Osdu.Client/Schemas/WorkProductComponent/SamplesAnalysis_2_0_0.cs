@@ -89,11 +89,11 @@ public class SamplesAnalysis_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SamplesAnalysis_2_0_0Data? Data { get; set; }
+    public SamplesAnalysis_2_0_0_Data? Data { get; set; }
 
 }
 
-public class SamplesAnalysis_2_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractWPCActivity_1_2_1
+public class SamplesAnalysis_2_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractWPCActivity_1_2_1
 {
     /// <summary>
     /// Identifies the specific physical sample(s) on which this batch of lab analysis was performed.
@@ -147,7 +147,7 @@ public class SamplesAnalysis_2_0_0Data : AbstractCommonResources_1_0_1 // Also c
     /// Identifies the report from which this analysis was extracted or multiple reports from which this analysis was reconstructed.
     /// </summary>
     [JsonPropertyName("ParentSamplesAnalysesReports")]
-    public List<SamplesAnalysis_2_0_0DataParentSamplesAnalysesReports> ParentSamplesAnalysesReports { get; set; }
+    public List<SamplesAnalysis_2_0_0_Data_ParentSamplesAnalysesReports> ParentSamplesAnalysesReports { get; set; }
 
     /// <summary>
     /// List of higher level grouping terms that are often used within organisations to search for analysis types in addition to the formal Family and Method properties, but which are variable across organisations and therefore do not need to be governed strictly by the OSDU Forum. For example: SCAL, Static SCAL, Dynamic SCAL, Source Rock Analysis. We suggest you use a namespace, like the operators name, like “Shell.SCAL”. BP.SCAL, Equinor.SCAL, Chevron.SCAL, Exxon.SCAL.....
@@ -170,7 +170,7 @@ public class SamplesAnalysis_2_0_0Data : AbstractCommonResources_1_0_1 // Also c
 /// <summary>
 /// A pair of properties building a reference to a report combined with a page reference inside the document.
 /// </summary>
-public class SamplesAnalysis_2_0_0DataParentSamplesAnalysesReports
+public class SamplesAnalysis_2_0_0_Data_ParentSamplesAnalysesReports
 {
     /// <summary>
     /// An OSDU Record representing the report from which this analysis was extracted or an OSDU Record from which this analysis was reconstructed.

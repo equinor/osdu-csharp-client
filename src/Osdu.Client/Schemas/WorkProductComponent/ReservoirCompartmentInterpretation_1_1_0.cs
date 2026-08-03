@@ -89,17 +89,17 @@ public class ReservoirCompartmentInterpretation_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ReservoirCompartmentInterpretation_1_1_0Data? Data { get; set; }
+    public ReservoirCompartmentInterpretation_1_1_0_Data? Data { get; set; }
 
 }
 
-public class ReservoirCompartmentInterpretation_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0, AbstractInterpretation_1_0_0
+public class ReservoirCompartmentInterpretation_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0, AbstractInterpretation_1_0_0
 {
     /// <summary>
     /// A collection of subdivisions of a reservoir compartment generally corresponding to one geologic unit.
     /// </summary>
     [JsonPropertyName("ReservoirCompartmentUnits")]
-    public List<ReservoirCompartmentInterpretation_1_1_0DataReservoirCompartmentUnits> ReservoirCompartmentUnits { get; set; }
+    public List<ReservoirCompartmentInterpretation_1_1_0_Data_ReservoirCompartmentUnits> ReservoirCompartmentUnits { get; set; }
 
     /// <summary>
     /// Reference to the Feature this Interpretation refers to.
@@ -122,7 +122,7 @@ public class ReservoirCompartmentInterpretation_1_1_0Data : AbstractCommonResour
 /// <summary>
 /// A subdivision of a reservoir compartment generally corresponding to one geologic unit.
 /// </summary>
-public class ReservoirCompartmentInterpretation_1_1_0DataReservoirCompartmentUnits
+public class ReservoirCompartmentInterpretation_1_1_0_Data_ReservoirCompartmentUnits
 {
     /// <summary>
     /// The stratigraphic or the geobody associated to this Reservoir compartment unit.

@@ -89,11 +89,11 @@ public class WellActivity_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellActivity_1_3_0Data? Data { get; set; }
+    public WellActivity_1_3_0_Data? Data { get; set; }
 
 }
 
-public class WellActivity_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class WellActivity_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// The name of this Well Activity
@@ -235,7 +235,7 @@ public class WellActivity_1_3_0Data : AbstractCommonResources_1_0_0 // Also comp
     /// List of Rigs or Work Units performing the Well Activity
     /// </summary>
     [JsonPropertyName("RigAssignments")]
-    public List<WellActivity_1_3_0DataRigAssignments> RigAssignments { get; set; }
+    public List<WellActivity_1_3_0_Data_RigAssignments> RigAssignments { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -245,7 +245,7 @@ public class WellActivity_1_3_0Data : AbstractCommonResources_1_0_0 // Also comp
 /// <summary>
 /// Association of a rig to a particular well and well activity.
 /// </summary>
-public class WellActivity_1_3_0DataRigAssignments
+public class WellActivity_1_3_0_Data_RigAssignments
 {
     /// <summary>
     /// References the Rig onsite during operations

@@ -89,11 +89,11 @@ public class WellLogAcquisition_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellLogAcquisition_1_0_0Data? Data { get; set; }
+    public WellLogAcquisition_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellLogAcquisition_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class WellLogAcquisition_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// The Wellbore where the well log acquisition was recorded.
@@ -109,7 +109,7 @@ public class WellLogAcquisition_1_0_0Data : AbstractCommonResources_1_0_0 // Als
     /// The tools run in the hole for the purpose of acquiring well log measurements. Defined as a single tool string run below the reference datum e.g. KB, RT. A log run may consist of one or many Log Passes.
     /// </summary>
     [JsonPropertyName("LogRuns")]
-    public List<WellLogAcquisition_1_0_0DataLogRuns> LogRuns { get; set; }
+    public List<WellLogAcquisition_1_0_0_Data_LogRuns> LogRuns { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -119,7 +119,7 @@ public class WellLogAcquisition_1_0_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// A log run identifies a single series of combinable logging tools that are entered into the wellbore below the reference depth (e.g. KB, the).
 /// </summary>
-public class WellLogAcquisition_1_0_0DataLogRuns
+public class WellLogAcquisition_1_0_0_Data_LogRuns
 {
     /// <summary>
     /// A unique identifier for a specific log run. This can be a number or alphanumeric.
@@ -192,14 +192,14 @@ public class WellLogAcquisition_1_0_0DataLogRuns
     /// The logging passes within this single logging run.
     /// </summary>
     [JsonPropertyName("LogPasses")]
-    public List<WellLogAcquisition_1_0_0DataLogRunsLogPasses> LogPasses { get; set; }
+    public List<WellLogAcquisition_1_0_0_Data_LogRuns_LogPasses> LogPasses { get; set; }
 
 }
 
 /// <summary>
 /// A log pass identifies a single acquisition event or job.  A log run my contain one or multiple log passes.
 /// </summary>
-public class WellLogAcquisition_1_0_0DataLogRunsLogPasses
+public class WellLogAcquisition_1_0_0_Data_LogRuns_LogPasses
 {
     [JsonPropertyName("LogPassID")]
     public string LogPassID { get; set; }

@@ -89,11 +89,11 @@ public class WellOperationsReport_2_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellOperationsReport_2_1_0Data? Data { get; set; }
+    public WellOperationsReport_2_1_0_Data? Data { get; set; }
 
 }
 
-public class WellOperationsReport_2_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class WellOperationsReport_2_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Name of Operations Report
@@ -143,31 +143,31 @@ public class WellOperationsReport_2_1_0Data : AbstractCommonResources_1_0_0 // A
     /// Bit description and dull grade
     /// </summary>
     [JsonPropertyName("BitRecord")]
-    public List<WellOperationsReport_2_1_0DataBitRecord> BitRecord { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_BitRecord> BitRecord { get; set; }
 
     /// <summary>
     /// An array of sequential operation activities descriptions performed during this reporting period. Potentially includes critical path and offline activities.
     /// </summary>
     [JsonPropertyName("OperationsActivity")]
-    public List<WellOperationsReport_2_1_0DataOperationsActivity> OperationsActivity { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_OperationsActivity> OperationsActivity { get; set; }
 
     /// <summary>
     /// Local name defined for the Well
     /// </summary>
     [JsonPropertyName("WellAlias")]
-    public WellOperationsReport_2_1_0DataWellAlias? WellAlias { get; set; }
+    public WellOperationsReport_2_1_0_Data_WellAlias? WellAlias { get; set; }
 
     /// <summary>
     /// Local name defined for the wellbore
     /// </summary>
     [JsonPropertyName("WellboreAlias")]
-    public List<WellOperationsReport_2_1_0DataWellboreAlias> WellboreAlias { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_WellboreAlias> WellboreAlias { get; set; }
 
     /// <summary>
     /// Information regarding the status of the wellbore during this reporting period
     /// </summary>
     [JsonPropertyName("StatusInfo")]
-    public List<WellOperationsReport_2_1_0DataStatusInfo> StatusInfo { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_StatusInfo> StatusInfo { get; set; }
 
     /// <summary>
     /// References to the Fluids Reports generated during this reporting period.
@@ -185,61 +185,61 @@ public class WellOperationsReport_2_1_0Data : AbstractCommonResources_1_0_0 // A
     /// A series of time stamped comments which comprise part of this operations report.
     /// </summary>
     [JsonPropertyName("TimedComments")]
-    public List<WellOperationsReport_2_1_0DataTimedComments> TimedComments { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_TimedComments> TimedComments { get; set; }
 
     /// <summary>
     /// Meteorological readings for the defined time period on an operations report
     /// </summary>
     [JsonPropertyName("Weather")]
-    public List<WellOperationsReport_2_1_0DataWeather> Weather { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_Weather> Weather { get; set; }
 
     /// <summary>
     /// Snapshot of operations personnel broken down by each company on the rig at the time of the report.
     /// </summary>
     [JsonPropertyName("Personnel")]
-    public List<WellOperationsReport_2_1_0DataPersonnel> Personnel { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_Personnel> Personnel { get; set; }
 
     /// <summary>
     /// Information related to pump operations on a drilling/operations report
     /// </summary>
     [JsonPropertyName("PumpOp")]
-    public List<WellOperationsReport_2_1_0DataPumpOp> PumpOp { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_PumpOp> PumpOp { get; set; }
 
     /// <summary>
     /// Information related to mud volumes for drilling/operations report
     /// </summary>
     [JsonPropertyName("MudVolume")]
-    public List<WellOperationsReport_2_1_0DataMudVolume> MudVolume { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_MudVolume> MudVolume { get; set; }
 
     /// <summary>
     /// Quantity of items inventoried during drilling and/or operations
     /// </summary>
     [JsonPropertyName("Inventory")]
-    public List<WellOperationsReport_2_1_0DataInventory> Inventory { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_Inventory> Inventory { get; set; }
 
     /// <summary>
     /// Cost information captured for a defined time period during operations and/or drilling
     /// </summary>
     [JsonPropertyName("Cost")]
-    public List<WellOperationsReport_2_1_0DataCost> Cost { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_Cost> Cost { get; set; }
 
     /// <summary>
     /// Health Safety or Environment events that occurred since the last drilling/operation report. Captures data related to HSE events (e.g., tests, inspections, meetings, and drills), test values (e.g., pressure tested to), and/or incidents (e.g., discharges, non-compliance notices received, etc.).
     /// </summary>
     [JsonPropertyName("HSE")]
-    public List<WellOperationsReport_2_1_0DataHSE> HSE { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_HSE> HSE { get; set; }
 
     /// <summary>
     /// Description of incidents that have occurred during the last drilling/operations report
     /// </summary>
     [JsonPropertyName("Incident")]
-    public List<WellOperationsReport_2_1_0DataIncident> Incident { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_Incident> Incident { get; set; }
 
     /// <summary>
     /// Mud that has been lost during drilling / operations
     /// </summary>
     [JsonPropertyName("MudLosses")]
-    public List<WellOperationsReport_2_1_0DataMudLosses> MudLosses { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_MudLosses> MudLosses { get; set; }
 
     /// <summary>
     /// Operator personnel contact information on an operations report
@@ -251,7 +251,7 @@ public class WellOperationsReport_2_1_0Data : AbstractCommonResources_1_0_0 // A
     /// General information about a gas reading taken during the drill report period
     /// </summary>
     [JsonPropertyName("GasReading")]
-    public List<WellOperationsReport_2_1_0DataGasReading> GasReading { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_GasReading> GasReading { get; set; }
 
     /// <summary>
     /// Hole condition description.
@@ -321,7 +321,7 @@ public class WellOperationsReport_2_1_0Data : AbstractCommonResources_1_0_0 // A
 /// <summary>
 /// Information on the condition of the Drill Bit as recorded during an operations report
 /// </summary>
-public class WellOperationsReport_2_1_0DataBitRecord
+public class WellOperationsReport_2_1_0_Data_BitRecord
 {
     /// <summary>
     /// BHA Run Identifier (includes ID of TubularAssembly which parents the Bit/Under-reamer Component)
@@ -530,7 +530,7 @@ public class WellOperationsReport_2_1_0DataBitRecord
 /// <summary>
 /// Information regarding an individual activity that is part of the Operations Report
 /// </summary>
-public class WellOperationsReport_2_1_0DataOperationsActivity
+public class WellOperationsReport_2_1_0_Data_OperationsActivity
 {
     /// <summary>
     /// Identifier of the activity.
@@ -690,7 +690,7 @@ public class WellOperationsReport_2_1_0DataOperationsActivity
     /// Alternate proprietary activity code. For example contractor specific activity code
     /// </summary>
     [JsonPropertyName("ProprietaryActivityCode")]
-    public List<WellOperationsReport_2_1_0DataOperationsActivityProprietaryActivityCode> ProprietaryActivityCode { get; set; }
+    public List<WellOperationsReport_2_1_0_Data_OperationsActivity_ProprietaryActivityCode> ProprietaryActivityCode { get; set; }
 
     /// <summary>
     /// The UID of the parent activity
@@ -764,7 +764,7 @@ public class WellOperationsReport_2_1_0DataOperationsActivity
 /// <summary>
 /// Definition of an activity code alias proprietary to a Company
 /// </summary>
-public class WellOperationsReport_2_1_0DataOperationsActivityProprietaryActivityCode
+public class WellOperationsReport_2_1_0_Data_OperationsActivity_ProprietaryActivityCode
 {
     /// <summary>
     /// Identifier property
@@ -791,7 +791,7 @@ public class WellOperationsReport_2_1_0DataOperationsActivityProprietaryActivity
 /// <summary>
 /// Local name defined for the Well
 /// </summary>
-public class WellOperationsReport_2_1_0DataWellAlias
+public class WellOperationsReport_2_1_0_Data_WellAlias
 {
     /// <summary>
     /// Identifier property
@@ -818,7 +818,7 @@ public class WellOperationsReport_2_1_0DataWellAlias
 /// <summary>
 /// Definition of an alias
 /// </summary>
-public class WellOperationsReport_2_1_0DataWellboreAlias
+public class WellOperationsReport_2_1_0_Data_WellboreAlias
 {
     /// <summary>
     /// Identifier property
@@ -845,7 +845,7 @@ public class WellOperationsReport_2_1_0DataWellboreAlias
 /// <summary>
 /// Status information related to an Operations Report
 /// </summary>
-public class WellOperationsReport_2_1_0DataStatusInfo
+public class WellOperationsReport_2_1_0_Data_StatusInfo
 {
     /// <summary>
     /// The date and time for which the well status is reported.
@@ -1210,7 +1210,7 @@ public class WellOperationsReport_2_1_0DataStatusInfo
 /// <summary>
 /// Information about a series of drilling activities.
 /// </summary>
-public class WellOperationsReport_2_1_0DataTimedComments
+public class WellOperationsReport_2_1_0_Data_TimedComments
 {
     /// <summary>
     /// A comment that has been recorded at a particular time
@@ -1229,7 +1229,7 @@ public class WellOperationsReport_2_1_0DataTimedComments
 /// <summary>
 /// Meteorological readings for the defined time period on an operations report
 /// </summary>
-public class WellOperationsReport_2_1_0DataWeather
+public class WellOperationsReport_2_1_0_Data_Weather
 {
     /// <summary>
     /// Name of company that supplied the weather data.
@@ -1376,7 +1376,7 @@ public class WellOperationsReport_2_1_0DataWeather
 /// <summary>
 /// Snapshot of operations personnel broken down by each company on the rig at the time of the report.
 /// </summary>
-public class WellOperationsReport_2_1_0DataPersonnel
+public class WellOperationsReport_2_1_0_Data_Personnel
 {
     /// <summary>
     /// A Reference to the organization for which have their headcount measured during this report
@@ -1424,7 +1424,7 @@ public class WellOperationsReport_2_1_0DataPersonnel
 /// <summary>
 /// Information related to pump operations on a drilling/operations report
 /// </summary>
-public class WellOperationsReport_2_1_0DataPumpOp
+public class WellOperationsReport_2_1_0_Data_PumpOp
 {
     /// <summary>
     /// Date and time when the pump operation occurred
@@ -1511,7 +1511,7 @@ public class WellOperationsReport_2_1_0DataPumpOp
 /// <summary>
 /// Information related to mud volumes for drilling/operations report
 /// </summary>
-public class WellOperationsReport_2_1_0DataMudVolume
+public class WellOperationsReport_2_1_0_Data_MudVolume
 {
     /// <summary>
     /// Volume of mud at start of report interval (including pits and hole).
@@ -1627,7 +1627,7 @@ public class WellOperationsReport_2_1_0DataMudVolume
 /// <summary>
 /// Quantity of items inventoried during drilling and/or operations
 /// </summary>
-public class WellOperationsReport_2_1_0DataInventory
+public class WellOperationsReport_2_1_0_Data_Inventory
 {
     /// <summary>
     /// Cost for the product for the report interval.
@@ -1712,7 +1712,7 @@ public class WellOperationsReport_2_1_0DataInventory
 /// <summary>
 /// Cost information captured for a defined time period during operations and/or drilling
 /// </summary>
-public class WellOperationsReport_2_1_0DataCost
+public class WellOperationsReport_2_1_0_Data_Cost
 {
     /// <summary>
     /// Comments and remarks
@@ -1889,7 +1889,7 @@ public class WellOperationsReport_2_1_0DataCost
 /// <summary>
 /// Health Safety or Environment events that occurred since the last drilling/operation report. Captures data related to HSE events (e.g., tests, inspections, meetings, and drills), test values (e.g., pressure tested to), and/or incidents (e.g., discharges, non-compliance notices received, etc.).
 /// </summary>
-public class WellOperationsReport_2_1_0DataHSE
+public class WellOperationsReport_2_1_0_Data_HSE
 {
     /// <summary>
     /// Comments and remarks
@@ -2066,7 +2066,7 @@ public class WellOperationsReport_2_1_0DataHSE
 /// <summary>
 /// Description of incidents that have occurred during the last drilling/operations report
 /// </summary>
-public class WellOperationsReport_2_1_0DataIncident
+public class WellOperationsReport_2_1_0_Data_Incident
 {
     /// <summary>
     /// Comments and remarks
@@ -2160,7 +2160,7 @@ public class WellOperationsReport_2_1_0DataIncident
 /// <summary>
 /// Mud that has been lost during drilling / operations
 /// </summary>
-public class WellOperationsReport_2_1_0DataMudLosses
+public class WellOperationsReport_2_1_0_Data_MudLosses
 {
     /// <summary>
     /// Comments and remarks
@@ -2282,7 +2282,7 @@ public class WellOperationsReport_2_1_0DataMudLosses
 /// <summary>
 /// General information about a gas reading taken during the drill report period
 /// </summary>
-public class WellOperationsReport_2_1_0DataGasReading
+public class WellOperationsReport_2_1_0_Data_GasReading
 {
     /// <summary>
     /// Date and time of the gas reading.

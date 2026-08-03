@@ -89,11 +89,11 @@ public class PlannedLithology_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public PlannedLithology_1_2_0Data? Data { get; set; }
+    public PlannedLithology_1_2_0_Data? Data { get; set; }
 
 }
 
-public class PlannedLithology_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class PlannedLithology_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Human recognizable context for the well that contains the wellbore.
@@ -137,7 +137,7 @@ public class PlannedLithology_1_2_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Set of geology and drilling information records for the wellbore. This is an API "data-node" query parameter for growing objects. See the relevant API specification for the query behavior related to this element.
     /// </summary>
     [JsonPropertyName("GeologyIntervals")]
-    public List<PlannedLithology_1_2_0DataGeologyIntervals> GeologyIntervals { get; set; }
+    public List<PlannedLithology_1_2_0_Data_GeologyIntervals> GeologyIntervals { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -147,7 +147,7 @@ public class PlannedLithology_1_2_0Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// Geology Interval Component Schema
 /// </summary>
-public class PlannedLithology_1_2_0DataGeologyIntervals
+public class PlannedLithology_1_2_0_Data_GeologyIntervals
 {
     /// <summary>
     /// Measured depth at top of interval.

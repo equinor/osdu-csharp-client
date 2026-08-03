@@ -105,7 +105,7 @@ public class FileData
     /// Endianness of binary value. Enumeration- \BIG\ \LITTLE\.  If absent applications will need to interpret from context indicators.
     /// </summary>
     [JsonPropertyName("Endian")]
-    public FileDataEndian Endian { get; set; }
+    public FileData_Endian Endian { get; set; }
 
     /// <summary>
     /// MD5 checksum of file bytes - a 32 byte hexadecimal number
@@ -126,7 +126,7 @@ public class FileData
 /// Endianness of binary value. Enumeration- \BIG\ \LITTLE\.  If absent applications will need to interpret from context indicators.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum FileDataEndian
+public enum FileData_Endian
 {
     [JsonStringEnumMemberName("BIG")]
     BIG,

@@ -89,11 +89,11 @@ public class SampleImage_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SampleImage_1_1_0Data? Data { get; set; }
+    public SampleImage_1_1_0_Data? Data { get; set; }
 
 }
 
-public class SampleImage_1_1_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class SampleImage_1_1_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The samples that the image relates to. One or many Sample relationships are permitted. The Sample object captures attributes of a sample/ specimen (rock or fluid) acquired either through an original acquisition event, sub-sampling event, generated from recombination of other samples / specimens or derived through the application of some laboratory process on the parent sample.
@@ -193,13 +193,13 @@ public class SampleImage_1_1_0Data : AbstractCommonResources_1_0_1 // Also compo
     /// The type of parameters under which the image was acquired
     /// </summary>
     [JsonPropertyName("ImageParameters")]
-    public List<SampleImage_1_1_0DataImageParameters> ImageParameters { get; set; }
+    public List<SampleImage_1_1_0_Data_ImageParameters> ImageParameters { get; set; }
 
     /// <summary>
     /// Similar to ImageParameters, but reference-data relationships describing reference-value list controlled image properties.
     /// </summary>
     [JsonPropertyName("ImageReferenceParameters")]
-    public SampleImage_1_1_0DataImageReferenceParameters? ImageReferenceParameters { get; set; }
+    public SampleImage_1_1_0_Data_ImageReferenceParameters? ImageReferenceParameters { get; set; }
 
     /// <summary>
     /// Remarks regarding the image acquisition and or processing environment or parameters.  One or many remarks can be captured.
@@ -212,7 +212,7 @@ public class SampleImage_1_1_0Data : AbstractCommonResources_1_0_1 // Also compo
 
 }
 
-public class SampleImage_1_1_0DataImageParameters
+public class SampleImage_1_1_0_Data_ImageParameters
 {
     /// <summary>
     /// The type of parameter under which the image was acquired. In the array of data.ImageParameters[] objects, a particular ImageParameterTypeID value should appear at most once.
@@ -245,7 +245,7 @@ public class SampleImage_1_1_0DataImageParameters
 /// <summary>
 /// Similar to ImageParameters, but reference-data relationships describing reference-value list controlled image properties.
 /// </summary>
-public class SampleImage_1_1_0DataImageReferenceParameters
+public class SampleImage_1_1_0_Data_ImageReferenceParameters
 {
     /// <summary>
     /// The source of the pixel resolution for this sample image, for example, it may be inferred from a scale bar or a known reference.

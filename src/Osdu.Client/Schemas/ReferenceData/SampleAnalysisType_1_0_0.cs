@@ -89,11 +89,11 @@ public class SampleAnalysisType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SampleAnalysisType_1_0_0Data? Data { get; set; }
+    public SampleAnalysisType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SampleAnalysisType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class SampleAnalysisType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The mandatory, higher level of the hierarchy in organizing sample analysis data for the purpose of ingestion and discovery. Family sometimes represents the trait measured. In other cases, Family represents a general method or suite of analysis, such as those where there are many traits measured, like "compositional analysis". The key considerations for adding to this list are (a) whether this information is relevant for searching and discovering the data record, and (b) keeping items on this list mutually exclusive.

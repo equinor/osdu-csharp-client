@@ -89,11 +89,11 @@ public class SurveyToolType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SurveyToolType_1_0_0Data? Data { get; set; }
+    public SurveyToolType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SurveyToolType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class SurveyToolType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

@@ -90,11 +90,11 @@ public class WellPressureTestAcquisitionJob_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellPressureTestAcquisitionJob_1_1_0Data? Data { get; set; }
+    public WellPressureTestAcquisitionJob_1_1_0_Data? Data { get; set; }
 
 }
 
-public class WellPressureTestAcquisitionJob_1_1_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class WellPressureTestAcquisitionJob_1_1_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// The Identifier (from any external system) of the Acquisition Program, this specific acquisition job is derived from
@@ -112,7 +112,7 @@ public class WellPressureTestAcquisitionJob_1_1_0Data : AbstractCommonResources_
     /// Array of unitary Acquisition Runs - eg. Period of the job included between two consecutive extraction of the acquisition string from the ground.
     /// </summary>
     [JsonPropertyName("PressureTestsAcquisitionRuns")]
-    public List<WellPressureTestAcquisitionJob_1_1_0DataPressureTestsAcquisitionRuns> PressureTestsAcquisitionRuns { get; set; }
+    public List<WellPressureTestAcquisitionJob_1_1_0_Data_PressureTestsAcquisitionRuns> PressureTestsAcquisitionRuns { get; set; }
 
     /// <summary>
     /// The identifier of the wellbore where Pressure Test was conducted
@@ -143,7 +143,7 @@ public class WellPressureTestAcquisitionJob_1_1_0Data : AbstractCommonResources_
 /// <summary>
 /// A Run is defined between two consecutive "extractions" from the ground" from acquisition string - meaning a single run has necessarily the same probes and gauges installed. A run is made of multiple (at least 2) passes.
 /// </summary>
-public class WellPressureTestAcquisitionJob_1_1_0DataPressureTestsAcquisitionRuns
+public class WellPressureTestAcquisitionJob_1_1_0_Data_PressureTestsAcquisitionRuns
 {
     /// <summary>
     /// Identifier of this specific run within the Job. (Can be a Sequential Number, a GUID,… but must be unique)
@@ -206,7 +206,7 @@ public class WellPressureTestAcquisitionJob_1_1_0DataPressureTestsAcquisitionRun
     /// </summary>
     [Required]
     [JsonPropertyName("PressureTestsAcquisitionStations")]
-    public List<WellPressureTestAcquisitionJob_1_1_0DataPressureTestsAcquisitionRunsPressureTestsAcquisitionStations> PressureTestsAcquisitionStations { get; set; }
+    public List<WellPressureTestAcquisitionJob_1_1_0_Data_PressureTestsAcquisitionRuns_PressureTestsAcquisitionStations> PressureTestsAcquisitionStations { get; set; }
 
     /// <summary>
     /// Identifier of the Tool Name (Branded Model Name) in the associated reference data list
@@ -239,7 +239,7 @@ public class WellPressureTestAcquisitionJob_1_1_0DataPressureTestsAcquisitionRun
 /// <summary>
 /// A Station is defined as a static point within the pass - where one or many tests can be tried out.
 /// </summary>
-public class WellPressureTestAcquisitionJob_1_1_0DataPressureTestsAcquisitionRunsPressureTestsAcquisitionStations
+public class WellPressureTestAcquisitionJob_1_1_0_Data_PressureTestsAcquisitionRuns_PressureTestsAcquisitionStations
 {
     [JsonPropertyName("StationIdentifier")]
     public int? StationIdentifier { get; set; }

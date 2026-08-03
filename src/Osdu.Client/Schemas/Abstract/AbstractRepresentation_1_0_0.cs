@@ -36,7 +36,7 @@ public class AbstractRepresentation_1_0_0
     /// Allow to link the geometry of the representation to a particular index of a time series. This is particularly useful for IJK grids used in geomechanical or basin context where the topology and geometry varies against the time.
     /// </summary>
     [JsonPropertyName("TimeSeries")]
-    public AbstractRepresentation_1_0_0TimeSeries? TimeSeries { get; set; }
+    public AbstractRepresentation_1_0_0_TimeSeries? TimeSeries { get; set; }
 
     /// <summary>
     /// The index of the realization of this representation
@@ -48,7 +48,7 @@ public class AbstractRepresentation_1_0_0
     /// Several optional indexable element counts
     /// </summary>
     [JsonPropertyName("IndexableElementCount")]
-    public List<AbstractRepresentation_1_0_0IndexableElementCount> IndexableElementCount { get; set; }
+    public List<AbstractRepresentation_1_0_0_IndexableElementCount> IndexableElementCount { get; set; }
 
     /// <summary>
     /// Allow to link a local CRS with this representation
@@ -62,7 +62,7 @@ public class AbstractRepresentation_1_0_0
 /// <summary>
 /// Allow to link the geometry of the representation to a particular index of a time series. This is particularly useful for IJK grids used in geomechanical or basin context where the topology and geometry varies against the time.
 /// </summary>
-public class AbstractRepresentation_1_0_0TimeSeries
+public class AbstractRepresentation_1_0_0_TimeSeries
 {
     /// <summary>
     /// Index of the timestamp of the representation in the associated TimeSeries
@@ -84,7 +84,7 @@ public class AbstractRepresentation_1_0_0TimeSeries
 /// <summary>
 /// Defines the count of a particular indexable element in a representation
 /// </summary>
-public class AbstractRepresentation_1_0_0IndexableElementCount
+public class AbstractRepresentation_1_0_0_IndexableElementCount
 {
     /// <summary>
     /// The count of indexable element

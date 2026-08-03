@@ -89,11 +89,11 @@ public class SeismicProcessingProject_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicProcessingProject_1_2_0Data? Data { get; set; }
+    public SeismicProcessingProject_1_2_0_Data? Data { get; set; }
 
 }
 
-public class SeismicProcessingProject_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0, AbstractProjectActivity_1_0_0
+public class SeismicProcessingProject_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0, AbstractProjectActivity_1_0_0
 {
     /// <summary>
     /// List of seismic acquisition projects (surveys) that originated the underlying data used in Processing Project.  Trace data work product components have an explicit child relationship.  Other affiliated objects may use Lineage.

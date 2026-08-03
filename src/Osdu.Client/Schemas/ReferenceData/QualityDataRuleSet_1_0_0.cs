@@ -89,11 +89,11 @@ public class QualityDataRuleSet_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public QualityDataRuleSet_1_0_0Data? Data { get; set; }
+    public QualityDataRuleSet_1_0_0_Data? Data { get; set; }
 
 }
 
-public class QualityDataRuleSet_1_0_0Data : AbstractCommonResources_1_0_0
+public class QualityDataRuleSet_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     /// <summary>
     /// Name of the data ruleset. For example, QualityDataRuleSet collection 1 for wellbore
@@ -111,14 +111,14 @@ public class QualityDataRuleSet_1_0_0Data : AbstractCommonResources_1_0_0
     /// The list of QualityDataRule items that this QualityDataRuleSet consists of.
     /// </summary>
     [JsonPropertyName("DataRules")]
-    public List<QualityDataRuleSet_1_0_0DataDataRules> DataRules { get; set; }
+    public List<QualityDataRuleSet_1_0_0_Data_DataRules> DataRules { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class QualityDataRuleSet_1_0_0DataDataRules
+public class QualityDataRuleSet_1_0_0_Data_DataRules
 {
     [RegularExpression(@"^[\w\-\.]+:reference-data\-\-QualityDataRule:[\w\-\.\:\%]+:[0-9]*$")]
     [JsonPropertyName("DataRuleID")]

@@ -89,11 +89,11 @@ public class GenericDataset_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericDataset_1_0_0Data? Data { get; set; }
+    public GenericDataset_1_0_0_Data? Data { get; set; }
 
 }
 
-public class GenericDataset_1_0_0Data : AbstractCommonResources_1_0_0
+public class GenericDataset_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     /// <summary>
     /// An optional name of the dataset, e.g. a user friendly file or file collection name.
@@ -132,7 +132,7 @@ public class GenericDataset_1_0_0Data : AbstractCommonResources_1_0_0
     /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
     /// </summary>
     [JsonPropertyName("Endian")]
-    public GenericDataset_1_0_0DataEndian Endian { get; set; }
+    public GenericDataset_1_0_0_Data_Endian Endian { get; set; }
 
     /// <summary>
     /// Placeholder for a specialization.
@@ -146,7 +146,7 @@ public class GenericDataset_1_0_0Data : AbstractCommonResources_1_0_0
 /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum GenericDataset_1_0_0DataEndian
+public enum GenericDataset_1_0_0_Data_Endian
 {
     [JsonStringEnumMemberName("BIG")]
     BIG,

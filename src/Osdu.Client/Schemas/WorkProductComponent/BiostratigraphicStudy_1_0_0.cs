@@ -89,11 +89,11 @@ public class BiostratigraphicStudy_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public BiostratigraphicStudy_1_0_0Data? Data { get; set; }
+    public BiostratigraphicStudy_1_0_0_Data? Data { get; set; }
 
 }
 
-public class BiostratigraphicStudy_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class BiostratigraphicStudy_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The wellbores used within the study. Can be one or many wellbores. Use `SampleIDs`whereever possible.

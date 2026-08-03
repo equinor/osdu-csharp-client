@@ -89,11 +89,11 @@ public class Wellbore_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Wellbore_1_0_0Data? Data { get; set; }
+    public Wellbore_1_0_0_Data? Data { get; set; }
 
 }
 
-public class Wellbore_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractFacility_1_0_0
+public class Wellbore_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractFacility_1_0_0
 {
     [RegularExpression(@"^[\w\-\.]+:master-data\-\-Well:[\w\-\.\:\%]+:[0-9]*$")]
     [JsonPropertyName("WellID")]
@@ -109,7 +109,7 @@ public class Wellbore_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes
     /// List of all depths and elevations pertaining to the wellbore, like, plug back measured depth, total measured depth, KB elevation
     /// </summary>
     [JsonPropertyName("VerticalMeasurements")]
-    public List<Wellbore_1_0_0DataVerticalMeasurements> VerticalMeasurements { get; set; }
+    public List<Wellbore_1_0_0_Data_VerticalMeasurements> VerticalMeasurements { get; set; }
 
     /// <summary>
     /// The history of drilling reasons of the wellbore.
@@ -169,7 +169,7 @@ public class Wellbore_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes
 
 }
 
-public class Wellbore_1_0_0DataVerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
+public class Wellbore_1_0_0_Data_VerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
 {
     /// <summary>
     /// The ID for a distinct vertical measurement within the Wellbore VerticalMeasurements array so that it may be referenced by other vertical measurements if necessary.

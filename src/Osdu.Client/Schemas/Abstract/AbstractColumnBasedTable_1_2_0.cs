@@ -42,7 +42,7 @@ public class AbstractColumnBasedTable_1_2_0
     /// Column values at index KeyColumns count are related to first (non key) column, Column values at index KeyColumns count + 1 are related to second (non key) column, etc...
     /// </summary>
     [JsonPropertyName("ColumnValues")]
-    public List<AbstractColumnBasedTable_1_2_0ColumnValues> ColumnValues { get; set; }
+    public List<AbstractColumnBasedTable_1_2_0_ColumnValues> ColumnValues { get; set; }
 
     /// <summary>
     /// Quickly indicate the type of the column based table (KrPc, PVT, Facies, ...) and its standard columns definition. It is supposed to be used when you don't use KeyColumns neither Columns as attributes of this WPC.
@@ -63,7 +63,7 @@ public class AbstractColumnBasedTable_1_2_0
 /// <summary>
 /// Value of the column. Generally only one of the attribute should be instantiated.
 /// </summary>
-public class AbstractColumnBasedTable_1_2_0ColumnValues
+public class AbstractColumnBasedTable_1_2_0_ColumnValues
 {
     /// <summary>
     /// A column of only boolean values

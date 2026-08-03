@@ -89,11 +89,11 @@ public class DataQuality_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DataQuality_2_0_0Data? Data { get; set; }
+    public DataQuality_2_0_0_Data? Data { get; set; }
 
 }
 
-public class DataQuality_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class DataQuality_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The reference to the evaluated data record. The record version number is required.
@@ -132,7 +132,7 @@ public class DataQuality_2_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// The data rules part of this assessment.
     /// </summary>
     [JsonPropertyName("DataRules")]
-    public List<DataQuality_2_0_0DataDataRules> DataRules { get; set; }
+    public List<DataQuality_2_0_0_Data_DataRules> DataRules { get; set; }
 
     /// <summary>
     /// The reference to the assessment calculation method.
@@ -151,7 +151,7 @@ public class DataQuality_2_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// The individual scores per dimension.
     /// </summary>
     [JsonPropertyName("DimensionMetrics")]
-    public List<DataQuality_2_0_0DataDimensionMetrics> DimensionMetrics { get; set; }
+    public List<DataQuality_2_0_0_Data_DimensionMetrics> DimensionMetrics { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -161,7 +161,7 @@ public class DataQuality_2_0_0Data : AbstractCommonResources_1_0_0 // Also compo
 /// <summary>
 /// The DataQualityRule and the DataQualityRule properties captured at the time of assessment.
 /// </summary>
-public class DataQuality_2_0_0DataDataRules
+public class DataQuality_2_0_0_Data_DataRules
 {
     /// <summary>
     /// The reference to the individual DataQualityRule record ID. This is a mandatory property value.
@@ -214,14 +214,14 @@ public class DataQuality_2_0_0DataDataRules
     /// The assessment results for this this rule.
     /// </summary>
     [JsonPropertyName("AssessmentResults")]
-    public List<DataQuality_2_0_0DataDataRulesAssessmentResults> AssessmentResults { get; set; }
+    public List<DataQuality_2_0_0_Data_DataRules_AssessmentResults> AssessmentResults { get; set; }
 
 }
 
 /// <summary>
 /// The assessment of an executed QualityDataRule.
 /// </summary>
-public class DataQuality_2_0_0DataDataRulesAssessmentResults
+public class DataQuality_2_0_0_Data_DataRules_AssessmentResults
 {
     /// <summary>
     /// The assessment state for this rule.
@@ -247,7 +247,7 @@ public class DataQuality_2_0_0DataDataRulesAssessmentResults
 /// <summary>
 /// The assessment score per data rule dimension type and its weight.
 /// </summary>
-public class DataQuality_2_0_0DataDimensionMetrics
+public class DataQuality_2_0_0_Data_DimensionMetrics
 {
     /// <summary>
     /// The reference to the DataRuleDimensionType, to which score and weight are associated.

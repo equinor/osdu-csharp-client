@@ -89,11 +89,11 @@ public class SeismicAcquisitionDocuments_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicAcquisitionDocuments_1_0_0Data? Data { get; set; }
+    public SeismicAcquisitionDocuments_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicAcquisitionDocuments_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class SeismicAcquisitionDocuments_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// For most datasets, the acquisition project that generated the underlying field data.  For merges, probably absent (see processing project for set of acquisition projects used in processing this dataset).

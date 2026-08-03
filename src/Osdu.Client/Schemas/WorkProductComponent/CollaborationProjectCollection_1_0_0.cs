@@ -89,11 +89,11 @@ public class CollaborationProjectCollection_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public CollaborationProjectCollection_1_0_0Data? Data { get; set; }
+    public CollaborationProjectCollection_1_0_0_Data? Data { get; set; }
 
 }
 
-public class CollaborationProjectCollection_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class CollaborationProjectCollection_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Data Platform System of Record trusted (input) resources that make up the Collaboration Project Data Collection.

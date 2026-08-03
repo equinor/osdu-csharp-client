@@ -89,11 +89,11 @@ public class File_WITSML_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public File_WITSML_1_0_0Data? Data { get; set; }
+    public File_WITSML_1_0_0_Data? Data { get; set; }
 
 }
 
-public class File_WITSML_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0, AbstractFile_1_0_0
+public class File_WITSML_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0, AbstractFile_1_0_0
 {
     /// <summary>
     /// The Version of the WITSML standard.

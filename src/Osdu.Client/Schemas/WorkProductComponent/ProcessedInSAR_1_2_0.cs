@@ -89,11 +89,11 @@ public class ProcessedInSAR_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ProcessedInSAR_1_2_0Data? Data { get; set; }
+    public ProcessedInSAR_1_2_0_Data? Data { get; set; }
 
 }
 
-public class ProcessedInSAR_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ProcessedInSAR_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Acquisition site for the data capture area which is not any of the Country, Field or Basin properties which are all captured within the Geocontext for a work product component. The site should be used as an additional identifier for items such as prominent landmarks, facilities, processing plant or structures that identify the area of interest.
@@ -160,7 +160,7 @@ public class ProcessedInSAR_1_2_0Data : AbstractCommonResources_1_0_0 // Also co
     /// An array which lists the start and end date of the acquisition data which is used as the input for the processing
     /// </summary>
     [JsonPropertyName("AcquisitionDateRanges")]
-    public List<ProcessedInSAR_1_2_0DataAcquisitionDateRanges> AcquisitionDateRanges { get; set; }
+    public List<ProcessedInSAR_1_2_0_Data_AcquisitionDateRanges> AcquisitionDateRanges { get; set; }
 
     /// <summary>
     /// Number of Images which have been captured in the time/date range which are used as the input for processing
@@ -246,7 +246,7 @@ public class ProcessedInSAR_1_2_0Data : AbstractCommonResources_1_0_0 // Also co
 /// <summary>
 /// Defines the start and end date of the processing completed on the dataset
 /// </summary>
-public class ProcessedInSAR_1_2_0DataAcquisitionDateRanges
+public class ProcessedInSAR_1_2_0_Data_AcquisitionDateRanges
 {
     /// <summary>
     /// Start date and time of images used  for processing

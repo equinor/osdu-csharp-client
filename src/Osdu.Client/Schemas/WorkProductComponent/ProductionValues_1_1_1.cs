@@ -89,11 +89,11 @@ public class ProductionValues_1_1_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ProductionValues_1_1_1Data? Data { get; set; }
+    public ProductionValues_1_1_1_Data? Data { get; set; }
 
 }
 
-public class ProductionValues_1_1_1Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ProductionValues_1_1_1_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Parent reporting entity which provides the reference to the master entity production values are recording against, and optional parent entity from which values may be allocated down from.

@@ -89,11 +89,11 @@ public class TubularUmbilical_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public TubularUmbilical_1_0_0Data? Data { get; set; }
+    public TubularUmbilical_1_0_0_Data? Data { get; set; }
 
 }
 
-public class TubularUmbilical_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class TubularUmbilical_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     /// <summary>
     /// Identifier of the Parent Wellbore

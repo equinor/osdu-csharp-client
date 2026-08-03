@@ -89,11 +89,11 @@ public class CollaborationProject_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public CollaborationProject_1_0_0Data? Data { get; set; }
+    public CollaborationProject_1_0_0_Data? Data { get; set; }
 
 }
 
-public class CollaborationProject_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class CollaborationProject_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     [JsonPropertyName("ProjectContributorACL")]
     public AbstractAccessControlList_1_0_0? ProjectContributorACL { get; set; }

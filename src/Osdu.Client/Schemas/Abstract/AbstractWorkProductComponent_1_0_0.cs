@@ -77,14 +77,14 @@ public class AbstractWorkProductComponent_1_0_0
     /// Defines relationships with other objects (any kind of Resource) upon which this work product component depends.  The assertion is directed only from the asserting WPC to ancestor objects, not children.  It should not be used to refer to files or artefacts within the WPC -- the association within the WPC is sufficient and Artefacts are actually children of the main WPC file. They should be recorded in the data.Artefacts[] array.
     /// </summary>
     [JsonPropertyName("LineageAssertions")]
-    public List<AbstractWorkProductComponent_1_0_0LineageAssertions> LineageAssertions { get; set; }
+    public List<AbstractWorkProductComponent_1_0_0_LineageAssertions> LineageAssertions { get; set; }
 
 }
 
 /// <summary>
 /// Defines relationships with other objects (any kind of Resource) upon which this work product component depends.  The assertion is directed only from the asserting WPC to ancestor objects, not children.  It should not be used to refer to files or artefacts within the WPC -- the association within the WPC is sufficient and Artefacts are actually children of the main WPC file. They should be recorded in the data.Artefacts[] array.
 /// </summary>
-public class AbstractWorkProductComponent_1_0_0LineageAssertions
+public class AbstractWorkProductComponent_1_0_0_LineageAssertions
 {
     /// <summary>
     /// The object reference identifying the DIRECT, INDIRECT, REFERENCE dependency.

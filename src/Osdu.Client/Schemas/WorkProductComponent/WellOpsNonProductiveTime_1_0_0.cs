@@ -89,11 +89,11 @@ public class WellOpsNonProductiveTime_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellOpsNonProductiveTime_1_0_0Data? Data { get; set; }
+    public WellOpsNonProductiveTime_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellOpsNonProductiveTime_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class WellOpsNonProductiveTime_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Parent Wellbore Identifier
@@ -465,13 +465,13 @@ public class WellOpsNonProductiveTime_1_0_0Data : AbstractCommonResources_1_0_0 
     /// Investigation Status History
     /// </summary>
     [JsonPropertyName("InvestigationStatus")]
-    public List<WellOpsNonProductiveTime_1_0_0DataInvestigationStatus> InvestigationStatus { get; set; }
+    public List<WellOpsNonProductiveTime_1_0_0_Data_InvestigationStatus> InvestigationStatus { get; set; }
 
     /// <summary>
     /// NPT Actions
     /// </summary>
     [JsonPropertyName("NPTActions")]
-    public List<WellOpsNonProductiveTime_1_0_0DataNPTActions> NPTActions { get; set; }
+    public List<WellOpsNonProductiveTime_1_0_0_Data_NPTActions> NPTActions { get; set; }
 
     /// <summary>
     /// Risk Assessment Type ID
@@ -532,7 +532,7 @@ public class WellOpsNonProductiveTime_1_0_0Data : AbstractCommonResources_1_0_0 
 /// <summary>
 /// Investigation Status history of the NPT event
 /// </summary>
-public class WellOpsNonProductiveTime_1_0_0DataInvestigationStatus
+public class WellOpsNonProductiveTime_1_0_0_Data_InvestigationStatus
 {
     /// <summary>
     /// Status Date/time
@@ -564,7 +564,7 @@ public class WellOpsNonProductiveTime_1_0_0DataInvestigationStatus
 /// <summary>
 /// Individual Non Productive Time Action Description
 /// </summary>
-public class WellOpsNonProductiveTime_1_0_0DataNPTActions
+public class WellOpsNonProductiveTime_1_0_0_Data_NPTActions
 {
     /// <summary>
     /// Action Title

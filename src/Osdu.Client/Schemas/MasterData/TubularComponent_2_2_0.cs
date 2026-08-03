@@ -89,11 +89,11 @@ public class TubularComponent_2_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public TubularComponent_2_2_0Data? Data { get; set; }
+    public TubularComponent_2_2_0_Data? Data { get; set; }
 
 }
 
-public class TubularComponent_2_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class TubularComponent_2_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// The name of this tubular component.
@@ -424,13 +424,13 @@ public class TubularComponent_2_2_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Description of the ID of the Nozzle used in the Tubular Component
     /// </summary>
     [JsonPropertyName("Nozzles")]
-    public List<TubularComponent_2_2_0DataNozzles> Nozzles { get; set; }
+    public List<TubularComponent_2_2_0_Data_Nozzles> Nozzles { get; set; }
 
     /// <summary>
     /// Description of the type of Sensor for the Tubular Components
     /// </summary>
     [JsonPropertyName("Sensors")]
-    public List<TubularComponent_2_2_0DataSensors> Sensors { get; set; }
+    public List<TubularComponent_2_2_0_Data_Sensors> Sensors { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -440,7 +440,7 @@ public class TubularComponent_2_2_0Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// number and size of nozzles / jets in a Tubular Component
 /// </summary>
-public class TubularComponent_2_2_0DataNozzles
+public class TubularComponent_2_2_0_Data_Nozzles
 {
     /// <summary>
     /// Unique identifier for this instance of Nozzle
@@ -490,7 +490,7 @@ public class TubularComponent_2_2_0DataNozzles
 /// <summary>
 /// Tubular Sensor Component Schema
 /// </summary>
-public class TubularComponent_2_2_0DataSensors
+public class TubularComponent_2_2_0_Data_Sensors
 {
     /// <summary>
     /// Unique identifier for this Instance of Sensor log

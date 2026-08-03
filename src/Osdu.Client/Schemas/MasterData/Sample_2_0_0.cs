@@ -89,11 +89,11 @@ public class Sample_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Sample_2_0_0Data? Data { get; set; }
+    public Sample_2_0_0_Data? Data { get; set; }
 
 }
 
-public class Sample_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class Sample_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Identifier from a Master Data Management System or other trusted source external to OSDU - stored here in order to allow for multi-system connection and synchronization. If used, the "Source" property in AbstractCommonResources schema should identify that source system. i.e. this item is optional.
@@ -132,7 +132,7 @@ public class Sample_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// This captures the acquisition parameters obtained during  the sample acquisition event associated with this sample. Note that this attribute should only be used when associating the sample with an acquisition event from its original source and not for sub-sampling or derivative sources.
     /// </summary>
     [JsonPropertyName("SampleAcquisition")]
-    public Sample_2_0_0DataSampleAcquisition? SampleAcquisition { get; set; }
+    public Sample_2_0_0_Data_SampleAcquisition? SampleAcquisition { get; set; }
 
     [JsonPropertyName("SampleProperties")]
     public AbstractSampleProperties_1_0_0? SampleProperties { get; set; }
@@ -147,7 +147,7 @@ public class Sample_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// For a sample that has been recombined from separate samples, e.g. liquid sample and vapor sample, this object records the specified: recombination conditions (pressure and temperature), recombination ratio, the saturation pressure and  target recombined sample composition, whichever of these are appropriate for this recombination effort.
     /// </summary>
     [JsonPropertyName("RecombinationSpecification")]
-    public Sample_2_0_0DataRecombinationSpecification? RecombinationSpecification { get; set; }
+    public Sample_2_0_0_Data_RecombinationSpecification? RecombinationSpecification { get; set; }
 
     /// <summary>
     /// This attribute stores the array of OSDU record IDs for the parent samples used in creating this sample. Creation of this sample could be achieved through through extractions, sub sampling, derived sampling or recombination.
@@ -159,7 +159,7 @@ public class Sample_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// This captures information about the preparation process executed after the sample acquisition event.
     /// </summary>
     [JsonPropertyName("SamplePreparation")]
-    public List<Sample_2_0_0DataSamplePreparation> SamplePreparation { get; set; }
+    public List<Sample_2_0_0_Data_SamplePreparation> SamplePreparation { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -169,7 +169,7 @@ public class Sample_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: 
 /// <summary>
 /// This captures the acquisition parameters obtained during  the sample acquisition event associated with this sample. Note that this attribute should only be used when associating the sample with an acquisition event from its original source and not for sub-sampling or derivative sources.
 /// </summary>
-public class Sample_2_0_0DataSampleAcquisition
+public class Sample_2_0_0_Data_SampleAcquisition
 {
     /// <summary>
     /// A reference to the parent record, which can group this sample acquisition event record with other sample acquisition event records, collected as part of the same job.
@@ -182,7 +182,7 @@ public class Sample_2_0_0DataSampleAcquisition
     /// This attribute provides information about the acquisition parameters and process used in acquiring the target sample. Other information about the sample itself can be found in the Sample object.
     /// </summary>
     [JsonPropertyName("SampleAcquisitionDetail")]
-    public Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetail? SampleAcquisitionDetail { get; set; }
+    public Sample_2_0_0_Data_SampleAcquisition_SampleAcquisitionDetail? SampleAcquisitionDetail { get; set; }
 
     /// <summary>
     /// This is a reference list of the different types of sample acquisition events used in acquiring samples. i.e. downhole sample acquisition type, outcrop, coring, non-facility site, etc
@@ -235,7 +235,7 @@ public class Sample_2_0_0DataSampleAcquisition
 /// <summary>
 /// This attribute provides information about the acquisition parameters and process used in acquiring the target sample. Other information about the sample itself can be found in the Sample object.
 /// </summary>
-public class Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetail
+public class Sample_2_0_0_Data_SampleAcquisition_SampleAcquisitionDetail
 {
     [JsonPropertyName("VerticalMeasurement")]
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
@@ -299,7 +299,7 @@ public class Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetail
     /// SamplingPoint= [ PRODML:2.1:FluidSampleAcquisitionJob.FluidSampleAcquisition&lt;SeparatorSampleAcquisition | FacilitySampleAcquisition | SeparatorSampleAcquisition&gt;[].Item.SamplingPoint
     /// </summary>
     [JsonPropertyName("SamplingPoint")]
-    public Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetailSamplingPoint? SamplingPoint { get; set; }
+    public Sample_2_0_0_Data_SampleAcquisition_SampleAcquisitionDetail_SamplingPoint? SamplingPoint { get; set; }
 
     /// <summary>
     /// The value accounts for the application of correction procedures to the oil flow rate observed / measured during the sample acquisition event. The property is typically only used in conjunction with SeparatorSampleAcquisition
@@ -449,7 +449,7 @@ public class Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetail
 /// Note:As an example, If ingesting data formatted using PRODML, this is typically  mapped as seen below:
 /// SamplingPoint= [ PRODML:2.1:FluidSampleAcquisitionJob.FluidSampleAcquisition&lt;SeparatorSampleAcquisition | FacilitySampleAcquisition | SeparatorSampleAcquisition&gt;[].Item.SamplingPoint
 /// </summary>
-public class Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetailSamplingPoint
+public class Sample_2_0_0_Data_SampleAcquisition_SampleAcquisitionDetail_SamplingPoint
 {
     /// <summary>
     /// This is the OSDU record ID from a reference list containing the different types of sampling points.
@@ -469,7 +469,7 @@ public class Sample_2_0_0DataSampleAcquisitionSampleAcquisitionDetailSamplingPoi
 /// <summary>
 /// For a sample that has been recombined from separate samples, e.g. liquid sample and vapor sample, this object records the specified: recombination conditions (pressure and temperature), recombination ratio, the saturation pressure and  target recombined sample composition, whichever of these are appropriate for this recombination effort.
 /// </summary>
-public class Sample_2_0_0DataRecombinationSpecification
+public class Sample_2_0_0_Data_RecombinationSpecification
 {
     [Required]
     [JsonPropertyName("RecombinationCondition")]
@@ -479,7 +479,7 @@ public class Sample_2_0_0DataRecombinationSpecification
     /// The gas-oil ratio recorded for this sample recombination process as well as the volumetric reference conditions for both the oil and gas phases. This is typically required for fluid sample types.
     /// </summary>
     [JsonPropertyName("RecombinationGasOilRatio")]
-    public Sample_2_0_0DataRecombinationSpecificationRecombinationGasOilRatio? RecombinationGasOilRatio { get; set; }
+    public Sample_2_0_0_Data_RecombinationSpecification_RecombinationGasOilRatio? RecombinationGasOilRatio { get; set; }
 
     /// <summary>
     /// The observed saturation pressure for this sample recombination process. Mostly applies to fluid samples.
@@ -491,7 +491,7 @@ public class Sample_2_0_0DataRecombinationSpecification
     /// This provides an array of components and their fraction contribution to the overall expected composition of the  sample generated by the recombination process. This is typically required for fluid sample types.
     /// </summary>
     [JsonPropertyName("TargetSampleComposition")]
-    public List<Sample_2_0_0DataRecombinationSpecificationTargetSampleComposition> TargetSampleComposition { get; set; }
+    public List<Sample_2_0_0_Data_RecombinationSpecification_TargetSampleComposition> TargetSampleComposition { get; set; }
 
     /// <summary>
     /// Pertinent information about the sample recombination specification stored alongside the other attributes.
@@ -504,14 +504,14 @@ public class Sample_2_0_0DataRecombinationSpecification
     /// </summary>
     [Required]
     [JsonPropertyName("RecombinedSampleFraction")]
-    public List<Sample_2_0_0DataRecombinationSpecificationRecombinedSampleFraction> RecombinedSampleFraction { get; set; }
+    public List<Sample_2_0_0_Data_RecombinationSpecification_RecombinedSampleFraction> RecombinedSampleFraction { get; set; }
 
 }
 
 /// <summary>
 /// The gas-oil ratio recorded for this sample recombination process as well as the volumetric reference conditions for both the oil and gas phases. This is typically required for fluid sample types.
 /// </summary>
-public class Sample_2_0_0DataRecombinationSpecificationRecombinationGasOilRatio
+public class Sample_2_0_0_Data_RecombinationSpecification_RecombinationGasOilRatio
 {
     /// <summary>
     /// The Gas Oil Ratio calculated at the reference conditions specified for each stream (Oil or Gas)
@@ -533,7 +533,7 @@ public class Sample_2_0_0DataRecombinationSpecificationRecombinationGasOilRatio
 /// <summary>
 /// This object holds information about a sample or component of a sample and its contribution to a target sample created through the recombination process.
 /// </summary>
-public class Sample_2_0_0DataRecombinationSpecificationTargetSampleComposition
+public class Sample_2_0_0_Data_RecombinationSpecification_TargetSampleComposition
 {
     /// <summary>
     /// This is the OSDU Record ID of an item in the list of  sample components. This attribute references the components that make up a sample.
@@ -566,7 +566,7 @@ public class Sample_2_0_0DataRecombinationSpecificationTargetSampleComposition
 /// <summary>
 /// This object holds information about a sample or component of a sample and its contribution to a target sample created through the recombination process.
 /// </summary>
-public class Sample_2_0_0DataRecombinationSpecificationRecombinedSampleFraction
+public class Sample_2_0_0_Data_RecombinationSpecification_RecombinedSampleFraction
 {
     /// <summary>
     /// This is the OSDU Record ID of an item in the list of  sample components. This attribute references the components that make up a sample.
@@ -599,7 +599,7 @@ public class Sample_2_0_0DataRecombinationSpecificationRecombinedSampleFraction
 /// <summary>
 /// This captures information about the preparation process executed after the sample acquisition event.
 /// </summary>
-public class Sample_2_0_0DataSamplePreparation
+public class Sample_2_0_0_Data_SamplePreparation
 {
     /// <summary>
     /// Provides extra details on any processes applied after the sample has been acquired

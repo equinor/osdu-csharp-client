@@ -89,11 +89,11 @@ public class UserProfile_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public UserProfile_1_0_0Data? Data { get; set; }
+    public UserProfile_1_0_0_Data? Data { get; set; }
 
 }
 
-public class UserProfile_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class UserProfile_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// The individual's name. Usually this includes first and last name.
@@ -175,14 +175,14 @@ public class UserProfile_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// A list of Data Governance roles held by this individual, with the ability to qualify and timebox those roles.
     /// </summary>
     [JsonPropertyName("UserDataGovernanceRoles")]
-    public List<UserProfile_1_0_0DataUserDataGovernanceRoles> UserDataGovernanceRoles { get; set; }
+    public List<UserProfile_1_0_0_Data_UserDataGovernanceRoles> UserDataGovernanceRoles { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class UserProfile_1_0_0DataUserDataGovernanceRoles
+public class UserProfile_1_0_0_Data_UserDataGovernanceRoles
 {
     /// <summary>
     /// Internal, unique identifier for the set of attributes describing and qualifying a specific data governance role.

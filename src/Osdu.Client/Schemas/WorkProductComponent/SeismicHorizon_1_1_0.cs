@@ -89,11 +89,11 @@ public class SeismicHorizon_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicHorizon_1_1_0Data? Data { get; set; }
+    public SeismicHorizon_1_1_0_Data? Data { get; set; }
 
 }
 
-public class SeismicHorizon_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0, AbstractRepresentation_1_0_0
+public class SeismicHorizon_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0, AbstractRepresentation_1_0_0
 {
     /// <summary>
     /// For picks on 3D datasets, reference to the 3D interpretation set (not the application project nor an acquisition survey) that supported this interpretation.  The seismic geometry (bin grid) needed to interpret the location references is inferred through the interpretation survey and no longer explicitly through this object.  The WPC SpatialArea may reflect the survey area that has the horizon picked on it for shallow search purposes.  Only this or Seismic2DInterpretationSetID may be used, but not both.
@@ -192,7 +192,7 @@ public class SeismicHorizon_1_1_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Summary of measurements included with horizon in addition to depth attribute.
     /// </summary>
     [JsonPropertyName("SeismicAttributes")]
-    public List<SeismicHorizon_1_1_0DataSeismicAttributes> SeismicAttributes { get; set; }
+    public List<SeismicHorizon_1_1_0_Data_SeismicAttributes> SeismicAttributes { get; set; }
 
     /// <summary>
     /// Portion of bin grid covered by picked surface expressed in percent.
@@ -277,7 +277,7 @@ public class SeismicHorizon_1_1_0Data : AbstractCommonResources_1_0_0 // Also co
 /// <summary>
 /// Summary of measurements included with horizon in addition to depth attribute.
 /// </summary>
-public class SeismicHorizon_1_1_0DataSeismicAttributes
+public class SeismicHorizon_1_1_0_Data_SeismicAttributes
 {
     /// <summary>
     /// The type of attribute value captured

@@ -89,11 +89,11 @@ public class RigUtilization_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public RigUtilization_2_0_0Data? Data { get; set; }
+    public RigUtilization_2_0_0_Data? Data { get; set; }
 
 }
 
-public class RigUtilization_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
+public class RigUtilization_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// The specifications or configuration of the rig at the time it is being utilized to drill this depth range of this section.
@@ -137,7 +137,7 @@ public class RigUtilization_2_0_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Air gap from the rig floor to the ground or mean sea level, depending on the rig location. This is typically a static number and will have only one record in the array, but can change in offshore operations when the rig is raised or lowered.
     /// </summary>
     [JsonPropertyName("AirGaps")]
-    public List<RigUtilization_2_0_0DataAirGaps> AirGaps { get; set; }
+    public List<RigUtilization_2_0_0_Data_AirGaps> AirGaps { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -147,7 +147,7 @@ public class RigUtilization_2_0_0Data : AbstractCommonResources_1_0_0 // Also co
 /// <summary>
 /// Air gap from the rig floor to the ground or mean sea level, depending on the rig location.
 /// </summary>
-public class RigUtilization_2_0_0DataAirGaps
+public class RigUtilization_2_0_0_Data_AirGaps
 {
     /// <summary>
     /// The start date and time the air gap measurement takes affect on the rig.

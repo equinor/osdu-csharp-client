@@ -89,11 +89,11 @@ public class Coring_1_1_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Coring_1_1_1Data? Data { get; set; }
+    public Coring_1_1_1_Data? Data { get; set; }
 
 }
 
-public class Coring_1_1_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProjectActivity_1_0_0
+public class Coring_1_1_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProjectActivity_1_0_0
 {
     /// <summary>
     /// Native identifier from a Master Data Management System or other trusted source external to OSDU - stored here in order to allow for multi-system connection and synchronization. If used, the "Source" property should identify that source system. i.e. this item is optional.
@@ -165,7 +165,7 @@ public class Coring_1_1_1Data : AbstractCommonResources_1_0_0 // Also composes: 
     /// An array contains narrative remarks pertaining to a core.
     /// </summary>
     [JsonPropertyName("CoreRemarks")]
-    public List<Coring_1_1_1DataCoreRemarks> CoreRemarks { get; set; }
+    public List<Coring_1_1_1_Data_CoreRemarks> CoreRemarks { get; set; }
 
     /// <summary>
     /// The WellLog representation carrying the preferred core-depth to logging-depth correction or mapping.
@@ -208,7 +208,7 @@ public class Coring_1_1_1Data : AbstractCommonResources_1_0_0 // Also composes: 
 /// <summary>
 /// An array contains narrative remarks pertaining to a core.
 /// </summary>
-public class Coring_1_1_1DataCoreRemarks
+public class Coring_1_1_1_Data_CoreRemarks
 {
     /// <summary>
     /// A unique identifier for each remark record.

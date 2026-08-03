@@ -89,11 +89,11 @@ public class UnsealedSurfaceFramework_1_3_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public UnsealedSurfaceFramework_1_3_1Data? Data { get; set; }
+    public UnsealedSurfaceFramework_1_3_1_Data? Data { get; set; }
 
 }
 
-public class UnsealedSurfaceFramework_1_3_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
+public class UnsealedSurfaceFramework_1_3_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
 {
     /// <summary>
     /// The reference to the StructuralOrganizationInterpretation this framework belongs to.

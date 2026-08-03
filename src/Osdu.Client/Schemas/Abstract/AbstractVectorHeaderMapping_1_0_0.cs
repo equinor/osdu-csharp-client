@@ -23,14 +23,14 @@ public class AbstractVectorHeaderMapping_1_0_0
     /// Array of objects which define the meaning and format of a tabular structure used in a binary file as a header.  The initial use case is the trace headers of a SEG-Y file.  Note that some of this information may be repeated in the SEG-Y EBCDIC header.
     /// </summary>
     [JsonPropertyName("VectorHeaderMapping")]
-    public List<AbstractVectorHeaderMapping_1_0_0VectorHeaderMapping> VectorHeaderMapping { get; set; }
+    public List<AbstractVectorHeaderMapping_1_0_0_VectorHeaderMapping> VectorHeaderMapping { get; set; }
 
 }
 
 /// <summary>
 /// Array of objects which define the meaning and format of a tabular structure used in a binary file as a header.  The initial use case is the trace headers of a SEG-Y file.  Note that some of this information may be repeated in the SEG-Y EBCDIC header.
 /// </summary>
-public class AbstractVectorHeaderMapping_1_0_0VectorHeaderMapping
+public class AbstractVectorHeaderMapping_1_0_0_VectorHeaderMapping
 {
     /// <summary>
     /// Relationship to a reference value for a name of a property header such as INLINE, CDPX.
@@ -69,7 +69,7 @@ public class AbstractVectorHeaderMapping_1_0_0VectorHeaderMapping
     /// Enumerated string indicating whether to use the normal scalar field for scaling this field (STANDARD), no scaling (NOSCALE), or override scalar (OVERRIDE).  Default is current STANDARD (such as SEG-Y rev2).
     /// </summary>
     [JsonPropertyName("ScalarIndicator")]
-    public AbstractVectorHeaderMapping_1_0_0VectorHeaderMappingScalarIndicator ScalarIndicator { get; set; }
+    public AbstractVectorHeaderMapping_1_0_0_VectorHeaderMapping_ScalarIndicator ScalarIndicator { get; set; }
 
     /// <summary>
     /// Scalar value (as defined by standard) when a value present in the header needs to be overwritten for this value.
@@ -83,7 +83,7 @@ public class AbstractVectorHeaderMapping_1_0_0VectorHeaderMapping
 /// Enumerated string indicating whether to use the normal scalar field for scaling this field (STANDARD), no scaling (NOSCALE), or override scalar (OVERRIDE).  Default is current STANDARD (such as SEG-Y rev2).
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractVectorHeaderMapping_1_0_0VectorHeaderMappingScalarIndicator
+public enum AbstractVectorHeaderMapping_1_0_0_VectorHeaderMapping_ScalarIndicator
 {
     [JsonStringEnumMemberName("STANDARD")]
     STANDARD,

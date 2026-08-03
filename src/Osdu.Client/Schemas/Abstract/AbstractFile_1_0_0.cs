@@ -24,7 +24,7 @@ public class AbstractFile_1_0_0
     /// </summary>
     [Required]
     [JsonPropertyName("DatasetProperties")]
-    public AbstractFile_1_0_0DatasetProperties DatasetProperties { get; set; }
+    public AbstractFile_1_0_0_DatasetProperties DatasetProperties { get; set; }
 
     /// <summary>
     /// MD5 checksum of file bytes - a 32 byte hexadecimal number.
@@ -38,7 +38,7 @@ public class AbstractFile_1_0_0
 /// <summary>
 /// The dataset properties for a single file.
 /// </summary>
-public class AbstractFile_1_0_0DatasetProperties
+public class AbstractFile_1_0_0_DatasetProperties
 {
     [JsonPropertyName("FileSourceInfo")]
     public AbstractFileSourceInfo_1_0_0? FileSourceInfo { get; set; }

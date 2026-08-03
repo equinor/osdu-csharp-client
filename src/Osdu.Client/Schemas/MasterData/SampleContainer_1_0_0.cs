@@ -89,11 +89,11 @@ public class SampleContainer_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SampleContainer_1_0_0Data? Data { get; set; }
+    public SampleContainer_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SampleContainer_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class SampleContainer_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// The name of the container.
@@ -152,7 +152,7 @@ public class SampleContainer_1_0_0Data : AbstractCommonResources_1_0_0 // Also c
     /// List of certifications performed on the sample container over time.
     /// </summary>
     [JsonPropertyName("ContainerCertifications")]
-    public List<SampleContainer_1_0_0DataContainerCertifications> ContainerCertifications { get; set; }
+    public List<SampleContainer_1_0_0_Data_ContainerCertifications> ContainerCertifications { get; set; }
 
     /// <summary>
     /// The type or kind of the sample container used.
@@ -190,7 +190,7 @@ public class SampleContainer_1_0_0Data : AbstractCommonResources_1_0_0 // Also c
 /// <summary>
 /// This provides information pertaining to the certification process conducted on a fluid sample container object.
 /// </summary>
-public class SampleContainer_1_0_0DataContainerCertifications
+public class SampleContainer_1_0_0_Data_ContainerCertifications
 {
     /// <summary>
     /// This is the date of the last inspection performed on the sample container.

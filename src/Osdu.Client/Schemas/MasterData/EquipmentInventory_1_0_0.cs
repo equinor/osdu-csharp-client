@@ -89,11 +89,11 @@ public class EquipmentInventory_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public EquipmentInventory_1_0_0Data? Data { get; set; }
+    public EquipmentInventory_1_0_0_Data? Data { get; set; }
 
 }
 
-public class EquipmentInventory_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class EquipmentInventory_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Identifies the Rig Specification this Inventory applies to.
@@ -113,7 +113,7 @@ public class EquipmentInventory_1_0_0Data : AbstractCommonResources_1_0_0 // Als
     /// The inventory of equipment located on site.
     /// </summary>
     [JsonPropertyName("EquipmentInventory")]
-    public List<EquipmentInventory_1_0_0DataEquipmentInventory> EquipmentInventory { get; set; }
+    public List<EquipmentInventory_1_0_0_Data_EquipmentInventory> EquipmentInventory { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -123,7 +123,7 @@ public class EquipmentInventory_1_0_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// The inventory of equipment located on site.
 /// </summary>
-public class EquipmentInventory_1_0_0DataEquipmentInventory
+public class EquipmentInventory_1_0_0_Data_EquipmentInventory
 {
     /// <summary>
     /// A reference to the object defining the equipment included in this inventory.

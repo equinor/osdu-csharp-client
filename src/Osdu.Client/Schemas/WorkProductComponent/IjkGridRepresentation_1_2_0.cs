@@ -89,11 +89,11 @@ public class IjkGridRepresentation_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public IjkGridRepresentation_1_2_0Data? Data { get; set; }
+    public IjkGridRepresentation_1_2_0_Data? Data { get; set; }
 
 }
 
-public class IjkGridRepresentation_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractGridRepresentation_1_0_0, AbstractIjkGridPatch_1_0_0
+public class IjkGridRepresentation_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractGridRepresentation_1_0_0, AbstractIjkGridPatch_1_0_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

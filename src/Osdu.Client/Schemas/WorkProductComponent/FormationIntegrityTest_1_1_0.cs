@@ -89,11 +89,11 @@ public class FormationIntegrityTest_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FormationIntegrityTest_1_1_0Data? Data { get; set; }
+    public FormationIntegrityTest_1_1_0_Data? Data { get; set; }
 
 }
 
-public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class FormationIntegrityTest_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Business natural key or code of the Wellbore to which this record belongs
@@ -731,7 +731,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
     /// Time v Volume v Pressure response curve(s)
     /// </summary>
     [JsonPropertyName("VolumePressureResponses")]
-    public List<FormationIntegrityTest_1_1_0DataVolumePressureResponses> VolumePressureResponses { get; set; }
+    public List<FormationIntegrityTest_1_1_0_Data_VolumePressureResponses> VolumePressureResponses { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -741,7 +741,7 @@ public class FormationIntegrityTest_1_1_0Data : AbstractCommonResources_1_0_0 //
 /// <summary>
 /// Volume pumped versus Pressure response curve data. Multiple curves supported, one set for each Pressure Data Source
 /// </summary>
-public class FormationIntegrityTest_1_1_0DataVolumePressureResponses
+public class FormationIntegrityTest_1_1_0_Data_VolumePressureResponses
 {
     /// <summary>
     /// Pressure Data Source

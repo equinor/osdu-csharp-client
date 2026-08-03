@@ -90,11 +90,11 @@ public class ReservoirSegment_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ReservoirSegment_2_0_0Data? Data { get; set; }
+    public ReservoirSegment_2_0_0_Data? Data { get; set; }
 
 }
 
-public class ReservoirSegment_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractGenericReservoirUnit_2_0_0
+public class ReservoirSegment_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractGenericReservoirUnit_2_0_0
 {
     /// <summary>
     /// Identifier linking to the parent reservoir entity (It could be either a segment or a reservoir)

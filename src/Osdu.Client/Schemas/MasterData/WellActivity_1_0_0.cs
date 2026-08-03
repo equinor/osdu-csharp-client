@@ -89,11 +89,11 @@ public class WellActivity_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellActivity_1_0_0Data? Data { get; set; }
+    public WellActivity_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellActivity_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0, AbstractProjectActivity_1_1_0
+public class WellActivity_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0, AbstractProjectActivity_1_1_0
 {
     /// <summary>
     /// The name of this Well Activity

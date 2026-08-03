@@ -89,11 +89,11 @@ public class ReservoirSimulationRockPhysicsModel_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ReservoirSimulationRockPhysicsModel_1_0_0Data? Data { get; set; }
+    public ReservoirSimulationRockPhysicsModel_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ReservoirSimulationRockPhysicsModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ReservoirSimulationRockPhysicsModel_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifier of the type of compressibility model used for this rock physics model.
@@ -113,7 +113,7 @@ public class ReservoirSimulationRockPhysicsModel_1_0_0Data : AbstractCommonResou
     /// This set of attributes represents the context surrounding the processes used in running through model characterization.
     /// </summary>
     [JsonPropertyName("BasisOfModelling")]
-    public ReservoirSimulationRockPhysicsModel_1_0_0DataBasisOfModelling? BasisOfModelling { get; set; }
+    public ReservoirSimulationRockPhysicsModel_1_0_0_Data_BasisOfModelling? BasisOfModelling { get; set; }
 
     /// <summary>
     /// This is used, as a form of lineage, to explicitly indicate the model OSDU record from which this model was derived. Only to be used in the case that this model is derived from another.
@@ -142,7 +142,7 @@ public class ReservoirSimulationRockPhysicsModel_1_0_0Data : AbstractCommonResou
 /// <summary>
 /// This set of attributes represents the context surrounding the processes used in running through model characterization.
 /// </summary>
-public class ReservoirSimulationRockPhysicsModel_1_0_0DataBasisOfModelling
+public class ReservoirSimulationRockPhysicsModel_1_0_0_Data_BasisOfModelling
 {
     /// <summary>
     /// Identifiers of the Samples Analysis records from which this model has been derived.

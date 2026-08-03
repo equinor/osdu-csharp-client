@@ -42,14 +42,14 @@ public class Manifest_1_0_0
     /// Manifest schema for work-product, work-product-component, dataset ensembles. The items in 'Datasets' are processed first since they are referenced by 'WorkProductComponents' ('data.DatasetIDs[]' and 'data.Artefacts[].ResourceID'). The WorkProduct is processed last collecting the WorkProductComponents.
     /// </summary>
     [JsonPropertyName("Data")]
-    public Manifest_1_0_0Data? Data { get; set; }
+    public Manifest_1_0_0_Data? Data { get; set; }
 
 }
 
 /// <summary>
 /// Manifest schema for work-product, work-product-component, dataset ensembles. The items in 'Datasets' are processed first since they are referenced by 'WorkProductComponents' ('data.DatasetIDs[]' and 'data.Artefacts[].ResourceID'). The WorkProduct is processed last collecting the WorkProductComponents.
 /// </summary>
-public class Manifest_1_0_0Data
+public class Manifest_1_0_0_Data
 {
     [JsonPropertyName("WorkProduct")]
     public GenericWorkProduct_1_0_0? WorkProduct { get; set; }

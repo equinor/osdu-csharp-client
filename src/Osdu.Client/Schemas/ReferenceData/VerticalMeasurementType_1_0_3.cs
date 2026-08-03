@@ -89,11 +89,11 @@ public class VerticalMeasurementType_1_0_3
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public VerticalMeasurementType_1_0_3Data? Data { get; set; }
+    public VerticalMeasurementType_1_0_3_Data? Data { get; set; }
 
 }
 
-public class VerticalMeasurementType_1_0_3Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
+public class VerticalMeasurementType_1_0_3_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

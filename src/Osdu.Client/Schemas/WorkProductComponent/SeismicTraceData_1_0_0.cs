@@ -89,11 +89,11 @@ public class SeismicTraceData_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicTraceData_1_0_0Data? Data { get; set; }
+    public SeismicTraceData_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicTraceData_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class SeismicTraceData_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     [JsonPropertyName("LiveTraceOutline")]
     public AbstractSpatialLocation_1_0_0? LiveTraceOutline { get; set; }
@@ -372,13 +372,13 @@ public class SeismicTraceData_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
     /// Sample data format in terms of sample value precision 8bit Integer, 16bit Floating Point etc.
     /// </summary>
     [JsonPropertyName("Precision")]
-    public SeismicTraceData_1_0_0DataPrecision? Precision { get; set; }
+    public SeismicTraceData_1_0_0_Data_Precision? Precision { get; set; }
 
     /// <summary>
     /// Processing Parameters to simply capture process history until full provenance model can be implemented.
     /// </summary>
     [JsonPropertyName("ProcessingParameters")]
-    public List<SeismicTraceData_1_0_0DataProcessingParameters> ProcessingParameters { get; set; }
+    public List<SeismicTraceData_1_0_0_Data_ProcessingParameters> ProcessingParameters { get; set; }
 
     /// <summary>
     /// Actual nominal fold of the trace data set as processed, expressed as the mode in percentage points (60 fold = 6000%).
@@ -455,7 +455,7 @@ public class SeismicTraceData_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// Sample data format in terms of sample value precision 8bit Integer, 16bit Floating Point etc.
 /// </summary>
-public class SeismicTraceData_1_0_0DataPrecision
+public class SeismicTraceData_1_0_0_Data_Precision
 {
     /// <summary>
     /// SRN of a reference value for binary data types, such as INT, UINT, FLOAT, IBM_FLOAT, ASCII, EBCDIC.
@@ -472,7 +472,7 @@ public class SeismicTraceData_1_0_0DataPrecision
 
 }
 
-public class SeismicTraceData_1_0_0DataProcessingParameters
+public class SeismicTraceData_1_0_0_Data_ProcessingParameters
 {
     /// <summary>
     /// Processing Parameter Type

@@ -18,7 +18,7 @@ public class Input
 {
     [Required]
     [JsonPropertyName("operation")]
-    public InputOperation Operation { get; set; }
+    public Input_Operation Operation { get; set; }
 
     [JsonPropertyName("groups")]
     public List<string>? Groups { get; set; }
@@ -35,7 +35,7 @@ public class Input
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum InputOperation
+public enum Input_Operation
 {
     [JsonStringEnumMemberName("view")]
     View,

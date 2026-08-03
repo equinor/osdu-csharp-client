@@ -89,11 +89,11 @@ public class FluidModel_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FluidModel_1_0_0Data? Data { get; set; }
+    public FluidModel_1_0_0_Data? Data { get; set; }
 
 }
 
-public class FluidModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class FluidModel_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifies the type of model used. Models can support one or more business contexts. E.g., for Reservoir Simulation, key types of fluid models are Black Oil, Compositional, and Thermal Compositional.
@@ -106,7 +106,7 @@ public class FluidModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also compos
     /// This set of attributes represents the context surrounding the processes used in running through model characterization.
     /// </summary>
     [JsonPropertyName("BasisOfModelling")]
-    public FluidModel_1_0_0DataBasisOfModelling? BasisOfModelling { get; set; }
+    public FluidModel_1_0_0_Data_BasisOfModelling? BasisOfModelling { get; set; }
 
     /// <summary>
     /// This is used, as a form of lineage, to explicitly indicate the fluid model OSDU record from which this fluid model was derived. Only to be used in the case that this fluid model is derived from another.
@@ -168,7 +168,7 @@ public class FluidModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also compos
 /// <summary>
 /// This set of attributes represents the context surrounding the processes used in running through model characterization.
 /// </summary>
-public class FluidModel_1_0_0DataBasisOfModelling
+public class FluidModel_1_0_0_Data_BasisOfModelling
 {
     /// <summary>
     /// Identifies the Persisted Collection containing relevant data used to derive this model, except for Samples Analysis, which are identified by InputSampleAnalysisIDs.
@@ -181,7 +181,7 @@ public class FluidModel_1_0_0DataBasisOfModelling
     /// This provides an array of fluid model definition properties and the methodology used in estimating its property values.
     /// </summary>
     [JsonPropertyName("ModelPropertyFormulationMethods")]
-    public List<FluidModel_1_0_0DataBasisOfModellingModelPropertyFormulationMethods> ModelPropertyFormulationMethods { get; set; }
+    public List<FluidModel_1_0_0_Data_BasisOfModelling_ModelPropertyFormulationMethods> ModelPropertyFormulationMethods { get; set; }
 
     /// <summary>
     /// The software applications used in creating this model. For example, this could be a PVT software application that is used to create the tabular data. Best practice is to also capture the application version.
@@ -241,7 +241,7 @@ public class FluidModel_1_0_0DataBasisOfModelling
 /// <summary>
 /// This captures information around the fluid model definition property and the methodology used in estimating its property values.
 /// </summary>
-public class FluidModel_1_0_0DataBasisOfModellingModelPropertyFormulationMethods
+public class FluidModel_1_0_0_Data_BasisOfModelling_ModelPropertyFormulationMethods
 {
     /// <summary>
     /// Identifies the fluid model property available in the model definition. Typical properties referenced here will include phase equilibrium values, densities, water compressibilities and viscosities.

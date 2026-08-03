@@ -29,13 +29,13 @@ public class MemberDto
     /// Role of the member
     /// </summary>
     [JsonPropertyName("role")]
-    public MemberDtoRole Role { get; set; }
+    public MemberDto_Role Role { get; set; }
 
     /// <summary>
     /// Type of the member
     /// </summary>
     [JsonPropertyName("memberType")]
-    public MemberDtoMemberType MemberType { get; set; }
+    public MemberDto_MemberType MemberType { get; set; }
 
     /// <summary>
     /// dataPartitionId
@@ -49,7 +49,7 @@ public class MemberDto
 /// Role of the member
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum MemberDtoRole
+public enum MemberDto_Role
 {
     [JsonStringEnumMemberName("MEMBER")]
     MEMBER,
@@ -63,7 +63,7 @@ public enum MemberDtoRole
 /// Type of the member
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum MemberDtoMemberType
+public enum MemberDto_MemberType
 {
     [JsonStringEnumMemberName("USER")]
     USER,

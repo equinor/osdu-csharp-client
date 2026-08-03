@@ -89,11 +89,11 @@ public class ReservoirSimulationModel_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ReservoirSimulationModel_1_0_0Data? Data { get; set; }
+    public ReservoirSimulationModel_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ReservoirSimulationModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ReservoirSimulationModel_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifies the specific 3D grid from the earth model/static geologic model, which is used in this reservoir simulation. This grid will define both the horizontal and vertical C.R.S.
@@ -113,25 +113,25 @@ public class ReservoirSimulationModel_1_0_0Data : AbstractCommonResources_1_0_1 
     /// Identifies the grid properties within the associated 3D geologic model that are inputs to the reservoir simulation.
     /// </summary>
     [JsonPropertyName("ReservoirSimulationPropertySets")]
-    public List<ReservoirSimulationModel_1_0_0DataReservoirSimulationPropertySets> ReservoirSimulationPropertySets { get; set; }
+    public List<ReservoirSimulationModel_1_0_0_Data_ReservoirSimulationPropertySets> ReservoirSimulationPropertySets { get; set; }
 
     /// <summary>
     /// Identifies the rock model components (e.g. rock physics model, saturation functions) used as inputs to reservoir simulation and mapped to 3D model regions.
     /// </summary>
     [JsonPropertyName("RockModelAssignments")]
-    public List<ReservoirSimulationModel_1_0_0DataRockModelAssignments> RockModelAssignments { get; set; }
+    public List<ReservoirSimulationModel_1_0_0_Data_RockModelAssignments> RockModelAssignments { get; set; }
 
     /// <summary>
     /// Identifies the fluid models (e.g. black oil, compositional) used as inputs to reservoir simulation and mapped to 3D model regions.
     /// </summary>
     [JsonPropertyName("FluidModelAssignments")]
-    public List<ReservoirSimulationModel_1_0_0DataFluidModelAssignments> FluidModelAssignments { get; set; }
+    public List<ReservoirSimulationModel_1_0_0_Data_FluidModelAssignments> FluidModelAssignments { get; set; }
 
     /// <summary>
     /// Identifies the reservoir equilibrium models used as inputs to reservoir simulation and mapped to 3D model regions.
     /// </summary>
     [JsonPropertyName("EquilibriumModelAssignments")]
-    public List<ReservoirSimulationModel_1_0_0DataEquilibriumModelAssignments> EquilibriumModelAssignments { get; set; }
+    public List<ReservoirSimulationModel_1_0_0_Data_EquilibriumModelAssignments> EquilibriumModelAssignments { get; set; }
 
     /// <summary>
     /// Identifies the Earth Model Interpretation holding the geological model and its whole set of representations. This direct relationship to Earth Model is not always necessary, but may be useful in rare cases where a gridless model is used or to more quickly navigate to a version of the 3D Grid at a different resolution.
@@ -150,7 +150,7 @@ public class ReservoirSimulationModel_1_0_0Data : AbstractCommonResources_1_0_1 
     /// This set of attributes represents the context surrounding the processes used in running through model characterization.
     /// </summary>
     [JsonPropertyName("BasisOfModelling")]
-    public ReservoirSimulationModel_1_0_0DataBasisOfModelling? BasisOfModelling { get; set; }
+    public ReservoirSimulationModel_1_0_0_Data_BasisOfModelling? BasisOfModelling { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -160,7 +160,7 @@ public class ReservoirSimulationModel_1_0_0Data : AbstractCommonResources_1_0_1 
 /// <summary>
 /// Identifies a grid property from the associated 3D geologic model that is an input to the reservoir simulation.
 /// </summary>
-public class ReservoirSimulationModel_1_0_0DataReservoirSimulationPropertySets
+public class ReservoirSimulationModel_1_0_0_Data_ReservoirSimulationPropertySets
 {
     /// <summary>
     /// Incremental Number identifying the property in this specific Simulation Model Array
@@ -190,7 +190,7 @@ public class ReservoirSimulationModel_1_0_0DataReservoirSimulationPropertySets
 /// <summary>
 /// Describes the association between one rock model component (e.g. rock physics model, saturation functions) and its corresponding allocated region(s) in the 3D static model.
 /// </summary>
-public class ReservoirSimulationModel_1_0_0DataRockModelAssignments
+public class ReservoirSimulationModel_1_0_0_Data_RockModelAssignments
 {
     /// <summary>
     /// Index of the property, in the property array, this assignment is describing.
@@ -228,7 +228,7 @@ public class ReservoirSimulationModel_1_0_0DataRockModelAssignments
 /// <summary>
 /// Describes the association between one fluid model and its corresponding allocated region(s) in the 3D static model.
 /// </summary>
-public class ReservoirSimulationModel_1_0_0DataFluidModelAssignments
+public class ReservoirSimulationModel_1_0_0_Data_FluidModelAssignments
 {
     /// <summary>
     /// Index of the property, in the property array, this assignment is describing.
@@ -258,7 +258,7 @@ public class ReservoirSimulationModel_1_0_0DataFluidModelAssignments
 /// <summary>
 /// Describes the association between one equilibrium model and its corresponding allocated region(s) in the 3D static model.
 /// </summary>
-public class ReservoirSimulationModel_1_0_0DataEquilibriumModelAssignments
+public class ReservoirSimulationModel_1_0_0_Data_EquilibriumModelAssignments
 {
     /// <summary>
     /// Index of the property, in the property array, this assignment is describing.
@@ -288,7 +288,7 @@ public class ReservoirSimulationModel_1_0_0DataEquilibriumModelAssignments
 /// <summary>
 /// This set of attributes represents the context surrounding the processes used in running through model characterization.
 /// </summary>
-public class ReservoirSimulationModel_1_0_0DataBasisOfModelling
+public class ReservoirSimulationModel_1_0_0_Data_BasisOfModelling
 {
     /// <summary>
     /// Identifies the Persisted Collection containing relevant data used to derive this model.

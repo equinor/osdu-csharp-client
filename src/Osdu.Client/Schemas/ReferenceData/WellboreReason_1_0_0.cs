@@ -89,11 +89,11 @@ public class WellboreReason_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreReason_1_0_0Data? Data { get; set; }
+    public WellboreReason_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellboreReason_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class WellboreReason_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Flag indicating whether the WellboreReason implies a side-track Wellbore.

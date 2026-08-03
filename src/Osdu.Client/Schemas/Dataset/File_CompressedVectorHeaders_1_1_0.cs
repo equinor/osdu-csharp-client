@@ -89,11 +89,11 @@ public class File_CompressedVectorHeaders_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public File_CompressedVectorHeaders_1_1_0Data? Data { get; set; }
+    public File_CompressedVectorHeaders_1_1_0_Data? Data { get; set; }
 
 }
 
-public class File_CompressedVectorHeaders_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFile_1_0_1, AbstractCompressionInfo_1_1_0, AbstractVectorHeaderMapping_1_1_0
+public class File_CompressedVectorHeaders_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFile_1_0_1, AbstractCompressionInfo_1_1_0, AbstractVectorHeaderMapping_1_1_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

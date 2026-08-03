@@ -89,11 +89,11 @@ public class Document_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Document_1_3_0Data? Data { get; set; }
+    public Document_1_3_0_Data? Data { get; set; }
 
 }
 
-public class Document_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class Document_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// DEPRECATED: Use the DocumentTaxonomyID. The kind of document--from a business standpoint, e.g., seismic processing report, etc.

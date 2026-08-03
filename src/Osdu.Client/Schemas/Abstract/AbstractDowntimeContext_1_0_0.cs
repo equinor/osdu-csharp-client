@@ -32,7 +32,7 @@ public class AbstractDowntimeContext_1_0_0
     /// </summary>
     [Required]
     [JsonPropertyName("ContextType")]
-    public AbstractDowntimeContext_1_0_0ContextType ContextType { get; set; }
+    public AbstractDowntimeContext_1_0_0_ContextType ContextType { get; set; }
 
 }
 
@@ -40,7 +40,7 @@ public class AbstractDowntimeContext_1_0_0
 /// The fixed type 'Downtime Event' for this AbstractDowntimeContext
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractDowntimeContext_1_0_0ContextType
+public enum AbstractDowntimeContext_1_0_0_ContextType
 {
     [JsonStringEnumMemberName("Downtime Event")]
     DowntimeEvent,

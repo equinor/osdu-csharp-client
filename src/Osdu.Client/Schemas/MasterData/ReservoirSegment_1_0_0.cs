@@ -90,11 +90,11 @@ public class ReservoirSegment_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ReservoirSegment_1_0_0Data? Data { get; set; }
+    public ReservoirSegment_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ReservoirSegment_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractGenericReservoirUnit_1_0_0
+public class ReservoirSegment_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractGenericReservoirUnit_1_0_0
 {
     /// <summary>
     /// This flag indicates that this reservoir segment (usually a fault block) is hydraulically isolated (i.e., not in pressure communication) from other segments in the reservoir.

@@ -89,11 +89,11 @@ public class ExternalUnitOfMeasure_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ExternalUnitOfMeasure_1_0_0Data? Data { get; set; }
+    public ExternalUnitOfMeasure_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ExternalUnitOfMeasure_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class ExternalUnitOfMeasure_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// A namespace reference grouping a list of records with the goal of providing unique look-ups by Name/Code. It is strongly recommended to make the NamespaceID's code part of the system property id.

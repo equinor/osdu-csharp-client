@@ -89,17 +89,17 @@ public class PhysicalMedia_1_0_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public PhysicalMedia_1_0_1Data? Data { get; set; }
+    public PhysicalMedia_1_0_1_Data? Data { get; set; }
 
 }
 
-public class PhysicalMedia_1_0_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1
+public class PhysicalMedia_1_0_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1
 {
     /// <summary>
     /// Properties specific to physical tapes, prints, etc.
     /// </summary>
     [JsonPropertyName("DatasetProperties")]
-    public PhysicalMedia_1_0_1DataDatasetProperties? DatasetProperties { get; set; }
+    public PhysicalMedia_1_0_1_Data_DatasetProperties? DatasetProperties { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,7 +109,7 @@ public class PhysicalMedia_1_0_1Data : AbstractCommonResources_1_0_0 // Also com
 /// <summary>
 /// Properties specific to physical tapes, prints, etc.
 /// </summary>
-public class PhysicalMedia_1_0_1DataDatasetProperties
+public class PhysicalMedia_1_0_1_Data_DatasetProperties
 {
     [JsonPropertyName("CurrentStorageLocation")]
     public AbstractStorageLocation_1_0_0? CurrentStorageLocation { get; set; }

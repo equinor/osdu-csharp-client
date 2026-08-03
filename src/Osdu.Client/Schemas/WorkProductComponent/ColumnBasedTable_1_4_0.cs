@@ -89,11 +89,11 @@ public class ColumnBasedTable_1_4_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ColumnBasedTable_1_4_0Data? Data { get; set; }
+    public ColumnBasedTable_1_4_0_Data? Data { get; set; }
 
 }
 
-public class ColumnBasedTable_1_4_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ColumnBasedTable_1_4_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The master-data record, e.g., project or survey, which provides further context to the tabular data.
@@ -132,7 +132,7 @@ public class ColumnBasedTable_1_4_0Data : AbstractCommonResources_1_0_1 // Also 
     /// Column values at index KeyColumns count are related to first (non key) column, Column values at index KeyColumns count + 1 are related to second (non key) column, etc...
     /// </summary>
     [JsonPropertyName("ColumnValues")]
-    public List<ColumnBasedTable_1_4_0DataColumnValues> ColumnValues { get; set; }
+    public List<ColumnBasedTable_1_4_0_Data_ColumnValues> ColumnValues { get; set; }
 
     /// <summary>
     /// Quickly indicate the type of the column based table (KrPc, PVT, Facies, ...) and its standard columns definition. It is supposed to be used when you don't use KeyColumns neither Columns as attributes of this WPC.
@@ -156,7 +156,7 @@ public class ColumnBasedTable_1_4_0Data : AbstractCommonResources_1_0_1 // Also 
 /// <summary>
 /// Value of the column. Generally only one of the attribute should be instantiated.
 /// </summary>
-public class ColumnBasedTable_1_4_0DataColumnValues
+public class ColumnBasedTable_1_4_0_Data_ColumnValues
 {
     /// <summary>
     /// A column of only boolean values

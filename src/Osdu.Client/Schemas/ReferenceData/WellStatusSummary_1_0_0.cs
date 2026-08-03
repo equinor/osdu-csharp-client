@@ -89,11 +89,11 @@ public class WellStatusSummary_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellStatusSummary_1_0_0Data? Data { get; set; }
+    public WellStatusSummary_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellStatusSummary_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class WellStatusSummary_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The Primary Product Type permitted in this summary category. Product Type [Well Product Type] is the physical product(s) that can be attributed to any well component. A Primary Product Significance identifies the Product Type that is most significant.

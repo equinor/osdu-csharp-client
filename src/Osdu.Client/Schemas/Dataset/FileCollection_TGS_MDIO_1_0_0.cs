@@ -89,11 +89,11 @@ public class FileCollection_TGS_MDIO_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FileCollection_TGS_MDIO_1_0_0Data? Data { get; set; }
+    public FileCollection_TGS_MDIO_1_0_0_Data? Data { get; set; }
 
 }
 
-public class FileCollection_TGS_MDIO_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1
+public class FileCollection_TGS_MDIO_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1
 {
     /// <summary>
     /// The size of the data chunks (commonly called "brick size") into which the seismic data is divided. Populate one array entry per dimension.
@@ -119,7 +119,7 @@ public class FileCollection_TGS_MDIO_1_0_0Data : AbstractCommonResources_1_0_0 /
     /// GridOverrides supports processes to re-index and sort seismic data to a logical grid (e.g. 3D Shot Grid or CDP Grid) for SEGY files that lack certain required information in their headers. This is usually used for prestack seismic data.
     /// </summary>
     [JsonPropertyName("GridOverrides")]
-    public FileCollection_TGS_MDIO_1_0_0DataGridOverrides? GridOverrides { get; set; }
+    public FileCollection_TGS_MDIO_1_0_0_Data_GridOverrides? GridOverrides { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -129,7 +129,7 @@ public class FileCollection_TGS_MDIO_1_0_0Data : AbstractCommonResources_1_0_0 /
 /// <summary>
 /// GridOverrides supports processes to re-index and sort seismic data to a logical grid (e.g. 3D Shot Grid or CDP Grid) for SEGY files that lack certain required information in their headers. This is usually used for prestack seismic data.
 /// </summary>
-public class FileCollection_TGS_MDIO_1_0_0DataGridOverrides
+public class FileCollection_TGS_MDIO_1_0_0_Data_GridOverrides
 {
     /// <summary>
     /// Setting this to “true” directs the system to apply a transformation that maps unwrapped (e.g. one cable ends at channel 20, next cable starts at channel 21) sequential channel header "channel" into a wrapped layout (meaning every cable starts at channel 1) when converting from SEGY to MDIO. This process relies on the total number of channels per cable, specified by “ChannelsPerCable.” Because it overrides the default header-parsing logic, it cannot be enabled at the same time as “AutoChannelWrap.”

@@ -89,11 +89,11 @@ public class IjkGridNumericalAquiferRepresentation_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public IjkGridNumericalAquiferRepresentation_1_1_0Data? Data { get; set; }
+    public IjkGridNumericalAquiferRepresentation_1_1_0_Data? Data { get; set; }
 
 }
 
-public class IjkGridNumericalAquiferRepresentation_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
+public class IjkGridNumericalAquiferRepresentation_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
 {
     /// <summary>
     /// The reference to the AquiferInterpretation this representation belongs to.
@@ -106,7 +106,7 @@ public class IjkGridNumericalAquiferRepresentation_1_1_0Data : AbstractCommonRes
     /// Describe the aquifer by means of one to many single cell of reservoir grids
     /// </summary>
     [JsonPropertyName("SingleCellAquiferSet")]
-    public List<IjkGridNumericalAquiferRepresentation_1_1_0DataSingleCellAquiferSet> SingleCellAquiferSet { get; set; }
+    public List<IjkGridNumericalAquiferRepresentation_1_1_0_Data_SingleCellAquiferSet> SingleCellAquiferSet { get; set; }
 
     /// <summary>
     /// List all connections between the aquifer and reservoir grids.
@@ -122,7 +122,7 @@ public class IjkGridNumericalAquiferRepresentation_1_1_0Data : AbstractCommonRes
 /// <summary>
 /// Describe a cell which is a part or the whole definition of an aquifer.
 /// </summary>
-public class IjkGridNumericalAquiferRepresentation_1_1_0DataSingleCellAquiferSet
+public class IjkGridNumericalAquiferRepresentation_1_1_0_Data_SingleCellAquiferSet
 {
     /// <summary>
     /// The grid where the aquifer cell is defined

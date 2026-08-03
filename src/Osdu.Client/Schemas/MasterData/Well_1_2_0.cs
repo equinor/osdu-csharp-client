@@ -89,11 +89,11 @@ public class Well_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Well_1_2_0Data? Data { get; set; }
+    public Well_1_2_0_Data? Data { get; set; }
 
 }
 
-public class Well_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractFacility_1_1_0
+public class Well_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractFacility_1_1_0
 {
     /// <summary>
     /// The default datum reference point, or zero depth point, used to determine other points vertically in a well.  References an entry in the VerticalMeasurements array.
@@ -112,7 +112,7 @@ public class Well_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: Ab
     /// List of all depths and elevations pertaining to the well, like, water depth, mud line elevation, etc.
     /// </summary>
     [JsonPropertyName("VerticalMeasurements")]
-    public List<Well_1_2_0DataVerticalMeasurements> VerticalMeasurements { get; set; }
+    public List<Well_1_2_0_Data_VerticalMeasurements> VerticalMeasurements { get; set; }
 
     /// <summary>
     /// Business Interest [Well Interest Type] describes whether a company currently considers a well or its data to be a real or planned asset, and if so, the nature of and motivation for that company's interest.
@@ -139,7 +139,7 @@ public class Well_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: Ab
     /// The list of past and present interests associated with the time period they were/are valid
     /// </summary>
     [JsonPropertyName("HistoricalInterests")]
-    public List<Well_1_2_0DataHistoricalInterests> HistoricalInterests { get; set; }
+    public List<Well_1_2_0_Data_HistoricalInterests> HistoricalInterests { get; set; }
 
     /// <summary>
     /// Identifies, for the purpose of current use, if the Business Interest [Well Interest Type] for this well has ever been FinancialOperated in the past.
@@ -195,7 +195,7 @@ public class Well_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: Ab
 
 }
 
-public class Well_1_2_0DataVerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
+public class Well_1_2_0_Data_VerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
 {
     /// <summary>
     /// The ID for a distinct vertical measurement within the Wellbore VerticalMeasurements array so that it may be referenced by other vertical measurements if necessary.
@@ -215,7 +215,7 @@ public class Well_1_2_0DataVerticalMeasurements : AbstractFacilityVerticalMeasur
 /// <summary>
 /// A 'well interest' at some time period as defined by effective and termination date.
 /// </summary>
-public class Well_1_2_0DataHistoricalInterests
+public class Well_1_2_0_Data_HistoricalInterests
 {
     /// <summary>
     /// Business Interest [Well Interest Type] describes whether a company currently considers a well or its data to be a real or planned asset, and if so, the nature of and motivation for that company's interest.

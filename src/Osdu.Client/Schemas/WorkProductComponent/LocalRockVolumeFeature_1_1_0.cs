@@ -89,11 +89,11 @@ public class LocalRockVolumeFeature_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public LocalRockVolumeFeature_1_1_0Data? Data { get; set; }
+    public LocalRockVolumeFeature_1_1_0_Data? Data { get; set; }
 
 }
 
-public class LocalRockVolumeFeature_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class LocalRockVolumeFeature_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// When populated, the rock volume feature has a wider scope and allows rock volume feature correlations across models.

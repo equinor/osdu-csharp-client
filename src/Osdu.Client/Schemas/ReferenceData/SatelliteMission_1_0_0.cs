@@ -89,17 +89,17 @@ public class SatelliteMission_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SatelliteMission_1_0_0Data? Data { get; set; }
+    public SatelliteMission_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SatelliteMission_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class SatelliteMission_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// An array which lists the start and end year of a particular satellite mission
     /// </summary>
     [JsonPropertyName("OperationalPeriod")]
-    public List<SatelliteMission_1_0_0DataOperationalPeriod> OperationalPeriod { get; set; }
+    public List<SatelliteMission_1_0_0_Data_OperationalPeriod> OperationalPeriod { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,7 +109,7 @@ public class SatelliteMission_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// Defines the start and end year of the satellite mission
 /// </summary>
-public class SatelliteMission_1_0_0DataOperationalPeriod
+public class SatelliteMission_1_0_0_Data_OperationalPeriod
 {
     /// <summary>
     /// The year that the satellite mission became operational or started

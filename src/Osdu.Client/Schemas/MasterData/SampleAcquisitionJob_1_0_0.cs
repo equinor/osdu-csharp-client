@@ -89,11 +89,11 @@ public class SampleAcquisitionJob_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SampleAcquisitionJob_1_0_0Data? Data { get; set; }
+    public SampleAcquisitionJob_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SampleAcquisitionJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class SampleAcquisitionJob_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// Unique identifier for an acquisition job provided by the service company or reporting organisation

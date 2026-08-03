@@ -89,11 +89,11 @@ public class TubularAssembly_2_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public TubularAssembly_2_1_0Data? Data { get; set; }
+    public TubularAssembly_2_1_0_Data? Data { get; set; }
 
 }
 
-public class TubularAssembly_2_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class TubularAssembly_2_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// The name of the Tubular Assembly.
@@ -119,13 +119,13 @@ public class TubularAssembly_2_1_0Data : AbstractCommonResources_1_0_0 // Also c
     /// Reflects the current status of the Assembly - as 'installed', 'pulled', 'planned',... - Applicable to tubing/completions as opposed to drillstrings. Historical states are recorded in TubularAssemblyStates.
     /// </summary>
     [JsonPropertyName("TubularAssemblyStatus")]
-    public TubularAssembly_2_1_0DataTubularAssemblyStatus? TubularAssemblyStatus { get; set; }
+    public TubularAssembly_2_1_0_Data_TubularAssemblyStatus? TubularAssemblyStatus { get; set; }
 
     /// <summary>
     /// The full record of historical and current states of the Assembly. The current active state is recorded in TubularAssemblyStatus.
     /// </summary>
     [JsonPropertyName("TubularAssemblyStates")]
-    public List<TubularAssembly_2_1_0DataTubularAssemblyStates> TubularAssemblyStates { get; set; }
+    public List<TubularAssembly_2_1_0_Data_TubularAssemblyStates> TubularAssemblyStates { get; set; }
 
     [JsonPropertyName("VerticalMeasurement")]
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
@@ -384,7 +384,7 @@ public class TubularAssembly_2_1_0Data : AbstractCommonResources_1_0_0 // Also c
 /// <summary>
 /// Reflects the current status of the Assembly - as 'installed', 'pulled', 'planned',... - Applicable to tubing/completions as opposed to drillstrings. Historical states are recorded in TubularAssemblyStates.
 /// </summary>
-public class TubularAssembly_2_1_0DataTubularAssemblyStatus
+public class TubularAssembly_2_1_0_Data_TubularAssemblyStatus
 {
     /// <summary>
     /// The relationship to the  reference value status type.
@@ -410,7 +410,7 @@ public class TubularAssembly_2_1_0DataTubularAssemblyStatus
 /// <summary>
 /// Reflects the current status of the Assembly - as 'installed', 'pulled', 'planned',... - Applicable to tubing/completions as opposed to drillstrings. Historical states are recorded in TubularAssemblyStates.
 /// </summary>
-public class TubularAssembly_2_1_0DataTubularAssemblyStates
+public class TubularAssembly_2_1_0_Data_TubularAssemblyStates
 {
     /// <summary>
     /// The relationship to the  reference value status type.

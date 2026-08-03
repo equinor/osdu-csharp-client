@@ -89,11 +89,11 @@ public class SeismicBinGrid_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicBinGrid_1_3_0Data? Data { get; set; }
+    public SeismicBinGrid_1_3_0_Data? Data { get; set; }
 
 }
 
-public class SeismicBinGrid_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractBinGrid_1_1_0
+public class SeismicBinGrid_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractBinGrid_1_1_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

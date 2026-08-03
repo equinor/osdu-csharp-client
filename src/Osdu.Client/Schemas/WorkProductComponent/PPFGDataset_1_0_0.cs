@@ -89,11 +89,11 @@ public class PPFGDataset_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public PPFGDataset_1_0_0Data? Data { get; set; }
+    public PPFGDataset_1_0_0_Data? Data { get; set; }
 
 }
 
-public class PPFGDataset_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class PPFGDataset_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     /// <summary>
     /// ID from the Well where the PPFG Work Product Component was recorded
@@ -186,14 +186,14 @@ public class PPFGDataset_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// Array of curve that constitutes the whole PPFG Dataset
     /// </summary>
     [JsonPropertyName("Curves")]
-    public List<PPFGDataset_1_0_0DataCurves> Curves { get; set; }
+    public List<PPFGDataset_1_0_0_Data_Curves> Curves { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class PPFGDataset_1_0_0DataCurves
+public class PPFGDataset_1_0_0_Data_Curves
 {
     /// <summary>
     /// The ID of the PPFG Curve

@@ -37,13 +37,13 @@ public class AbstractTechnicalAssurance_1_2_0
     /// List of workflows and/or personas that the technical assurance value is valid for (e.g., This data is trusted for Seismic Processing)
     /// </summary>
     [JsonPropertyName("AcceptableUsage")]
-    public List<AbstractTechnicalAssurance_1_2_0AcceptableUsage> AcceptableUsage { get; set; }
+    public List<AbstractTechnicalAssurance_1_2_0_AcceptableUsage> AcceptableUsage { get; set; }
 
     /// <summary>
     /// List of workflows and/or personas that the technical assurance value is not valid for (e.g., This data is not trusted for seismic interpretation)
     /// </summary>
     [JsonPropertyName("UnacceptableUsage")]
-    public List<AbstractTechnicalAssurance_1_2_0UnacceptableUsage> UnacceptableUsage { get; set; }
+    public List<AbstractTechnicalAssurance_1_2_0_UnacceptableUsage> UnacceptableUsage { get; set; }
 
     /// <summary>
     /// Date when the technical assurance determination for this record has taken place
@@ -62,7 +62,7 @@ public class AbstractTechnicalAssurance_1_2_0
 /// <summary>
 /// Describes the workflows and/or personas that the technical assurance value is valid for (e.g., This data has a technical assurance property of "trusted" and it is suitable for Seismic Interpretation).
 /// </summary>
-public class AbstractTechnicalAssurance_1_2_0AcceptableUsage
+public class AbstractTechnicalAssurance_1_2_0_AcceptableUsage
 {
     /// <summary>
     /// Name of the business activities, processes, and/or workflows that the record's technical assurance value is valid for.
@@ -125,7 +125,7 @@ public class AbstractTechnicalAssurance_1_2_0AcceptableUsage
 /// <summary>
 /// Describes the workflows and/or personas that the technical assurance value is not valid for (e.g., This data has a technical assurance property of "trusted", but it is not suitable for Seismic Interpretation).
 /// </summary>
-public class AbstractTechnicalAssurance_1_2_0UnacceptableUsage
+public class AbstractTechnicalAssurance_1_2_0_UnacceptableUsage
 {
     /// <summary>
     /// Name of the business activities, processes, and/or workflows that the record's technical assurance value is not valid for.

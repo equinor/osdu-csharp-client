@@ -89,11 +89,11 @@ public class SurveyProgram_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SurveyProgram_1_0_0Data? Data { get; set; }
+    public SurveyProgram_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SurveyProgram_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
+public class SurveyProgram_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// Reference to the Wellbore
@@ -112,7 +112,7 @@ public class SurveyProgram_1_0_0Data : AbstractCommonResources_1_0_0 // Also com
     /// Survey section object.
     /// </summary>
     [JsonPropertyName("SurveySections")]
-    public List<SurveyProgram_1_0_0DataSurveySections> SurveySections { get; set; }
+    public List<SurveyProgram_1_0_0_Data_SurveySections> SurveySections { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -122,7 +122,7 @@ public class SurveyProgram_1_0_0Data : AbstractCommonResources_1_0_0 // Also com
 /// <summary>
 /// Description of the Survey Section Component
 /// </summary>
-public class SurveyProgram_1_0_0DataSurveySections
+public class SurveyProgram_1_0_0_Data_SurveySections
 {
     /// <summary>
     /// Order in which program sections will be executed / were executed.

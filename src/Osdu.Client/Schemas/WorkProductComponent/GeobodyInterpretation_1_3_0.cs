@@ -89,11 +89,11 @@ public class GeobodyInterpretation_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GeobodyInterpretation_1_3_0Data? Data { get; set; }
+    public GeobodyInterpretation_1_3_0_Data? Data { get; set; }
 
 }
 
-public class GeobodyInterpretation_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractGeologicUnitInterpretation_1_1_0, AbstractInterpretation_1_1_0
+public class GeobodyInterpretation_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractGeologicUnitInterpretation_1_1_0, AbstractInterpretation_1_1_0
 {
     /// <summary>
     /// The reference to a local rock volume feature, to which this interpretation is associated.

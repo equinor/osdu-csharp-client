@@ -29,7 +29,7 @@ public class SortQuery
     /// The list of orders to sort the results. The element must be either ASC or DESC.
     /// </summary>
     [JsonPropertyName("order")]
-    public List<SortQueryOrder> Order { get; set; }
+    public List<SortQuery_Order> Order { get; set; }
 
     /// <summary>
     /// Optional list of filter expressions applied per sort field, controlling how missing or unmapped values are treated.
@@ -43,7 +43,7 @@ public class SortQuery
 /// Sort direction for search results.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SortQueryOrder
+public enum SortQuery_Order
 {
     [JsonStringEnumMemberName("ASC")]
     ASC,

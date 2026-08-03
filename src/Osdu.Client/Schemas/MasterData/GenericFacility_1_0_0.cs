@@ -89,11 +89,11 @@ public class GenericFacility_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericFacility_1_0_0Data? Data { get; set; }
+    public GenericFacility_1_0_0_Data? Data { get; set; }
 
 }
 
-public class GenericFacility_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
+public class GenericFacility_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

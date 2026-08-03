@@ -24,14 +24,14 @@ public class AbstractFileCollection_1_0_0
     /// </summary>
     [Required]
     [JsonPropertyName("DatasetProperties")]
-    public AbstractFileCollection_1_0_0DatasetProperties DatasetProperties { get; set; }
+    public AbstractFileCollection_1_0_0_DatasetProperties DatasetProperties { get; set; }
 
 }
 
 /// <summary>
 /// The dataset properties for a file collection.
 /// </summary>
-public class AbstractFileCollection_1_0_0DatasetProperties
+public class AbstractFileCollection_1_0_0_DatasetProperties
 {
     /// <summary>
     /// The mandatory path to the file collection. A FileCollectionPath should represent folder level access to a set of files.

@@ -89,11 +89,11 @@ public class ConnectedSourceDataJob_1_4_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ConnectedSourceDataJob_1_4_0Data? Data { get; set; }
+    public ConnectedSourceDataJob_1_4_0_Data? Data { get; set; }
 
 }
 
-public class ConnectedSourceDataJob_1_4_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class ConnectedSourceDataJob_1_4_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// Descriptive label given to a scheduled job.
@@ -149,7 +149,7 @@ public class ConnectedSourceDataJob_1_4_0Data : AbstractCommonResources_1_0_0 //
     /// DEPRECATED: Superseded by the contents of appropriate parameters in an ActivityTemplate instance identified by data.ActivityTemplateID. In earlier versions: List of workflows and their configuration used in this scheduled job
     /// </summary>
     [JsonPropertyName("Workflows")]
-    public List<ConnectedSourceDataJob_1_4_0DataWorkflows> Workflows { get; set; }
+    public List<ConnectedSourceDataJob_1_4_0_Data_Workflows> Workflows { get; set; }
 
     [JsonPropertyName("OnIngestionLegalTags")]
     public AbstractLegalTags_1_0_0? OnIngestionLegalTags { get; set; }
@@ -195,7 +195,7 @@ public class ConnectedSourceDataJob_1_4_0Data : AbstractCommonResources_1_0_0 //
 /// <summary>
 /// A workflow configuration in the context of a scheduled job.
 /// </summary>
-public class ConnectedSourceDataJob_1_4_0DataWorkflows
+public class ConnectedSourceDataJob_1_4_0_Data_Workflows
 {
     /// <summary>
     /// Tag given to a workflow category, such as Fetch, Ingest, Delivery
@@ -213,7 +213,7 @@ public class ConnectedSourceDataJob_1_4_0DataWorkflows
     /// Name value or object Id
     /// </summary>
     [JsonPropertyName("Parameters")]
-    public List<ConnectedSourceDataJob_1_4_0DataWorkflowsParameters> Parameters { get; set; }
+    public List<ConnectedSourceDataJob_1_4_0_Data_Workflows_Parameters> Parameters { get; set; }
 
     /// <summary>
     /// Data source endpoint used in workflow
@@ -233,7 +233,7 @@ public class ConnectedSourceDataJob_1_4_0DataWorkflows
 /// <summary>
 /// Parameter name value pair.
 /// </summary>
-public class ConnectedSourceDataJob_1_4_0DataWorkflowsParameters
+public class ConnectedSourceDataJob_1_4_0_Data_Workflows_Parameters
 {
     /// <summary>
     /// Name of the parameter the handler expects

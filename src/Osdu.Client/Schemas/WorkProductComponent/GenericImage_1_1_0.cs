@@ -89,11 +89,11 @@ public class GenericImage_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericImage_1_1_0Data? Data { get; set; }
+    public GenericImage_1_1_0_Data? Data { get; set; }
 
 }
 
-public class GenericImage_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class GenericImage_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The ID of the object (master-data, reference-data, work-product-component or work-product), to which this generic image has been associated.

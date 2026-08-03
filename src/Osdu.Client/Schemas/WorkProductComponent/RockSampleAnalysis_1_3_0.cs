@@ -89,11 +89,11 @@ public class RockSampleAnalysis_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public RockSampleAnalysis_1_3_0Data? Data { get; set; }
+    public RockSampleAnalysis_1_3_0_Data? Data { get; set; }
 
 }
 
-public class RockSampleAnalysis_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractWPCActivity_1_2_0
+public class RockSampleAnalysis_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractWPCActivity_1_2_0
 {
     /// <summary>
     /// Unique wellbore identifier. Required when RockSampleAnalysis does not have relationship with master-data Core.  E.g. analysis for sidewall core.
@@ -154,13 +154,13 @@ public class RockSampleAnalysis_1_3_0Data : AbstractCommonResources_1_0_0 // Als
     /// If populated RoutineCoreAnalysis contains conditions and results of a routine core analysis. The array AnalysisTypeIDs must then contain a value of RoutineCoreAnalysis.
     /// </summary>
     [JsonPropertyName("RoutineCoreAnalysis")]
-    public RockSampleAnalysis_1_3_0DataRoutineCoreAnalysis? RoutineCoreAnalysis { get; set; }
+    public RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis? RoutineCoreAnalysis { get; set; }
 
     /// <summary>
     /// If populated, it contains information that additional content is available containing grain size analysis results. The array AnalysisTypeIDs must then contain a value of GrainSizeAnalysis.
     /// </summary>
     [JsonPropertyName("GrainSizeAnalysis")]
-    public RockSampleAnalysis_1_3_0DataGrainSizeAnalysis? GrainSizeAnalysis { get; set; }
+    public RockSampleAnalysis_1_3_0_Data_GrainSizeAnalysis? GrainSizeAnalysis { get; set; }
 
     /// <summary>
     /// Name or branch of the laboratory performing the analysis.
@@ -186,7 +186,7 @@ public class RockSampleAnalysis_1_3_0Data : AbstractCommonResources_1_0_0 // Als
     /// An array containing operational or quality comments pertaining to a rock sample analysis.
     /// </summary>
     [JsonPropertyName("Remarks")]
-    public List<RockSampleAnalysis_1_3_0DataRemarks> Remarks { get; set; }
+    public List<RockSampleAnalysis_1_3_0_Data_Remarks> Remarks { get; set; }
 
     /// <summary>
     /// Type of laboratory test(s) performed (e.g. Routine Core Analysis, Grain Size) on a specific rock sample by a given laboratory.
@@ -202,13 +202,13 @@ public class RockSampleAnalysis_1_3_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// If populated RoutineCoreAnalysis contains conditions and results of a routine core analysis. The array AnalysisTypeIDs must then contain a value of RoutineCoreAnalysis.
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysis
+public class RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis
 {
     /// <summary>
     /// The conditions under which this analysis has been carried out
     /// </summary>
     [JsonPropertyName("RCAMeasurements")]
-    public List<RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurements> RCAMeasurements { get; set; }
+    public List<RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements> RCAMeasurements { get; set; }
 
     /// <summary>
     /// Th measured grain density
@@ -259,13 +259,13 @@ public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysis
 /// <summary>
 /// A Routine Core Analysis Measurement.
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurements
+public class RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements
 {
     /// <summary>
     /// The conditions under which this analysis has been carried out
     /// </summary>
     [JsonPropertyName("Conditions")]
-    public RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsConditions? Conditions { get; set; }
+    public RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements_Conditions? Conditions { get; set; }
 
     /// <summary>
     /// The measured sample permeability.
@@ -283,13 +283,13 @@ public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurements
     /// Other measurements made in the context of this analysis
     /// </summary>
     [JsonPropertyName("OtherMeasurements")]
-    public List<RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsOtherMeasurements> OtherMeasurements { get; set; }
+    public List<RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements_OtherMeasurements> OtherMeasurements { get; set; }
 
     /// <summary>
     /// An array containing operational or quality comments pertaining to a rock sample analysis.
     /// </summary>
     [JsonPropertyName("Remarks")]
-    public List<RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsRemarks> Remarks { get; set; }
+    public List<RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements_Remarks> Remarks { get; set; }
 
     /// <summary>
     /// The measurement type used to obtain the Permeability values.
@@ -310,7 +310,7 @@ public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurements
 /// <summary>
 /// The conditions under which this analysis has been carried out
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsConditions
+public class RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements_Conditions
 {
     /// <summary>
     /// The pressure condition for the analysis.
@@ -348,7 +348,7 @@ public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsCondi
 /// <summary>
 /// An array element of an analysis specifying the numeric, text or date-time value associated with a ParameterType.
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsOtherMeasurements
+public class RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements_OtherMeasurements
 {
     /// <summary>
     /// The date and time at which this specification becomes effective.
@@ -418,7 +418,7 @@ public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsOther
 /// <summary>
 /// An array containing narrative remarks pertaining to a rock sample analysis.
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsRemarks
+public class RockSampleAnalysis_1_3_0_Data_RoutineCoreAnalysis_RCAMeasurements_Remarks
 {
     /// <summary>
     /// A unique identifier for each remark record.
@@ -443,7 +443,7 @@ public class RockSampleAnalysis_1_3_0DataRoutineCoreAnalysisRCAMeasurementsRemar
 /// <summary>
 /// If populated, it contains information that additional content is available containing grain size analysis results. The array AnalysisTypeIDs must then contain a value of GrainSizeAnalysis.
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataGrainSizeAnalysis
+public class RockSampleAnalysis_1_3_0_Data_GrainSizeAnalysis
 {
     /// <summary>
     /// The type of grain size analysis carried out during this analysis.
@@ -477,7 +477,7 @@ public class RockSampleAnalysis_1_3_0DataGrainSizeAnalysis
 /// <summary>
 /// An array containing narrative remarks pertaining to a rock sample analysis.
 /// </summary>
-public class RockSampleAnalysis_1_3_0DataRemarks
+public class RockSampleAnalysis_1_3_0_Data_Remarks
 {
     /// <summary>
     /// A unique identifier for each remark record.

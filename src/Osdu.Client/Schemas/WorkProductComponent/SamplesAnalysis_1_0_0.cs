@@ -89,11 +89,11 @@ public class SamplesAnalysis_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SamplesAnalysis_1_0_0Data? Data { get; set; }
+    public SamplesAnalysis_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SamplesAnalysis_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractWPCActivity_1_2_1
+public class SamplesAnalysis_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractWPCActivity_1_2_1
 {
     /// <summary>
     /// OSDU Record IDs for the Rock and/or Fluid Sample or Samples on which this batch or batches of analysis were performed.
@@ -147,7 +147,7 @@ public class SamplesAnalysis_1_0_0Data : AbstractCommonResources_1_0_0 // Also c
     /// Identifies the report from which this analysis was extracted or multiple reports from which this analysis was reconstructed.
     /// </summary>
     [JsonPropertyName("ParentSamplesAnalysesReports")]
-    public List<SamplesAnalysis_1_0_0DataParentSamplesAnalysesReports> ParentSamplesAnalysesReports { get; set; }
+    public List<SamplesAnalysis_1_0_0_Data_ParentSamplesAnalysesReports> ParentSamplesAnalysesReports { get; set; }
 
     /// <summary>
     /// A list of all sample analysis types represented by this report, whether the sample analysis type relates to Rock, Fluid, or both.
@@ -169,7 +169,7 @@ public class SamplesAnalysis_1_0_0Data : AbstractCommonResources_1_0_0 // Also c
 /// <summary>
 /// A pair of properties building a reference to a report combined with a page reference inside the document.
 /// </summary>
-public class SamplesAnalysis_1_0_0DataParentSamplesAnalysesReports
+public class SamplesAnalysis_1_0_0_Data_ParentSamplesAnalysesReports
 {
     /// <summary>
     /// An OSDU Record representing the report from which this analysis was extracted or an OSDU Record from which this analysis was reconstructed.

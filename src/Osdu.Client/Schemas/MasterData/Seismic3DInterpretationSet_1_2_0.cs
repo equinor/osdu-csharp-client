@@ -89,11 +89,11 @@ public class Seismic3DInterpretationSet_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Seismic3DInterpretationSet_1_2_0Data? Data { get; set; }
+    public Seismic3DInterpretationSet_1_2_0_Data? Data { get; set; }
 
 }
 
-public class Seismic3DInterpretationSet_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class Seismic3DInterpretationSet_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// A reference to the Bin Grid that all the associated traces and horizons are based on.

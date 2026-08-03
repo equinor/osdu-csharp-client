@@ -57,7 +57,7 @@ public class AbstractWPCActivity_1_1_0
     /// Software names and versions used.
     /// </summary>
     [JsonPropertyName("SoftwareSpecifications")]
-    public List<AbstractWPCActivity_1_1_0SoftwareSpecifications> SoftwareSpecifications { get; set; }
+    public List<AbstractWPCActivity_1_1_0_SoftwareSpecifications> SoftwareSpecifications { get; set; }
 
     /// <summary>
     /// The (non-overlapping) historical activity states and effective start and termination dates. The last state is replicated in the single LastActivityState for simpler queries.
@@ -73,7 +73,7 @@ public class AbstractWPCActivity_1_1_0
 /// <summary>
 /// The name and version of the software being executed in the context of this activity
 /// </summary>
-public class AbstractWPCActivity_1_1_0SoftwareSpecifications
+public class AbstractWPCActivity_1_1_0_SoftwareSpecifications
 {
     /// <summary>
     /// The name of the software, application or plug-in used while performing this activity.

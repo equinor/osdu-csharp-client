@@ -89,11 +89,11 @@ public class TimeSeries_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public TimeSeries_1_2_0Data? Data { get; set; }
+    public TimeSeries_1_2_0_Data? Data { get; set; }
 
 }
 
-public class TimeSeries_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class TimeSeries_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Array of datetime in iso-format (in ascending order) "yyyy-MM-dd  HH:mm\":\"UTC\",\"type\":\"DTM\"

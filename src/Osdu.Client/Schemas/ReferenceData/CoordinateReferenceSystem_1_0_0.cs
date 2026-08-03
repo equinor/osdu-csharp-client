@@ -89,11 +89,11 @@ public class CoordinateReferenceSystem_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public CoordinateReferenceSystem_1_0_0Data? Data { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data? Data { get; set; }
 
 }
 
-public class CoordinateReferenceSystem_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class CoordinateReferenceSystem_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The namespace or authority name governing this CRS definition, e.g. EPSG for contents from the EPSG Geodetic Parameter Dataset.
@@ -129,79 +129,79 @@ public class CoordinateReferenceSystem_1_0_0Data : AbstractCommonResources_1_0_0
     /// The type of coordinate reference system. This is an enumeration of concrete sub-types.
     /// </summary>
     [JsonPropertyName("CoordinateReferenceSystemType")]
-    public CoordinateReferenceSystem_1_0_0DataCoordinateReferenceSystemType CoordinateReferenceSystemType { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_CoordinateReferenceSystemType CoordinateReferenceSystemType { get; set; }
 
     /// <summary>
     /// The horizontal CRS reference of a CompoundCRS. Only populated for CoordinateReferenceSystemType==CompoundCRS.
     /// </summary>
     [JsonPropertyName("HorizontalCRS")]
-    public CoordinateReferenceSystem_1_0_0DataHorizontalCRS? HorizontalCRS { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_HorizontalCRS? HorizontalCRS { get; set; }
 
     /// <summary>
     /// The vertical CRS reference of a CompoundCRS. Only populated for CoordinateReferenceSystemType==CompoundCRS.
     /// </summary>
     [JsonPropertyName("VerticalCRS")]
-    public CoordinateReferenceSystem_1_0_0DataVerticalCRS? VerticalCRS { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_VerticalCRS? VerticalCRS { get; set; }
 
     /// <summary>
     /// The Transformation bound to the BaseCRS in a BoundCRS. Only populated for CoordinateReferenceSystemType==BoundCRS.
     /// </summary>
     [JsonPropertyName("Transformation")]
-    public CoordinateReferenceSystem_1_0_0DataTransformation? Transformation { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Transformation? Transformation { get; set; }
 
     /// <summary>
     /// The datum of a this CRS. Only populated for CoordinateReferenceSystemType in [GeographicCRS, VerticalCRS, EngineeringCRS].
     /// </summary>
     [JsonPropertyName("Datum")]
-    public CoordinateReferenceSystem_1_0_0DataDatum? Datum { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Datum? Datum { get; set; }
 
     /// <summary>
     /// The DatumEnsemble for the CRS's datum. Only populated for GeographicCRS.
     /// </summary>
     [JsonPropertyName("DatumEnsemble")]
-    public CoordinateReferenceSystem_1_0_0DataDatumEnsemble? DatumEnsemble { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_DatumEnsemble? DatumEnsemble { get; set; }
 
     /// <summary>
     /// The projection operation of a ProjectedCRS. Only populated for CoordinateReferenceSystemType==ProjectedCRS.
     /// </summary>
     [JsonPropertyName("Projection")]
-    public CoordinateReferenceSystem_1_0_0DataProjection? Projection { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Projection? Projection { get; set; }
 
     /// <summary>
     /// The base geographic CRS of this projected CRS. Only populated for CoordinateReferenceSystemType==ProjectedCRS.
     /// </summary>
     [JsonPropertyName("BaseCRS")]
-    public CoordinateReferenceSystem_1_0_0DataBaseCRS? BaseCRS { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_BaseCRS? BaseCRS { get; set; }
 
     /// <summary>
     /// The source CRS of a BoundCRS. Only populated for CoordinateReferenceSystemType==BoundCRS.
     /// </summary>
     [JsonPropertyName("SourceCRS")]
-    public CoordinateReferenceSystem_1_0_0DataSourceCRS? SourceCRS { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_SourceCRS? SourceCRS { get; set; }
 
     /// <summary>
     /// The target CRS of this bound CRS. Only populated for CoordinateReferenceSystemType==BoundCRS.
     /// </summary>
     [JsonPropertyName("TargetCRS")]
-    public CoordinateReferenceSystem_1_0_0DataTargetCRS? TargetCRS { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_TargetCRS? TargetCRS { get; set; }
 
     /// <summary>
     /// Contextual information about scope and extent/area of use.
     /// </summary>
     [JsonPropertyName("Usages")]
-    public List<CoordinateReferenceSystem_1_0_0DataUsages> Usages { get; set; }
+    public List<CoordinateReferenceSystem_1_0_0_Data_Usages> Usages { get; set; }
 
     /// <summary>
     /// The coordinate system defining the dimension and individual axes used by the CRS.
     /// </summary>
     [JsonPropertyName("CoordinateSystem")]
-    public CoordinateReferenceSystem_1_0_0DataCoordinateSystem? CoordinateSystem { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_CoordinateSystem? CoordinateSystem { get; set; }
 
     /// <summary>
     /// Scope and extent information about the described CRS.
     /// </summary>
     [JsonPropertyName("PreferredUsage")]
-    public CoordinateReferenceSystem_1_0_0DataPreferredUsage? PreferredUsage { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_PreferredUsage? PreferredUsage { get; set; }
 
     /// <summary>
     /// Used for export and actionable instructions to a conversion/transformation engine. It is initially based on Esri well-known text (WKT). Eventually, when Esri WKT are convertible into ISO WKT and vice versa, the definition can be replaced by https://proj.org/schemas/v0.2/projjson.schema.json.
@@ -218,7 +218,7 @@ public class CoordinateReferenceSystem_1_0_0Data : AbstractCommonResources_1_0_0
 /// The type of coordinate reference system. This is an enumeration of concrete sub-types.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CoordinateReferenceSystem_1_0_0DataCoordinateReferenceSystemType
+public enum CoordinateReferenceSystem_1_0_0_Data_CoordinateReferenceSystemType
 {
     [JsonStringEnumMemberName("BoundCRS")]
     BoundCRS,
@@ -246,13 +246,13 @@ public enum CoordinateReferenceSystem_1_0_0DataCoordinateReferenceSystemType
 /// <summary>
 /// The horizontal CRS reference of a CompoundCRS. Only populated for CoordinateReferenceSystemType==CompoundCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataHorizontalCRS
+public class CoordinateReferenceSystem_1_0_0_Data_HorizontalCRS
 {
     /// <summary>
     /// The HorizontalCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataHorizontalCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_HorizontalCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the HorizontalCrs.
@@ -272,7 +272,7 @@ public class CoordinateReferenceSystem_1_0_0DataHorizontalCRS
 /// <summary>
 /// The HorizontalCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataHorizontalCRSAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_HorizontalCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -291,13 +291,13 @@ public class CoordinateReferenceSystem_1_0_0DataHorizontalCRSAuthorityCode
 /// <summary>
 /// The vertical CRS reference of a CompoundCRS. Only populated for CoordinateReferenceSystemType==CompoundCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataVerticalCRS
+public class CoordinateReferenceSystem_1_0_0_Data_VerticalCRS
 {
     /// <summary>
     /// The VerticalCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataVerticalCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_VerticalCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the VerticalCrs.
@@ -317,7 +317,7 @@ public class CoordinateReferenceSystem_1_0_0DataVerticalCRS
 /// <summary>
 /// The VerticalCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataVerticalCRSAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_VerticalCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -336,13 +336,13 @@ public class CoordinateReferenceSystem_1_0_0DataVerticalCRSAuthorityCode
 /// <summary>
 /// The Transformation bound to the BaseCRS in a BoundCRS. Only populated for CoordinateReferenceSystemType==BoundCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataTransformation
+public class CoordinateReferenceSystem_1_0_0_Data_Transformation
 {
     /// <summary>
     /// The Transformation authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataTransformationAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Transformation_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Transformation.
@@ -362,7 +362,7 @@ public class CoordinateReferenceSystem_1_0_0DataTransformation
 /// <summary>
 /// The Transformation authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataTransformationAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_Transformation_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -381,13 +381,13 @@ public class CoordinateReferenceSystem_1_0_0DataTransformationAuthorityCode
 /// <summary>
 /// The datum of a this CRS. Only populated for CoordinateReferenceSystemType in [GeographicCRS, VerticalCRS, EngineeringCRS].
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataDatum
+public class CoordinateReferenceSystem_1_0_0_Data_Datum
 {
     /// <summary>
     /// The Datum authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataDatumAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Datum_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Datum.
@@ -400,7 +400,7 @@ public class CoordinateReferenceSystem_1_0_0DataDatum
 /// <summary>
 /// The Datum authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataDatumAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_Datum_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -419,13 +419,13 @@ public class CoordinateReferenceSystem_1_0_0DataDatumAuthorityCode
 /// <summary>
 /// The DatumEnsemble for the CRS's datum. Only populated for GeographicCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataDatumEnsemble
+public class CoordinateReferenceSystem_1_0_0_Data_DatumEnsemble
 {
     /// <summary>
     /// The DatumEnsemble authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataDatumEnsembleAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_DatumEnsemble_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the DatumEnsemble.
@@ -438,7 +438,7 @@ public class CoordinateReferenceSystem_1_0_0DataDatumEnsemble
 /// <summary>
 /// The DatumEnsemble authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataDatumEnsembleAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_DatumEnsemble_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -457,13 +457,13 @@ public class CoordinateReferenceSystem_1_0_0DataDatumEnsembleAuthorityCode
 /// <summary>
 /// The projection operation of a ProjectedCRS. Only populated for CoordinateReferenceSystemType==ProjectedCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataProjection
+public class CoordinateReferenceSystem_1_0_0_Data_Projection
 {
     /// <summary>
     /// The Projection Operation authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataProjectionAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Projection_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the projection.
@@ -476,7 +476,7 @@ public class CoordinateReferenceSystem_1_0_0DataProjection
 /// <summary>
 /// The Projection Operation authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataProjectionAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_Projection_AuthorityCode
 {
     /// <summary>
     /// The projection operation  authority governing the 'Code'.
@@ -495,13 +495,13 @@ public class CoordinateReferenceSystem_1_0_0DataProjectionAuthorityCode
 /// <summary>
 /// The base geographic CRS of this projected CRS. Only populated for CoordinateReferenceSystemType==ProjectedCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataBaseCRS
+public class CoordinateReferenceSystem_1_0_0_Data_BaseCRS
 {
     /// <summary>
     /// The BaseCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataBaseCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_BaseCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the base CRS.
@@ -521,7 +521,7 @@ public class CoordinateReferenceSystem_1_0_0DataBaseCRS
 /// <summary>
 /// The BaseCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataBaseCRSAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_BaseCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -540,13 +540,13 @@ public class CoordinateReferenceSystem_1_0_0DataBaseCRSAuthorityCode
 /// <summary>
 /// The source CRS of a BoundCRS. Only populated for CoordinateReferenceSystemType==BoundCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataSourceCRS
+public class CoordinateReferenceSystem_1_0_0_Data_SourceCRS
 {
     /// <summary>
     /// The SourceCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataSourceCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_SourceCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Source CRS.
@@ -566,7 +566,7 @@ public class CoordinateReferenceSystem_1_0_0DataSourceCRS
 /// <summary>
 /// The SourceCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataSourceCRSAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_SourceCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -585,13 +585,13 @@ public class CoordinateReferenceSystem_1_0_0DataSourceCRSAuthorityCode
 /// <summary>
 /// The target CRS of this bound CRS. Only populated for CoordinateReferenceSystemType==BoundCRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataTargetCRS
+public class CoordinateReferenceSystem_1_0_0_Data_TargetCRS
 {
     /// <summary>
     /// The TargetCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataTargetCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_TargetCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the base CRS.
@@ -611,7 +611,7 @@ public class CoordinateReferenceSystem_1_0_0DataTargetCRS
 /// <summary>
 /// The TargetCRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataTargetCRSAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_TargetCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -630,13 +630,13 @@ public class CoordinateReferenceSystem_1_0_0DataTargetCRSAuthorityCode
 /// <summary>
 /// Scope and extent information about the described CRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataUsages
+public class CoordinateReferenceSystem_1_0_0_Data_Usages
 {
     /// <summary>
     /// The Usage authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataUsagesAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Usages_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Usage.
@@ -648,20 +648,20 @@ public class CoordinateReferenceSystem_1_0_0DataUsages
     /// Extent or area of use information.
     /// </summary>
     [JsonPropertyName("Extent")]
-    public CoordinateReferenceSystem_1_0_0DataUsagesExtent? Extent { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Usages_Extent? Extent { get; set; }
 
     /// <summary>
     /// Scope declaration.
     /// </summary>
     [JsonPropertyName("Scope")]
-    public CoordinateReferenceSystem_1_0_0DataUsagesScope? Scope { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Usages_Scope? Scope { get; set; }
 
 }
 
 /// <summary>
 /// The Usage authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataUsagesAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_Usages_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -680,13 +680,13 @@ public class CoordinateReferenceSystem_1_0_0DataUsagesAuthorityCode
 /// <summary>
 /// Extent or area of use information.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataUsagesExtent
+public class CoordinateReferenceSystem_1_0_0_Data_Usages_Extent
 {
     /// <summary>
     /// The Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataUsagesExtentAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Usages_Extent_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Extent.
@@ -723,7 +723,7 @@ public class CoordinateReferenceSystem_1_0_0DataUsagesExtent
 /// <summary>
 /// The Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataUsagesExtentAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_Usages_Extent_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -742,13 +742,13 @@ public class CoordinateReferenceSystem_1_0_0DataUsagesExtentAuthorityCode
 /// <summary>
 /// Scope declaration.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataUsagesScope
+public class CoordinateReferenceSystem_1_0_0_Data_Usages_Scope
 {
     /// <summary>
     /// The Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataUsagesScopeAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_Usages_Scope_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Scope.
@@ -761,7 +761,7 @@ public class CoordinateReferenceSystem_1_0_0DataUsagesScope
 /// <summary>
 /// The Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataUsagesScopeAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_Usages_Scope_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -780,13 +780,13 @@ public class CoordinateReferenceSystem_1_0_0DataUsagesScopeAuthorityCode
 /// <summary>
 /// The coordinate system defining the dimension and individual axes used by the CRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataCoordinateSystem
+public class CoordinateReferenceSystem_1_0_0_Data_CoordinateSystem
 {
     /// <summary>
     /// The CoordinateSystem authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataCoordinateSystemAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_CoordinateSystem_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Coordinate System.
@@ -813,7 +813,7 @@ public class CoordinateReferenceSystem_1_0_0DataCoordinateSystem
 /// <summary>
 /// The CoordinateSystem authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataCoordinateSystemAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_CoordinateSystem_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -832,13 +832,13 @@ public class CoordinateReferenceSystem_1_0_0DataCoordinateSystemAuthorityCode
 /// <summary>
 /// Scope and extent information about the described CRS.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataPreferredUsage
+public class CoordinateReferenceSystem_1_0_0_Data_PreferredUsage
 {
     /// <summary>
     /// The PreferredUsage authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataPreferredUsageAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Usage.
@@ -850,20 +850,20 @@ public class CoordinateReferenceSystem_1_0_0DataPreferredUsage
     /// Extent or area of use information.
     /// </summary>
     [JsonPropertyName("Extent")]
-    public CoordinateReferenceSystem_1_0_0DataPreferredUsageExtent? Extent { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Extent? Extent { get; set; }
 
     /// <summary>
     /// Scope declaration.
     /// </summary>
     [JsonPropertyName("Scope")]
-    public CoordinateReferenceSystem_1_0_0DataPreferredUsageScope? Scope { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Scope? Scope { get; set; }
 
 }
 
 /// <summary>
 /// The PreferredUsage authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataPreferredUsageAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -882,13 +882,13 @@ public class CoordinateReferenceSystem_1_0_0DataPreferredUsageAuthorityCode
 /// <summary>
 /// Extent or area of use information.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataPreferredUsageExtent
+public class CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Extent
 {
     /// <summary>
     /// The Preferred Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataPreferredUsageExtentAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Extent_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Extent.
@@ -925,7 +925,7 @@ public class CoordinateReferenceSystem_1_0_0DataPreferredUsageExtent
 /// <summary>
 /// The Preferred Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataPreferredUsageExtentAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Extent_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -944,13 +944,13 @@ public class CoordinateReferenceSystem_1_0_0DataPreferredUsageExtentAuthorityCod
 /// <summary>
 /// Scope declaration.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataPreferredUsageScope
+public class CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Scope
 {
     /// <summary>
     /// The Preferred Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateReferenceSystem_1_0_0DataPreferredUsageScopeAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Scope_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Scope.
@@ -963,7 +963,7 @@ public class CoordinateReferenceSystem_1_0_0DataPreferredUsageScope
 /// <summary>
 /// The Preferred Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateReferenceSystem_1_0_0DataPreferredUsageScopeAuthorityCode
+public class CoordinateReferenceSystem_1_0_0_Data_PreferredUsage_Scope_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.

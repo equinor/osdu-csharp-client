@@ -89,11 +89,11 @@ public class UnitOfMeasureConfiguration_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public UnitOfMeasureConfiguration_1_0_0Data? Data { get; set; }
+    public UnitOfMeasureConfiguration_1_0_0_Data? Data { get; set; }
 
 }
 
-public class UnitOfMeasureConfiguration_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class UnitOfMeasureConfiguration_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Optional reference to a UnitOfMeasureConfiguration, from which the majority of definitions are derived.
@@ -106,7 +106,7 @@ public class UnitOfMeasureConfiguration_1_0_0Data : AbstractCommonResources_1_0_
     /// The list of configurations associating measurements or properties with preferred and default units.
     /// </summary>
     [JsonPropertyName("Configurations")]
-    public List<UnitOfMeasureConfiguration_1_0_0DataConfigurations> Configurations { get; set; }
+    public List<UnitOfMeasureConfiguration_1_0_0_Data_Configurations> Configurations { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -116,7 +116,7 @@ public class UnitOfMeasureConfiguration_1_0_0Data : AbstractCommonResources_1_0_
 /// <summary>
 /// A configuration for a UnitQuantity offering a sub-set of units and a default unit.
 /// </summary>
-public class UnitOfMeasureConfiguration_1_0_0DataConfigurations
+public class UnitOfMeasureConfiguration_1_0_0_Data_Configurations
 {
     /// <summary>
     /// The name of the measurement.
@@ -158,7 +158,7 @@ public class UnitOfMeasureConfiguration_1_0_0DataConfigurations
     /// A hint how the number is expected to be presented, e.g., d or D for decimal, f or F for fixed point, e or E for exponential (scientific), or g or G for general (default). Not all languages support all codes in all cases - in principle the case means that the resulting case is transformed to upper case or lower case depending on the case of the NumericFormatType.
     /// </summary>
     [JsonPropertyName("NumericFormatType")]
-    public UnitOfMeasureConfiguration_1_0_0DataConfigurationsNumericFormatType NumericFormatType { get; set; }
+    public UnitOfMeasureConfiguration_1_0_0_Data_Configurations_NumericFormatType NumericFormatType { get; set; }
 
     /// <summary>
     /// The number of decimal digits for NumericFormatType f or F or e or E, or the number of significant digits in g or G. If populated in conjunction with NumericFormatType d or D, NumericPrecision defines the minimum number of digits. If the number has less digits than given by NumericPrecision, it is padded with leading zeroes.
@@ -172,7 +172,7 @@ public class UnitOfMeasureConfiguration_1_0_0DataConfigurations
 /// A hint how the number is expected to be presented, e.g., d or D for decimal, f or F for fixed point, e or E for exponential (scientific), or g or G for general (default). Not all languages support all codes in all cases - in principle the case means that the resulting case is transformed to upper case or lower case depending on the case of the NumericFormatType.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum UnitOfMeasureConfiguration_1_0_0DataConfigurationsNumericFormatType
+public enum UnitOfMeasureConfiguration_1_0_0_Data_Configurations_NumericFormatType
 {
     [JsonStringEnumMemberName("f")]
     F,

@@ -89,17 +89,17 @@ public class Risk_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Risk_1_2_0Data? Data { get; set; }
+    public Risk_1_2_0_Data? Data { get; set; }
 
 }
 
-public class Risk_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class Risk_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// A textual description of the steps to prevent this risk
     /// </summary>
     [JsonPropertyName("Preventions")]
-    public List<Risk_1_2_0DataPreventions> Preventions { get; set; }
+    public List<Risk_1_2_0_Data_Preventions> Preventions { get; set; }
 
     /// <summary>
     /// A textual description of the cause of this risk
@@ -215,7 +215,7 @@ public class Risk_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: Ab
     /// Describes the measure or measures that may be applied to the risk to mitigate its consequences
     /// </summary>
     [JsonPropertyName("Mitigations")]
-    public List<Risk_1_2_0DataMitigations> Mitigations { get; set; }
+    public List<Risk_1_2_0_Data_Mitigations> Mitigations { get; set; }
 
     /// <summary>
     /// The common or preferred name for a risk
@@ -332,7 +332,7 @@ public class Risk_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: Ab
 /// <summary>
 /// Describe a set of action to prevent for a risk or to mitigate its consequences
 /// </summary>
-public class Risk_1_2_0DataPreventions
+public class Risk_1_2_0_Data_Preventions
 {
     /// <summary>
     /// Name of the response
@@ -386,7 +386,7 @@ public class Risk_1_2_0DataPreventions
 /// <summary>
 /// Describe a set of action to prevent for a risk or to mitigate its consequences
 /// </summary>
-public class Risk_1_2_0DataMitigations
+public class Risk_1_2_0_Data_Mitigations
 {
     /// <summary>
     /// Name of the response

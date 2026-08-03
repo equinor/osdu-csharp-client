@@ -89,11 +89,11 @@ public class UnitQuantity_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public UnitQuantity_1_0_0Data? Data { get; set; }
+    public UnitQuantity_1_0_0_Data? Data { get; set; }
 
 }
 
-public class UnitQuantity_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class UnitQuantity_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The UnitQuantity dimensionality using the symbols for dimension as defined in https://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2012.pdf, i.e. L for length, M for mass, T for time, I for electric current, N for amount of substance, J for luminous intensity; except Θ for thermodynamic temperature, which is replaced by the symbol K, the additional symbol D for temperature difference and the additional symbol 0 for no dimension.

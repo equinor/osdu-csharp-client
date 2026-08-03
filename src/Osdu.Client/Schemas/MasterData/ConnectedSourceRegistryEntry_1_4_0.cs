@@ -89,11 +89,11 @@ public class ConnectedSourceRegistryEntry_1_4_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ConnectedSourceRegistryEntry_1_4_0Data? Data { get; set; }
+    public ConnectedSourceRegistryEntry_1_4_0_Data? Data { get; set; }
 
 }
 
-public class ConnectedSourceRegistryEntry_1_4_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class ConnectedSourceRegistryEntry_1_4_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// Descriptive label given to the data source. This could be the name of an organisation and/or the name of a specific database or system.
@@ -124,13 +124,13 @@ public class ConnectedSourceRegistryEntry_1_4_0Data : AbstractCommonResources_1_
     /// List of security schemes available for use in authorizing against OSDU-compliant APIs of a connected data source.
     /// </summary>
     [JsonPropertyName("SecuritySchemes")]
-    public List<ConnectedSourceRegistryEntry_1_4_0DataSecuritySchemes> SecuritySchemes { get; set; }
+    public List<ConnectedSourceRegistryEntry_1_4_0_Data_SecuritySchemes> SecuritySchemes { get; set; }
 
     /// <summary>
     /// List of SMTP server schemes available for use in mailing the detailed EDS's report.
     /// </summary>
     [JsonPropertyName("SmtpSchemes")]
-    public List<ConnectedSourceRegistryEntry_1_4_0DataSmtpSchemes> SmtpSchemes { get; set; }
+    public List<ConnectedSourceRegistryEntry_1_4_0_Data_SmtpSchemes> SmtpSchemes { get; set; }
 
     /// <summary>
     /// Connectivity information for Airflow endpoints to get more information of Manifest Ingestion.
@@ -177,7 +177,7 @@ public class ConnectedSourceRegistryEntry_1_4_0Data : AbstractCommonResources_1_
 /// <summary>
 /// Metadata used to retrieve or generate credentials needed for authorization.
 /// </summary>
-public class ConnectedSourceRegistryEntry_1_4_0DataSecuritySchemes
+public class ConnectedSourceRegistryEntry_1_4_0_Data_SecuritySchemes
 {
     /// <summary>
     /// Unique name given to a security scheme
@@ -290,7 +290,7 @@ public class ConnectedSourceRegistryEntry_1_4_0DataSecuritySchemes
 /// <summary>
 /// Metadata used to mail the EDS's Report.
 /// </summary>
-public class ConnectedSourceRegistryEntry_1_4_0DataSmtpSchemes
+public class ConnectedSourceRegistryEntry_1_4_0_Data_SmtpSchemes
 {
     /// <summary>
     /// Unique name given to a SMTP scheme.

@@ -90,11 +90,11 @@ public class GenericReferenceData_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericReferenceData_1_0_0Data? Data { get; set; }
+    public GenericReferenceData_1_0_0_Data? Data { get; set; }
 
 }
 
-public class GenericReferenceData_1_0_0Data : AbstractCommonResources_1_0_0
+public class GenericReferenceData_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     /// <summary>
     /// The name of the entity instance.

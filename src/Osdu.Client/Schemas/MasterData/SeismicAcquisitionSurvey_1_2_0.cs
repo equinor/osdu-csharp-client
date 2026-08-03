@@ -89,11 +89,11 @@ public class SeismicAcquisitionSurvey_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicAcquisitionSurvey_1_2_0Data? Data { get; set; }
+    public SeismicAcquisitionSurvey_1_2_0_Data? Data { get; set; }
 
 }
 
-public class SeismicAcquisitionSurvey_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0, AbstractProjectActivity_1_0_0
+public class SeismicAcquisitionSurvey_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProject_1_0_0, AbstractProjectActivity_1_0_0
 {
     /// <summary>
     /// Reference to the standard values for the general layout of the acquisition.  This is an hierarchical value.  The top value is like 2D, 3D, 4D, Borehole, Passive.  The second value is like NATS, WATS, Brick, Crosswell.  Nodes are separated by forward slash.
@@ -217,13 +217,13 @@ public class SeismicAcquisitionSurvey_1_2_0Data : AbstractCommonResources_1_0_0 
     /// The seismic source configurations used for this acquisition project.
     /// </summary>
     [JsonPropertyName("SourceConfigurations")]
-    public List<SeismicAcquisitionSurvey_1_2_0DataSourceConfigurations> SourceConfigurations { get; set; }
+    public List<SeismicAcquisitionSurvey_1_2_0_Data_SourceConfigurations> SourceConfigurations { get; set; }
 
     /// <summary>
     /// The seismic receiver configurations used for this acquisition project.
     /// </summary>
     [JsonPropertyName("ReceiverConfigurations")]
-    public List<SeismicAcquisitionSurvey_1_2_0DataReceiverConfigurations> ReceiverConfigurations { get; set; }
+    public List<SeismicAcquisitionSurvey_1_2_0_Data_ReceiverConfigurations> ReceiverConfigurations { get; set; }
 
     [JsonPropertyName("VerticalMeasurement")]
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
@@ -236,7 +236,7 @@ public class SeismicAcquisitionSurvey_1_2_0Data : AbstractCommonResources_1_0_0 
 /// <summary>
 /// Parameters characterizing the seismic source configuration.
 /// </summary>
-public class SeismicAcquisitionSurvey_1_2_0DataSourceConfigurations
+public class SeismicAcquisitionSurvey_1_2_0_Data_SourceConfigurations
 {
     /// <summary>
     /// Name of the source vessel (may be the same as the receiver).  In the case of a VSP, this may be a platform or rig.
@@ -329,7 +329,7 @@ public class SeismicAcquisitionSurvey_1_2_0DataSourceConfigurations
 /// <summary>
 /// Parameters characterizing the seismic receiver configuration.
 /// </summary>
-public class SeismicAcquisitionSurvey_1_2_0DataReceiverConfigurations
+public class SeismicAcquisitionSurvey_1_2_0_Data_ReceiverConfigurations
 {
     /// <summary>
     /// Name of the receiver vessel (may be the same as the source).  In the case of a VSP, this may be a platform or rig.

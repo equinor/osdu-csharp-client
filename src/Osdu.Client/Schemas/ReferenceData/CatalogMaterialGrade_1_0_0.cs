@@ -89,11 +89,11 @@ public class CatalogMaterialGrade_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public CatalogMaterialGrade_1_0_0Data? Data { get; set; }
+    public CatalogMaterialGrade_1_0_0_Data? Data { get; set; }
 
 }
 
-public class CatalogMaterialGrade_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
+public class CatalogMaterialGrade_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The short description to identify the tubular grade.
@@ -141,13 +141,13 @@ public class CatalogMaterialGrade_1_0_0Data : AbstractCommonResources_1_0_1 // A
     /// Tensile yield points at specified temperatures.
     /// </summary>
     [JsonPropertyName("TensileYields")]
-    public List<CatalogMaterialGrade_1_0_0DataTensileYields> TensileYields { get; set; }
+    public List<CatalogMaterialGrade_1_0_0_Data_TensileYields> TensileYields { get; set; }
 
     /// <summary>
     /// Thermal expansions at specified temperatures.
     /// </summary>
     [JsonPropertyName("ThermalExpansions")]
-    public List<CatalogMaterialGrade_1_0_0DataThermalExpansions> ThermalExpansions { get; set; }
+    public List<CatalogMaterialGrade_1_0_0_Data_ThermalExpansions> ThermalExpansions { get; set; }
 
     /// <summary>
     /// Anisotropy radial.
@@ -203,7 +203,7 @@ public class CatalogMaterialGrade_1_0_0Data : AbstractCommonResources_1_0_1 // A
     /// Density of the material at specified temperatures.
     /// </summary>
     [JsonPropertyName("Densities")]
-    public List<CatalogMaterialGrade_1_0_0DataDensities> Densities { get; set; }
+    public List<CatalogMaterialGrade_1_0_0_Data_Densities> Densities { get; set; }
 
     /// <summary>
     /// Rushmore code
@@ -225,7 +225,7 @@ public class CatalogMaterialGrade_1_0_0Data : AbstractCommonResources_1_0_1 // A
 /// <summary>
 /// Tensile yield point at specified temperature.
 /// </summary>
-public class CatalogMaterialGrade_1_0_0DataTensileYields
+public class CatalogMaterialGrade_1_0_0_Data_TensileYields
 {
     /// <summary>
     /// Yield points.
@@ -244,7 +244,7 @@ public class CatalogMaterialGrade_1_0_0DataTensileYields
 /// <summary>
 /// Thermal expansions at specified temperatures.
 /// </summary>
-public class CatalogMaterialGrade_1_0_0DataThermalExpansions
+public class CatalogMaterialGrade_1_0_0_Data_ThermalExpansions
 {
     /// <summary>
     /// How much a material expands or contracts when its temperature changes.
@@ -263,7 +263,7 @@ public class CatalogMaterialGrade_1_0_0DataThermalExpansions
 /// <summary>
 /// Density of the material at specified temperatures.
 /// </summary>
-public class CatalogMaterialGrade_1_0_0DataDensities
+public class CatalogMaterialGrade_1_0_0_Data_Densities
 {
     /// <summary>
     /// The density of the material at a specified temperature.

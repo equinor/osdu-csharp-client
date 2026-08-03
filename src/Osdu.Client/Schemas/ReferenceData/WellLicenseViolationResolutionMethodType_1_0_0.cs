@@ -89,11 +89,11 @@ public class WellLicenseViolationResolutionMethodType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellLicenseViolationResolutionMethodType_1_0_0Data? Data { get; set; }
+    public WellLicenseViolationResolutionMethodType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellLicenseViolationResolutionMethodType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class WellLicenseViolationResolutionMethodType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The classification of the method type. This is a broad grouping of violations that can be used for metrics and other analysis.

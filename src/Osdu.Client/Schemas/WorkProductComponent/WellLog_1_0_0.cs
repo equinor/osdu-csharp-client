@@ -89,11 +89,11 @@ public class WellLog_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellLog_1_0_0Data? Data { get; set; }
+    public WellLog_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellLog_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class WellLog_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     /// <summary>
     /// The Wellbore where the Well Log Work Product Component was recorded
@@ -162,7 +162,7 @@ public class WellLog_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes:
     /// An interval built from two nested values : StartDate and EndDate. It applies to the whole log services and may apply to composite logs as [start of the first run job] and [end of the last run job]Log Service Date
     /// </summary>
     [JsonPropertyName("LogServiceDateInterval")]
-    public WellLog_1_0_0DataLogServiceDateInterval? LogServiceDateInterval { get; set; }
+    public WellLog_1_0_0_Data_LogServiceDateInterval? LogServiceDateInterval { get; set; }
 
     /// <summary>
     /// Tool String Description - a long concatenation of the tools used for logging services such as GammaRay+NeutronPorosity
@@ -211,7 +211,7 @@ public class WellLog_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes:
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
 
     [JsonPropertyName("Curves")]
-    public List<WellLog_1_0_0DataCurves> Curves { get; set; }
+    public List<WellLog_1_0_0_Data_Curves> Curves { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -221,7 +221,7 @@ public class WellLog_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes:
 /// <summary>
 /// An interval built from two nested values : StartDate and EndDate. It applies to the whole log services and may apply to composite logs as [start of the first run job] and [end of the last run job]Log Service Date
 /// </summary>
-public class WellLog_1_0_0DataLogServiceDateInterval
+public class WellLog_1_0_0_Data_LogServiceDateInterval
 {
     [JsonPropertyName("StartDate")]
     public DateTimeOffset StartDate { get; set; }
@@ -231,7 +231,7 @@ public class WellLog_1_0_0DataLogServiceDateInterval
 
 }
 
-public class WellLog_1_0_0DataCurves
+public class WellLog_1_0_0_Data_Curves
 {
     /// <summary>
     /// The ID of the Well Log Curve

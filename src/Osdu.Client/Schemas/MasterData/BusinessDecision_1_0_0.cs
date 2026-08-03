@@ -89,11 +89,11 @@ public class BusinessDecision_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public BusinessDecision_1_0_0Data? Data { get; set; }
+    public BusinessDecision_1_0_0_Data? Data { get; set; }
 
 }
 
-public class BusinessDecision_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class BusinessDecision_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// The project name this decision is associated with to be used for discovery.
@@ -168,7 +168,7 @@ public class BusinessDecision_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
     /// The 6-component decision quality object.
     /// </summary>
     [JsonPropertyName("DecisionQualities")]
-    public BusinessDecision_1_0_0DataDecisionQualities? DecisionQualities { get; set; }
+    public BusinessDecision_1_0_0_Data_DecisionQualities? DecisionQualities { get; set; }
 
     /// <summary>
     /// An array of free remarks or annotations.
@@ -202,7 +202,7 @@ public class BusinessDecision_1_0_0Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// The 6-component decision quality object.
 /// </summary>
-public class BusinessDecision_1_0_0DataDecisionQualities
+public class BusinessDecision_1_0_0_Data_DecisionQualities
 {
     [JsonPropertyName("AppropriateFrame")]
     public AbstractDecisionQualityElement_1_0_0? AppropriateFrame { get; set; }
@@ -211,7 +211,7 @@ public class BusinessDecision_1_0_0DataDecisionQualities
     /// Context about the decision quality 'creative, doable alternatives' elements.
     /// </summary>
     [JsonPropertyName("DoableAlternatives")]
-    public List<BusinessDecision_1_0_0DataDecisionQualitiesDoableAlternatives> DoableAlternatives { get; set; }
+    public List<BusinessDecision_1_0_0_Data_DecisionQualities_DoableAlternatives> DoableAlternatives { get; set; }
 
     [JsonPropertyName("InformationReliability")]
     public AbstractDecisionQualityElement_1_0_0? InformationReliability { get; set; }
@@ -230,7 +230,7 @@ public class BusinessDecision_1_0_0DataDecisionQualities
 /// <summary>
 /// A condition, which causes a re-evaluation of the decision and optionally the re-execution of a workflow.
 /// </summary>
-public class BusinessDecision_1_0_0DataDecisionQualitiesDoableAlternatives : AbstractDecisionQualityElement_1_0_0
+public class BusinessDecision_1_0_0_Data_DecisionQualities_DoableAlternatives : AbstractDecisionQualityElement_1_0_0
 {
     /// <summary>
     /// The sequence number as key into the array of  DoableAlternatives. The sequence number stays invariant in the life of the record. The SequenceNumber is mandatory.

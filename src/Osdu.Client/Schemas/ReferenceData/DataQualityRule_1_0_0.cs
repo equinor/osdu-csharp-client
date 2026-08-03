@@ -89,11 +89,11 @@ public class DataQualityRule_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DataQualityRule_1_0_0Data? Data { get; set; }
+    public DataQualityRule_1_0_0_Data? Data { get; set; }
 
 }
 
-public class DataQualityRule_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class DataQualityRule_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Unique identifier to an external data rule, e.g. PPDM rule ID number as string.

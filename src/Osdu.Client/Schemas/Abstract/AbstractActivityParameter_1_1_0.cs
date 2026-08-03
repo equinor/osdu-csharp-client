@@ -43,7 +43,7 @@ public class AbstractActivityParameter_1_1_0
     /// A nested array describing keys used to identify a parameter value. When multiple values are provided for a given parameter, the key provides a way to identify the parameter through its association with an object, a time index or a parameter array member via ParameterKey value.
     /// </summary>
     [JsonPropertyName("Keys")]
-    public List<AbstractActivityParameter_1_1_0Keys> Keys { get; set; }
+    public List<AbstractActivityParameter_1_1_0_Keys> Keys { get; set; }
 
     /// <summary>
     /// Parameter referencing to a top level object.
@@ -111,7 +111,7 @@ public class AbstractActivityParameter_1_1_0
 /// Abstract class describing a key used to identify a parameter value. When multiple values are provided for a given parameter, provides a way to identify the parameter through its association with an object, a time index, an integer...
 /// [Without inheritance, combined specializations.] Note: floating point numbers are not supported as key values; the numbers have to be formatted as strings for robust equality operations, which are necessary for keys.
 /// </summary>
-public class AbstractActivityParameter_1_1_0Keys
+public class AbstractActivityParameter_1_1_0_Keys
 {
     /// <summary>
     /// Relationship to an object ID, which acts as the parameter.

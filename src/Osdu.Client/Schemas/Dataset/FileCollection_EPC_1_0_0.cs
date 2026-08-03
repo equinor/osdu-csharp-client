@@ -89,17 +89,17 @@ public class FileCollection_EPC_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FileCollection_EPC_1_0_0Data? Data { get; set; }
+    public FileCollection_EPC_1_0_0_Data? Data { get; set; }
 
 }
 
-public class FileCollection_EPC_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0
+public class FileCollection_EPC_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0
 {
     /// <summary>
     /// The standard dataset schema for FileCollection.EPC.
     /// </summary>
     [JsonPropertyName("DatasetProperties")]
-    public FileCollection_EPC_1_0_0DataDatasetProperties? DatasetProperties { get; set; }
+    public FileCollection_EPC_1_0_0_Data_DatasetProperties? DatasetProperties { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,7 +109,7 @@ public class FileCollection_EPC_1_0_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// The standard dataset schema for FileCollection.EPC.
 /// </summary>
-public class FileCollection_EPC_1_0_0DataDatasetProperties
+public class FileCollection_EPC_1_0_0_Data_DatasetProperties
 {
     [Required]
     [JsonPropertyName("EPCFile")]

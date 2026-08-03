@@ -89,11 +89,11 @@ public class SeismicFault_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicFault_2_0_0Data? Data { get; set; }
+    public SeismicFault_2_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicFault_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
+public class SeismicFault_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
 {
     /// <summary>
     /// The relationship to the Fault Interpretation that this representation is associated with. The Fault Interpretation record, in turn, contains the relationship to the related interpreted Feature. This named property is intended to constrain the AbstractRepresentation target property to a FaultInterpretation for simplicity and clarity.

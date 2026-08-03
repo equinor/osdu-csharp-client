@@ -89,11 +89,11 @@ public class DepthShift_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DepthShift_1_0_0Data? Data { get; set; }
+    public DepthShift_1_0_0_Data? Data { get; set; }
 
 }
 
-public class DepthShift_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class DepthShift_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifies the wellbore to which the core and the relevant log belong, which were used for the depth-shift.
@@ -133,7 +133,7 @@ public class DepthShift_1_0_0Data : AbstractCommonResources_1_0_1 // Also compos
     /// Identifies the samples/specimens to shift as well as the intended usage of the depth shift with the identified samples. This is only to be used when depth-shifting samples, not well logs.
     /// </summary>
     [JsonPropertyName("DepthShiftedSamples")]
-    public List<DepthShift_1_0_0DataDepthShiftedSamples> DepthShiftedSamples { get; set; }
+    public List<DepthShift_1_0_0_Data_DepthShiftedSamples> DepthShiftedSamples { get; set; }
 
     [JsonPropertyName("AuthorID")]
     public AbstractContact_1_1_0? AuthorID { get; set; }
@@ -152,7 +152,7 @@ public class DepthShift_1_0_0Data : AbstractCommonResources_1_0_1 // Also compos
 /// <summary>
 /// Defines the relationship between this depth shift to a sample/specimen (e.g., rock or fluid) as well as the intended usage of the depth shift with the identified sample.
 /// </summary>
-public class DepthShift_1_0_0DataDepthShiftedSamples
+public class DepthShift_1_0_0_Data_DepthShiftedSamples
 {
     /// <summary>
     /// Identifies the sample/specimen (e.g., core) to which this depth shift applies.

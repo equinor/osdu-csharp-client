@@ -89,11 +89,11 @@ public class WellPressureTestInterpretation_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellPressureTestInterpretation_1_0_0Data? Data { get; set; }
+    public WellPressureTestInterpretation_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellPressureTestInterpretation_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class WellPressureTestInterpretation_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifier of the related Well Pressure Test Raw Measurement Work Product Component
@@ -150,7 +150,7 @@ public class WellPressureTestInterpretation_1_0_0Data : AbstractCommonResources_
     /// Array of detailed results of the interpretation activity
     /// </summary>
     [JsonPropertyName("InterpretationResults")]
-    public List<WellPressureTestInterpretation_1_0_0DataInterpretationResults> InterpretationResults { get; set; }
+    public List<WellPressureTestInterpretation_1_0_0_Data_InterpretationResults> InterpretationResults { get; set; }
 
     [JsonPropertyName("InterpretationResultProperties")]
     public AbstractColumnBasedTable_1_2_0? InterpretationResultProperties { get; set; }
@@ -163,7 +163,7 @@ public class WellPressureTestInterpretation_1_0_0Data : AbstractCommonResources_
 /// <summary>
 /// Contains the reservoir specific results of interpretations carried out on the results of well tests. Also contains the parameter values needed to calculate the pressure at reservoir datum.
 /// </summary>
-public class WellPressureTestInterpretation_1_0_0DataInterpretationResults
+public class WellPressureTestInterpretation_1_0_0_Data_InterpretationResults
 {
     /// <summary>
     /// The unique number of the result array member in the data.InterpretationResults[] array.
@@ -200,7 +200,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResults
     /// Segment that contains important reference elements used to support the interpretation activity
     /// </summary>
     [JsonPropertyName("InterpretationInput")]
-    public WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterpretationInput? InterpretationInput { get; set; }
+    public WellPressureTestInterpretation_1_0_0_Data_InterpretationResults_InterpretationInput? InterpretationInput { get; set; }
 
     /// <summary>
     /// Identifier linking to the dominant parent reservoir entity (It could be either a Reservoir or ReservoirSegment). This is the entity whose characteristics such as Reservoir Pressure are interpreted
@@ -238,7 +238,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResults
     /// An array of pressure correction(s) applied when interpreting pressure from the gauge depth to the reservoir pressure datum.
     /// </summary>
     [JsonPropertyName("AppliedPressureCorrections")]
-    public List<WellPressureTestInterpretation_1_0_0DataInterpretationResultsAppliedPressureCorrections> AppliedPressureCorrections { get; set; }
+    public List<WellPressureTestInterpretation_1_0_0_Data_InterpretationResults_AppliedPressureCorrections> AppliedPressureCorrections { get; set; }
 
     /// <summary>
     /// The interpreted reservoir pressure at the reservoir datum depth
@@ -257,7 +257,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResults
 /// <summary>
 /// Segment that contains important reference elements used to support the interpretation activity
 /// </summary>
-public class WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterpretationInput
+public class WellPressureTestInterpretation_1_0_0_Data_InterpretationResults_InterpretationInput
 {
     /// <summary>
     /// Optional reference to the WellboreMarkerSet containing the fluid contacts used for pressure test interpretation
@@ -277,7 +277,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterp
     /// This contains the accepted fluid pressure gradients used in well test interpretation for the reservoir element. Fluid context is applied by the use of Facets e.g. what+Gas, what+Oil, qualifier+Total
     /// </summary>
     [JsonPropertyName("PressureGradients")]
-    public List<WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterpretationInputPressureGradients> PressureGradients { get; set; }
+    public List<WellPressureTestInterpretation_1_0_0_Data_InterpretationResults_InterpretationInput_PressureGradients> PressureGradients { get; set; }
 
     /// <summary>
     /// Provides an array of general parameter values used in the Well Test Interpretation activity.
@@ -296,7 +296,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterp
 /// <summary>
 /// This contains the accepted fluid pressure gradients used in well test interpretation for the reservoir element. Fluid context is applied by the use of Facets e.g. what+Gas, what+Oil, qualifier+Total
 /// </summary>
-public class WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterpretationInputPressureGradients
+public class WellPressureTestInterpretation_1_0_0_Data_InterpretationResults_InterpretationInput_PressureGradients
 {
     /// <summary>
     /// The gradient (change in pressure per unit length) value in the borehole, of the element defined by the FacetID, used for calculating the pressure in the perforated interval from pressure at sensor depth.
@@ -346,7 +346,7 @@ public class WellPressureTestInterpretation_1_0_0DataInterpretationResultsInterp
 /// <summary>
 /// Pressure correction(s) applied when interpreting pressure from the gauge depth to the reservoir pressure datum. Further context can be applied to the Pressure Correction by the use of Facets e.g. what+Gas, what+Oil, qualifier+Total
 /// </summary>
-public class WellPressureTestInterpretation_1_0_0DataInterpretationResultsAppliedPressureCorrections
+public class WellPressureTestInterpretation_1_0_0_Data_InterpretationResults_AppliedPressureCorrections
 {
     /// <summary>
     /// The pressure correction value applied when interpreting pressure from the gauge depth to the reservoir pressure datum.

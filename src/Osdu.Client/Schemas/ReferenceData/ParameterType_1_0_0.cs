@@ -89,11 +89,11 @@ public class ParameterType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ParameterType_1_0_0Data? Data { get; set; }
+    public ParameterType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ParameterType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class ParameterType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The quantity types examples are volumetric thermal expansion,linear thermal expansion, length

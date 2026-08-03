@@ -32,7 +32,7 @@ public class AddMemberDto
     /// </summary>
     [Required]
     [JsonPropertyName("role")]
-    public AddMemberDtoRole Role { get; set; }
+    public AddMemberDto_Role Role { get; set; }
 
 }
 
@@ -40,7 +40,7 @@ public class AddMemberDto
 /// Role of the member
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AddMemberDtoRole
+public enum AddMemberDto_Role
 {
     [JsonStringEnumMemberName("MEMBER")]
     MEMBER,

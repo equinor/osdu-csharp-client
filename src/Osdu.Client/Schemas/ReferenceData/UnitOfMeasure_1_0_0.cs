@@ -89,11 +89,11 @@ public class UnitOfMeasure_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public UnitOfMeasure_1_0_0Data? Data { get; set; }
+    public UnitOfMeasure_1_0_0_Data? Data { get; set; }
 
 }
 
-public class UnitOfMeasure_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class UnitOfMeasure_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Unit Quantity is a semantic description of the quantity the UoM is describing ('length' for instance)

@@ -89,11 +89,11 @@ public class Type_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Type_1_0_0Data? Data { get; set; }
+    public Type_1_0_0_Data? Data { get; set; }
 
 }
 
-public class Type_1_0_0Data : AbstractCommonResources_1_0_0
+public class Type_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     /// <summary>
     /// A detailed description of the concept represented by the type and, if necessary, with relationships to other concepts/types defined in the ecosystem.
@@ -148,7 +148,7 @@ public class Type_1_0_0Data : AbstractCommonResources_1_0_0
     /// The style of governance (only relevant for IsReferenceValueType==true) - it can be FIXED (content must not be augmented), OPEN (additions and changes allowed) or LOCAL (content is exclusively governed by operator).
     /// </summary>
     [JsonPropertyName("GovernanceModel")]
-    public Type_1_0_0DataGovernanceModel GovernanceModel { get; set; }
+    public Type_1_0_0_Data_GovernanceModel GovernanceModel { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -159,7 +159,7 @@ public class Type_1_0_0Data : AbstractCommonResources_1_0_0
 /// The style of governance (only relevant for IsReferenceValueType==true) - it can be FIXED (content must not be augmented), OPEN (additions and changes allowed) or LOCAL (content is exclusively governed by operator).
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum Type_1_0_0DataGovernanceModel
+public enum Type_1_0_0_Data_GovernanceModel
 {
     [JsonStringEnumMemberName("FIXED")]
     FIXED,

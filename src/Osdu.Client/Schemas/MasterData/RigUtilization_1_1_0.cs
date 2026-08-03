@@ -89,11 +89,11 @@ public class RigUtilization_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public RigUtilization_1_1_0Data? Data { get; set; }
+    public RigUtilization_1_1_0_Data? Data { get; set; }
 
 }
 
-public class RigUtilization_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
+public class RigUtilization_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// Identifier of the Hole Section that is being drilled
@@ -179,7 +179,7 @@ public class RigUtilization_1_1_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Mud pump equipment on the rig
     /// </summary>
     [JsonPropertyName("MudPumps")]
-    public List<RigUtilization_1_1_0DataMudPumps> MudPumps { get; set; }
+    public List<RigUtilization_1_1_0_Data_MudPumps> MudPumps { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -189,7 +189,7 @@ public class RigUtilization_1_1_0Data : AbstractCommonResources_1_0_0 // Also co
 /// <summary>
 /// Pumps present on the rig
 /// </summary>
-public class RigUtilization_1_1_0DataMudPumps
+public class RigUtilization_1_1_0_Data_MudPumps
 {
     /// <summary>
     /// The name of the mud pump (model)

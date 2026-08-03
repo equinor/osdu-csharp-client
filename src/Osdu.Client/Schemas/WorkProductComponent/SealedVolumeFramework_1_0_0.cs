@@ -89,11 +89,11 @@ public class SealedVolumeFramework_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SealedVolumeFramework_1_0_0Data? Data { get; set; }
+    public SealedVolumeFramework_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SealedVolumeFramework_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
+public class SealedVolumeFramework_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
 {
     /// <summary>
     /// The reference to the StructuralOrganizationInterpretation this framework belongs to.

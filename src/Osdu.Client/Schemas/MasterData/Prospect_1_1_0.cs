@@ -89,11 +89,11 @@ public class Prospect_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Prospect_1_1_0Data? Data { get; set; }
+    public Prospect_1_1_0_Data? Data { get; set; }
 
 }
 
-public class Prospect_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class Prospect_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Native identifier from a Master Data Management System or other trusted source external to OSDU - stored here in order to allow for multi-system connection and synchronization. If used, the "Source" property should identify that source system.

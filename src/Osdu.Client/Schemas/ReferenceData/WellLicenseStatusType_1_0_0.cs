@@ -89,11 +89,11 @@ public class WellLicenseStatusType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellLicenseStatusType_1_0_0Data? Data { get; set; }
+    public WellLicenseStatusType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellLicenseStatusType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class WellLicenseStatusType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The related WellLicenseStatusClass, often serving as a shortcut to summarize information derived from one or more data systems. They may also imply legal or regulatory conditions or stipulations or serve as triggers for certain kinds of obligations.

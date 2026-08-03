@@ -89,11 +89,11 @@ public class WellPressureTestRawMeasurement_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellPressureTestRawMeasurement_1_1_0Data? Data { get; set; }
+    public WellPressureTestRawMeasurement_1_1_0_Data? Data { get; set; }
 
 }
 
-public class WellPressureTestRawMeasurement_1_1_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class WellPressureTestRawMeasurement_1_1_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifier of the acquisition job master data.
@@ -130,13 +130,13 @@ public class WellPressureTestRawMeasurement_1_1_0Data : AbstractCommonResources_
     /// Array of comprehensive description of the well test raw measurement (one entry per gauge's depth)
     /// </summary>
     [JsonPropertyName("Measurements")]
-    public List<WellPressureTestRawMeasurement_1_1_0DataMeasurements> Measurements { get; set; }
+    public List<WellPressureTestRawMeasurement_1_1_0_Data_Measurements> Measurements { get; set; }
 
     /// <summary>
     /// Array of unitary Curve (Pressure against Time) description
     /// </summary>
     [JsonPropertyName("Curves")]
-    public List<WellPressureTestRawMeasurement_1_1_0DataCurves> Curves { get; set; }
+    public List<WellPressureTestRawMeasurement_1_1_0_Data_Curves> Curves { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -146,7 +146,7 @@ public class WellPressureTestRawMeasurement_1_1_0Data : AbstractCommonResources_
 /// <summary>
 /// Unitary Measurement Serie Description
 /// </summary>
-public class WellPressureTestRawMeasurement_1_1_0DataMeasurements
+public class WellPressureTestRawMeasurement_1_1_0_Data_Measurements
 {
     /// <summary>
     /// Identifier of the Station within the acquisition job captured in the unitary serie
@@ -204,7 +204,7 @@ public class WellPressureTestRawMeasurement_1_1_0DataMeasurements
     /// DEPRECATED - PLEASE USE "MEASUREMENT PERIOD" INSTEAD: array of information to identify pretests measurements within the complete measurement recording.
     /// </summary>
     [JsonPropertyName("PreTests")]
-    public List<WellPressureTestRawMeasurement_1_1_0DataMeasurementsPreTests> PreTests { get; set; }
+    public List<WellPressureTestRawMeasurement_1_1_0_Data_Measurements_PreTests> PreTests { get; set; }
 
     /// <summary>
     /// Boolean that indicates the measurement is tubular (meaning proceeded inside the installed tubular) - or annular otherwise.
@@ -234,14 +234,14 @@ public class WellPressureTestRawMeasurement_1_1_0DataMeasurements
     /// array of information to identify interval times within the complete measurement recording, significant in themselves - such as PreTests in Formation Pressure Test - BuildUp/Close-in intervals in Build Ups production pressure tests,….
     /// </summary>
     [JsonPropertyName("MeasurementPeriods")]
-    public List<WellPressureTestRawMeasurement_1_1_0DataMeasurementsMeasurementPeriods> MeasurementPeriods { get; set; }
+    public List<WellPressureTestRawMeasurement_1_1_0_Data_Measurements_MeasurementPeriods> MeasurementPeriods { get; set; }
 
 }
 
 /// <summary>
 /// Describes the pieces of information required to identity individual pretests within the complete record.
 /// </summary>
-public class WellPressureTestRawMeasurement_1_1_0DataMeasurementsPreTests
+public class WellPressureTestRawMeasurement_1_1_0_Data_Measurements_PreTests
 {
     /// <summary>
     /// DEPRECATED: Sequential number identifying the pretest within the record
@@ -266,7 +266,7 @@ public class WellPressureTestRawMeasurement_1_1_0DataMeasurementsPreTests
 /// <summary>
 /// Contains information about the individual, discrete events or periods during a wellbore pressure test
 /// </summary>
-public class WellPressureTestRawMeasurement_1_1_0DataMeasurementsMeasurementPeriods
+public class WellPressureTestRawMeasurement_1_1_0_Data_Measurements_MeasurementPeriods
 {
     /// <summary>
     /// Sequential number identifying the period within the record
@@ -301,7 +301,7 @@ public class WellPressureTestRawMeasurement_1_1_0DataMeasurementsMeasurementPeri
 /// <summary>
 /// Describing the characteristics of the "Pressure against Time" recorded curves.
 /// </summary>
-public class WellPressureTestRawMeasurement_1_1_0DataCurves
+public class WellPressureTestRawMeasurement_1_1_0_Data_Curves
 {
     /// <summary>
     /// The ID of the Well Log Curve

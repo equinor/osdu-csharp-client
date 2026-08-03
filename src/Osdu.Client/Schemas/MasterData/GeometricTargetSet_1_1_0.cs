@@ -89,11 +89,11 @@ public class GeometricTargetSet_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GeometricTargetSet_1_1_0Data? Data { get; set; }
+    public GeometricTargetSet_1_1_0_Data? Data { get; set; }
 
 }
 
-public class GeometricTargetSet_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class GeometricTargetSet_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Identifier of the Wellbore
@@ -112,7 +112,7 @@ public class GeometricTargetSet_1_1_0Data : AbstractCommonResources_1_0_0 // Als
     /// A collection of drill targets.
     /// </summary>
     [JsonPropertyName("Targets")]
-    public List<GeometricTargetSet_1_1_0DataTargets> Targets { get; set; }
+    public List<GeometricTargetSet_1_1_0_Data_Targets> Targets { get; set; }
 
     /// <summary>
     /// Name of Geometric Target Set
@@ -128,7 +128,7 @@ public class GeometricTargetSet_1_1_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// This is a geometric body describing a volume in the earth intended to be a target of one or more wellbores.
 /// </summary>
-public class GeometricTargetSet_1_1_0DataTargets
+public class GeometricTargetSet_1_1_0_Data_Targets
 {
     /// <summary>
     /// Human recognizable context for the target - the name must be unique within the set.
@@ -150,7 +150,7 @@ public class GeometricTargetSet_1_1_0DataTargets
     /// The Geometry of the target.
     /// </summary>
     [JsonPropertyName("Geometry")]
-    public GeometricTargetSet_1_1_0DataTargetsGeometry? Geometry { get; set; }
+    public GeometricTargetSet_1_1_0_Data_Targets_Geometry? Geometry { get; set; }
 
     /// <summary>
     /// A comment or description of the target
@@ -181,7 +181,7 @@ public class GeometricTargetSet_1_1_0DataTargets
 /// <summary>
 /// The Geometry of the target.
 /// </summary>
-public class GeometricTargetSet_1_1_0DataTargetsGeometry
+public class GeometricTargetSet_1_1_0_Data_Targets_Geometry
 {
     /// <summary>
     /// The shape of the target. Examples of this are Elliptical, Point etc
@@ -248,14 +248,14 @@ public class GeometricTargetSet_1_1_0DataTargetsGeometry
     /// The geometry sections which define the spatial geometry ot the target
     /// </summary>
     [JsonPropertyName("GeometrySections")]
-    public List<GeometricTargetSet_1_1_0DataTargetsGeometryGeometrySections> GeometrySections { get; set; }
+    public List<GeometricTargetSet_1_1_0_Data_Targets_Geometry_GeometrySections> GeometrySections { get; set; }
 
 }
 
 /// <summary>
 /// The geometric sections that combine to define the shape of a complex target
 /// </summary>
-public class GeometricTargetSet_1_1_0DataTargetsGeometryGeometrySections
+public class GeometricTargetSet_1_1_0_Data_Targets_Geometry_GeometrySections
 {
     /// <summary>
     /// Sequence number of the section (1,2,3…)

@@ -24,25 +24,25 @@ public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0
     /// </summary>
     [Required]
     [JsonPropertyName("Kind")]
-    public AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0Kind Kind { get; set; }
+    public AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_Kind Kind { get; set; }
 
     /// <summary>
     /// Contains trace annotation value arrays for each point each point in the Feature/AnyCrsFeature.
     /// </summary>
     [JsonPropertyName("PointsProperties")]
-    public AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0PointsProperties? PointsProperties { get; set; }
+    public AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_PointsProperties? PointsProperties { get; set; }
 
     /// <summary>
     /// Used if the line feature consists of multiple segments (MultiLineString). If only one segment/LineString is present this property is not populated and the content is covered by FeatureProperties.
     /// </summary>
     [JsonPropertyName("LineStringProperties")]
-    public List<AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0LineStringProperties> LineStringProperties { get; set; }
+    public List<AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_LineStringProperties> LineStringProperties { get; set; }
 
     /// <summary>
     /// The line annotation for the line in the Feature/AnyCrsFeature. If the feature is a MultiLineString, this applies to all parts.
     /// </summary>
     [JsonPropertyName("FeatureProperties")]
-    public AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0FeatureProperties? FeatureProperties { get; set; }
+    public AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_FeatureProperties? FeatureProperties { get; set; }
 
 }
 
@@ -50,7 +50,7 @@ public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0
 /// The actual Kind of schema fragment AbstractGeoJson.PropertiesSeismic2DLineNavigation.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0Kind
+public enum AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_Kind
 {
     [JsonStringEnumMemberName("osdu:wks:AbstractGeoJson.PropertiesSeismic2DLineNavigation:1.0.0")]
     OsduWksAbstractGeoJsonPropertiesSeismic2DLineNavigation100,
@@ -60,7 +60,7 @@ public enum AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0Kind
 /// <summary>
 /// Contains trace annotation value arrays for each point each point in the Feature/AnyCrsFeature.
 /// </summary>
-public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0PointsProperties
+public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_PointsProperties
 {
     /// <summary>
     /// The array of shot point numbers, one number for each coordinate in the LineString or MultiLineString feature.
@@ -85,7 +85,7 @@ public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0PointsProper
 /// <summary>
 /// The object containing the line segment label
 /// </summary>
-public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0LineStringProperties
+public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_LineStringProperties
 {
     /// <summary>
     /// The line segment name used as LineString label. For lines consisting of a single LineString, this property group is redundant and can stay absent. The LineName of the FeatureProperties applies instead.
@@ -98,7 +98,7 @@ public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0LineStringPr
 /// <summary>
 /// The line annotation for the line in the Feature/AnyCrsFeature. If the feature is a MultiLineString, this applies to all parts.
 /// </summary>
-public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0FeatureProperties
+public class AbstractGeoJson_PropertiesSeismic2DLineNavigation_1_0_0_FeatureProperties
 {
     /// <summary>
     /// The line name used as label for the entire feature.

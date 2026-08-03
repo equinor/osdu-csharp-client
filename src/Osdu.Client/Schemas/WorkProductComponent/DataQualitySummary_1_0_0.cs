@@ -89,11 +89,11 @@ public class DataQualitySummary_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DataQualitySummary_1_0_0Data? Data { get; set; }
+    public DataQualitySummary_1_0_0_Data? Data { get; set; }
 
 }
 
-public class DataQualitySummary_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class DataQualitySummary_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The reference to the evaluated data record. The record version number is required.
@@ -106,7 +106,7 @@ public class DataQualitySummary_1_0_0Data : AbstractCommonResources_1_0_0 // Als
     /// The set of Data Quality Review objects associated with the data quality summary
     /// </summary>
     [JsonPropertyName("DataQualitySummarySet")]
-    public List<DataQualitySummary_1_0_0DataDataQualitySummarySet> DataQualitySummarySet { get; set; }
+    public List<DataQualitySummary_1_0_0_Data_DataQualitySummarySet> DataQualitySummarySet { get; set; }
 
     /// <summary>
     /// The EvaluatedRecordID's kind.
@@ -123,7 +123,7 @@ public class DataQualitySummary_1_0_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// This is used to store the latest summary of data quality evaluation results for each RuleSet and is associated by reference to a work product component or master data object. Only one DataQualityReview per DataQualityRuleSet
 /// </summary>
-public class DataQualitySummary_1_0_0DataDataQualitySummarySet
+public class DataQualitySummary_1_0_0_Data_DataQualitySummarySet
 {
     /// <summary>
     /// The reference to the data quality rule set run for the data quality summary. Unique Key for the item in the DataQualitySummarySet array.
@@ -170,14 +170,14 @@ public class DataQualitySummary_1_0_0DataDataQualitySummarySet
     /// The individual scores per dimension.
     /// </summary>
     [JsonPropertyName("DimensionMetrics")]
-    public List<DataQualitySummary_1_0_0DataDataQualitySummarySetDimensionMetrics> DimensionMetrics { get; set; }
+    public List<DataQualitySummary_1_0_0_Data_DataQualitySummarySet_DimensionMetrics> DimensionMetrics { get; set; }
 
 }
 
 /// <summary>
 /// The assessment score per data rule dimension type and its weight.
 /// </summary>
-public class DataQualitySummary_1_0_0DataDataQualitySummarySetDimensionMetrics
+public class DataQualitySummary_1_0_0_Data_DataQualitySummarySet_DimensionMetrics
 {
     /// <summary>
     /// The reference to the DataRuleDimensionType, to which score and weight are associated.

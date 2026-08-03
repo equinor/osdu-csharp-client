@@ -89,11 +89,11 @@ public class WellboreMarkerSet_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreMarkerSet_1_1_0Data? Data { get; set; }
+    public WellboreMarkerSet_1_1_0_Data? Data { get; set; }
 
 }
 
-public class WellboreMarkerSet_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class WellboreMarkerSet_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     /// <summary>
     /// The Wellbore ID, to which the markers in this set belong.
@@ -109,13 +109,13 @@ public class WellboreMarkerSet_1_1_0Data : AbstractCommonResources_1_0_0 // Also
     /// The array of MarkerProperty definitions describing the available properties for this instance of WellboreMarkerSet.
     /// </summary>
     [JsonPropertyName("AvailableMarkerProperties")]
-    public List<WellboreMarkerSet_1_1_0DataAvailableMarkerProperties> AvailableMarkerProperties { get; set; }
+    public List<WellboreMarkerSet_1_1_0_Data_AvailableMarkerProperties> AvailableMarkerProperties { get; set; }
 
     /// <summary>
     /// The array of marker meta data in this set.
     /// </summary>
     [JsonPropertyName("Markers")]
-    public List<WellboreMarkerSet_1_1_0DataMarkers> Markers { get; set; }
+    public List<WellboreMarkerSet_1_1_0_Data_Markers> Markers { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -125,7 +125,7 @@ public class WellboreMarkerSet_1_1_0Data : AbstractCommonResources_1_0_0 // Also
 /// <summary>
 /// A set of properties describing a marker property which is available for this instance of a WellboreMarkerSet.
 /// </summary>
-public class WellboreMarkerSet_1_1_0DataAvailableMarkerProperties
+public class WellboreMarkerSet_1_1_0_Data_AvailableMarkerProperties
 {
     /// <summary>
     /// The reference to a marker property type - or if interpreted as CSV columns, the 'well-known column type. It is a relationship to a reference-data--MarkerPropertyType record id.
@@ -149,7 +149,7 @@ public class WellboreMarkerSet_1_1_0DataAvailableMarkerProperties
 
 }
 
-public class WellboreMarkerSet_1_1_0DataMarkers
+public class WellboreMarkerSet_1_1_0_Data_Markers
 {
     /// <summary>
     /// Name of the Marker

@@ -36,7 +36,7 @@ public class Legal
     /// Compliance status of the legal tags, assigned by the server.
     /// </summary>
     [JsonPropertyName("status")]
-    public LegalStatus Status { get; set; }
+    public Legal_Status Status { get; set; }
 
 }
 
@@ -44,7 +44,7 @@ public class Legal
 /// Compliance status of the legal tags, assigned by the server.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum LegalStatus
+public enum Legal_Status
 {
     [JsonStringEnumMemberName("compliant")]
     Compliant,

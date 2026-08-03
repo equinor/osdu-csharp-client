@@ -89,11 +89,11 @@ public class WellPlanningWellbore_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellPlanningWellbore_1_0_0Data? Data { get; set; }
+    public WellPlanningWellbore_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellPlanningWellbore_1_0_0Data : AbstractCommonResources_1_0_0
+public class WellPlanningWellbore_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     /// <summary>
     /// Identifier of the parent wellbore.

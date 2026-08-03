@@ -23,26 +23,26 @@ public class AbstractVectorHeaderMapping_1_1_0
     /// Array of objects which define the meaning and format of a tabular structure used in a binary file as a header.  The initial use case is the trace headers of a SEG-Y file.  Note that some of this information may be repeated in the SEG-Y EBCDIC header.
     /// </summary>
     [JsonPropertyName("VectorHeaderMapping")]
-    public List<AbstractVectorHeaderMapping_1_1_0VectorHeaderMapping> VectorHeaderMapping { get; set; }
+    public List<AbstractVectorHeaderMapping_1_1_0_VectorHeaderMapping> VectorHeaderMapping { get; set; }
 
     /// <summary>
     /// Trace header override definitions.
     /// </summary>
     [JsonPropertyName("TraceHeaderOverrides")]
-    public List<AbstractVectorHeaderMapping_1_1_0TraceHeaderOverrides> TraceHeaderOverrides { get; set; }
+    public List<AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides> TraceHeaderOverrides { get; set; }
 
     /// <summary>
     /// Binary header override definitions.
     /// </summary>
     [JsonPropertyName("BinaryHeaderOverrides")]
-    public List<AbstractVectorHeaderMapping_1_1_0BinaryHeaderOverrides> BinaryHeaderOverrides { get; set; }
+    public List<AbstractVectorHeaderMapping_1_1_0_BinaryHeaderOverrides> BinaryHeaderOverrides { get; set; }
 
 }
 
 /// <summary>
 /// Array of objects which define the meaning and format of a tabular structure used in a binary file as a header.  The initial use case is the trace headers of a SEG-Y file.  Note that some of this information may be repeated in the SEG-Y EBCDIC header.
 /// </summary>
-public class AbstractVectorHeaderMapping_1_1_0VectorHeaderMapping
+public class AbstractVectorHeaderMapping_1_1_0_VectorHeaderMapping
 {
     /// <summary>
     /// Relationship to a reference value for a name of a property header such as INLINE, CDPX.
@@ -81,7 +81,7 @@ public class AbstractVectorHeaderMapping_1_1_0VectorHeaderMapping
     /// Enumerated string indicating whether to use the normal scalar field for scaling this field (STANDARD), no scaling (NOSCALE), or override scalar (OVERRIDE).  Default is current STANDARD (such as SEG-Y rev2).
     /// </summary>
     [JsonPropertyName("ScalarIndicator")]
-    public AbstractVectorHeaderMapping_1_1_0VectorHeaderMappingScalarIndicator ScalarIndicator { get; set; }
+    public AbstractVectorHeaderMapping_1_1_0_VectorHeaderMapping_ScalarIndicator ScalarIndicator { get; set; }
 
     /// <summary>
     /// Scalar value (as defined by standard) when a value present in the header needs to be overwritten for this value.
@@ -95,7 +95,7 @@ public class AbstractVectorHeaderMapping_1_1_0VectorHeaderMapping
 /// Enumerated string indicating whether to use the normal scalar field for scaling this field (STANDARD), no scaling (NOSCALE), or override scalar (OVERRIDE).  Default is current STANDARD (such as SEG-Y rev2).
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractVectorHeaderMapping_1_1_0VectorHeaderMappingScalarIndicator
+public enum AbstractVectorHeaderMapping_1_1_0_VectorHeaderMapping_ScalarIndicator
 {
     [JsonStringEnumMemberName("STANDARD")]
     STANDARD,
@@ -111,7 +111,7 @@ public enum AbstractVectorHeaderMapping_1_1_0VectorHeaderMappingScalarIndicator
 /// <summary>
 /// An object defining an override condition  for a vector header value, e.g. SEG-Y trace header value.
 /// </summary>
-public class AbstractVectorHeaderMapping_1_1_0TraceHeaderOverrides
+public class AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides
 {
     /// <summary>
     /// Relationship to a reference value for a name of a property header such as INLINE, CDPX.
@@ -130,14 +130,14 @@ public class AbstractVectorHeaderMapping_1_1_0TraceHeaderOverrides
     /// The value to be overridden is computed by evaluating the sequence of expressions. If populated, the OverrideByConstant must be empty.
     /// </summary>
     [JsonPropertyName("OverrideByExpressions")]
-    public List<AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpressions> OverrideByExpressions { get; set; }
+    public List<AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides_OverrideByExpressions> OverrideByExpressions { get; set; }
 
 }
 
 /// <summary>
 /// An expression, potentially in a sequence, allowing the computation of a value or intermediate value.
 /// </summary>
-public class AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpressions
+public class AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides_OverrideByExpressions
 {
     /// <summary>
     /// The input variable given by the HeaderKeyName.
@@ -150,7 +150,7 @@ public class AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpr
     /// The operator 1, an enumeration with permitted values of Plus, Minus, DivideBy, DivideByInteger, MultiplyBy,  Modulo, Equals.
     /// </summary>
     [JsonPropertyName("Operator1")]
-    public AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpressionsOperator1 Operator1 { get; set; }
+    public AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides_OverrideByExpressions_Operator1 Operator1 { get; set; }
 
     /// <summary>
     /// The constant operand 1 value.  If populated, Operand1Variable must be absent.
@@ -169,7 +169,7 @@ public class AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpr
     /// The operator 2, an enumeration with permitted values of Plus, Minus, DivideBy, DivideByInteger, MultiplyBy,  Modulo, Equals.
     /// </summary>
     [JsonPropertyName("Operator2")]
-    public AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpressionsOperator2 Operator2 { get; set; }
+    public AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides_OverrideByExpressions_Operator2 Operator2 { get; set; }
 
     /// <summary>
     /// The constant operand 2 value. If populated, Operand2Variable must be absent.
@@ -196,7 +196,7 @@ public class AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpr
 /// The operator 1, an enumeration with permitted values of Plus, Minus, DivideBy, DivideByInteger, MultiplyBy,  Modulo, Equals.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpressionsOperator1
+public enum AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides_OverrideByExpressions_Operator1
 {
     [JsonStringEnumMemberName("Plus")]
     Plus,
@@ -225,7 +225,7 @@ public enum AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpre
 /// The operator 2, an enumeration with permitted values of Plus, Minus, DivideBy, DivideByInteger, MultiplyBy,  Modulo, Equals.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpressionsOperator2
+public enum AbstractVectorHeaderMapping_1_1_0_TraceHeaderOverrides_OverrideByExpressions_Operator2
 {
     [JsonStringEnumMemberName("Plus")]
     Plus,
@@ -253,7 +253,7 @@ public enum AbstractVectorHeaderMapping_1_1_0TraceHeaderOverridesOverrideByExpre
 /// <summary>
 /// An object defining an override condition  for a vector header value, e.g. SEG-Y binary header value.
 /// </summary>
-public class AbstractVectorHeaderMapping_1_1_0BinaryHeaderOverrides
+public class AbstractVectorHeaderMapping_1_1_0_BinaryHeaderOverrides
 {
     /// <summary>
     /// Relationship to a reference value for a name of a property header such as LineNumber.

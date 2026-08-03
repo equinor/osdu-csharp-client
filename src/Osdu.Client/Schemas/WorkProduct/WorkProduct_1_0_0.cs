@@ -89,11 +89,11 @@ public class WorkProduct_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WorkProduct_1_0_0Data? Data { get; set; }
+    public WorkProduct_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WorkProduct_1_0_0Data : AbstractCommonResources_1_0_0
+public class WorkProduct_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     [JsonPropertyName("Components")]
     public List<string> Components { get; set; }
@@ -164,7 +164,7 @@ public class WorkProduct_1_0_0Data : AbstractCommonResources_1_0_0
     /// Defines relationships with other objects (any kind of Resource) upon which this work product depends.  The assertion is directed only from the asserting WP to ancestor objects, not children.  It should not be used to refer to files or artefacts within the WP -- the association within the WP is sufficient and Artefacts are actually children of the main WP file. They should be recorded in the data.Artefacts[] array.
     /// </summary>
     [JsonPropertyName("LineageAssertions")]
-    public List<WorkProduct_1_0_0DataLineageAssertions> LineageAssertions { get; set; }
+    public List<WorkProduct_1_0_0_Data_LineageAssertions> LineageAssertions { get; set; }
 
     /// <summary>
     /// Array of Annotations
@@ -177,7 +177,7 @@ public class WorkProduct_1_0_0Data : AbstractCommonResources_1_0_0
 
 }
 
-public class WorkProduct_1_0_0DataLineageAssertions
+public class WorkProduct_1_0_0_Data_LineageAssertions
 {
     /// <summary>
     /// The object reference identifying the DIRECT, INDIRECT, REFERENCE dependency.

@@ -89,11 +89,11 @@ public class WellboreArchitecture_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreArchitecture_1_2_0Data? Data { get; set; }
+    public WellboreArchitecture_1_2_0_Data? Data { get; set; }
 
 }
 
-public class WellboreArchitecture_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class WellboreArchitecture_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// A reference to the wellbore that is the subject of this activity plan
@@ -112,7 +112,7 @@ public class WellboreArchitecture_1_2_0Data : AbstractCommonResources_1_0_0 // A
     /// Description of the Installed tubular associated to this architecture
     /// </summary>
     [JsonPropertyName("InstalledTubulars")]
-    public List<WellboreArchitecture_1_2_0DataInstalledTubulars> InstalledTubulars { get; set; }
+    public List<WellboreArchitecture_1_2_0_Data_InstalledTubulars> InstalledTubulars { get; set; }
 
     /// <summary>
     /// Name of Wellbore Architecture
@@ -128,7 +128,7 @@ public class WellboreArchitecture_1_2_0Data : AbstractCommonResources_1_0_0 // A
 /// <summary>
 /// Geometrical Description of tubular assembly as installed in the wellbore
 /// </summary>
-public class WellboreArchitecture_1_2_0DataInstalledTubulars
+public class WellboreArchitecture_1_2_0_Data_InstalledTubulars
 {
     /// <summary>
     /// The measured depth at the top of the tubular

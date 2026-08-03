@@ -89,11 +89,11 @@ public class GeoReferencedImage_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GeoReferencedImage_1_2_0Data? Data { get; set; }
+    public GeoReferencedImage_1_2_0_Data? Data { get; set; }
 
 }
 
-public class GeoReferencedImage_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class GeoReferencedImage_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// External identifier of the source bin grid as stored in a corporate database/application. This may be an integer in some systems or may be a string (e.g., the survey name if sourced from an application that does not use numbers).

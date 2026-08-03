@@ -17,10 +17,10 @@ namespace Osdu.Client.Apis.Storage;
 public class DeleteRecordsException
 {
     [JsonPropertyName("cause")]
-    public DeleteRecordsExceptionCause? Cause { get; set; }
+    public DeleteRecordsException_Cause? Cause { get; set; }
 
     [JsonPropertyName("stackTrace")]
-    public List<DeleteRecordsExceptionStackTrace> StackTrace { get; set; }
+    public List<DeleteRecordsException_StackTrace> StackTrace { get; set; }
 
     [JsonPropertyName("notDeletedRecords")]
     public List<PairStringString> NotDeletedRecords { get; set; }
@@ -29,30 +29,30 @@ public class DeleteRecordsException
     public string Message { get; set; }
 
     [JsonPropertyName("suppressed")]
-    public List<DeleteRecordsExceptionSuppressed> Suppressed { get; set; }
+    public List<DeleteRecordsException_Suppressed> Suppressed { get; set; }
 
     [JsonPropertyName("localizedMessage")]
     public string LocalizedMessage { get; set; }
 
 }
 
-public class DeleteRecordsExceptionCause
+public class DeleteRecordsException_Cause
 {
     [JsonPropertyName("stackTrace")]
-    public List<DeleteRecordsExceptionCauseStackTrace> StackTrace { get; set; }
+    public List<DeleteRecordsException_Cause_StackTrace> StackTrace { get; set; }
 
     [JsonPropertyName("message")]
     public string Message { get; set; }
 
     [JsonPropertyName("suppressed")]
-    public List<DeleteRecordsExceptionCauseSuppressed> Suppressed { get; set; }
+    public List<DeleteRecordsException_Cause_Suppressed> Suppressed { get; set; }
 
     [JsonPropertyName("localizedMessage")]
     public string LocalizedMessage { get; set; }
 
 }
 
-public class DeleteRecordsExceptionCauseStackTrace
+public class DeleteRecordsException_Cause_StackTrace
 {
     [JsonPropertyName("classLoaderName")]
     public string ClassLoaderName { get; set; }
@@ -81,10 +81,10 @@ public class DeleteRecordsExceptionCauseStackTrace
 
 }
 
-public class DeleteRecordsExceptionCauseSuppressed
+public class DeleteRecordsException_Cause_Suppressed
 {
     [JsonPropertyName("stackTrace")]
-    public List<DeleteRecordsExceptionCauseSuppressedStackTrace> StackTrace { get; set; }
+    public List<DeleteRecordsException_Cause_Suppressed_StackTrace> StackTrace { get; set; }
 
     [JsonPropertyName("message")]
     public string Message { get; set; }
@@ -94,7 +94,7 @@ public class DeleteRecordsExceptionCauseSuppressed
 
 }
 
-public class DeleteRecordsExceptionCauseSuppressedStackTrace
+public class DeleteRecordsException_Cause_Suppressed_StackTrace
 {
     [JsonPropertyName("classLoaderName")]
     public string ClassLoaderName { get; set; }
@@ -123,7 +123,7 @@ public class DeleteRecordsExceptionCauseSuppressedStackTrace
 
 }
 
-public class DeleteRecordsExceptionStackTrace
+public class DeleteRecordsException_StackTrace
 {
     [JsonPropertyName("classLoaderName")]
     public string ClassLoaderName { get; set; }
@@ -152,10 +152,10 @@ public class DeleteRecordsExceptionStackTrace
 
 }
 
-public class DeleteRecordsExceptionSuppressed
+public class DeleteRecordsException_Suppressed
 {
     [JsonPropertyName("stackTrace")]
-    public List<DeleteRecordsExceptionSuppressedStackTrace> StackTrace { get; set; }
+    public List<DeleteRecordsException_Suppressed_StackTrace> StackTrace { get; set; }
 
     [JsonPropertyName("message")]
     public string Message { get; set; }
@@ -165,7 +165,7 @@ public class DeleteRecordsExceptionSuppressed
 
 }
 
-public class DeleteRecordsExceptionSuppressedStackTrace
+public class DeleteRecordsException_Suppressed_StackTrace
 {
     [JsonPropertyName("classLoaderName")]
     public string ClassLoaderName { get; set; }

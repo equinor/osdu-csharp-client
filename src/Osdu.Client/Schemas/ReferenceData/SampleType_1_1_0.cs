@@ -89,11 +89,11 @@ public class SampleType_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SampleType_1_1_0Data? Data { get; set; }
+    public SampleType_1_1_0_Data? Data { get; set; }
 
 }
 
-public class SampleType_1_1_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
+public class SampleType_1_1_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Identifies the category of the substance of the sample/specimen, such as rock or fluid, for the purpose of general filtering.

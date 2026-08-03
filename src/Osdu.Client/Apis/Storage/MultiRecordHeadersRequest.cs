@@ -31,12 +31,12 @@ public class MultiRecordHeadersRequest
     [MinLength(0)]
     [MaxLength(10)]
     [JsonPropertyName("attributes")]
-    public List<MultiRecordHeadersRequestAttributes> Attributes { get; set; }
+    public List<MultiRecordHeadersRequest_Attributes> Attributes { get; set; }
 
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum MultiRecordHeadersRequestAttributes
+public enum MultiRecordHeadersRequest_Attributes
 {
     [JsonStringEnumMemberName("version")]
     Version,

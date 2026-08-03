@@ -89,11 +89,11 @@ public class GenericProperty_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericProperty_1_3_0Data? Data { get; set; }
+    public GenericProperty_1_3_0_Data? Data { get; set; }
 
 }
 
-public class GenericProperty_1_3_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractReferencePropertyType_1_2_2
+public class GenericProperty_1_3_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractReferencePropertyType_1_2_2
 {
     /// <summary>
     /// Relationship to the topology that the property refers to. These are typed relationships to particular objects, typically work product components

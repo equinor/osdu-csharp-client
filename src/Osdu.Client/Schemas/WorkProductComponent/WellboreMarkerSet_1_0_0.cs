@@ -89,11 +89,11 @@ public class WellboreMarkerSet_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreMarkerSet_1_0_0Data? Data { get; set; }
+    public WellboreMarkerSet_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellboreMarkerSet_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class WellboreMarkerSet_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     /// <summary>
     /// Wellbore ID
@@ -106,14 +106,14 @@ public class WellboreMarkerSet_1_0_0Data : AbstractCommonResources_1_0_0 // Also
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
 
     [JsonPropertyName("Markers")]
-    public List<WellboreMarkerSet_1_0_0DataMarkers> Markers { get; set; }
+    public List<WellboreMarkerSet_1_0_0_Data_Markers> Markers { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class WellboreMarkerSet_1_0_0DataMarkers
+public class WellboreMarkerSet_1_0_0_Data_Markers
 {
     /// <summary>
     /// Name of the Marker

@@ -89,11 +89,11 @@ public class RiskConsequenceSubCategory_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public RiskConsequenceSubCategory_1_0_0Data? Data { get; set; }
+    public RiskConsequenceSubCategory_1_0_0_Data? Data { get; set; }
 
 }
 
-public class RiskConsequenceSubCategory_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class RiskConsequenceSubCategory_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Parent consequence category of the risk for possible effects on Asset, Business &amp; Reputation, Environment, Health &amp; Safety…

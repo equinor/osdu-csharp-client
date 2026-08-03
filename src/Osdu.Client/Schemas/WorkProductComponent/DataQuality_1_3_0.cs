@@ -89,11 +89,11 @@ public class DataQuality_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DataQuality_1_3_0Data? Data { get; set; }
+    public DataQuality_1_3_0_Data? Data { get; set; }
 
 }
 
-public class DataQuality_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class DataQuality_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The reference to the evaluated data record. The record version number is required.

@@ -89,11 +89,11 @@ public class ActivityTemplate_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ActivityTemplate_1_2_0Data? Data { get; set; }
+    public ActivityTemplate_1_2_0_Data? Data { get; set; }
 
 }
 
-public class ActivityTemplate_1_2_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractMaster_1_2_0
+public class ActivityTemplate_1_2_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// The descriptive name of this activity template or work-step in a workflow.
@@ -111,7 +111,7 @@ public class ActivityTemplate_1_2_0Data : AbstractCommonResources_1_0_1 // Also 
     /// The parameters that participate in this type of activity.
     /// </summary>
     [JsonPropertyName("Parameters")]
-    public List<ActivityTemplate_1_2_0DataParameters> Parameters { get; set; }
+    public List<ActivityTemplate_1_2_0_Data_Parameters> Parameters { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -121,7 +121,7 @@ public class ActivityTemplate_1_2_0Data : AbstractCommonResources_1_0_1 // Also 
 /// <summary>
 /// Description of one parameter that participates in one type of activity. [Without inheritance, combined specializations.]
 /// </summary>
-public class ActivityTemplate_1_2_0DataParameters
+public class ActivityTemplate_1_2_0_Data_Parameters
 {
     /// <summary>
     /// If no allowed kind is given, then all kind of data types are allowed.

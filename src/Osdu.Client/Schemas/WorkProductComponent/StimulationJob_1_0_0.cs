@@ -89,11 +89,11 @@ public class StimulationJob_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public StimulationJob_1_0_0Data? Data { get; set; }
+    public StimulationJob_1_0_0_Data? Data { get; set; }
 
 }
 
-public class StimulationJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class StimulationJob_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifier of the type of well stimulation job
@@ -137,7 +137,7 @@ public class StimulationJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also co
     /// Object that contains the Additives and Proppants on location and used in the stimulation job.
     /// </summary>
     [JsonPropertyName("MaterialCatalog")]
-    public List<StimulationJob_1_0_0DataMaterialCatalog> MaterialCatalog { get; set; }
+    public List<StimulationJob_1_0_0_Data_MaterialCatalog> MaterialCatalog { get; set; }
 
     /// <summary>
     /// Bottomhole static temperature for the job (BHST)
@@ -330,7 +330,7 @@ public class StimulationJob_1_0_0Data : AbstractCommonResources_1_0_0 // Also co
 /// <summary>
 /// Object that defines the additives and proppants on location and used in the stimulation job.
 /// </summary>
-public class StimulationJob_1_0_0DataMaterialCatalog
+public class StimulationJob_1_0_0_Data_MaterialCatalog
 {
     /// <summary>
     /// Define the additives on location and used in the stimulation job.

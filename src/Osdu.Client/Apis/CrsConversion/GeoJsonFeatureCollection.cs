@@ -23,7 +23,7 @@ public class GeoJsonFeatureCollection
     public string verticalUnitID { get; set; }
 
     [JsonPropertyName("geoJsonVariantInternal")]
-    public GeoJsonFeatureCollectionGeoJsonVariantInternal GeoJsonVariantInternal { get; set; }
+    public GeoJsonFeatureCollection_GeoJsonVariantInternal GeoJsonVariantInternal { get; set; }
 
     [Required]
     [MinLength(1)]
@@ -56,7 +56,7 @@ public class GeoJsonFeatureCollection
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum GeoJsonFeatureCollectionGeoJsonVariantInternal
+public enum GeoJsonFeatureCollection_GeoJsonVariantInternal
 {
     [JsonStringEnumMemberName("GEO_JSON")]
     GEOJSON,

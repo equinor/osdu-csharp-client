@@ -89,11 +89,11 @@ public class IsolatedInterval_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public IsolatedInterval_1_1_0Data? Data { get; set; }
+    public IsolatedInterval_1_1_0_Data? Data { get; set; }
 
 }
 
-public class IsolatedInterval_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
+public class IsolatedInterval_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
 {
     /// <summary>
     /// The record id  of the upper most isolation point within the wellbore object, to which this record belongs
@@ -147,7 +147,7 @@ public class IsolatedInterval_1_1_0Data : AbstractCommonResources_1_0_0 // Also 
     /// An array of one or more Wellbore(s) that complete the base of the interval. Can be used for Isolated Intervals that span multiple Wellbores within the same Well.
     /// </summary>
     [JsonPropertyName("IsolatedIntervalBases")]
-    public List<IsolatedInterval_1_1_0DataIsolatedIntervalBases> IsolatedIntervalBases { get; set; }
+    public List<IsolatedInterval_1_1_0_Data_IsolatedIntervalBases> IsolatedIntervalBases { get; set; }
 
     /// <summary>
     /// A list of associated Wellbore Opening IDs.
@@ -163,7 +163,7 @@ public class IsolatedInterval_1_1_0Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// The base of the IsolatedInterval.
 /// </summary>
-public class IsolatedInterval_1_1_0DataIsolatedIntervalBases
+public class IsolatedInterval_1_1_0_Data_IsolatedIntervalBases
 {
     /// <summary>
     /// The record id  of the wellbore object, to which this IsolatedIntervalBase element belongs

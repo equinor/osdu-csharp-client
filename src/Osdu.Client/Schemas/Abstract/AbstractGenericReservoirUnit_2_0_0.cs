@@ -105,14 +105,14 @@ public class AbstractGenericReservoirUnit_2_0_0
     /// Set of attributes capturing the Life Cycle Statuses of the Reservoir, a concept which is typically chronological.
     /// </summary>
     [JsonPropertyName("LifeCycleStatuses")]
-    public List<AbstractGenericReservoirUnit_2_0_0LifeCycleStatuses> LifeCycleStatuses { get; set; }
+    public List<AbstractGenericReservoirUnit_2_0_0_LifeCycleStatuses> LifeCycleStatuses { get; set; }
 
 }
 
 /// <summary>
 /// Set of attributes capturing the Life Cycle Statuses of the Reservoir, a concept which is typically chronological.
 /// </summary>
-public class AbstractGenericReservoirUnit_2_0_0LifeCycleStatuses
+public class AbstractGenericReservoirUnit_2_0_0_LifeCycleStatuses
 {
     /// <summary>
     /// The Life Cycle Status of the Reservoir, a concept which is typically chronological.

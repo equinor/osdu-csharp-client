@@ -89,11 +89,11 @@ public class StructureMap_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public StructureMap_1_0_0Data? Data { get; set; }
+    public StructureMap_1_0_0_Data? Data { get; set; }
 
 }
 
-public class StructureMap_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0, AbstractGenericBinGrid_1_0_0
+public class StructureMap_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0, AbstractGenericBinGrid_1_0_0
 {
     /// <summary>
     /// Reference to an existing bin grid object (GenericBinGrid or SeismicBinGrid) that defines the spatial framework for this structure map. Use this property when the structure map is registered onto a pre-existing bin grid rather than defining its own grid geometry inline. Mutually exclusive with inline bin grid definition via the AbstractGenericBinGrid properties. Only one approach should be populated.

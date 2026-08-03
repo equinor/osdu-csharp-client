@@ -89,11 +89,11 @@ public class Wellbore_1_5_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Wellbore_1_5_1Data? Data { get; set; }
+    public Wellbore_1_5_1_Data? Data { get; set; }
 
 }
 
-public class Wellbore_1_5_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
+public class Wellbore_1_5_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
 {
     [RegularExpression(@"^[\w\-\.]+:master-data\-\-Well:[\w\-\.\:\%]+:[0-9]*$")]
     [JsonPropertyName("WellID")]
@@ -109,7 +109,7 @@ public class Wellbore_1_5_1Data : AbstractCommonResources_1_0_0 // Also composes
     /// List of all depths and elevations pertaining to the wellbore, like, plug back measured depth, total measured depth, KB elevation
     /// </summary>
     [JsonPropertyName("VerticalMeasurements")]
-    public List<Wellbore_1_5_1DataVerticalMeasurements> VerticalMeasurements { get; set; }
+    public List<Wellbore_1_5_1_Data_VerticalMeasurements> VerticalMeasurements { get; set; }
 
     /// <summary>
     /// The history of drilling reasons of the wellbore.
@@ -202,7 +202,7 @@ public class Wellbore_1_5_1Data : AbstractCommonResources_1_0_0 // Also composes
     /// The list of past and present interests associated with the time period they were/are valid
     /// </summary>
     [JsonPropertyName("HistoricalInterests")]
-    public List<Wellbore_1_5_1DataHistoricalInterests> HistoricalInterests { get; set; }
+    public List<Wellbore_1_5_1_Data_HistoricalInterests> HistoricalInterests { get; set; }
 
     /// <summary>
     /// Identifies, for the purpose of current use, if the Business Interest [Well Interest Type] for this Well has ever been FinancialOperated in the past.
@@ -299,14 +299,14 @@ public class Wellbore_1_5_1Data : AbstractCommonResources_1_0_0 // Also composes
     /// The array of WellActivityPhaseType and associated Cost values.
     /// </summary>
     [JsonPropertyName("WellboreCosts")]
-    public List<Wellbore_1_5_1DataWellboreCosts> WellboreCosts { get; set; }
+    public List<Wellbore_1_5_1_Data_WellboreCosts> WellboreCosts { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class Wellbore_1_5_1DataVerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
+public class Wellbore_1_5_1_Data_VerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
 {
     /// <summary>
     /// The ID for a distinct vertical measurement within the Wellbore VerticalMeasurements array so that it may be referenced by other vertical measurements if necessary.
@@ -326,7 +326,7 @@ public class Wellbore_1_5_1DataVerticalMeasurements : AbstractFacilityVerticalMe
 /// <summary>
 /// A 'well interest' at some time period as defined by effective and termination date.
 /// </summary>
-public class Wellbore_1_5_1DataHistoricalInterests
+public class Wellbore_1_5_1_Data_HistoricalInterests
 {
     /// <summary>
     /// Business Interest [Well Interest Type] describes whether a company currently considers a wellbore or its data to be a real or planned asset, and if so, the nature of and motivation for that company's interest.
@@ -352,7 +352,7 @@ public class Wellbore_1_5_1DataHistoricalInterests
 /// <summary>
 /// A cost value associated to a WellActivityPhaseType value.
 /// </summary>
-public class Wellbore_1_5_1DataWellboreCosts
+public class Wellbore_1_5_1_Data_WellboreCosts
 {
     /// <summary>
     /// The activity type, to which the Cost property is attributed to. The intended target reference-data type is WellActivityType; Wellbore:1.3.0 and Wellbore:1.4.0 used WellActivityPhaseType incorrectly.

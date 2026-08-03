@@ -89,11 +89,11 @@ public class FaultSystem_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FaultSystem_1_0_0Data? Data { get; set; }
+    public FaultSystem_1_0_0_Data? Data { get; set; }
 
 }
 
-public class FaultSystem_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
+public class FaultSystem_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0
 {
     /// <summary>
     /// Method used to pick faults. E.g.Autotracked, Grid, Manual Picked, Mixed.
@@ -165,14 +165,14 @@ public class FaultSystem_1_0_0Data : AbstractCommonResources_1_0_0 // Also compo
     /// Array of Faults that comprise the Fault System
     /// </summary>
     [JsonPropertyName("Faults")]
-    public List<FaultSystem_1_0_0DataFaults> Faults { get; set; }
+    public List<FaultSystem_1_0_0_Data_Faults> Faults { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class FaultSystem_1_0_0DataFaults
+public class FaultSystem_1_0_0_Data_Faults
 {
     /// <summary>
     /// Name of an individual fault within a fault system.

@@ -89,11 +89,11 @@ public class PreferredSchemaVersion_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public PreferredSchemaVersion_1_0_0Data? Data { get; set; }
+    public PreferredSchemaVersion_1_0_0_Data? Data { get; set; }
 
 }
 
-public class PreferredSchemaVersion_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class PreferredSchemaVersion_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The preferred schema kind for the entity type. This expresses the desired kind by the platform owner/operator. The kind may not be the latest kind registered with the Schema service.

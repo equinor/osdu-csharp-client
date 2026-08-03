@@ -29,7 +29,7 @@ public class AbstractWPCGroupType_1_0_0
     /// An array of Artefacts - each artefact has a Role, Resource tuple. An artefact is distinct from the file, in the sense certain valuable information is generated during loading process (Artefact generation process). Examples include retrieving location data, performing an OCR which may result in the generation of artefacts which need to be preserved distinctly
     /// </summary>
     [JsonPropertyName("Artefacts")]
-    public List<AbstractWPCGroupType_1_0_0Artefacts> Artefacts { get; set; }
+    public List<AbstractWPCGroupType_1_0_0_Artefacts> Artefacts { get; set; }
 
     /// <summary>
     /// A flag that indicates if the work product component is undergoing an extended load.  It reflects the fact that the work product component is in an early stage and may be updated before finalization.
@@ -56,7 +56,7 @@ public class AbstractWPCGroupType_1_0_0
 /// <summary>
 /// An array of Artefacts - each artefact has a Role, Resource tuple. An artefact is distinct from the file, in the sense certain valuable information is generated during loading process (Artefact generation process). Examples include retrieving location data, performing an OCR which may result in the generation of artefacts which need to be preserved distinctly
 /// </summary>
-public class AbstractWPCGroupType_1_0_0Artefacts
+public class AbstractWPCGroupType_1_0_0_Artefacts
 {
     /// <summary>
     /// The SRN of this artefact's role.

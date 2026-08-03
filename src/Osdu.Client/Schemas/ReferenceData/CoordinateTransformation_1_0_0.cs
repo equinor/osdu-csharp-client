@@ -89,11 +89,11 @@ public class CoordinateTransformation_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public CoordinateTransformation_1_0_0Data? Data { get; set; }
+    public CoordinateTransformation_1_0_0_Data? Data { get; set; }
 
 }
 
-public class CoordinateTransformation_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class CoordinateTransformation_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The name of the transformation version or variant
@@ -117,7 +117,7 @@ public class CoordinateTransformation_1_0_0Data : AbstractCommonResources_1_0_0 
     /// The Transformation method; "Concatenated" for CoordinateTransformationType == ConcatenatedOperation; EPSG method code and name for CoordinateTransformationType == Transformation.
     /// </summary>
     [JsonPropertyName("Method")]
-    public CoordinateTransformation_1_0_0DataMethod? Method { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Method? Method { get; set; }
 
     /// <summary>
     /// The namespace or authority name governing this Transformation definition, e.g. EPSG for contents from the EPSG Geodetic Parameter Dataset.
@@ -129,7 +129,7 @@ public class CoordinateTransformation_1_0_0Data : AbstractCommonResources_1_0_0 
     /// Only populated for CoordinateTransformationType == ConcatenatedOperation: the ordered list of chained transformations.
     /// </summary>
     [JsonPropertyName("ConcatenatedTransformations")]
-    public List<CoordinateTransformation_1_0_0DataConcatenatedTransformations> ConcatenatedTransformations { get; set; }
+    public List<CoordinateTransformation_1_0_0_Data_ConcatenatedTransformations> ConcatenatedTransformations { get; set; }
 
     /// <summary>
     /// The InformationSource providing the Transformation definition if different from AttributionAuthority.
@@ -159,31 +159,31 @@ public class CoordinateTransformation_1_0_0Data : AbstractCommonResources_1_0_0 
     /// The type of coordinate transformation. This is an enumeration of concrete sub-types. Transformation is a single operation between a source and a target geodetic CRS; ConcatenatedOperation is a chained set of Transformations.
     /// </summary>
     [JsonPropertyName("CoordinateTransformationType")]
-    public CoordinateTransformation_1_0_0DataCoordinateTransformationType CoordinateTransformationType { get; set; }
+    public CoordinateTransformation_1_0_0_Data_CoordinateTransformationType CoordinateTransformationType { get; set; }
 
     /// <summary>
     /// The source CRS of the Transformation.
     /// </summary>
     [JsonPropertyName("SourceCRS")]
-    public CoordinateTransformation_1_0_0DataSourceCRS? SourceCRS { get; set; }
+    public CoordinateTransformation_1_0_0_Data_SourceCRS? SourceCRS { get; set; }
 
     /// <summary>
     /// The target CRS of this Transformation.
     /// </summary>
     [JsonPropertyName("TargetCRS")]
-    public CoordinateTransformation_1_0_0DataTargetCRS? TargetCRS { get; set; }
+    public CoordinateTransformation_1_0_0_Data_TargetCRS? TargetCRS { get; set; }
 
     /// <summary>
     /// Contextual information about scope and extent/area of use.
     /// </summary>
     [JsonPropertyName("Usages")]
-    public List<CoordinateTransformation_1_0_0DataUsages> Usages { get; set; }
+    public List<CoordinateTransformation_1_0_0_Data_Usages> Usages { get; set; }
 
     /// <summary>
     /// Scope and extent information about the described transformation.
     /// </summary>
     [JsonPropertyName("PreferredUsage")]
-    public CoordinateTransformation_1_0_0DataPreferredUsage? PreferredUsage { get; set; }
+    public CoordinateTransformation_1_0_0_Data_PreferredUsage? PreferredUsage { get; set; }
 
     /// <summary>
     /// Used for export and actionable instructions to a conversion/transformation engine. It is initially based on Esri well-known text (WKT). Eventually, when Esri WKT are convertible into ISO WKT and vice versa, the definition can be replaced by https://proj.org/schemas/v0.2/projjson.schema.json.
@@ -199,13 +199,13 @@ public class CoordinateTransformation_1_0_0Data : AbstractCommonResources_1_0_0 
 /// <summary>
 /// The Transformation method; "Concatenated" for CoordinateTransformationType == ConcatenatedOperation; EPSG method code and name for CoordinateTransformationType == Transformation.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataMethod
+public class CoordinateTransformation_1_0_0_Data_Method
 {
     /// <summary>
     /// The method authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataMethodAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Method_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The Transformation method name; "Concatenated" for CoordinateTransformationType == ConcatenatedOperation; EPSG method code and name for CoordinateTransformationType == Transformation.
@@ -218,7 +218,7 @@ public class CoordinateTransformation_1_0_0DataMethod
 /// <summary>
 /// The method authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataMethodAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_Method_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -234,13 +234,13 @@ public class CoordinateTransformation_1_0_0DataMethodAuthorityCode
 
 }
 
-public class CoordinateTransformation_1_0_0DataConcatenatedTransformations
+public class CoordinateTransformation_1_0_0_Data_ConcatenatedTransformations
 {
     /// <summary>
     /// The Transformation authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataConcatenatedTransformationsAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_ConcatenatedTransformations_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The Transformation name as part of this concatenated operation list.
@@ -260,7 +260,7 @@ public class CoordinateTransformation_1_0_0DataConcatenatedTransformations
 /// <summary>
 /// The Transformation authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataConcatenatedTransformationsAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_ConcatenatedTransformations_AuthorityCode
 {
     /// <summary>
     /// The transformation authority governing the 'Code'.
@@ -280,7 +280,7 @@ public class CoordinateTransformation_1_0_0DataConcatenatedTransformationsAuthor
 /// The type of coordinate transformation. This is an enumeration of concrete sub-types. Transformation is a single operation between a source and a target geodetic CRS; ConcatenatedOperation is a chained set of Transformations.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CoordinateTransformation_1_0_0DataCoordinateTransformationType
+public enum CoordinateTransformation_1_0_0_Data_CoordinateTransformationType
 {
     [JsonStringEnumMemberName("Transformation")]
     Transformation,
@@ -293,13 +293,13 @@ public enum CoordinateTransformation_1_0_0DataCoordinateTransformationType
 /// <summary>
 /// The source CRS of the Transformation.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataSourceCRS
+public class CoordinateTransformation_1_0_0_Data_SourceCRS
 {
     /// <summary>
     /// The source CRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataSourceCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_SourceCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the source CRS.
@@ -319,7 +319,7 @@ public class CoordinateTransformation_1_0_0DataSourceCRS
 /// <summary>
 /// The source CRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataSourceCRSAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_SourceCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -338,13 +338,13 @@ public class CoordinateTransformation_1_0_0DataSourceCRSAuthorityCode
 /// <summary>
 /// The target CRS of this Transformation.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataTargetCRS
+public class CoordinateTransformation_1_0_0_Data_TargetCRS
 {
     /// <summary>
     /// The target CRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataTargetCRSAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_TargetCRS_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the target CRS.
@@ -364,7 +364,7 @@ public class CoordinateTransformation_1_0_0DataTargetCRS
 /// <summary>
 /// The target CRS authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataTargetCRSAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_TargetCRS_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -383,13 +383,13 @@ public class CoordinateTransformation_1_0_0DataTargetCRSAuthorityCode
 /// <summary>
 /// Scope and extent information about the described transformation.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataUsages
+public class CoordinateTransformation_1_0_0_Data_Usages
 {
     /// <summary>
     /// The Usage authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataUsagesAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Usages_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Usage.
@@ -401,19 +401,19 @@ public class CoordinateTransformation_1_0_0DataUsages
     /// Extent or area of use information.
     /// </summary>
     [JsonPropertyName("Extent")]
-    public CoordinateTransformation_1_0_0DataUsagesExtent? Extent { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Usages_Extent? Extent { get; set; }
 
     /// <summary>
     /// </summary>
     [JsonPropertyName("Scope")]
-    public CoordinateTransformation_1_0_0DataUsagesScope? Scope { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Usages_Scope? Scope { get; set; }
 
 }
 
 /// <summary>
 /// The Usage authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataUsagesAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_Usages_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -432,13 +432,13 @@ public class CoordinateTransformation_1_0_0DataUsagesAuthorityCode
 /// <summary>
 /// Extent or area of use information.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataUsagesExtent
+public class CoordinateTransformation_1_0_0_Data_Usages_Extent
 {
     /// <summary>
     /// The Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataUsagesExtentAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Usages_Extent_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Extent.
@@ -481,7 +481,7 @@ public class CoordinateTransformation_1_0_0DataUsagesExtent
 /// <summary>
 /// The Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataUsagesExtentAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_Usages_Extent_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -499,13 +499,13 @@ public class CoordinateTransformation_1_0_0DataUsagesExtentAuthorityCode
 
 /// <summary>
 /// </summary>
-public class CoordinateTransformation_1_0_0DataUsagesScope
+public class CoordinateTransformation_1_0_0_Data_Usages_Scope
 {
     /// <summary>
     /// The Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataUsagesScopeAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_Usages_Scope_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Scope.
@@ -518,7 +518,7 @@ public class CoordinateTransformation_1_0_0DataUsagesScope
 /// <summary>
 /// The Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataUsagesScopeAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_Usages_Scope_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -537,13 +537,13 @@ public class CoordinateTransformation_1_0_0DataUsagesScopeAuthorityCode
 /// <summary>
 /// Scope and extent information about the described transformation.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataPreferredUsage
+public class CoordinateTransformation_1_0_0_Data_PreferredUsage
 {
     /// <summary>
     /// The Preferred Usage authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataPreferredUsageAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_PreferredUsage_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Usage.
@@ -555,19 +555,19 @@ public class CoordinateTransformation_1_0_0DataPreferredUsage
     /// Extent or area of use information.
     /// </summary>
     [JsonPropertyName("Extent")]
-    public CoordinateTransformation_1_0_0DataPreferredUsageExtent? Extent { get; set; }
+    public CoordinateTransformation_1_0_0_Data_PreferredUsage_Extent? Extent { get; set; }
 
     /// <summary>
     /// </summary>
     [JsonPropertyName("Scope")]
-    public CoordinateTransformation_1_0_0DataPreferredUsageScope? Scope { get; set; }
+    public CoordinateTransformation_1_0_0_Data_PreferredUsage_Scope? Scope { get; set; }
 
 }
 
 /// <summary>
 /// The Preferred Usage authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataPreferredUsageAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_PreferredUsage_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -586,13 +586,13 @@ public class CoordinateTransformation_1_0_0DataPreferredUsageAuthorityCode
 /// <summary>
 /// Extent or area of use information.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataPreferredUsageExtent
+public class CoordinateTransformation_1_0_0_Data_PreferredUsage_Extent
 {
     /// <summary>
     /// The Preferred Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataPreferredUsageExtentAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_PreferredUsage_Extent_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Extent.
@@ -635,7 +635,7 @@ public class CoordinateTransformation_1_0_0DataPreferredUsageExtent
 /// <summary>
 /// The Preferred Extent authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataPreferredUsageExtentAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_PreferredUsage_Extent_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.
@@ -653,13 +653,13 @@ public class CoordinateTransformation_1_0_0DataPreferredUsageExtentAuthorityCode
 
 /// <summary>
 /// </summary>
-public class CoordinateTransformation_1_0_0DataPreferredUsageScope
+public class CoordinateTransformation_1_0_0_Data_PreferredUsage_Scope
 {
     /// <summary>
     /// The Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
     /// </summary>
     [JsonPropertyName("AuthorityCode")]
-    public CoordinateTransformation_1_0_0DataPreferredUsageScopeAuthorityCode? AuthorityCode { get; set; }
+    public CoordinateTransformation_1_0_0_Data_PreferredUsage_Scope_AuthorityCode? AuthorityCode { get; set; }
 
     /// <summary>
     /// The name of the Scope.
@@ -672,7 +672,7 @@ public class CoordinateTransformation_1_0_0DataPreferredUsageScope
 /// <summary>
 /// The Scope authority code, corresponding to the ISO19111 ID and 'projjson' id.
 /// </summary>
-public class CoordinateTransformation_1_0_0DataPreferredUsageScopeAuthorityCode
+public class CoordinateTransformation_1_0_0_Data_PreferredUsage_Scope_AuthorityCode
 {
     /// <summary>
     /// The authority governing the 'Code'.

@@ -80,14 +80,14 @@ public class SeismicHistogram_1_0_0 : AbstractContent_1_0_0
     /// One or more histograms associated with the trace data amplitude distribution.
     /// </summary>
     [JsonPropertyName("Histograms")]
-    public List<SeismicHistogram_1_0_0Histograms> Histograms { get; set; }
+    public List<SeismicHistogram_1_0_0_Histograms> Histograms { get; set; }
 
 }
 
 /// <summary>
 /// The histogram associated with the trace data amplitude distribution.
 /// </summary>
-public class SeismicHistogram_1_0_0Histograms
+public class SeismicHistogram_1_0_0_Histograms
 {
     /// <summary>
     /// Optional name of this histogram.

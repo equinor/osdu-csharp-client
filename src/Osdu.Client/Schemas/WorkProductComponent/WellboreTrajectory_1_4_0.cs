@@ -89,11 +89,11 @@ public class WellboreTrajectory_1_4_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreTrajectory_1_4_0Data? Data { get; set; }
+    public WellboreTrajectory_1_4_0_Data? Data { get; set; }
 
 }
 
-public class WellboreTrajectory_1_4_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class WellboreTrajectory_1_4_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Name of the Survey Company.
@@ -224,7 +224,7 @@ public class WellboreTrajectory_1_4_0Data : AbstractCommonResources_1_0_0 // Als
     /// The array of TrajectoryStationProperty definitions describing the available properties for this instance of WellboreTrajectory.
     /// </summary>
     [JsonPropertyName("AvailableTrajectoryStationProperties")]
-    public List<WellboreTrajectory_1_4_0DataAvailableTrajectoryStationProperties> AvailableTrajectoryStationProperties { get; set; }
+    public List<WellboreTrajectory_1_4_0_Data_AvailableTrajectoryStationProperties> AvailableTrajectoryStationProperties { get; set; }
 
     /// <summary>
     /// The audit trail of operations applied to the station coordinates from the original state to the current state. The list may contain operations applied prior to ingestion as well as the operations applied to produce the Wgs84Coordinates. The text elements refer to ESRI style CRS and Transformation names, which may have to be translated to EPSG standard names.
@@ -402,7 +402,7 @@ public class WellboreTrajectory_1_4_0Data : AbstractCommonResources_1_0_0 // Als
 /// <summary>
 /// A set of properties describing a trajectory station property which is available for this instance of a WellboreTrajectory.
 /// </summary>
-public class WellboreTrajectory_1_4_0DataAvailableTrajectoryStationProperties
+public class WellboreTrajectory_1_4_0_Data_AvailableTrajectoryStationProperties
 {
     /// <summary>
     /// The reference to a trajectory station property type - or if interpreted as channels, the curve or channel name type, identifying e.g. MD, Inclination, Azimuth. This is a relationship to a reference-data--TrajectoryStationPropertyType record id.

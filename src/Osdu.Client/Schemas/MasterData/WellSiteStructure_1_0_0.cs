@@ -89,11 +89,11 @@ public class WellSiteStructure_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellSiteStructure_1_0_0Data? Data { get; set; }
+    public WellSiteStructure_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellSiteStructure_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
+public class WellSiteStructure_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
 {
     /// <summary>
     /// The type of Wellsite Structure
@@ -134,7 +134,7 @@ public class WellSiteStructure_1_0_0Data : AbstractCommonResources_1_0_0 // Also
     /// List of all elevations pertaining to the well site structure like, ground level/water depth, default rig elevation, mud line elevation, etc.
     /// </summary>
     [JsonPropertyName("VerticalMeasurements")]
-    public List<WellSiteStructure_1_0_0DataVerticalMeasurements> VerticalMeasurements { get; set; }
+    public List<WellSiteStructure_1_0_0_Data_VerticalMeasurements> VerticalMeasurements { get; set; }
 
     /// <summary>
     /// The default datum reference point, or zero depth point, used to determine other points vertically in a well.  References an entry in the VerticalMeasurements array.
@@ -169,7 +169,7 @@ public class WellSiteStructure_1_0_0Data : AbstractCommonResources_1_0_0 // Also
 /// <summary>
 /// List of slots for the WellSiteStructure. A slot is a circular opening on a platform wellhead deck or subsea template from which to construct a well.
 /// </summary>
-public class WellSiteStructure_1_0_0DataWellSlots
+public class WellSiteStructure_1_0_0_Data_WellSlots
 {
     /// <summary>
     /// Slot Identifier, may be used by a Well to associate to a Slot
@@ -209,7 +209,7 @@ public class WellSiteStructure_1_0_0DataWellSlots
 
 }
 
-public class WellSiteStructure_1_0_0DataVerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
+public class WellSiteStructure_1_0_0_Data_VerticalMeasurements : AbstractFacilityVerticalMeasurement_1_0_0
 {
     /// <summary>
     /// The ID for a distinct vertical measurement within the WellSiteStructure VerticalMeasurements array so that it may be referenced by other vertical measurements if necessary.

@@ -89,11 +89,11 @@ public class ParentMatchingRuleSets_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ParentMatchingRuleSets_1_2_0Data? Data { get; set; }
+    public ParentMatchingRuleSets_1_2_0_Data? Data { get; set; }
 
 }
 
-public class ParentMatchingRuleSets_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class ParentMatchingRuleSets_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// A namespace reference grouping a list of records with the goal of providing unique matching criteria by Name/Code. It is strongly recommended to make the NamespaceID's code part of the system property id.
@@ -118,7 +118,7 @@ public class ParentMatchingRuleSets_1_2_0Data : AbstractCommonResources_1_0_0 //
     /// One or multiple, prioritized  matching rule set, which are expected to be applied to find a matching related target object (e.g., a parent Well/Wellbore for a WellLog) given matching criteria.
     /// </summary>
     [JsonPropertyName("MatchingRuleSets")]
-    public List<ParentMatchingRuleSets_1_2_0DataMatchingRuleSets> MatchingRuleSets { get; set; }
+    public List<ParentMatchingRuleSets_1_2_0_Data_MatchingRuleSets> MatchingRuleSets { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -128,7 +128,7 @@ public class ParentMatchingRuleSets_1_2_0Data : AbstractCommonResources_1_0_0 //
 /// <summary>
 /// One set of  conditions, which have to be matched to determine sufficient equality of an object.
 /// </summary>
-public class ParentMatchingRuleSets_1_2_0DataMatchingRuleSets
+public class ParentMatchingRuleSets_1_2_0_Data_MatchingRuleSets
 {
     /// <summary>
     /// The name of the rule (expected to be unique in the array of MatchingRuleSets[]).
@@ -146,20 +146,20 @@ public class ParentMatchingRuleSets_1_2_0DataMatchingRuleSets
     /// The list of conditions, which all have to be met in order to declare a match.
     /// </summary>
     [JsonPropertyName("Conditions")]
-    public List<ParentMatchingRuleSets_1_2_0DataMatchingRuleSetsConditions> Conditions { get; set; }
+    public List<ParentMatchingRuleSets_1_2_0_Data_MatchingRuleSets_Conditions> Conditions { get; set; }
 
     /// <summary>
     /// DEPRECATED: Combined with Conditions, no longer in use. The specifications for system attribute replacements.
     /// </summary>
     [JsonPropertyName("ReplaceAttributes")]
-    public List<ParentMatchingRuleSets_1_2_0DataMatchingRuleSetsReplaceAttributes> ReplaceAttributes { get; set; }
+    public List<ParentMatchingRuleSets_1_2_0_Data_MatchingRuleSets_ReplaceAttributes> ReplaceAttributes { get; set; }
 
 }
 
 /// <summary>
 /// An exact or approximate condition of equality, which is a match requirement.
 /// </summary>
-public class ParentMatchingRuleSets_1_2_0DataMatchingRuleSetsConditions
+public class ParentMatchingRuleSets_1_2_0_Data_MatchingRuleSets_Conditions
 {
     /// <summary>
     /// The source property name to evaluate in the scope of the connected data source.
@@ -202,7 +202,7 @@ public class ParentMatchingRuleSets_1_2_0DataMatchingRuleSetsConditions
 /// <summary>
 /// DEPRECATED: No longer in use. A source and target system attribute specification to replace values.
 /// </summary>
-public class ParentMatchingRuleSets_1_2_0DataMatchingRuleSetsReplaceAttributes
+public class ParentMatchingRuleSets_1_2_0_Data_MatchingRuleSets_ReplaceAttributes
 {
     /// <summary>
     /// DEPRECATED: No longer in use. The source system attribute delivering the value to replace.

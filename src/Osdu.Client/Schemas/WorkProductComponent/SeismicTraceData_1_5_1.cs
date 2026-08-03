@@ -89,11 +89,11 @@ public class SeismicTraceData_1_5_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicTraceData_1_5_1Data? Data { get; set; }
+    public SeismicTraceData_1_5_1_Data? Data { get; set; }
 
 }
 
-public class SeismicTraceData_1_5_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class SeismicTraceData_1_5_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     [JsonPropertyName("LiveTraceOutline")]
     public AbstractSpatialLocation_1_1_0? LiveTraceOutline { get; set; }
@@ -386,13 +386,13 @@ public class SeismicTraceData_1_5_1Data : AbstractCommonResources_1_0_0 // Also 
     /// Sample data format in terms of sample value precision 8bit Integer, 16bit Floating Point etc.
     /// </summary>
     [JsonPropertyName("Precision")]
-    public SeismicTraceData_1_5_1DataPrecision? Precision { get; set; }
+    public SeismicTraceData_1_5_1_Data_Precision? Precision { get; set; }
 
     /// <summary>
     /// Processing Parameters to simply capture process history until full provenance model can be implemented.
     /// </summary>
     [JsonPropertyName("ProcessingParameters")]
-    public List<SeismicTraceData_1_5_1DataProcessingParameters> ProcessingParameters { get; set; }
+    public List<SeismicTraceData_1_5_1_Data_ProcessingParameters> ProcessingParameters { get; set; }
 
     /// <summary>
     /// Actual nominal fold of the trace data set as processed, expressed as the mode in percentage points (60 fold = 6000%).
@@ -465,19 +465,19 @@ public class SeismicTraceData_1_5_1Data : AbstractCommonResources_1_0_0 // Also 
     /// Pre-stack: Sets of trace angle ranges contained within this data set.
     /// </summary>
     [JsonPropertyName("StackAngleRanges")]
-    public List<SeismicTraceData_1_5_1DataStackAngleRanges> StackAngleRanges { get; set; }
+    public List<SeismicTraceData_1_5_1_Data_StackAngleRanges> StackAngleRanges { get; set; }
 
     /// <summary>
     /// Pre-stack: Sets of trace azimuth ranges contained within this data set.
     /// </summary>
     [JsonPropertyName("StackAzimuthRanges")]
-    public List<SeismicTraceData_1_5_1DataStackAzimuthRanges> StackAzimuthRanges { get; set; }
+    public List<SeismicTraceData_1_5_1_Data_StackAzimuthRanges> StackAzimuthRanges { get; set; }
 
     /// <summary>
     /// Pre-stack: Sets of trace offset ranges contained within this data set.
     /// </summary>
     [JsonPropertyName("StackOffsetRanges")]
-    public List<SeismicTraceData_1_5_1DataStackOffsetRanges> StackOffsetRanges { get; set; }
+    public List<SeismicTraceData_1_5_1_Data_StackOffsetRanges> StackOffsetRanges { get; set; }
 
     /// <summary>
     /// Defines the sorting order of the trace data as stored in the file(s).
@@ -497,7 +497,7 @@ public class SeismicTraceData_1_5_1Data : AbstractCommonResources_1_0_0 // Also 
     /// The contents positions the SeismicTraceData record in context of a time series. This is to be used for time lapse or 4D SeismicTraceData. This structure is optional and absent for SeismicTraceData not part of a time series.
     /// </summary>
     [JsonPropertyName("TimeLapse")]
-    public SeismicTraceData_1_5_1DataTimeLapse? TimeLapse { get; set; }
+    public SeismicTraceData_1_5_1_Data_TimeLapse? TimeLapse { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -507,7 +507,7 @@ public class SeismicTraceData_1_5_1Data : AbstractCommonResources_1_0_0 // Also 
 /// <summary>
 /// Sample data format in terms of sample value precision 8bit Integer, 16bit Floating Point etc.
 /// </summary>
-public class SeismicTraceData_1_5_1DataPrecision
+public class SeismicTraceData_1_5_1_Data_Precision
 {
     /// <summary>
     /// SRN of a reference value for binary data types, such as INT, UINT, FLOAT, IBM_FLOAT, ASCII, EBCDIC.
@@ -527,7 +527,7 @@ public class SeismicTraceData_1_5_1DataPrecision
 /// <summary>
 /// Processing Parameters to simply capture process history until full provenance model can be implemented.
 /// </summary>
-public class SeismicTraceData_1_5_1DataProcessingParameters
+public class SeismicTraceData_1_5_1_Data_ProcessingParameters
 {
     /// <summary>
     /// Processing Parameter Type
@@ -547,7 +547,7 @@ public class SeismicTraceData_1_5_1DataProcessingParameters
 /// <summary>
 /// A range container carrying minimum/maximum angle values.
 /// </summary>
-public class SeismicTraceData_1_5_1DataStackAngleRanges
+public class SeismicTraceData_1_5_1_Data_StackAngleRanges
 {
     /// <summary>
     /// The minimum angle value.
@@ -566,7 +566,7 @@ public class SeismicTraceData_1_5_1DataStackAngleRanges
 /// <summary>
 /// A range container carrying minimum/maximum angle values.
 /// </summary>
-public class SeismicTraceData_1_5_1DataStackAzimuthRanges
+public class SeismicTraceData_1_5_1_Data_StackAzimuthRanges
 {
     /// <summary>
     /// The minimum angle value.
@@ -585,7 +585,7 @@ public class SeismicTraceData_1_5_1DataStackAzimuthRanges
 /// <summary>
 /// A range container carrying minimum/maximum angle values.
 /// </summary>
-public class SeismicTraceData_1_5_1DataStackOffsetRanges
+public class SeismicTraceData_1_5_1_Data_StackOffsetRanges
 {
     /// <summary>
     /// The minimum length value.
@@ -604,7 +604,7 @@ public class SeismicTraceData_1_5_1DataStackOffsetRanges
 /// <summary>
 /// The contents positions the SeismicTraceData record in context of a time series. This is to be used for time lapse or 4D SeismicTraceData. This structure is optional and absent for SeismicTraceData not part of a time series.
 /// </summary>
-public class SeismicTraceData_1_5_1DataTimeLapse
+public class SeismicTraceData_1_5_1_Data_TimeLapse
 {
     /// <summary>
     /// The relationship to a TimeSeries work-product-component.

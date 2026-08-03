@@ -89,11 +89,11 @@ public class BoundaryFeature_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public BoundaryFeature_1_0_0Data? Data { get; set; }
+    public BoundaryFeature_1_0_0_Data? Data { get; set; }
 
 }
 
-public class BoundaryFeature_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0
+public class BoundaryFeature_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0
 {
     /// <summary>
     /// The name of the boundary feature.

@@ -89,11 +89,11 @@ public class SeismicFieldTraceData_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicFieldTraceData_1_0_0Data? Data { get; set; }
+    public SeismicFieldTraceData_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicFieldTraceData_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
+public class SeismicFieldTraceData_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_1_0, AbstractWorkProductComponent_1_1_0
 {
     [JsonPropertyName("LiveTraceOutline")]
     public AbstractSpatialLocation_1_1_0? LiveTraceOutline { get; set; }
@@ -257,13 +257,13 @@ public class SeismicFieldTraceData_1_0_0Data : AbstractCommonResources_1_0_0 // 
     /// Sample data format in terms of sample value precision 8bit Integer, 16bit Floating Point etc.
     /// </summary>
     [JsonPropertyName("Precision")]
-    public SeismicFieldTraceData_1_0_0DataPrecision? Precision { get; set; }
+    public SeismicFieldTraceData_1_0_0_Data_Precision? Precision { get; set; }
 
     /// <summary>
     /// Processing Parameters to simply capture process history until full provenance model can be implemented.
     /// </summary>
     [JsonPropertyName("ProcessingParameters")]
-    public List<SeismicFieldTraceData_1_0_0DataProcessingParameters> ProcessingParameters { get; set; }
+    public List<SeismicFieldTraceData_1_0_0_Data_ProcessingParameters> ProcessingParameters { get; set; }
 
     /// <summary>
     /// Character metadata from headers inside file, such as the EBCDIC header of SEGD.  This is an array to capture each stanza separately.
@@ -312,7 +312,7 @@ public class SeismicFieldTraceData_1_0_0Data : AbstractCommonResources_1_0_0 // 
 /// <summary>
 /// Sample data format in terms of sample value precision 8bit Integer, 16bit Floating Point etc.
 /// </summary>
-public class SeismicFieldTraceData_1_0_0DataPrecision
+public class SeismicFieldTraceData_1_0_0_Data_Precision
 {
     /// <summary>
     /// SRN of a reference value for binary data types, such as INT, UINT, FLOAT, IBM_FLOAT, ASCII, EBCDIC.
@@ -332,7 +332,7 @@ public class SeismicFieldTraceData_1_0_0DataPrecision
 /// <summary>
 /// Processing Parameters to simply capture process history until full provenance model can be implemented.
 /// </summary>
-public class SeismicFieldTraceData_1_0_0DataProcessingParameters
+public class SeismicFieldTraceData_1_0_0_Data_ProcessingParameters
 {
     /// <summary>
     /// Processing Parameter Type

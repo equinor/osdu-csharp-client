@@ -89,11 +89,11 @@ public class SeismicAcquisitionSurvey_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicAcquisitionSurvey_1_0_0Data? Data { get; set; }
+    public SeismicAcquisitionSurvey_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicAcquisitionSurvey_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
+public class SeismicAcquisitionSurvey_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// Reference to the standard values for the general layout of the acquisition.  This is an hierarchical value.  The top value is like 2D, 3D, 4D, Borehole, Passive.  The second value is like NATS, WATS, Brick, Crosswell.  Nodes are separated by forward slash.

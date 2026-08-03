@@ -69,10 +69,10 @@ public class AbstractProppantAgent_1_0_0
     public double? UnconfinedCompressiveStrength { get; set; }
 
     [JsonPropertyName("ISO13503_2Properties")]
-    public List<AbstractProppantAgent_1_0_0ISO135032Properties> ISO135032Properties { get; set; }
+    public List<AbstractProppantAgent_1_0_0_ISO135032Properties> ISO135032Properties { get; set; }
 
     [JsonPropertyName("ISO13503_5Point")]
-    public List<AbstractProppantAgent_1_0_0ISO135035Point> ISO135035Point { get; set; }
+    public List<AbstractProppantAgent_1_0_0_ISO135035Point> ISO135035Point { get; set; }
 
     /// <summary>
     /// The name of the proppant supplier.
@@ -104,7 +104,7 @@ public class AbstractProppantAgent_1_0_0
 /// <summary>
 /// ISO13503_2 properties for this proppant agent.
 /// </summary>
-public class AbstractProppantAgent_1_0_0ISO135032Properties
+public class AbstractProppantAgent_1_0_0_ISO135032Properties
 {
     /// <summary>
     /// The density the material would have if no intra-granular porosity is present. (e.g. Boyle's Law porosimetry).
@@ -140,7 +140,7 @@ public class AbstractProppantAgent_1_0_0ISO135032Properties
     /// Crush Test Data
     /// </summary>
     [JsonPropertyName("CrushTestData")]
-    public List<AbstractProppantAgent_1_0_0ISO135032PropertiesCrushTestData> CrushTestData { get; set; }
+    public List<AbstractProppantAgent_1_0_0_ISO135032Properties_CrushTestData> CrushTestData { get; set; }
 
     /// <summary>
     /// Crush test classification indicating the highest stress level at which a proppant generated no more than 10% crushed material rounded down to the nearest 1,000 psi during a crush test. For example, a value of 14 means 14k which is 14000 psi.
@@ -176,7 +176,7 @@ public class AbstractProppantAgent_1_0_0ISO135032Properties
     /// Sieve Analysis Data
     /// </summary>
     [JsonPropertyName("SieveAnalysisData")]
-    public List<AbstractProppantAgent_1_0_0ISO135032PropertiesSieveAnalysisData> SieveAnalysisData { get; set; }
+    public List<AbstractProppantAgent_1_0_0_ISO135032Properties_SieveAnalysisData> SieveAnalysisData { get; set; }
 
     /// <summary>
     /// Not formally part of ISO 13503.2 properties, the specific gravity is the apparent density of the proppant divided by the density of water.
@@ -207,7 +207,7 @@ public class AbstractProppantAgent_1_0_0ISO135032Properties
 /// <summary>
 /// ISO13503_2 crush test data for this instance of ISO13503_2 data for the proppant agent.
 /// </summary>
-public class AbstractProppantAgent_1_0_0ISO135032PropertiesCrushTestData
+public class AbstractProppantAgent_1_0_0_ISO135032Properties_CrushTestData
 {
     /// <summary>
     /// Mass percentage of fines after being exposed to stress.
@@ -226,7 +226,7 @@ public class AbstractProppantAgent_1_0_0ISO135032PropertiesCrushTestData
 /// <summary>
 /// ISO13503_2 sieve analysis data for this instance of ISO13503_2 data for the proppant agent.
 /// </summary>
-public class AbstractProppantAgent_1_0_0ISO135032PropertiesSieveAnalysisData
+public class AbstractProppantAgent_1_0_0_ISO135032Properties_SieveAnalysisData
 {
     /// <summary>
     /// The percentage of mass retained in the sieve.
@@ -245,7 +245,7 @@ public class AbstractProppantAgent_1_0_0ISO135032PropertiesSieveAnalysisData
 /// <summary>
 /// ISO13503_5 point properties for this proppant agent.
 /// </summary>
-public class AbstractProppantAgent_1_0_0ISO135035Point
+public class AbstractProppantAgent_1_0_0_ISO135035Point
 {
     /// <summary>
     /// Proppant conductivity under stress.

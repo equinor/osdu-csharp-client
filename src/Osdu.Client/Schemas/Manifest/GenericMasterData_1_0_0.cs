@@ -90,11 +90,11 @@ public class GenericMasterData_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericMasterData_1_0_0Data? Data { get; set; }
+    public GenericMasterData_1_0_0_Data? Data { get; set; }
 
 }
 
-public class GenericMasterData_1_0_0Data : AbstractCommonResources_1_0_0
+public class GenericMasterData_1_0_0_Data : AbstractCommonResources_1_0_0
 {
     /// <summary>
     /// Alternative names, including historical, by which this master data is/has been known (it should include all the identifiers).

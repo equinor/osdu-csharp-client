@@ -59,7 +59,7 @@ public class AbstractProject_1_0_0
     /// The history of expenditure approvals.
     /// </summary>
     [JsonPropertyName("FundsAuthorizations")]
-    public List<AbstractProject_1_0_0FundsAuthorizations> FundsAuthorizations { get; set; }
+    public List<AbstractProject_1_0_0_FundsAuthorizations> FundsAuthorizations { get; set; }
 
     /// <summary>
     /// References to applicable agreements in external contract database system of record.
@@ -78,32 +78,32 @@ public class AbstractProject_1_0_0
     /// References to organisations which supplied services to the Project.
     /// </summary>
     [JsonPropertyName("Contractors")]
-    public List<AbstractProject_1_0_0Contractors> Contractors { get; set; }
+    public List<AbstractProject_1_0_0_Contractors> Contractors { get; set; }
 
     /// <summary>
     /// List of key individuals supporting the Project.  This could be Abstracted for re-use, and could reference a separate Persons master data object.
     /// </summary>
     [JsonPropertyName("Personnel")]
-    public List<AbstractProject_1_0_0Personnel> Personnel { get; set; }
+    public List<AbstractProject_1_0_0_Personnel> Personnel { get; set; }
 
     /// <summary>
     /// General parameters defining the configuration of the Project.  In the case of a seismic acquisition project it is like receiver interval, source depth, source type.  In the case of a processing project, it is like replacement velocity, reference datum above mean sea level.
     /// </summary>
     [JsonPropertyName("ProjectSpecifications")]
-    public List<AbstractProject_1_0_0ProjectSpecifications> ProjectSpecifications { get; set; }
+    public List<AbstractProject_1_0_0_ProjectSpecifications> ProjectSpecifications { get; set; }
 
     /// <summary>
     /// The history of life cycle states that the Project has been through..
     /// </summary>
     [JsonPropertyName("ProjectStates")]
-    public List<AbstractProject_1_0_0ProjectStates> ProjectStates { get; set; }
+    public List<AbstractProject_1_0_0_ProjectStates> ProjectStates { get; set; }
 
 }
 
 /// <summary>
 /// The history of expenditure approvals.
 /// </summary>
-public class AbstractProject_1_0_0FundsAuthorizations
+public class AbstractProject_1_0_0_FundsAuthorizations
 {
     /// <summary>
     /// Internal Company control number which identifies the allocation of funds to the Project.
@@ -135,7 +135,7 @@ public class AbstractProject_1_0_0FundsAuthorizations
 /// <summary>
 /// References to organisations which supplied services to the Project.
 /// </summary>
-public class AbstractProject_1_0_0Contractors
+public class AbstractProject_1_0_0_Contractors
 {
     /// <summary>
     /// Reference to a company that provided services.
@@ -162,7 +162,7 @@ public class AbstractProject_1_0_0Contractors
 /// <summary>
 /// List of key individuals supporting the Project.  This could be Abstracted for re-use, and could reference a separate Persons master data object.
 /// </summary>
-public class AbstractProject_1_0_0Personnel
+public class AbstractProject_1_0_0_Personnel
 {
     /// <summary>
     /// Name of an individual supporting the Project.
@@ -189,7 +189,7 @@ public class AbstractProject_1_0_0Personnel
 /// <summary>
 /// General parameters defining the configuration of the Project.  In the case of a seismic acquisition project it is like receiver interval, source depth, source type.  In the case of a processing project, it is like replacement velocity, reference datum above mean sea level.
 /// </summary>
-public class AbstractProject_1_0_0ProjectSpecifications
+public class AbstractProject_1_0_0_ProjectSpecifications
 {
     /// <summary>
     /// The date and time at which a ProjectSpecification becomes effective.
@@ -247,7 +247,7 @@ public class AbstractProject_1_0_0ProjectSpecifications
 /// <summary>
 /// The history of life cycle states that the Project has been through..
 /// </summary>
-public class AbstractProject_1_0_0ProjectStates
+public class AbstractProject_1_0_0_ProjectStates
 {
     /// <summary>
     /// The date and time at which the state becomes effective.

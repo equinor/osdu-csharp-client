@@ -89,29 +89,29 @@ public class EvaluationPlan_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public EvaluationPlan_1_0_0Data? Data { get; set; }
+    public EvaluationPlan_1_0_0_Data? Data { get; set; }
 
 }
 
-public class EvaluationPlan_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
+public class EvaluationPlan_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// A collection of integrity evaluations made on a formation
     /// </summary>
     [JsonPropertyName("FormationIntegrityEvaluations")]
-    public List<EvaluationPlan_1_0_0DataFormationIntegrityEvaluations> FormationIntegrityEvaluations { get; set; }
+    public List<EvaluationPlan_1_0_0_Data_FormationIntegrityEvaluations> FormationIntegrityEvaluations { get; set; }
 
     /// <summary>
     /// Information regarding any evaluation made on the formation by analyzing cores
     /// </summary>
     [JsonPropertyName("FormationEvaluationCorings")]
-    public List<EvaluationPlan_1_0_0DataFormationEvaluationCorings> FormationEvaluationCorings { get; set; }
+    public List<EvaluationPlan_1_0_0_Data_FormationEvaluationCorings> FormationEvaluationCorings { get; set; }
 
     /// <summary>
     /// Information regarding the evaluation of the reservoir
     /// </summary>
     [JsonPropertyName("ReservoirEvaluations")]
-    public List<EvaluationPlan_1_0_0DataReservoirEvaluations> ReservoirEvaluations { get; set; }
+    public List<EvaluationPlan_1_0_0_Data_ReservoirEvaluations> ReservoirEvaluations { get; set; }
 
     /// <summary>
     /// Identifier of the planned Wellbore
@@ -128,7 +128,7 @@ public class EvaluationPlan_1_0_0Data : AbstractCommonResources_1_0_0 // Also co
 /// <summary>
 /// A test performed to determine the integrity of a formation
 /// </summary>
-public class EvaluationPlan_1_0_0DataFormationIntegrityEvaluations
+public class EvaluationPlan_1_0_0_Data_FormationIntegrityEvaluations
 {
     /// <summary>
     /// The type of pressure test used in the evaluation of the formation
@@ -227,7 +227,7 @@ public class EvaluationPlan_1_0_0DataFormationIntegrityEvaluations
 /// <summary>
 /// A rock sample obtained by drilling into the earth with a pipe conveyed hollow bit and core barrel
 /// </summary>
-public class EvaluationPlan_1_0_0DataFormationEvaluationCorings
+public class EvaluationPlan_1_0_0_Data_FormationEvaluationCorings
 {
     /// <summary>
     /// The name of the formation from which the core was extracted
@@ -276,7 +276,7 @@ public class EvaluationPlan_1_0_0DataFormationEvaluationCorings
 /// <summary>
 /// A test performed on a drillstem
 /// </summary>
-public class EvaluationPlan_1_0_0DataReservoirEvaluations
+public class EvaluationPlan_1_0_0_Data_ReservoirEvaluations
 {
     /// <summary>
     /// The name of the formation in which the test was performed.

@@ -89,11 +89,11 @@ public class RockSample_1_1_1
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public RockSample_1_1_1Data? Data { get; set; }
+    public RockSample_1_1_1_Data? Data { get; set; }
 
 }
 
-public class RockSample_1_1_1Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class RockSample_1_1_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Native identifier from a Master Data Management System or other trusted source external to OSDU - stored here in order to allow for multi-system connection and synchronization. If used, the "Source" property should identify that source system. i.e. this item is optional.
@@ -184,7 +184,7 @@ public class RockSample_1_1_1Data : AbstractCommonResources_1_0_0 // Also compos
     /// An array containing operational or quality comments pertaining to a rock sample.
     /// </summary>
     [JsonPropertyName("SampleRemarks")]
-    public List<RockSample_1_1_1DataSampleRemarks> SampleRemarks { get; set; }
+    public List<RockSample_1_1_1_Data_SampleRemarks> SampleRemarks { get; set; }
 
     /// <summary>
     /// Company and/or organization that owns the sample.
@@ -254,7 +254,7 @@ public class RockSample_1_1_1Data : AbstractCommonResources_1_0_0 // Also compos
 /// <summary>
 /// An array containing narrative remarks pertaining to a rock sample.
 /// </summary>
-public class RockSample_1_1_1DataSampleRemarks
+public class RockSample_1_1_1_Data_SampleRemarks
 {
     /// <summary>
     /// A unique identifier for each remark record.

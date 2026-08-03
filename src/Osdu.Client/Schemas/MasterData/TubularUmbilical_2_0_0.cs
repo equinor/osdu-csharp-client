@@ -89,11 +89,11 @@ public class TubularUmbilical_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public TubularUmbilical_2_0_0Data? Data { get; set; }
+    public TubularUmbilical_2_0_0_Data? Data { get; set; }
 
 }
 
-public class TubularUmbilical_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class TubularUmbilical_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// The name of the tubular umbilical.

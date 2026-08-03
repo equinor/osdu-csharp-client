@@ -89,11 +89,11 @@ public class PropertyType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public PropertyType_1_0_0Data? Data { get; set; }
+    public PropertyType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class PropertyType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class PropertyType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Relationship to the parent PropertyType. The root PropertyType is called 'property' and refers to itself as parent.

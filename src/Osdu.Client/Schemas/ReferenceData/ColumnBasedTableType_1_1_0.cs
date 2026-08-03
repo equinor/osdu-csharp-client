@@ -89,11 +89,11 @@ public class ColumnBasedTableType_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ColumnBasedTableType_1_1_0Data? Data { get; set; }
+    public ColumnBasedTableType_1_1_0_Data? Data { get; set; }
 
 }
 
-public class ColumnBasedTableType_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class ColumnBasedTableType_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// A columns whose values are considered as keys/indices.

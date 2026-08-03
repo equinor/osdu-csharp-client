@@ -89,11 +89,11 @@ public class SchemaUpgradeChain_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SchemaUpgradeChain_1_0_0Data? Data { get; set; }
+    public SchemaUpgradeChain_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SchemaUpgradeChain_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class SchemaUpgradeChain_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The list of schema IDs, aka. `kind`, which can be schema-upgraded to the kind specified in `data.Code`.

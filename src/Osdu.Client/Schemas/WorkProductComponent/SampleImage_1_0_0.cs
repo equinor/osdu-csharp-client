@@ -89,11 +89,11 @@ public class SampleImage_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SampleImage_1_0_0Data? Data { get; set; }
+    public SampleImage_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SampleImage_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class SampleImage_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The samples that the image relates to. One or many Sample relationships are permitted. The Sample object captures attributes of a sample/ specimen (rock or fluid) acquired either through an original acquisition event, sub-sampling event, generated from recombination of other samples / specimens or derived through the application of some laboratory process on the parent sample.

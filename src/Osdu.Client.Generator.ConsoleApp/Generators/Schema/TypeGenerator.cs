@@ -247,7 +247,7 @@ public class TypeGenerator
 
         if (propSchema.Enum is { Count: > 0 } && SchemaHelpers.HasFlag(propSchema.Type ?? JsonSchemaType.Null, JsonSchemaType.String))
         {
-            var enumName = $"{parentName}{propName.ToPascalCase()}";
+            var enumName = $"{parentName}_{propName.ToPascalCase()}";
             sb.AppendLine();
             GenerateEnum(sb, enumName, propSchema, prefix);
             return;
@@ -258,7 +258,7 @@ public class TypeGenerator
             var itemSchema = propSchema.Items;
             if (itemSchema is not OpenApiSchemaReference && itemSchema.Enum is { Count: > 0 } && SchemaHelpers.HasFlag(itemSchema.Type ?? JsonSchemaType.Null, JsonSchemaType.String))
             {
-                var enumName = $"{parentName}{propName.ToPascalCase()}";
+                var enumName = $"{parentName}_{propName.ToPascalCase()}";
                 sb.AppendLine();
                 GenerateEnum(sb, enumName, itemSchema, prefix);
             }
@@ -274,7 +274,7 @@ public class TypeGenerator
 
             if (refs.Count > 1 || (refs.Count == 1 && inlineSchemas.Any(s => s.Properties is { Count: > 0 })))
             {
-                var inlineTypeName = $"{parentName}{propName.ToPascalCase()}";
+                var inlineTypeName = $"{parentName}_{propName.ToPascalCase()}";
                 sb.AppendLine();
 
                 var baseClass = SchemaHelpers.Sanitize(refs[0].Reference.Id);
@@ -340,13 +340,13 @@ public class TypeGenerator
             var signature = SchemaHelpers.GetOneOfSignature(variants);
             if (signature is not null && _context.OneOfUnionCache.ContainsKey(signature))
             {
-                var expectedName = SchemaHelpers.Sanitize($"{parentName}{propName.ToPascalCase()}");
+                var expectedName = SchemaHelpers.Sanitize($"{parentName}_{propName.ToPascalCase()}");
                 if (_context.OneOfUnionCache[signature] != expectedName)
                     return;
             }
 
             var inlineTypeName = (signature is not null ? _context.OneOfUnionCache.GetValueOrDefault(signature) : null)
-                                 ?? SchemaHelpers.Sanitize($"{parentName}{propName.ToPascalCase()}");
+                                 ?? SchemaHelpers.Sanitize($"{parentName}_{propName.ToPascalCase()}");
             sb.AppendLine();
             GenerateDiscriminatedUnion(sb, inlineTypeName, variants, propSchema.Discriminator, prefix);
             return;
@@ -357,7 +357,7 @@ public class TypeGenerator
             && propSchema.Properties is { Count: > 0 }
             && propSchema.AdditionalProperties is null)
         {
-            var inlineTypeName = $"{parentName}{propName.ToPascalCase()}";
+            var inlineTypeName = $"{parentName}_{propName.ToPascalCase()}";
             sb.AppendLine();
             GenerateType(sb, inlineTypeName, propSchema, 0);
             return;
@@ -369,7 +369,7 @@ public class TypeGenerator
 
             if (itemSchema is not OpenApiSchemaReference && itemSchema.AllOf is { Count: > 0 })
             {
-                var inlineTypeName = $"{parentName}{propName.ToPascalCase()}";
+                var inlineTypeName = $"{parentName}_{propName.ToPascalCase()}";
                 sb.AppendLine();
                 GenerateType(sb, inlineTypeName, itemSchema, 0);
                 return;
@@ -380,7 +380,7 @@ public class TypeGenerator
                 && itemSchema.Properties is { Count: > 0 }
                 && itemSchema.AdditionalProperties is null)
             {
-                var inlineTypeName = $"{parentName}{propName.ToPascalCase()}";
+                var inlineTypeName = $"{parentName}_{propName.ToPascalCase()}";
                 sb.AppendLine();
                 GenerateType(sb, inlineTypeName, itemSchema, 0);
                 return;
@@ -401,13 +401,13 @@ public class TypeGenerator
                 var signature = SchemaHelpers.GetOneOfSignature(variants);
                 if (signature is not null && _context.OneOfUnionCache.ContainsKey(signature))
                 {
-                    var expectedName = SchemaHelpers.Sanitize($"{parentName}{propName.ToPascalCase()}");
+                    var expectedName = SchemaHelpers.Sanitize($"{parentName}_{propName.ToPascalCase()}");
                     if (_context.OneOfUnionCache[signature] != expectedName)
                         return;
                 }
 
                 var inlineTypeName = (signature is not null ? _context.OneOfUnionCache.GetValueOrDefault(signature) : null)
-                                     ?? SchemaHelpers.Sanitize($"{parentName}{propName.ToPascalCase()}");
+                                     ?? SchemaHelpers.Sanitize($"{parentName}_{propName.ToPascalCase()}");
                 sb.AppendLine();
                 GenerateDiscriminatedUnion(sb, inlineTypeName, variants, itemSchema.Discriminator, prefix);
                 return;

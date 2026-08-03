@@ -89,11 +89,11 @@ public class DepositionalSubEnvironment_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DepositionalSubEnvironment_1_0_0Data? Data { get; set; }
+    public DepositionalSubEnvironment_1_0_0_Data? Data { get; set; }
 
 }
 
-public class DepositionalSubEnvironment_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class DepositionalSubEnvironment_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The main class of depositional environment this DepositionalSubEnvironment is associated with.

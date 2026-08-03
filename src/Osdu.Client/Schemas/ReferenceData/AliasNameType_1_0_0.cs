@@ -89,11 +89,11 @@ public class AliasNameType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public AliasNameType_1_0_0Data? Data { get; set; }
+    public AliasNameType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class AliasNameType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class AliasNameType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Indicates whether the value for alias names of a given alias name type must be universally unique. 'Y' indicates that there is a requirement for unique values. 'N' indicates that there is no requirement for unique values.

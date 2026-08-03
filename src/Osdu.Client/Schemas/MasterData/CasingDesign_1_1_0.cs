@@ -89,11 +89,11 @@ public class CasingDesign_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public CasingDesign_1_1_0Data? Data { get; set; }
+    public CasingDesign_1_1_0_Data? Data { get; set; }
 
 }
 
-public class CasingDesign_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class CasingDesign_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Identifier of the planned Wellbore

@@ -89,11 +89,11 @@ public class DowntimeComponentType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public DowntimeComponentType_1_0_0Data? Data { get; set; }
+    public DowntimeComponentType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class DowntimeComponentType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class DowntimeComponentType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Boolean property identifying if the location of the component is at the surface, or subsurface. A value of true indicates that the component is at the surface, otherwise a value of false indicates it is subsurface

@@ -58,7 +58,7 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
                           """);
             if (wellLog.Data?.Curves is not null)
             {
-                foreach (WellLog_1_3_0DataCurves curve in wellLog.Data.Curves)
+                foreach (WellLog_1_3_0_Data_Curves curve in wellLog.Data.Curves)
                 {
                     sb.AppendLine($"CurveID={curve.CurveID}, Mnemonic={curve.Mnemonic}, CurveUnit={curve.CurveUnit}, CurveDescription={curve.CurveDescription}, LogCurveMainFamilyID={curve.LogCurveMainFamilyID}");
                 }

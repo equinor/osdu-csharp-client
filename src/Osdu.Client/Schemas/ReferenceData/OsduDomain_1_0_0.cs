@@ -89,11 +89,11 @@ public class OsduDomain_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public OsduDomain_1_0_0Data? Data { get; set; }
+    public OsduDomain_1_0_0_Data? Data { get; set; }
 
 }
 
-public class OsduDomain_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class OsduDomain_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// The parent domain. Root level (L1) domain keep this property absent.

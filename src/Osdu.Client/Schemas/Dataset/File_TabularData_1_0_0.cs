@@ -89,11 +89,11 @@ public class File_TabularData_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public File_TabularData_1_0_0Data? Data { get; set; }
+    public File_TabularData_1_0_0_Data? Data { get; set; }
 
 }
 
-public class File_TabularData_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractDataset_1_0_1, AbstractFile_1_0_1
+public class File_TabularData_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractDataset_1_0_1, AbstractFile_1_0_1
 {
     /// <summary>
     /// Optional relationship to a ColumnBasedTableTemplate record, which defines the KeyColumn and Column definitions. Some columns defined in the template may be omitted if not contained in the ColumnValues, but the ones used must be exactly identical to the template's column definitions. If the ColumnBasedTableTemplateID is populated, the ColumnBasedTableType is expected to be ColumnBasedTableTemplateControlled.
@@ -132,7 +132,7 @@ public class File_TabularData_1_0_0Data : AbstractCommonResources_1_0_1 // Also 
     /// The column specifications in the order they appear in the data file. ColumnSpecifications[].ColumnName is the key, which matches and links to the Columns[].ColumnName metadata. ColumnSpecifications contain format hints and absent value definitions.
     /// </summary>
     [JsonPropertyName("ColumnSpecifications")]
-    public List<File_TabularData_1_0_0DataColumnSpecifications> ColumnSpecifications { get; set; }
+    public List<File_TabularData_1_0_0_Data_ColumnSpecifications> ColumnSpecifications { get; set; }
 
     /// <summary>
     /// If specified, a cells of a record row are separated by this character, e.g., ',' for comma separated columns. For fixed format record rows the property is left absent or the value as empty string "".
@@ -160,7 +160,7 @@ public class File_TabularData_1_0_0Data : AbstractCommonResources_1_0_1 // Also 
 /// <summary>
 /// Selection criteria to define a subset of a text file row in order to represent the row value in the table column indentified by ColumnName.
 /// </summary>
-public class File_TabularData_1_0_0DataColumnSpecifications
+public class File_TabularData_1_0_0_Data_ColumnSpecifications
 {
     /// <summary>
     /// The unique name of the column as defined in the column metadata, e.g. dataset--TabularData record. ColumnName is mandatory.

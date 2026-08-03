@@ -89,11 +89,11 @@ public class SaturationFunctionSet_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SaturationFunctionSet_1_0_0Data? Data { get; set; }
+    public SaturationFunctionSet_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SaturationFunctionSet_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class SaturationFunctionSet_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Identifies the Relative Permeability Model applied for three-phase fluid models if used.
@@ -106,7 +106,7 @@ public class SaturationFunctionSet_1_0_0Data : AbstractCommonResources_1_0_1 // 
     /// Array of saturation functions
     /// </summary>
     [JsonPropertyName("SaturationFunctions")]
-    public List<SaturationFunctionSet_1_0_0DataSaturationFunctions> SaturationFunctions { get; set; }
+    public List<SaturationFunctionSet_1_0_0_Data_SaturationFunctions> SaturationFunctions { get; set; }
 
     /// <summary>
     /// Free text remarks about this data
@@ -129,7 +129,7 @@ public class SaturationFunctionSet_1_0_0Data : AbstractCommonResources_1_0_1 // 
 /// <summary>
 /// Identifies each saturation function composing the set. Usually saturation functions are uniquely identified in a set by their "usage type".
 /// </summary>
-public class SaturationFunctionSet_1_0_0DataSaturationFunctions
+public class SaturationFunctionSet_1_0_0_Data_SaturationFunctions
 {
     /// <summary>
     /// Name of the saturation function
@@ -149,7 +149,7 @@ public class SaturationFunctionSet_1_0_0DataSaturationFunctions
     /// This set of attributes represents the context surrounding the processes selected and used in computing these saturation functions.
     /// </summary>
     [JsonPropertyName("BasisOfModelling")]
-    public SaturationFunctionSet_1_0_0DataSaturationFunctionsBasisOfModelling? BasisOfModelling { get; set; }
+    public SaturationFunctionSet_1_0_0_Data_SaturationFunctions_BasisOfModelling? BasisOfModelling { get; set; }
 
     /// <summary>
     /// This represents the date the saturation function set was published and made available to the consumers or downstream applications.
@@ -190,7 +190,7 @@ public class SaturationFunctionSet_1_0_0DataSaturationFunctions
 /// <summary>
 /// This set of attributes represents the context surrounding the processes selected and used in computing these saturation functions.
 /// </summary>
-public class SaturationFunctionSet_1_0_0DataSaturationFunctionsBasisOfModelling
+public class SaturationFunctionSet_1_0_0_Data_SaturationFunctions_BasisOfModelling
 {
     /// <summary>
     /// Identifies the Persisted Collection containing relevant data used to derive this Saturation Function Set, except for Samples Analysis, which are identified by CapillaryPressureInputSampleAnalysisIDs. Note that an abbreviation for capillary pressure is "Pc".

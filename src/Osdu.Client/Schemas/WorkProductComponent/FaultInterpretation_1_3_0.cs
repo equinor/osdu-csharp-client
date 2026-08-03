@@ -89,17 +89,17 @@ public class FaultInterpretation_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FaultInterpretation_1_3_0Data? Data { get; set; }
+    public FaultInterpretation_1_3_0_Data? Data { get; set; }
 
 }
 
-public class FaultInterpretation_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractInterpretation_1_1_0
+public class FaultInterpretation_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractInterpretation_1_1_0
 {
     /// <summary>
     /// Describes the fault throw - as the fault characteristics might vary through time, fault throw is an array of fault throws with their own attributes
     /// </summary>
     [JsonPropertyName("FaultThrowDescriptions")]
-    public List<FaultInterpretation_1_3_0DataFaultThrowDescriptions> FaultThrowDescriptions { get; set; }
+    public List<FaultInterpretation_1_3_0_Data_FaultThrowDescriptions> FaultThrowDescriptions { get; set; }
 
     /// <summary>
     /// Specifies whether the fault is considered listric
@@ -118,7 +118,7 @@ public class FaultInterpretation_1_3_0Data : AbstractCommonResources_1_0_0 // Al
     /// Indicates the representative azimuth value of the fault plane
     /// </summary>
     [JsonPropertyName("RepresentativeDipDirection")]
-    public FaultInterpretation_1_3_0DataRepresentativeDipDirection? RepresentativeDipDirection { get; set; }
+    public FaultInterpretation_1_3_0_Data_RepresentativeDipDirection? RepresentativeDipDirection { get; set; }
 
     /// <summary>
     /// Indicates the representative dip angle value of the fault plane
@@ -159,7 +159,7 @@ public class FaultInterpretation_1_3_0Data : AbstractCommonResources_1_0_0 // Al
 /// <summary>
 /// A structure carrying descriptions of fault throw characteristics.
 /// </summary>
-public class FaultInterpretation_1_3_0DataFaultThrowDescriptions
+public class FaultInterpretation_1_3_0_Data_FaultThrowDescriptions
 {
     /// <summary>
     /// Specifies the fault throw type (reverse, normal etc…)
@@ -185,7 +185,7 @@ public class FaultInterpretation_1_3_0DataFaultThrowDescriptions
 /// <summary>
 /// Indicates the representative azimuth value of the fault plane
 /// </summary>
-public class FaultInterpretation_1_3_0DataRepresentativeDipDirection
+public class FaultInterpretation_1_3_0_Data_RepresentativeDipDirection
 {
     /// <summary>
     /// The azimuth value

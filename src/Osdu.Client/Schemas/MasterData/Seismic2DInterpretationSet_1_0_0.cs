@@ -89,24 +89,24 @@ public class Seismic2DInterpretationSet_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Seismic2DInterpretationSet_1_0_0Data? Data { get; set; }
+    public Seismic2DInterpretationSet_1_0_0_Data? Data { get; set; }
 
 }
 
-public class Seismic2DInterpretationSet_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
+public class Seismic2DInterpretationSet_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_0_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// The set of processing geometries comprising the 2D Interpretation Survey (often referred to as survey in the context of an interpretation application but not a survey in the context of acquisition).
     /// </summary>
     [JsonPropertyName("SeismicLineGeometries")]
-    public List<Seismic2DInterpretationSet_1_0_0DataSeismicLineGeometries> SeismicLineGeometries { get; set; }
+    public List<Seismic2DInterpretationSet_1_0_0_Data_SeismicLineGeometries> SeismicLineGeometries { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
 
 }
 
-public class Seismic2DInterpretationSet_1_0_0DataSeismicLineGeometries
+public class Seismic2DInterpretationSet_1_0_0_Data_SeismicLineGeometries
 {
     /// <summary>
     /// Reference to a 2D processing geometry associated with a particular seismic line used in interpretation.  Multiple datasets may refer to this geometry and support the interpretation.

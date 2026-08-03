@@ -91,11 +91,11 @@ public class GravityMagneticAcquisitionSurvey_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GravityMagneticAcquisitionSurvey_1_0_0Data? Data { get; set; }
+    public GravityMagneticAcquisitionSurvey_1_0_0_Data? Data { get; set; }
 
 }
 
-public class GravityMagneticAcquisitionSurvey_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
+public class GravityMagneticAcquisitionSurvey_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0, AbstractProjectActivity_1_2_0
 {
     /// <summary>
     /// The type of gravity and magnetics geophysical data acquired in this survey, for example, gravity, magnetic, full tensor gradiometry/airborne gravity gradiometry.
@@ -139,13 +139,13 @@ public class GravityMagneticAcquisitionSurvey_1_0_0Data : AbstractCommonResource
     /// An array that describes the equipment sensors, meters or tools used to acquire the geophysical data. One or more items of equipment may be used in a survey acquisition.
     /// </summary>
     [JsonPropertyName("EquipmentDetails")]
-    public List<GravityMagneticAcquisitionSurvey_1_0_0DataEquipmentDetails> EquipmentDetails { get; set; }
+    public List<GravityMagneticAcquisitionSurvey_1_0_0_Data_EquipmentDetails> EquipmentDetails { get; set; }
 
     /// <summary>
     /// Describes the start and end date range of the survey acquisition
     /// </summary>
     [JsonPropertyName("AcquisitionDateRange")]
-    public GravityMagneticAcquisitionSurvey_1_0_0DataAcquisitionDateRange? AcquisitionDateRange { get; set; }
+    public GravityMagneticAcquisitionSurvey_1_0_0_Data_AcquisitionDateRange? AcquisitionDateRange { get; set; }
 
     /// <summary>
     /// The company or organisation that acquired the survey
@@ -167,7 +167,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0Data : AbstractCommonResource
     /// An array that describes the survey acquisition properties relevant to a moving platform survey, for example, airborne, marine vessel or other moving vehicle
     /// </summary>
     [JsonPropertyName("MovingPlatform")]
-    public GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatform? MovingPlatform { get; set; }
+    public GravityMagneticAcquisitionSurvey_1_0_0_Data_MovingPlatform? MovingPlatform { get; set; }
 
     /// <summary>
     /// If populated, this survey is part of a time-lapse survey sequence. It identifies the preceding Gravity Magnetic Acquisition Survey. The first survey in the sequence has an empty or absent PrecedingTimeLapseSurveyID.
@@ -184,7 +184,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0Data : AbstractCommonResource
 /// <summary>
 /// The sensor, meter or tool equipment used to acquire the gravity and magnetic geophysical measurements
 /// </summary>
-public class GravityMagneticAcquisitionSurvey_1_0_0DataEquipmentDetails
+public class GravityMagneticAcquisitionSurvey_1_0_0_Data_EquipmentDetails
 {
     /// <summary>
     /// A name given to a sensor, meter or tool used to acquire gravity or magnetics geophysical data. This could be a common or colloquial name.
@@ -222,7 +222,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0DataEquipmentDetails
 /// <summary>
 /// Describes the start and end date range of the survey acquisition
 /// </summary>
-public class GravityMagneticAcquisitionSurvey_1_0_0DataAcquisitionDateRange
+public class GravityMagneticAcquisitionSurvey_1_0_0_Data_AcquisitionDateRange
 {
     /// <summary>
     /// The start date of the acquisition survey
@@ -241,7 +241,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0DataAcquisitionDateRange
 /// <summary>
 /// An array that describes the survey acquisition properties relevant to a moving platform survey, for example, airborne, marine vessel or other moving vehicle
 /// </summary>
-public class GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatform
+public class GravityMagneticAcquisitionSurvey_1_0_0_Data_MovingPlatform
 {
     /// <summary>
     /// A boolean flag indicating if the survey was acquired from a moving platform, for example, airborne, marine vessel or other moving vehicle.
@@ -286,7 +286,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatform
     /// Captures the average flying height and the flying height parameters such as the instrumentation, datum and the clearance method.
     /// </summary>
     [JsonPropertyName("FlyingHeightParameters")]
-    public GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatformFlyingHeightParameters? FlyingHeightParameters { get; set; }
+    public GravityMagneticAcquisitionSurvey_1_0_0_Data_MovingPlatform_FlyingHeightParameters? FlyingHeightParameters { get; set; }
 
     /// <summary>
     /// An association to a seismic acquisition survey when seismic and gravity and magnetic data are acquired simultaneously, typically in the marine environment.
@@ -307,7 +307,7 @@ public class GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatform
 /// <summary>
 /// Captures the average flying height and the flying height parameters such as the instrumentation, datum and the clearance method.
 /// </summary>
-public class GravityMagneticAcquisitionSurvey_1_0_0DataMovingPlatformFlyingHeightParameters
+public class GravityMagneticAcquisitionSurvey_1_0_0_Data_MovingPlatform_FlyingHeightParameters
 {
     /// <summary>
     /// The airborne survey ground clearance method, for example, constant or drape.

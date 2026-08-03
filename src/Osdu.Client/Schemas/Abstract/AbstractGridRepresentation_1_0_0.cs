@@ -50,7 +50,7 @@ public class AbstractGridRepresentation_1_0_0 : AbstractRepresentation_1_0_0
     /// Allow to link the K layers (or the "geologic k" property for example in case of K expansion or unstructured grid) of this grid with some stratigraphic units of a stratigraphic organization.
     /// </summary>
     [JsonPropertyName("StratigraphicUnits")]
-    public AbstractGridRepresentation_1_0_0StratigraphicUnits? StratigraphicUnits { get; set; }
+    public AbstractGridRepresentation_1_0_0_StratigraphicUnits? StratigraphicUnits { get; set; }
 
     /// <summary>
     /// References to the RockFluid organization interpretations which this grid relates to.
@@ -77,7 +77,7 @@ public class AbstractGridRepresentation_1_0_0 : AbstractRepresentation_1_0_0
 /// <summary>
 /// Allow to link the K layers (or the "geologic k" property for example in case of K expansion or unstructured grid) of this grid with some stratigraphic units of a stratigraphic organization.
 /// </summary>
-public class AbstractGridRepresentation_1_0_0StratigraphicUnits
+public class AbstractGridRepresentation_1_0_0_StratigraphicUnits
 {
     /// <summary>
     /// For each K layer, indicate the corresponding stratigraphic unit indices within the associated Stratigraphic Organization. A negative value means that a K layer is not related to any stratigraphic unit (salt for example)

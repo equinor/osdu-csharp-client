@@ -89,11 +89,11 @@ public class SeismicGeometryType_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicGeometryType_1_0_0Data? Data { get; set; }
+    public SeismicGeometryType_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicGeometryType_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
+public class SeismicGeometryType_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0
 {
     /// <summary>
     /// Resource ID of the parent geometry type in a two-level hierarchy (only one deep permitted).

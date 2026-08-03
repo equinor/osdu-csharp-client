@@ -89,11 +89,11 @@ public class SeismicLineGeometry_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicLineGeometry_1_2_0Data? Data { get; set; }
+    public SeismicLineGeometry_1_2_0_Data? Data { get; set; }
 
 }
 
-public class SeismicLineGeometry_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class SeismicLineGeometry_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// SRN reference to the Line concept that comprises all the 2D geometries belonging to the same seismic transect, of which this one is a part.

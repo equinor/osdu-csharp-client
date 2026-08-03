@@ -89,11 +89,11 @@ public class WellBarrierElementTest_1_2_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellBarrierElementTest_1_2_0Data? Data { get; set; }
+    public WellBarrierElementTest_1_2_0_Data? Data { get; set; }
 
 }
 
-public class WellBarrierElementTest_1_2_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
+public class WellBarrierElementTest_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractProject_1_0_0
 {
     /// <summary>
     /// The ID of the Rig on which the test will be performed
@@ -166,7 +166,7 @@ public class WellBarrierElementTest_1_2_0Data : AbstractCommonResources_1_0_0 //
     /// One or more test steps, their parameters and their criteria
     /// </summary>
     [JsonPropertyName("TestSteps")]
-    public List<WellBarrierElementTest_1_2_0DataTestSteps> TestSteps { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps> TestSteps { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -176,7 +176,7 @@ public class WellBarrierElementTest_1_2_0Data : AbstractCommonResources_1_0_0 //
 /// <summary>
 /// Description of an individual step of the overall Well Barrier Element Test
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestSteps
+public class WellBarrierElementTest_1_2_0_Data_TestSteps
 {
     /// <summary>
     /// An integer that describes the order in which the pressure test steps will be performed
@@ -196,13 +196,13 @@ public class WellBarrierElementTest_1_2_0DataTestSteps
     /// </summary>
     [Required]
     [JsonPropertyName("HighPressureCriteria")]
-    public List<WellBarrierElementTest_1_2_0DataTestStepsHighPressureCriteria> HighPressureCriteria { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps_HighPressureCriteria> HighPressureCriteria { get; set; }
 
     /// <summary>
     /// Link to the object containing the low pressure criteria .
     /// </summary>
     [JsonPropertyName("LowPressureCriteria")]
-    public List<WellBarrierElementTest_1_2_0DataTestStepsLowPressureCriteria> LowPressureCriteria { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps_LowPressureCriteria> LowPressureCriteria { get; set; }
 
     /// <summary>
     /// Text string for noting the components tested
@@ -253,32 +253,32 @@ public class WellBarrierElementTest_1_2_0DataTestSteps
     /// A list of systems and their volumes.
     /// </summary>
     [JsonPropertyName("ComponentVolumesTestSystem")]
-    public List<WellBarrierElementTest_1_2_0DataTestStepsComponentVolumesTestSystem> ComponentVolumesTestSystem { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps_ComponentVolumesTestSystem> ComponentVolumesTestSystem { get; set; }
 
     /// <summary>
     /// A list of pressures and the expected volume pumped at the given pressure.
     /// </summary>
     [JsonPropertyName("ExpectedVolumesPumped")]
-    public List<WellBarrierElementTest_1_2_0DataTestStepsExpectedVolumesPumped> ExpectedVolumesPumped { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps_ExpectedVolumesPumped> ExpectedVolumesPumped { get; set; }
 
     /// <summary>
     /// A list of pressures and the expected volume bled back at the given pressure.
     /// </summary>
     [JsonPropertyName("ExpectedVolumesBledBack")]
-    public List<WellBarrierElementTest_1_2_0DataTestStepsExpectedVolumesBledBack> ExpectedVolumesBledBack { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps_ExpectedVolumesBledBack> ExpectedVolumesBledBack { get; set; }
 
     /// <summary>
     /// A list of test fluids and their properties.
     /// </summary>
     [JsonPropertyName("TestFluids")]
-    public List<WellBarrierElementTest_1_2_0DataTestStepsTestFluids> TestFluids { get; set; }
+    public List<WellBarrierElementTest_1_2_0_Data_TestSteps_TestFluids> TestFluids { get; set; }
 
 }
 
 /// <summary>
 /// Generic description of an individual pressure criterion for a single step of the test
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestStepsHighPressureCriteria
+public class WellBarrierElementTest_1_2_0_Data_TestSteps_HighPressureCriteria
 {
     /// <summary>
     /// A successful positive pressure test requires the pressure to remain above the minimum allowable target test pressure.
@@ -328,7 +328,7 @@ public class WellBarrierElementTest_1_2_0DataTestStepsHighPressureCriteria
 /// <summary>
 /// Generic description of an individual pressure criterion for a single step of the test
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestStepsLowPressureCriteria
+public class WellBarrierElementTest_1_2_0_Data_TestSteps_LowPressureCriteria
 {
     /// <summary>
     /// A successful positive pressure test requires the pressure to remain above the minimum allowable target test pressure.
@@ -378,7 +378,7 @@ public class WellBarrierElementTest_1_2_0DataTestStepsLowPressureCriteria
 /// <summary>
 /// Description of the tested component during a singe step.
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestStepsComponentVolumesTestSystem
+public class WellBarrierElementTest_1_2_0_Data_TestSteps_ComponentVolumesTestSystem
 {
     /// <summary>
     /// e.g. surface lines, choke/kill Lines, BOP, Casing
@@ -398,7 +398,7 @@ public class WellBarrierElementTest_1_2_0DataTestStepsComponentVolumesTestSystem
 /// <summary>
 /// Individual description, for a given pressure, of the Volume Pumped expectations for a single step of the test.
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestStepsExpectedVolumesPumped
+public class WellBarrierElementTest_1_2_0_Data_TestSteps_ExpectedVolumesPumped
 {
     /// <summary>
     /// Value for planned pressure
@@ -430,7 +430,7 @@ public class WellBarrierElementTest_1_2_0DataTestStepsExpectedVolumesPumped
 /// <summary>
 /// Individual description, for a given pressure, of the Volume Pumped expectations for a single step of the test.
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestStepsExpectedVolumesBledBack
+public class WellBarrierElementTest_1_2_0_Data_TestSteps_ExpectedVolumesBledBack
 {
     /// <summary>
     /// Value for planned pressure
@@ -462,7 +462,7 @@ public class WellBarrierElementTest_1_2_0DataTestStepsExpectedVolumesBledBack
 /// <summary>
 /// Description, for a given step of the test, of the Fluid System used for this step.
 /// </summary>
-public class WellBarrierElementTest_1_2_0DataTestStepsTestFluids
+public class WellBarrierElementTest_1_2_0_Data_TestSteps_TestFluids
 {
     /// <summary>
     /// Same type reference list as used in Fluids Program

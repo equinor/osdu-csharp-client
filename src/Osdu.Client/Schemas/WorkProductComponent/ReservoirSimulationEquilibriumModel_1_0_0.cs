@@ -89,11 +89,11 @@ public class ReservoirSimulationEquilibriumModel_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ReservoirSimulationEquilibriumModel_1_0_0Data? Data { get; set; }
+    public ReservoirSimulationEquilibriumModel_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ReservoirSimulationEquilibriumModel_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// Hydrostatic Pressure at the Pressure Datum TVD
@@ -124,19 +124,19 @@ public class ReservoirSimulationEquilibriumModel_1_0_0Data : AbstractCommonResou
     /// List of individual fluid contacts such as gas/oil contact or oil/water contact, with associated parameters.
     /// </summary>
     [JsonPropertyName("FluidContacts")]
-    public List<ReservoirSimulationEquilibriumModel_1_0_0DataFluidContacts> FluidContacts { get; set; }
+    public List<ReservoirSimulationEquilibriumModel_1_0_0_Data_FluidContacts> FluidContacts { get; set; }
 
     /// <summary>
     /// A table showing how gas-oil ratio (Rs) OR a bubble point pressure (Pb) changes by depth. Dissolved gas ratios in undersaturated oil for black oil models are calculated from either gas-oil ratio (Rs) versus depth table OR a bubble point pressure (Pb) versus depth table.
     /// </summary>
     [JsonPropertyName("DissolvedGasRatiosUndersaturatedOilVsDepth")]
-    public ReservoirSimulationEquilibriumModel_1_0_0DataDissolvedGasRatiosUndersaturatedOilVsDepth? DissolvedGasRatiosUndersaturatedOilVsDepth { get; set; }
+    public ReservoirSimulationEquilibriumModel_1_0_0_Data_DissolvedGasRatiosUndersaturatedOilVsDepth? DissolvedGasRatiosUndersaturatedOilVsDepth { get; set; }
 
     /// <summary>
     /// A table showing how vaporized oil ratio (Rv) or a dew point pressure (Pd) changes by depth. Vaporized oil ratios in undersaturated gas for black oil models with wet gas are calculated from either vaporized oil ratio (Rv) versus depth table OR a dew point pressure (Pd) versus depth table.
     /// </summary>
     [JsonPropertyName("VaporizedOilRatiosUndersaturatedGasVsDepth")]
-    public ReservoirSimulationEquilibriumModel_1_0_0DataVaporizedOilRatiosUndersaturatedGasVsDepth? VaporizedOilRatiosUndersaturatedGasVsDepth { get; set; }
+    public ReservoirSimulationEquilibriumModel_1_0_0_Data_VaporizedOilRatiosUndersaturatedGasVsDepth? VaporizedOilRatiosUndersaturatedGasVsDepth { get; set; }
 
     /// <summary>
     /// If false, fluid saturation is calculated at the center of the block. If true, the block is subdivided based on the value defined by FineScaleEquilibration.InitialFluidsInPlaceCalculationAccuracy.
@@ -149,7 +149,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0Data : AbstractCommonResou
     /// Cohesive set of attributes describing the details of the fine scale equilibration. Expectation is to fill out this attribute if the EnableFineScaleEquilibration is set to true.
     /// </summary>
     [JsonPropertyName("FineScaleEquilibration")]
-    public ReservoirSimulationEquilibriumModel_1_0_0DataFineScaleEquilibration? FineScaleEquilibration { get; set; }
+    public ReservoirSimulationEquilibriumModel_1_0_0_Data_FineScaleEquilibration? FineScaleEquilibration { get; set; }
 
     /// <summary>
     /// Indicates whether (i) gas-oil contact and composition data, or (ii) Pressure at datum and composition data is the most relevant data to be honored during the initialization process, or whether simulator should analyze the model to determine this.
@@ -176,19 +176,19 @@ public class ReservoirSimulationEquilibriumModel_1_0_0Data : AbstractCommonResou
     /// A table showing how API Gravity changes by depth.
     /// </summary>
     [JsonPropertyName("APIGravityVsDepth")]
-    public ReservoirSimulationEquilibriumModel_1_0_0DataAPIGravityVsDepth? APIGravityVsDepth { get; set; }
+    public ReservoirSimulationEquilibriumModel_1_0_0_Data_APIGravityVsDepth? APIGravityVsDepth { get; set; }
 
     /// <summary>
     /// A table showing how temperature changes by depth.
     /// </summary>
     [JsonPropertyName("TemperatureVsDepth")]
-    public ReservoirSimulationEquilibriumModel_1_0_0DataTemperatureVsDepth? TemperatureVsDepth { get; set; }
+    public ReservoirSimulationEquilibriumModel_1_0_0_Data_TemperatureVsDepth? TemperatureVsDepth { get; set; }
 
     /// <summary>
     /// Array defining the equilibrated compositions at given depths; Also known as a compositional model table
     /// </summary>
     [JsonPropertyName("CompositionsAtDepth")]
-    public List<ReservoirSimulationEquilibriumModel_1_0_0DataCompositionsAtDepth> CompositionsAtDepth { get; set; }
+    public List<ReservoirSimulationEquilibriumModel_1_0_0_Data_CompositionsAtDepth> CompositionsAtDepth { get; set; }
 
     /// <summary>
     /// Identifies the compositional components at the designated depth (e.g. C1, C2, etc.)
@@ -204,7 +204,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0Data : AbstractCommonResou
 /// <summary>
 /// Description of an individual fluid contact within a reservoir unit
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataFluidContacts
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_FluidContacts
 {
     /// <summary>
     /// Identifies the type of a fluid boundary such as oil/water contact.
@@ -237,7 +237,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataFluidContacts
 /// <summary>
 /// A table showing how gas-oil ratio (Rs) OR a bubble point pressure (Pb) changes by depth. Dissolved gas ratios in undersaturated oil for black oil models are calculated from either gas-oil ratio (Rs) versus depth table OR a bubble point pressure (Pb) versus depth table.
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataDissolvedGasRatiosUndersaturatedOilVsDepth
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_DissolvedGasRatiosUndersaturatedOilVsDepth
 {
     /// <summary>
     /// Array of Temperature Values at a given Depth. The usage of Temperature against Depth is mutually exclusive with the usage of any other property
@@ -286,7 +286,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataDissolvedGasRatiosUnde
 /// <summary>
 /// A table showing how vaporized oil ratio (Rv) or a dew point pressure (Pd) changes by depth. Vaporized oil ratios in undersaturated gas for black oil models with wet gas are calculated from either vaporized oil ratio (Rv) versus depth table OR a dew point pressure (Pd) versus depth table.
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataVaporizedOilRatiosUndersaturatedGasVsDepth
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_VaporizedOilRatiosUndersaturatedGasVsDepth
 {
     /// <summary>
     /// Array of Temperature Values at a given Depth. The usage of Temperature against Depth is mutually exclusive with the usage of any other property
@@ -335,7 +335,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataVaporizedOilRatiosUnde
 /// <summary>
 /// Cohesive set of attributes describing the details of the fine scale equilibration. Expectation is to fill out this attribute if the EnableFineScaleEquilibration is set to true.
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataFineScaleEquilibration
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_FineScaleEquilibration
 {
     /// <summary>
     /// This is a number that controls the vertical resolution by subdividing the cell, often used as an input to an equation used by the simulator.
@@ -374,7 +374,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataFineScaleEquilibration
 /// <summary>
 /// A table showing how API Gravity changes by depth.
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataAPIGravityVsDepth
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_APIGravityVsDepth
 {
     /// <summary>
     /// Array of Temperature Values at a given Depth. The usage of Temperature against Depth is mutually exclusive with the usage of any other property
@@ -423,7 +423,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataAPIGravityVsDepth
 /// <summary>
 /// A table showing how temperature changes by depth.
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataTemperatureVsDepth
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_TemperatureVsDepth
 {
     /// <summary>
     /// Array of Temperature Values at a given Depth. The usage of Temperature against Depth is mutually exclusive with the usage of any other property
@@ -472,7 +472,7 @@ public class ReservoirSimulationEquilibriumModel_1_0_0DataTemperatureVsDepth
 /// <summary>
 /// Description of the composition of a mixed fluid at a single depth
 /// </summary>
-public class ReservoirSimulationEquilibriumModel_1_0_0DataCompositionsAtDepth
+public class ReservoirSimulationEquilibriumModel_1_0_0_Data_CompositionsAtDepth
 {
     /// <summary>
     /// Indicating that the table consists of phase component mole fractions versus depth. (Total, Liquid, Vapor, Aqueous, Residual Oil, Solid)

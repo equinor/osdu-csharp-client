@@ -23,20 +23,20 @@ public class AbstractBusinessRule_1_0_0
     /// The list of data rule sets that is relevant for this business process. Each data rule set reference is associated with a run-status.
     /// </summary>
     [JsonPropertyName("DataRuleSets")]
-    public List<AbstractBusinessRule_1_0_0DataRuleSets> DataRuleSets { get; set; }
+    public List<AbstractBusinessRule_1_0_0_DataRuleSets> DataRuleSets { get; set; }
 
     /// <summary>
     /// The list of individual data rules that is relevant for this business process. Each data rule reference is associated with a run-status.
     /// </summary>
     [JsonPropertyName("DataRules")]
-    public List<AbstractBusinessRule_1_0_0DataRules> DataRules { get; set; }
+    public List<AbstractBusinessRule_1_0_0_DataRules> DataRules { get; set; }
 
 }
 
 /// <summary>
 /// The list of data rule sets that is relevant for this business process. Each data rule set reference is associated with a run-status.
 /// </summary>
-public class AbstractBusinessRule_1_0_0DataRuleSets
+public class AbstractBusinessRule_1_0_0_DataRuleSets
 {
     /// <summary>
     /// The relationship to the QualityDataRuleSet.
@@ -57,7 +57,7 @@ public class AbstractBusinessRule_1_0_0DataRuleSets
 /// <summary>
 /// The list of individual data rules that is relevant for this business process. Each data rule reference is associated with a run-status.
 /// </summary>
-public class AbstractBusinessRule_1_0_0DataRules
+public class AbstractBusinessRule_1_0_0_DataRules
 {
     /// <summary>
     /// The relationship to the individual QualityDataRule.

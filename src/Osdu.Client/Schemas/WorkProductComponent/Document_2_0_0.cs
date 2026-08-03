@@ -89,11 +89,11 @@ public class Document_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Document_2_0_0Data? Data { get; set; }
+    public Document_2_0_0_Data? Data { get; set; }
 
 }
 
-public class Document_2_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class Document_2_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The Document Taxonomy provides a structured taxonomy for categorising document types. This taxonomy adheres to a consistent naming convention of a DISCIPLINE followed by a document type, using a dot-based nomenclature e.g., &lt;DISCIPLINE&gt;.&lt;Document Type&gt;. This creates a two level hierarchy of the document type to support classification and search. This a recommended property. A Document may have one or more document types (for example, End of Well Reports may contain a wide range of information).

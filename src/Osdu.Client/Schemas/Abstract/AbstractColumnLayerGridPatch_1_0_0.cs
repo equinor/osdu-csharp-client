@@ -85,7 +85,7 @@ public class AbstractColumnLayerGridPatch_1_0_0
     /// Indicate if a grid has been topologically expanded in a particular dimension (K expansion, J expansion, I expansion)
     /// </summary>
     [JsonPropertyName("ExpansionInDirection")]
-    public AbstractColumnLayerGridPatch_1_0_0ExpansionInDirection ExpansionInDirection { get; set; }
+    public AbstractColumnLayerGridPatch_1_0_0_ExpansionInDirection ExpansionInDirection { get; set; }
 
 }
 
@@ -93,7 +93,7 @@ public class AbstractColumnLayerGridPatch_1_0_0
 /// Indicate if a grid has been topologically expanded in a particular dimension (K expansion, J expansion, I expansion)
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractColumnLayerGridPatch_1_0_0ExpansionInDirection
+public enum AbstractColumnLayerGridPatch_1_0_0_ExpansionInDirection
 {
     [JsonStringEnumMemberName("I")]
     I,

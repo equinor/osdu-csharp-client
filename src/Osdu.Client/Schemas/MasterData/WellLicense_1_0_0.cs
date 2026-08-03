@@ -89,11 +89,11 @@ public class WellLicense_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellLicense_1_0_0Data? Data { get; set; }
+    public WellLicense_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellLicense_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class WellLicense_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// A Y/N flag indicating whether this license is currently either active / valid (Y) or inactive / invalid (N).

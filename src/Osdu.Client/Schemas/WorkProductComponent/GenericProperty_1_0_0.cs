@@ -89,11 +89,11 @@ public class GenericProperty_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public GenericProperty_1_0_0Data? Data { get; set; }
+    public GenericProperty_1_0_0_Data? Data { get; set; }
 
 }
 
-public class GenericProperty_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0, AbstractReferencePropertyType_1_1_0
+public class GenericProperty_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_0_0, AbstractWorkProductComponent_1_0_0, AbstractReferencePropertyType_1_1_0
 {
     /// <summary>
     /// The srn of the topology the property refers to (WPC srn)

@@ -32,13 +32,13 @@ public class PostDdmsV3WelllogsExample(IOsduClient osduClient) : ExampleBase
     {
         //return "Not run as we do not want to add dummy data in OSDU. Just check the code as an example";
 
-        WellLog_1_5_0Data wellLog = new WellLog_1_5_0Data()
+        WellLog_1_5_0_Data wellLog = new WellLog_1_5_0_Data()
         {
             WellboreID = WellboreId,
             TopMeasuredDepth = 1002.0,
             BottomMeasuredDepth = 2002.0,
             IsRegular = true,
-            Curves = [new WellLog_1_5_0DataCurves { CurveID = "MRKCurve1", Mnemonic = "MRKCurve1", CurveDescription = "MRK Curve1", NumberOfColumns = 1 }]
+            Curves = [new WellLog_1_5_0_Data_Curves { CurveID = "MRKCurve1", Mnemonic = "MRKCurve1", CurveDescription = "MRK Curve1", NumberOfColumns = 1 }]
         };
 
         List<Record> records = new List<Record>()

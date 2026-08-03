@@ -17,7 +17,7 @@ namespace Osdu.Client.Apis.CrsConversion;
 public class GeoJsonFeature
 {
     [JsonPropertyName("geoJsonVariantInternal")]
-    public GeoJsonFeatureGeoJsonVariantInternal GeoJsonVariantInternal { get; set; }
+    public GeoJsonFeature_GeoJsonVariantInternal GeoJsonVariantInternal { get; set; }
 
     [Required]
     [MinLength(1)]
@@ -30,7 +30,7 @@ public class GeoJsonFeature
 
     [Required]
     [JsonPropertyName("geometry")]
-    public GeoJsonFeatureGeometry Geometry { get; set; }
+    public GeoJsonFeature_Geometry Geometry { get; set; }
 
     [JsonPropertyName("properties")]
     public object? Properties { get; set; }
@@ -38,7 +38,7 @@ public class GeoJsonFeature
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum GeoJsonFeatureGeoJsonVariantInternal
+public enum GeoJsonFeature_GeoJsonVariantInternal
 {
     [JsonStringEnumMemberName("GEO_JSON")]
     GEOJSON,
@@ -58,6 +58,6 @@ public enum GeoJsonFeatureGeoJsonVariantInternal
 [JsonDerivedType(typeof(GeoJsonMultiPolygon), "GeoJsonMultiPolygon")]
 [JsonDerivedType(typeof(GeoJsonPoint), "GeoJsonPoint")]
 [JsonDerivedType(typeof(GeoJsonPolygon), "GeoJsonPolygon")]
-public abstract class GeoJsonFeatureGeometry
+public abstract class GeoJsonFeature_Geometry
 {
 }

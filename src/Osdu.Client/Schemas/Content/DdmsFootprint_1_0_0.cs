@@ -36,20 +36,20 @@ public class DdmsFootprint_1_0_0 : AbstractContent_1_0_0
     /// The data footprint of the DDMS.
     /// </summary>
     [JsonPropertyName("CoveredItems")]
-    public List<DdmsFootprint_1_0_0CoveredItems> CoveredItems { get; set; }
+    public List<DdmsFootprint_1_0_0_CoveredItems> CoveredItems { get; set; }
 
     /// <summary>
     /// An optional association of governing authorities to content types.
     /// </summary>
     [JsonPropertyName("AuthorityToContentTypes")]
-    public List<DdmsFootprint_1_0_0AuthorityToContentTypes> AuthorityToContentTypes { get; set; }
+    public List<DdmsFootprint_1_0_0_AuthorityToContentTypes> AuthorityToContentTypes { get; set; }
 
 }
 
 /// <summary>
 /// One group-type--EntityType 'catalog' item handled by the DDMS
 /// </summary>
-public class DdmsFootprint_1_0_0CoveredItems
+public class DdmsFootprint_1_0_0_CoveredItems
 {
     /// <summary>
     /// The well-known schema expressed as `authority:wks:group-type--EntityType:N.M.`, where the major version number N and minor M are optional. This way DDMSs can express minimum required major and minor version numbers for a given DDMS instance. If no major version N is specified, the DDMS is insensitive to schema versions.
@@ -69,7 +69,7 @@ public class DdmsFootprint_1_0_0CoveredItems
 /// <summary>
 /// Additional documentation based on the schema authority for the DDMS content.
 /// </summary>
-public class DdmsFootprint_1_0_0AuthorityToContentTypes
+public class DdmsFootprint_1_0_0_AuthorityToContentTypes
 {
     /// <summary>
     /// The authority governing the content types.
@@ -94,14 +94,14 @@ public class DdmsFootprint_1_0_0AuthorityToContentTypes
     /// The array of content type-documentation URL pairs for schemas served by the DDMS, governed by the Authority. The association to OSDU well-known schemas WKS is done via CoveredItems[].
     /// </summary>
     [JsonPropertyName("ContentTypeURLs")]
-    public List<DdmsFootprint_1_0_0AuthorityToContentTypesContentTypeURLs> ContentTypeURLs { get; set; }
+    public List<DdmsFootprint_1_0_0_AuthorityToContentTypes_ContentTypeURLs> ContentTypeURLs { get; set; }
 
 }
 
 /// <summary>
 /// A DDMS content type paired with a URL for further documentation.
 /// </summary>
-public class DdmsFootprint_1_0_0AuthorityToContentTypesContentTypeURLs
+public class DdmsFootprint_1_0_0_AuthorityToContentTypes_ContentTypeURLs
 {
     /// <summary>
     /// The content type or schema served by the DDMS.

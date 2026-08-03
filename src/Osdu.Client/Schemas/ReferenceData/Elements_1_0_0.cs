@@ -89,11 +89,11 @@ public class Elements_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public Elements_1_0_0Data? Data { get; set; }
+    public Elements_1_0_0_Data? Data { get; set; }
 
 }
 
-public class Elements_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
+public class Elements_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractReferenceType_1_0_0
 {
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

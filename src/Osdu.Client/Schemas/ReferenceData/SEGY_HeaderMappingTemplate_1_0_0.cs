@@ -89,11 +89,11 @@ public class SEGYHeaderMappingTemplate_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SEGYHeaderMappingTemplate_1_0_0Data? Data { get; set; }
+    public SEGYHeaderMappingTemplate_1_0_0_Data? Data { get; set; }
 
 }
 
-public class SEGYHeaderMappingTemplate_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0, AbstractVectorHeaderMapping_1_0_0
+public class SEGYHeaderMappingTemplate_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractReferenceType_1_0_0, AbstractVectorHeaderMapping_1_0_0
 {
     /// <summary>
     /// The SEG-Y standard revision for which the header mapping template is intended for.

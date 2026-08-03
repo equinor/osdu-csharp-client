@@ -89,11 +89,11 @@ public class SeismicHorizon_2_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public SeismicHorizon_2_0_0Data? Data { get; set; }
+    public SeismicHorizon_2_0_0_Data? Data { get; set; }
 
 }
 
-public class SeismicHorizon_2_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
+public class SeismicHorizon_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0, AbstractRepresentation_1_0_0
 {
     /// <summary>
     /// The relationship to the HorizonInterpretation that this SeismicHorizon representation is related to. This named property is intended to limit the AbstractRepresentation target property to a `HorizonInterpretation` for simplicity and clarity.

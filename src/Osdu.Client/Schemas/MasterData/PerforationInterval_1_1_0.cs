@@ -89,11 +89,11 @@ public class PerforationInterval_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public PerforationInterval_1_1_0Data? Data { get; set; }
+    public PerforationInterval_1_1_0_Data? Data { get; set; }
 
 }
 
-public class PerforationInterval_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
+public class PerforationInterval_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Business natural key or code of the parent Wellbore to which this record belongs

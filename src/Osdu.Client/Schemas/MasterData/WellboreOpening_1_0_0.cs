@@ -89,11 +89,11 @@ public class WellboreOpening_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreOpening_1_0_0Data? Data { get; set; }
+    public WellboreOpening_1_0_0_Data? Data { get; set; }
 
 }
 
-public class WellboreOpening_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0
+public class WellboreOpening_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0
 {
     /// <summary>
     /// Business natural key or code of the Wellbore to which this record belongs
@@ -118,7 +118,7 @@ public class WellboreOpening_1_0_0Data : AbstractCommonResources_1_0_0 // Also c
     /// The history of life cycle states this WellboreOpening has been through.
     /// </summary>
     [JsonPropertyName("WellboreOpeningStates")]
-    public List<WellboreOpening_1_0_0DataWellboreOpeningStates> WellboreOpeningStates { get; set; }
+    public List<WellboreOpening_1_0_0_Data_WellboreOpeningStates> WellboreOpeningStates { get; set; }
 
     [JsonPropertyName("VerticalMeasurement")]
     public AbstractFacilityVerticalMeasurement_1_0_0? VerticalMeasurement { get; set; }
@@ -175,7 +175,7 @@ public class WellboreOpening_1_0_0Data : AbstractCommonResources_1_0_0 // Also c
 /// <summary>
 /// The life cycle status of a WellboreOpening at some point in time.
 /// </summary>
-public class WellboreOpening_1_0_0DataWellboreOpeningStates
+public class WellboreOpening_1_0_0_Data_WellboreOpeningStates
 {
     /// <summary>
     /// The date and time at which the WellboreOpening state becomes effective.

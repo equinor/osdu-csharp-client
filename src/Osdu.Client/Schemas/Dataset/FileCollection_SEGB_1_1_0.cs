@@ -89,11 +89,11 @@ public class FileCollection_SEGB_1_1_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public FileCollection_SEGB_1_1_0Data? Data { get; set; }
+    public FileCollection_SEGB_1_1_0_Data? Data { get; set; }
 
 }
 
-public class FileCollection_SEGB_1_1_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1, AbstractVectorHeaderMapping_1_1_0
+public class FileCollection_SEGB_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1, AbstractVectorHeaderMapping_1_1_0
 {
     /// <summary>
     /// The dataset is accessible online if true, else offline.

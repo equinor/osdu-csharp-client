@@ -89,17 +89,17 @@ public class ETPDataspace_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public ETPDataspace_1_0_0Data? Data { get; set; }
+    public ETPDataspace_1_0_0_Data? Data { get; set; }
 
 }
 
-public class ETPDataspace_1_0_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0
+public class ETPDataspace_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0
 {
     /// <summary>
     /// The dataset specific properties for ETPDataspace.
     /// </summary>
     [JsonPropertyName("DatasetProperties")]
-    public ETPDataspace_1_0_0DataDatasetProperties? DatasetProperties { get; set; }
+    public ETPDataspace_1_0_0_Data_DatasetProperties? DatasetProperties { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,7 +109,7 @@ public class ETPDataspace_1_0_0Data : AbstractCommonResources_1_0_0 // Also comp
 /// <summary>
 /// The dataset specific properties for ETPDataspace.
 /// </summary>
-public class ETPDataspace_1_0_0DataDatasetProperties
+public class ETPDataspace_1_0_0_Data_DatasetProperties
 {
     /// <summary>
     /// The location of the ETP server over the web containing the Dataspace. Optional, only if the ETP server is located outside of an OSDU instance

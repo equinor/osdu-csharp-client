@@ -89,11 +89,11 @@ public class RigRiser_1_0_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public RigRiser_1_0_0Data? Data { get; set; }
+    public RigRiser_1_0_0_Data? Data { get; set; }
 
 }
 
-public class RigRiser_1_0_0Data : AbstractCommonResources_1_0_1 // Also composes: AbstractMaster_1_2_0
+public class RigRiser_1_0_0_Data : AbstractCommonResources_1_0_1 // Also composes: AbstractMaster_1_2_0
 {
     /// <summary>
     /// Riser body Outer Diameter.

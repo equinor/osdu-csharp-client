@@ -56,7 +56,7 @@ public class AbstractDataset_1_0_0
     /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
     /// </summary>
     [JsonPropertyName("Endian")]
-    public AbstractDataset_1_0_0Endian Endian { get; set; }
+    public AbstractDataset_1_0_0_Endian Endian { get; set; }
 
     /// <summary>
     /// Placeholder for a specialization.
@@ -71,7 +71,7 @@ public class AbstractDataset_1_0_0
 /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AbstractDataset_1_0_0Endian
+public enum AbstractDataset_1_0_0_Endian
 {
     [JsonStringEnumMemberName("BIG")]
     BIG,

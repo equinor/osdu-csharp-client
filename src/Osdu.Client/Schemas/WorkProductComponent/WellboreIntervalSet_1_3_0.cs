@@ -89,11 +89,11 @@ public class WellboreIntervalSet_1_3_0
     public List<AbstractMetaItem_1_0_0> Meta { get; set; }
 
     [JsonPropertyName("data")]
-    public WellboreIntervalSet_1_3_0Data? Data { get; set; }
+    public WellboreIntervalSet_1_3_0_Data? Data { get; set; }
 
 }
 
-public class WellboreIntervalSet_1_3_0Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
+public class WellboreIntervalSet_1_3_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractWPCGroupType_1_2_0, AbstractWorkProductComponent_1_1_0
 {
     /// <summary>
     /// The relationship to a Wellbore, to which this WellboreIntervalSet is associated with.
@@ -123,7 +123,7 @@ public class WellboreIntervalSet_1_3_0Data : AbstractCommonResources_1_0_0 // Al
     /// Array of Intervals, index-aligned with IntervalProperties.
     /// </summary>
     [JsonPropertyName("Intervals")]
-    public List<WellboreIntervalSet_1_3_0DataIntervals> Intervals { get; set; }
+    public List<WellboreIntervalSet_1_3_0_Data_Intervals> Intervals { get; set; }
 
     [JsonPropertyName("IntervalProperties")]
     public AbstractColumnBasedTable_1_2_0? IntervalProperties { get; set; }
@@ -139,7 +139,7 @@ public class WellboreIntervalSet_1_3_0Data : AbstractCommonResources_1_0_0 // Al
 /// <summary>
 /// An interval given either by relationships to top/base markers or standalone top/base depths. To avoid confusion about entry and exit depths the naming convention uses Start as the entry point of the well path into the geologic unit and Stop as the exit point. For unfolded geologic units and vertical wellbores Start is Top and Stop is Base.
 /// </summary>
-public class WellboreIntervalSet_1_3_0DataIntervals
+public class WellboreIntervalSet_1_3_0_Data_Intervals
 {
     /// <summary>
     /// The unique identifier of the interval array member in the data.Intervals[] array. Ideally a UUID. IntervalID is also used to associate IntervalProperties via the key column data.IntervalProperties.ColumnValues[0].StringColumn[].
