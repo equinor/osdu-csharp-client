@@ -11,6 +11,10 @@ internal sealed record SourceCodePanelResult(DockPanel Header, Border Content);
 internal sealed class SourceCodePanelBuilder(AppTheme theme)
 {
     private static readonly FontFamily MonoFont = new("Cascadia Code, Consolas, monospace");
+    private const double DefaultFontSize = 12;
+    private const double MinFontSize = 8;
+    private const double MaxFontSize = 24;
+    private const double FontSizeStep = 2;
 
     public SourceCodePanelResult Build(IExample example)
     {
@@ -22,7 +26,7 @@ internal sealed class SourceCodePanelBuilder(AppTheme theme)
             Foreground = theme.TextPrimaryBrush,
             BorderThickness = new Thickness(0),
             FontFamily = MonoFont,
-            FontSize = 12,
+            FontSize = DefaultFontSize,
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
             HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
@@ -36,25 +40,64 @@ internal sealed class SourceCodePanelBuilder(AppTheme theme)
             Visibility = Visibility.Collapsed
         };
 
-        var copyButton = new Button
+        // Right-aligned actions panel
+        var actionsPanel = new StackPanel { Orientation = Orientation.Horizontal };
+        DockPanel.SetDock(actionsPanel, Dock.Right);
+
+        // Font size label
+        var fontSizeLabel = new TextBlock
         {
-            Content = "📋 Copy",
-            Background = Brushes.Transparent,
-            Foreground = theme.TextSecondaryBrush,
-            BorderThickness = new Thickness(0),
-            Padding = new Thickness(8, 4, 8, 4),
+            Text = $"{DefaultFontSize:0}px",
+            Foreground = theme.TextMutedBrush,
             FontSize = 11,
-            FontWeight = FontWeights.SemiBold,
-            Cursor = System.Windows.Input.Cursors.Hand,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 4, 0)
         };
+
+        var decreaseButton = CreateHeaderButton("A−");
+        var increaseButton = CreateHeaderButton("A+");
+
+        decreaseButton.Click += (_, _) =>
+        {
+            if (sourceTextBox.FontSize - FontSizeStep >= MinFontSize)
+            {
+                sourceTextBox.FontSize -= FontSizeStep;
+                fontSizeLabel.Text = $"{sourceTextBox.FontSize:0}px";
+            }
+        };
+
+        increaseButton.Click += (_, _) =>
+        {
+            if (sourceTextBox.FontSize + FontSizeStep <= MaxFontSize)
+            {
+                sourceTextBox.FontSize += FontSizeStep;
+                fontSizeLabel.Text = $"{sourceTextBox.FontSize:0}px";
+            }
+        };
+
+        var resetFontButton = CreateHeaderButton("↺");
+        resetFontButton.ToolTip = "Reset font size";
+        resetFontButton.Click += (_, _) =>
+        {
+            sourceTextBox.FontSize = DefaultFontSize;
+            fontSizeLabel.Text = $"{DefaultFontSize:0}px";
+        };
+
+        actionsPanel.Children.Add(decreaseButton);
+        actionsPanel.Children.Add(fontSizeLabel);
+        actionsPanel.Children.Add(increaseButton);
+        actionsPanel.Children.Add(resetFontButton);
+
+        var copyButton = CreateHeaderButton("📋 Copy");
+        copyButton.Margin = new Thickness(8, 0, 0, 0);
         copyButton.Click += (_, _) =>
         {
             if (!string.IsNullOrEmpty(sourceTextBox.Text))
                 Clipboard.SetText(sourceTextBox.Text);
         };
-        DockPanel.SetDock(copyButton, Dock.Right);
-        heading.Children.Add(copyButton);
+        actionsPanel.Children.Add(copyButton);
+
+        heading.Children.Add(actionsPanel);
 
         var leftPanel = new StackPanel { Orientation = Orientation.Horizontal };
         leftPanel.Children.Add(new TextBlock
@@ -100,4 +143,17 @@ internal sealed class SourceCodePanelBuilder(AppTheme theme)
 
         return new SourceCodePanelResult(heading, panel);
     }
+
+    private Button CreateHeaderButton(string text) => new()
+    {
+        Content = text,
+        Background = Brushes.Transparent,
+        Foreground = theme.TextSecondaryBrush,
+        BorderThickness = new Thickness(0),
+        Padding = new Thickness(6, 4, 6, 4),
+        FontSize = 11,
+        FontWeight = FontWeights.SemiBold,
+        Cursor = System.Windows.Input.Cursors.Hand,
+        VerticalAlignment = VerticalAlignment.Center
+    };
 }
