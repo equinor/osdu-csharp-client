@@ -57,7 +57,7 @@ public class ObjectExtensionsGenerator
                           /// <summary>
                           /// Deserializes a list of objects to a strongly-typed list.
                           /// </summary>
-                          public static List<T> DeserializeList<T>(this IEnumerable<object> objects, JsonSerializerOptions? options = null)
+                          public static List<T> Deserialize<T>(this IEnumerable<object> objects, JsonSerializerOptions? options = null)
                           {
                               return objects.Select(obj => obj.Deserialize<T>(options)).ToList();
                           }

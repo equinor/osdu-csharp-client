@@ -45,7 +45,7 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
             return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
         }
 
-        IEnumerable<WellLog_1_5_0> wellbores = response.Results.DeserializeList<WellLog_1_5_0>();
+        IEnumerable<WellLog_1_5_0> wellbores = response.Results.Deserialize<WellLog_1_5_0>();
         StringBuilder sb = new StringBuilder();
         foreach (WellLog_1_5_0 wellLog in wellbores)
         {

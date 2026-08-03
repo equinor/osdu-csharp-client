@@ -28,7 +28,7 @@ public class UnitTest1
         };
 
         QueryResponse response = await searchClient.PostQueryAsync(body, CancellationToken.None);
-        IEnumerable<Wellbore_1_5_0> list = response.Results.DeserializeList<Wellbore_1_5_0>();
+        IEnumerable<Wellbore_1_5_0> list = response.Results.Deserialize<Wellbore_1_5_0>();
 
         //List<Wellbore_1_5_0> typedResults = response.GetResults<Wellbore_1_5_0>();
 

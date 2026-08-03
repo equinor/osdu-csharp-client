@@ -39,7 +39,7 @@ public partial class MainWindow : Window
 
     //        QueryResponse? response = await _osduClient.Search.PostQueryAsync(request);
 
-    //        IEnumerable<Wellbore_1_3_0> wellbores = response.Results.DeserializeList<Wellbore_1_3_0>();
+    //        IEnumerable<Wellbore_1_3_0> wellbores = response.Results.Deserialize<Wellbore_1_3_0>();
 
     //        StatusText.Text = $"Found {response.TotalCount} result(s).";
 
