@@ -30,8 +30,7 @@ internal sealed class SourceCodePanelBuilder(AppTheme theme)
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
             HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            MaxHeight = 350
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto
         };
 
         var heading = new DockPanel
