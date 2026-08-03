@@ -42,7 +42,8 @@ public class AbstractFileSourceInfo_1_0_0
     /// Optional create date and time of the file prior to up-loading to the platform.
     /// </summary>
     [JsonPropertyName("PreloadFileCreateDate")]
-    public DateTimeOffset PreloadFileCreateDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PreloadFileCreateDate { get; set; }
 
     /// <summary>
     /// Optional user name or reference, who last modified the file prior to up-loading to the platform.
@@ -54,7 +55,8 @@ public class AbstractFileSourceInfo_1_0_0
     /// Optional last modified date and time of the file prior to up-loading to the platform.
     /// </summary>
     [JsonPropertyName("PreloadFileModifyDate")]
-    public DateTimeOffset PreloadFileModifyDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PreloadFileModifyDate { get; set; }
 
     /// <summary>
     /// Optional, user-friendly file name.

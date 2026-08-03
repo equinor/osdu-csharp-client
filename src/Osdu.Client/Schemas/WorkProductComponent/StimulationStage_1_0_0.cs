@@ -59,7 +59,8 @@ public class StimulationStage_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class StimulationStage_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -126,13 +128,15 @@ public class StimulationStage_1_0_0_Data : AbstractCommonResources_1_0_0 // Also
     /// Starting date and time for the stage treatment.
     /// </summary>
     [JsonPropertyName("StageStartDateTime")]
-    public DateTimeOffset StageStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StageStartDateTime { get; set; }
 
     /// <summary>
     /// Ending date and time for the stage treatment.
     /// </summary>
     [JsonPropertyName("StageEndDateTime")]
-    public DateTimeOffset StageEndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StageEndDateTime { get; set; }
 
     /// <summary>
     /// Measured depth at the top of the stimulated interval.
@@ -706,7 +710,8 @@ public class StimulationStage_1_0_0_Data_JobEvent
     /// Date and time of this event.
     /// </summary>
     [JsonPropertyName("DateTime")]
-    public DateTimeOffset DateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DateTime { get; set; }
 
     /// <summary>
     /// Step number. Use it to reference an existing job step entry.
@@ -757,13 +762,15 @@ public class StimulationStage_1_0_0_Data_JobStep
     /// Date and time the step started.
     /// </summary>
     [JsonPropertyName("StepStartDateTime")]
-    public DateTimeOffset StepStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StepStartDateTime { get; set; }
 
     /// <summary>
     /// Date and time the step ended.
     /// </summary>
     [JsonPropertyName("StepEndDateTime")]
-    public DateTimeOffset StepEndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StepEndDateTime { get; set; }
 
     /// <summary>
     /// Fluid used for this job step of the stimulated interval.
@@ -1323,7 +1330,8 @@ public class StimulationStage_1_0_0_Data_FlowPath
     /// Date that the bridge plug for this stage was removed.
     /// </summary>
     [JsonPropertyName("BridgePlugRemovalDate")]
-    public DateTimeOffset BridgePlugRemovalDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? BridgePlugRemovalDate { get; set; }
 
     /// <summary>
     /// The maximum measured depth of the tubing used for treatment of a stage.
@@ -1535,7 +1543,8 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession
     /// The date and time when the fluid in the fracture is completely leaked off into the formation and the fracture closes on its faces.
     /// </summary>
     [JsonPropertyName("FractureCloseDateTime")]
-    public DateTimeOffset FractureCloseDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? FractureCloseDateTime { get; set; }
 
     /// <summary>
     /// The pressure when the fracture width becomes zero.
@@ -1596,13 +1605,15 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession
     /// The date and time pumping ended.
     /// </summary>
     [JsonPropertyName("PumpOffDateTime")]
-    public DateTimeOffset PumpOffDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PumpOffDateTime { get; set; }
 
     /// <summary>
     /// The date and time pumping began.
     /// </summary>
     [JsonPropertyName("PumpOnDateTime")]
-    public DateTimeOffset PumpOnDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PumpOnDateTime { get; set; }
 
     /// <summary>
     /// The volume change of a reservoir material when pressure is applied.
@@ -1656,7 +1667,8 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession
     /// The date and time at which a well ceases flowing and the valves are closed.
     /// </summary>
     [JsonPropertyName("WellShutinDateTime")]
-    public DateTimeOffset WellShutinDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? WellShutinDateTime { get; set; }
 
     /// <summary>
     /// Remarks
@@ -1736,7 +1748,8 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession_StepDownTest_Flow
     /// Time stamp of the pressure measurement.
     /// </summary>
     [JsonPropertyName("DateTime")]
-    public DateTimeOffset DateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DateTime { get; set; }
 
     /// <summary>
     /// Bottomhole flow rate for the specific step.
@@ -1841,13 +1854,15 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession_FluidEfficiencyTe
     /// Start time for the FET.
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// End time for the FET.
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// An analysis method used for this FET.
@@ -1945,13 +1960,15 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession_PumpFlowBackTest
     /// Start time for the test.
     /// </summary>
     [JsonPropertyName("FlowBackStartDateTime")]
-    public DateTimeOffset FlowBackStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? FlowBackStartDateTime { get; set; }
 
     /// <summary>
     /// End time for the test.
     /// </summary>
     [JsonPropertyName("FlowBackEndDateTime")]
-    public DateTimeOffset FlowBackEndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? FlowBackEndDateTime { get; set; }
 
     /// <summary>
     /// Step
@@ -2012,7 +2029,8 @@ public class StimulationStage_1_0_0_Data_PumpDiagnosticSession_PumpFlowBackTest_
     /// Time stamp of the pressure measurement.
     /// </summary>
     [JsonPropertyName("DateTime")]
-    public DateTimeOffset DateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DateTime { get; set; }
 
     /// <summary>
     /// Bottomhole flow rate for the specific step.

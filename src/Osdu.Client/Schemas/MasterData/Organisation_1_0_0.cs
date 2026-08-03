@@ -59,7 +59,8 @@ public class Organisation_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class Organisation_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -136,13 +138,15 @@ public class Organisation_1_0_0_Data : AbstractCommonResources_1_0_0 // Also com
     /// The date and time at which a given organisation becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDate")]
-    public DateTimeOffset EffectiveDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDate { get; set; }
 
     /// <summary>
     /// The date and time at which a given organisation is no longer in effect.
     /// </summary>
     [JsonPropertyName("TerminationDate")]
-    public DateTimeOffset TerminationDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDate { get; set; }
 
     /// <summary>
     /// Category the organisational structure fits into. Possible values - Operating Unit, Operating sub Unit, A Business, A Department, Government Agency, etc.

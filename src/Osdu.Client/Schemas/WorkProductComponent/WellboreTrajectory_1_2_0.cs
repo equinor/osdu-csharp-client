@@ -59,7 +59,8 @@ public class WellboreTrajectory_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class WellboreTrajectory_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -153,7 +155,8 @@ public class WellboreTrajectory_1_2_0_Data : AbstractCommonResources_1_0_0 // Al
     /// The date that the survey data was acquired on the field.
     /// </summary>
     [JsonPropertyName("AcquisitionDate")]
-    public DateTimeOffset AcquisitionDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? AcquisitionDate { get; set; }
 
     /// <summary>
     /// Coordinate Reference System defining the Geodetic Datum of the station LATITUDE and LONGITUDE values. If LATITUDE and LONGITUDE attributes are stored, clearly identifying their Datum is required.
@@ -230,7 +233,8 @@ public class WellboreTrajectory_1_2_0_Data : AbstractCommonResources_1_0_0 // Al
     /// Date/time when the directional Survey QA/QC was performed.
     /// </summary>
     [JsonPropertyName("AppliedOperationsDateTime")]
-    public DateTimeOffset AppliedOperationsDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? AppliedOperationsDateTime { get; set; }
 
     /// <summary>
     /// Name of Borehole Survey specialist who performed the QA/QC work
@@ -248,13 +252,15 @@ public class WellboreTrajectory_1_2_0_Data : AbstractCommonResources_1_0_0 // Al
     /// The date and time capturing when the first survey station was measured.
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// The date and time capturing when the last survey station was measured.
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// The relationship to company who engaged the service company (ServiceCompanyID) to perform the surveying.

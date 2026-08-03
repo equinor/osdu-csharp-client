@@ -59,7 +59,8 @@ public class Sample_3_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class Sample_3_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -202,13 +204,15 @@ public class Sample_3_0_0_Data_SampleAcquisition
     /// The start date and time of the acquisition event.
     /// </summary>
     [JsonPropertyName("AcquisitionStartDate")]
-    public DateTimeOffset AcquisitionStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? AcquisitionStartDate { get; set; }
 
     /// <summary>
     /// The end date and time of the acquisition event.
     /// </summary>
     [JsonPropertyName("AcquisitionEndDate")]
-    public DateTimeOffset AcquisitionEndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? AcquisitionEndDate { get; set; }
 
     /// <summary>
     /// A remark object, pairing a remark text with a source, e.g. an author, and a date, which is typically included in an array.
@@ -657,13 +661,15 @@ public class Sample_3_0_0_Data_SamplePreparation
     /// This represents the start date for the sample preparation process.
     /// </summary>
     [JsonPropertyName("SamplePreparationStartDate")]
-    public DateTimeOffset SamplePreparationStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? SamplePreparationStartDate { get; set; }
 
     /// <summary>
     /// This represents the end date for the sample preparation process.
     /// </summary>
     [JsonPropertyName("SamplePreparationEndDate")]
-    public DateTimeOffset SamplePreparationEndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? SamplePreparationEndDate { get; set; }
 
     /// <summary>
     /// This captures other pertinent information regarding the sample preparation process.

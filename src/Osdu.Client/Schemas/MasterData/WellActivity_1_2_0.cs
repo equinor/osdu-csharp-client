@@ -59,7 +59,8 @@ public class WellActivity_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class WellActivity_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -150,13 +152,15 @@ public class WellActivity_1_2_0_Data : AbstractCommonResources_1_0_0 // Also com
     /// Timestamp for the beginning of the Well Activity
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// Timestamp for the end of the Well Activity
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// Name of the individual that approved the quality check for the data
@@ -168,25 +172,29 @@ public class WellActivity_1_2_0_Data : AbstractCommonResources_1_0_0 // Also com
     /// DEPRECATED: Superseded by DataQCReviewerName (format and x-osdu-frame-of-reference changed). Name of the individual that approved the quality check for the data
     /// </summary>
     [JsonPropertyName("DataQCName")]
-    public DateTimeOffset DataQCName { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataQCName { get; set; }
 
     /// <summary>
     /// Date of data quality check approval
     /// </summary>
     [JsonPropertyName("DataQCDate")]
-    public DateTimeOffset DataQCDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataQCDate { get; set; }
 
     /// <summary>
     /// Timestamp for when well was taken off production for well activity
     /// </summary>
     [JsonPropertyName("OffProductionDateTime")]
-    public DateTimeOffset OffProductionDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? OffProductionDateTime { get; set; }
 
     /// <summary>
     /// Timestamp for when the well is returned to production following well activity
     /// </summary>
     [JsonPropertyName("OnProductionDateTime")]
-    public DateTimeOffset OnProductionDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? OnProductionDateTime { get; set; }
 
     /// <summary>
     /// Flag to identify whether data has been submitted for performance benchmarking
@@ -205,7 +213,8 @@ public class WellActivity_1_2_0_Data : AbstractCommonResources_1_0_0 // Also com
     /// Date Performance Benchmark was submitted
     /// </summary>
     [JsonPropertyName("PerformanceBenchmarkSubmittedDate")]
-    public DateTimeOffset PerformanceBenchmarkSubmittedDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PerformanceBenchmarkSubmittedDate { get; set; }
 
     /// <summary>
     /// Freeform comments describing the overall well activity
@@ -258,13 +267,15 @@ public class WellActivity_1_2_0_Data_RigAssignments
     /// The start time for this rig assignment to the well activity
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// The end time for this rig assignment to the well activity
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// Remarks related to this rig assignment

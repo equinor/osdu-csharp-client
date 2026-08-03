@@ -59,7 +59,8 @@ public class BlowoutPreventer_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class BlowoutPreventer_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -131,19 +133,22 @@ public class BlowoutPreventer_1_0_0_Data : AbstractCommonResources_1_0_0 // Also
     /// Date and time the blowout preventer was installed.
     /// </summary>
     [JsonPropertyName("InstallationDateTime")]
-    public DateTimeOffset InstallationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? InstallationDateTime { get; set; }
 
     /// <summary>
     /// Date and time the blowout preventer was removed.
     /// </summary>
     [JsonPropertyName("RemovalDateTime")]
-    public DateTimeOffset RemovalDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? RemovalDateTime { get; set; }
 
     /// <summary>
     /// The last data and time the blowout preventer was certified.
     /// </summary>
     [JsonPropertyName("LastCertificationDateTime")]
-    public DateTimeOffset LastCertificationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastCertificationDateTime { get; set; }
 
     /// <summary>
     /// Unique identifier for the manufacturer of this equipment.

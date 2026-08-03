@@ -59,7 +59,8 @@ public class BHARun_1_1_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class BHARun_1_1_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -128,25 +130,29 @@ public class BHARun_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes:
     /// Date and time that activities started.
     /// </summary>
     [JsonPropertyName("ActivityStartDateTime")]
-    public DateTimeOffset ActivityStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ActivityStartDateTime { get; set; }
 
     /// <summary>
     /// Date and time that activities stopped.
     /// </summary>
     [JsonPropertyName("ActivityStopDateTime")]
-    public DateTimeOffset ActivityStopDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ActivityStopDateTime { get; set; }
 
     /// <summary>
     /// Start on bottom - date and time.
     /// </summary>
     [JsonPropertyName("DrillingStartDateTime")]
-    public DateTimeOffset DrillingStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DrillingStartDateTime { get; set; }
 
     /// <summary>
     /// Start off bottom - date and time.
     /// </summary>
     [JsonPropertyName("DrillingStopDateTime")]
-    public DateTimeOffset DrillingStopDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DrillingStopDateTime { get; set; }
 
     /// <summary>
     /// Dogleg severity.
@@ -1919,7 +1925,8 @@ public class BHARun_1_1_0_Data_DrillingParams
     /// BUSINESS RULE: When reporting an actual as opposed to design, this is required.
     /// </summary>
     [JsonPropertyName("BitRunTIme")]
-    public DateTimeOffset BitRunTIme { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? BitRunTIme { get; set; }
 
     /// <summary>
     /// Measured depth at start of the run.

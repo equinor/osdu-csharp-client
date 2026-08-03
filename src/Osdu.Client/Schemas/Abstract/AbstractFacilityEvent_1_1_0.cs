@@ -30,13 +30,15 @@ public class AbstractFacilityEvent_1_1_0
     /// The date and time at which the event took place or takes effect.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The date and time at which the event is no longer in effect. For point-in-time events the 'TerminationDateTime' must be set equal to 'EffectiveDateTime'. Open time intervals have an absent 'TerminationDateTime'.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
     /// <summary>
     /// A comment or remark about the facility event.

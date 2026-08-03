@@ -63,7 +63,8 @@ public class AbstractLabelAndValue_1_0_0
     /// A label value as date or date time. Only populated if the associated labelType data.ValueType is 'string'. The label type's ValueCount must be 1.
     /// </summary>
     [JsonPropertyName("ValueAsDateTime")]
-    public DateTimeOffset ValueAsDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ValueAsDateTime { get; set; }
 
     /// <summary>
     /// A numeric, floating point label value. Only populated if the associated labelType data.ValueType is 'number'. The label type's ValueCount is greater than 1.

@@ -59,7 +59,8 @@ public class DataQualityRule_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class DataQualityRule_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -123,7 +125,8 @@ public class DataQualityRule_1_0_0_Data : AbstractCommonResources_1_0_0 // Also 
     /// Date of creation of data rule independent of OSDU.
     /// </summary>
     [JsonPropertyName("DataRuleCreatedOn")]
-    public DateTimeOffset DataRuleCreatedOn { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataRuleCreatedOn { get; set; }
 
     /// <summary>
     /// User that created the rule independent of OSDU.
@@ -135,13 +138,15 @@ public class DataQualityRule_1_0_0_Data : AbstractCommonResources_1_0_0 // Also 
     /// Timestamp of the time when the data rule was published independent of OSDU.
     /// </summary>
     [JsonPropertyName("DataRulePublishedOn")]
-    public DateTimeOffset DataRulePublishedOn { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataRulePublishedOn { get; set; }
 
     /// <summary>
     /// Timestamp of the time when the data rule was updated independent of OSDU.
     /// </summary>
     [JsonPropertyName("DataRuleUpdatedOn")]
-    public DateTimeOffset DataRuleUpdatedOn { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataRuleUpdatedOn { get; set; }
 
     /// <summary>
     /// Dimension of the Rule indicating the rule purpose like completeness, validity etc.

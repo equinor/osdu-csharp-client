@@ -59,7 +59,8 @@ public class RigUtilization_2_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class RigUtilization_2_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -125,13 +127,15 @@ public class RigUtilization_2_0_0_Data : AbstractCommonResources_1_0_0 // Also c
     /// The start date and time when operations performed with this rig started (Rig on location date)
     /// </summary>
     [JsonPropertyName("StartDateActivity")]
-    public DateTimeOffset StartDateActivity { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateActivity { get; set; }
 
     /// <summary>
     /// The end date and time when operations performed with this rig ended. (Rig off location date)
     /// </summary>
     [JsonPropertyName("EndDateActivity")]
-    public DateTimeOffset EndDateActivity { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateActivity { get; set; }
 
     /// <summary>
     /// Air gap from the rig floor to the ground or mean sea level, depending on the rig location. This is typically a static number and will have only one record in the array, but can change in offshore operations when the rig is raised or lowered.
@@ -153,13 +157,15 @@ public class RigUtilization_2_0_0_Data_AirGaps
     /// The start date and time the air gap measurement takes affect on the rig.
     /// </summary>
     [JsonPropertyName("StartDate")]
-    public DateTimeOffset StartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDate { get; set; }
 
     /// <summary>
     /// The end date and time  the air gap measurement takes affect on the rig.
     /// </summary>
     [JsonPropertyName("EndDate")]
-    public DateTimeOffset EndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDate { get; set; }
 
     /// <summary>
     /// Air gap from the rig floor to the ground or mean sea level, depending on the rig location.

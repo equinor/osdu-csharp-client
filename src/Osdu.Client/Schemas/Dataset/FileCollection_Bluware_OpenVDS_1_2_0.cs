@@ -59,7 +59,8 @@ public class FileCollection_Bluware_OpenVDS_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class FileCollection_Bluware_OpenVDS_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -105,13 +107,15 @@ public class FileCollection_Bluware_OpenVDS_1_2_0_Data : AbstractCommonResources
     /// The time in ISO-8601 format when the data was imported to VDS.
     /// </summary>
     [JsonPropertyName("ImportTimeStamp")]
-    public DateTimeOffset ImportTimeStamp { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ImportTimeStamp { get; set; }
 
     /// <summary>
     /// Time of creation of the VDS in ISO8601 format.
     /// </summary>
     [JsonPropertyName("CreationTime")]
-    public DateTimeOffset CreationTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreationTime { get; set; }
 
     /// <summary>
     /// Version number of the VDS object store format specification implemented by the application that created the VDS.

@@ -59,7 +59,8 @@ public class ConnectedSourceDataJob_1_6_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class ConnectedSourceDataJob_1_6_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -161,7 +163,8 @@ public class ConnectedSourceDataJob_1_6_0_Data : AbstractCommonResources_1_0_0 /
     /// The last successful run date of the job (UTC)
     /// </summary>
     [JsonPropertyName("LastSuccessfulRunDateUTC")]
-    public DateTimeOffset LastSuccessfulRunDateUTC { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastSuccessfulRunDateUTC { get; set; }
 
     /// <summary>
     /// The maximum number of records to be processed in this job.
@@ -185,7 +188,8 @@ public class ConnectedSourceDataJob_1_6_0_Data : AbstractCommonResources_1_0_0 /
     /// The maximum create/update time for data records (UTC).
     /// </summary>
     [JsonPropertyName("CreateTimeMax")]
-    public DateTimeOffset CreateTimeMax { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTimeMax { get; set; }
 
     /// <summary>
     /// Source system schema authority.
@@ -197,13 +201,15 @@ public class ConnectedSourceDataJob_1_6_0_Data : AbstractCommonResources_1_0_0 /
     /// Start time of the records to be fetched from the source system.
     /// </summary>
     [JsonPropertyName("FetchStartDateTime")]
-    public DateTimeOffset FetchStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? FetchStartDateTime { get; set; }
 
     /// <summary>
     /// End time of the records to be fetched from the source system.
     /// </summary>
     [JsonPropertyName("FetchEndDateTime")]
-    public DateTimeOffset FetchEndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? FetchEndDateTime { get; set; }
 
     /// <summary>
     /// A fixed dummy master ID is set in advance and will be used if the master record is unavailable in the consumer system. Multiple master ids can be defined as array members; ids are defined without data-partition example: 'master-data--Well:DummyWell'.

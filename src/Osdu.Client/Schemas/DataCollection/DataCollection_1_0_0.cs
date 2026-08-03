@@ -43,7 +43,8 @@ public class DataCollection_1_0_0
     /// Creation DateTime
     /// </summary>
     [JsonPropertyName("CreationDateTime")]
-    public DateTimeOffset CreationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreationDateTime { get; set; }
 
     /// <summary>
     /// Array of Tag Names

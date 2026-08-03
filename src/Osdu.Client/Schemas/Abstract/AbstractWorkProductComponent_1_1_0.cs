@@ -35,7 +35,8 @@ public class AbstractWorkProductComponent_1_1_0
     /// Date that a resource (work  product component here) is formed outside of OSDU before loading (e.g. publication date).
     /// </summary>
     [JsonPropertyName("CreationDateTime")]
-    public DateTimeOffset CreationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreationDateTime { get; set; }
 
     /// <summary>
     /// Array of key words to identify the work product, especially to help in search.

@@ -48,12 +48,14 @@ public class Record
     public object? Tags { get; set; }
 
     [JsonPropertyName("createTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset? CreateTime { get; set; }
 
     [JsonPropertyName("createUser")]
     public string? CreateUser { get; set; }
 
     [JsonPropertyName("modifyTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset? ModifyTime { get; set; }
 
     [JsonPropertyName("modifyUser")]

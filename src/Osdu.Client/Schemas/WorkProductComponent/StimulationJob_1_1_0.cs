@@ -59,7 +59,8 @@ public class StimulationJob_1_1_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class StimulationJob_1_1_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -143,19 +145,22 @@ public class StimulationJob_1_1_0_Data : AbstractCommonResources_1_0_0 // Also c
     /// Start date and time of the stimulation job.
     /// </summary>
     [JsonPropertyName("JobStartDateTime")]
-    public DateTimeOffset JobStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? JobStartDateTime { get; set; }
 
     /// <summary>
     /// Ending date and time of the stimulation job.
     /// </summary>
     [JsonPropertyName("JobEndDateTime")]
-    public DateTimeOffset JobEndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? JobEndDateTime { get; set; }
 
     /// <summary>
     /// Date and time at which the stimulation contractor arrives on location.
     /// </summary>
     [JsonPropertyName("ArrivalDateTime")]
-    public DateTimeOffset ArrivalDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ArrivalDateTime { get; set; }
 
     /// <summary>
     /// Object that contains the Additives and Proppants on location and used in the stimulation job.

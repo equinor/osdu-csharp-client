@@ -59,7 +59,8 @@ public class OperationsReport_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class OperationsReport_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -99,13 +101,15 @@ public class OperationsReport_1_2_0_Data : AbstractCommonResources_1_0_0 // Also
     /// Date and time that the reporting period started. A report period is commonly 24 hours.
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// Date and time that the reporting period ended. A report period is commonly 24 hours.
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// Information about a bit.
@@ -565,19 +569,22 @@ public class OperationsReport_1_2_0_Data_DrillActivity
     /// DEPRECATED: Use data.OperationsActivity.StartDateTime instead. Date and time that activities started.
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// DEPRECATED: Use data.OperationsActivity.EndDateTime instead. Date and time that activities ended.
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// DEPRECATED: Transform the string value to a number and assign it to data.OperationsActivity.ActualDuration (and assign the actual unit in meta[]). The activity duration (commonly in hours).
     /// </summary>
     [JsonPropertyName("Duration")]
-    public DateTimeOffset Duration { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? Duration { get; set; }
 
     /// <summary>
     /// DEPRECATED: Use data.OperationsActivity.MeasuredDepth instead. The measured depth to the drilling activity/operation.
@@ -831,13 +838,15 @@ public class OperationsReport_1_2_0_Data_OperationsActivity
     /// Date and time that activities started.
     /// </summary>
     [JsonPropertyName("StartDateTime")]
-    public DateTimeOffset StartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateTime { get; set; }
 
     /// <summary>
     /// Date and time that activities ended.
     /// </summary>
     [JsonPropertyName("EndDateTime")]
-    public DateTimeOffset EndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateTime { get; set; }
 
     /// <summary>
     /// Actual duration of the activity.
@@ -1153,6 +1162,7 @@ public class OperationsReport_1_2_0_Data_StatusInfo
     /// </summary>
     [Required]
     [JsonPropertyName("StatusDateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset StatusDateTime { get; set; }
 
     /// <summary>
@@ -1508,7 +1518,8 @@ public class OperationsReport_1_2_0_Data_TimedComments
     /// The time that the comment was made
     /// </summary>
     [JsonPropertyName("CommentTime")]
-    public DateTimeOffset CommentTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CommentTime { get; set; }
 
 }
 
@@ -1588,6 +1599,7 @@ public class OperationsReport_1_2_0_Data_Weather
     /// </summary>
     [Required]
     [JsonPropertyName("DateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset DateTime { get; set; }
 
     /// <summary>
@@ -1723,6 +1735,7 @@ public class OperationsReport_1_2_0_Data_PumpOp
     /// </summary>
     [Required]
     [JsonPropertyName("DateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset DateTime { get; set; }
 
     /// <summary>
@@ -1822,6 +1835,7 @@ public class OperationsReport_1_2_0_Data_MudVolume
     /// </summary>
     [Required]
     [JsonPropertyName("DateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset DateTime { get; set; }
 
     /// <summary>
@@ -2217,67 +2231,78 @@ public class OperationsReport_1_2_0_Data_HSE
     /// Last abandonment drill.
     /// </summary>
     [JsonPropertyName("LastAbandonDrillDate")]
-    public DateTimeOffset LastAbandonDrillDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastAbandonDrillDate { get; set; }
 
     /// <summary>
     /// Last blow out preventer drill.
     /// </summary>
     [JsonPropertyName("LastBopDrillDate")]
-    public DateTimeOffset LastBopDrillDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastBopDrillDate { get; set; }
 
     /// <summary>
     /// Last blow out preventer pressure test.
     /// </summary>
     [JsonPropertyName("LastBopPressureTestDate")]
-    public DateTimeOffset LastBopPressureTestDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastBopPressureTestDate { get; set; }
 
     /// <summary>
     /// Last casing pressure test date and time.
     /// </summary>
     [JsonPropertyName("LastCasingPressureTestDate")]
-    public DateTimeOffset LastCasingPressureTestDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastCasingPressureTestDate { get; set; }
 
     /// <summary>
     /// Last diverter drill.
     /// </summary>
     [JsonPropertyName("LastDiverterDrillDate")]
-    public DateTimeOffset LastDiverterDrillDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastDiverterDrillDate { get; set; }
 
     /// <summary>
     /// Last fire or life boat drill.
     /// </summary>
     [JsonPropertyName("LastFireBoatDrillDate")]
-    public DateTimeOffset LastFireBoatDrillDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastFireBoatDrillDate { get; set; }
 
     /// <summary>
     /// Last rig inspection/check.
     /// </summary>
     [JsonPropertyName("LastRigInspectionDate")]
-    public DateTimeOffset LastRigInspectionDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastRigInspectionDate { get; set; }
 
     /// <summary>
     /// Last safety inspection.
     /// </summary>
     [JsonPropertyName("LastSafetyInspectionDate")]
-    public DateTimeOffset LastSafetyInspectionDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastSafetyInspectionDate { get; set; }
 
     /// <summary>
     /// Last safety meeting.
     /// </summary>
     [JsonPropertyName("LastSafetyMeetingDate")]
-    public DateTimeOffset LastSafetyMeetingDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastSafetyMeetingDate { get; set; }
 
     /// <summary>
     /// Last trip drill.
     /// </summary>
     [JsonPropertyName("LastTripDrillDate")]
-    public DateTimeOffset LastTripDrillDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastTripDrillDate { get; set; }
 
     /// <summary>
     /// Next blow out preventer pressure test.
     /// </summary>
     [JsonPropertyName("NextBopPresTestDate")]
-    public DateTimeOffset NextBopPresTestDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? NextBopPresTestDate { get; set; }
 
     /// <summary>
     /// Inspection non-compliance notice served?
@@ -2383,6 +2408,7 @@ public class OperationsReport_1_2_0_Data_Incident
     /// </summary>
     [Required]
     [JsonPropertyName("DateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset DateTime { get; set; }
 
     /// <summary>
@@ -2477,6 +2503,7 @@ public class OperationsReport_1_2_0_Data_MudLosses
     /// </summary>
     [Required]
     [JsonPropertyName("DateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset DateTime { get; set; }
 
     /// <summary>
@@ -2593,6 +2620,7 @@ public class OperationsReport_1_2_0_Data_GasReading
     /// </summary>
     [Required]
     [JsonPropertyName("DateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset DateTime { get; set; }
 
     /// <summary>

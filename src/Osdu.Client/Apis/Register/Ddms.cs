@@ -39,7 +39,8 @@ public class Ddms
     public string ContactEmail { get; set; }
 
     [JsonPropertyName("createdDateTimeEpoch")]
-    public DateTimeOffset CreatedDateTimeEpoch { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreatedDateTimeEpoch { get; set; }
 
     [JsonPropertyName("interfaces")]
     public List<RegisteredInterface> Interfaces { get; set; }

@@ -35,7 +35,8 @@ public class AbstractCollaborationLifecycleEvent_1_0_0
     /// The date and time of the event.
     /// </summary>
     [JsonPropertyName("DateTime")]
-    public DateTimeOffset DateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DateTime { get; set; }
 
     /// <summary>
     /// A user defined remark associated with this event.

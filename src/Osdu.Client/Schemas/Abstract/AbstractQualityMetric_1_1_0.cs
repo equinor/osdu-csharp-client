@@ -23,7 +23,8 @@ public class AbstractQualityMetric_1_1_0
     /// Run timestamp of the Business data quality ruleset.
     /// </summary>
     [JsonPropertyName("RunDateTime")]
-    public DateTimeOffset RunDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? RunDateTime { get; set; }
 
     /// <summary>
     /// Total number of metadata attributes for object in scope.

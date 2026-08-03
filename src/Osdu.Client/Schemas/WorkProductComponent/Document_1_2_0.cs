@@ -59,7 +59,8 @@ public class Document_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class Document_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -124,13 +126,15 @@ public class Document_1_2_0_Data : AbstractCommonResources_1_0_0 // Also compose
     /// The UTC date time and date of the document publication
     /// </summary>
     [JsonPropertyName("DatePublished")]
-    public DateTimeOffset DatePublished { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DatePublished { get; set; }
 
     /// <summary>
     /// The UTC date time and date of the document when it was last modified
     /// </summary>
     [JsonPropertyName("DateModified")]
-    public DateTimeOffset DateModified { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DateModified { get; set; }
 
     /// <summary>
     /// Document language as listed in the ISO 639-3 https://en.wikipedia.org/wiki/ISO_639, https://en.wikipedia.org/wiki/List_of_ISO_639-3_codes

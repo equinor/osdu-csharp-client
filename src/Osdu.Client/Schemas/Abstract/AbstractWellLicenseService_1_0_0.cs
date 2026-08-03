@@ -36,7 +36,8 @@ public class AbstractWellLicenseService_1_0_0
     /// The time of day on the end date when the service was completed.
     /// </summary>
     [JsonPropertyName("EndTime")]
-    public DateTimeOffset EndTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndTime { get; set; }
 
     /// <summary>
     /// The business associate on whose behalf the service was provided.
@@ -101,7 +102,8 @@ public class AbstractWellLicenseService_1_0_0
     /// The time of start day when the service started.
     /// </summary>
     [JsonPropertyName("StartTime")]
-    public DateTimeOffset StartTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartTime { get; set; }
 
     /// <summary>
     /// Unique identifier of this element in the parent's list of license services.

@@ -46,7 +46,15 @@ public class PropertyGenerator
         if (typeName == "bool")
             sb.AppendLine($"{prefix}[JsonConverter(typeof(BooleanConverter))]");
 
+        // Add NullableDateTimeOffsetConverter for DateTimeOffset properties to handle empty/invalid date strings
+        if (typeName == "DateTimeOffset")
+            sb.AppendLine($"{prefix}[JsonConverter(typeof(NullableDateTimeOffsetConverter))]");
+
         var nullable = !isRequired && SchemaHelpers.IsNullableType(propSchema) ? "?" : "";
+
+        // DateTimeOffset properties should always be nullable since the API may return empty/invalid values
+        if (typeName == "DateTimeOffset" && !isRequired)
+            nullable = "?";
 
         sb.AppendLine($"{prefix}public {typeName}{nullable} {csharpName} {{ get; set; }}");
         sb.AppendLine();

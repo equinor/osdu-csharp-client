@@ -59,7 +59,8 @@ public class CementJob_1_3_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class CementJob_1_3_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -150,13 +152,15 @@ public class CementJob_1_3_0_Data : AbstractCommonResources_1_0_0 // Also compos
     /// Job Start Date/time
     /// </summary>
     [JsonPropertyName("JobStartDatetime")]
-    public DateTimeOffset JobStartDatetime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? JobStartDatetime { get; set; }
 
     /// <summary>
     /// Job End Date/time
     /// </summary>
     [JsonPropertyName("JobEndDatetime")]
-    public DateTimeOffset JobEndDatetime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? JobEndDatetime { get; set; }
 
     /// <summary>
     /// Job configuration/description
@@ -363,7 +367,8 @@ public class CementJob_1_3_0_Data : AbstractCommonResources_1_0_0 // Also compos
     /// Date when Cement Plug fully drilled out (not partial drill out).
     /// </summary>
     [JsonPropertyName("PlugDrillOutDate")]
-    public DateTimeOffset PlugDrillOutDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PlugDrillOutDate { get; set; }
 
     /// <summary>
     /// Cement Plug Support Base Type
@@ -557,7 +562,8 @@ public class CementJob_1_3_0_Data_CementPlugStates
     /// Status date/time
     /// </summary>
     [JsonPropertyName("PlugStatusDatetime")]
-    public DateTimeOffset PlugStatusDatetime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PlugStatusDatetime { get; set; }
 
     /// <summary>
     /// Status Remarks
@@ -633,25 +639,29 @@ public class CementJob_1_3_0_Data_CementStages
     /// Date/time when mixing of cement started.
     /// </summary>
     [JsonPropertyName("MixStartDate")]
-    public DateTimeOffset MixStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? MixStartDate { get; set; }
 
     /// <summary>
     /// Date/time when pumping cement started.
     /// </summary>
     [JsonPropertyName("PumpStartDate")]
-    public DateTimeOffset PumpStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PumpStartDate { get; set; }
 
     /// <summary>
     /// Date/time when pumping cement ended.
     /// </summary>
     [JsonPropertyName("PumpEndDate")]
-    public DateTimeOffset PumpEndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PumpEndDate { get; set; }
 
     /// <summary>
     /// Date/time when displacing of cement started.
     /// </summary>
     [JsonPropertyName("DisplaceStartDate")]
-    public DateTimeOffset DisplaceStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DisplaceStartDate { get; set; }
 
     /// <summary>
     /// Mud Circulation Elapsed Time
@@ -2181,13 +2191,15 @@ public class CementJob_1_3_0_Data_CementStages_CementingFluid_CementPumpSchedule
     /// Date/time when the pump schedule interval started.
     /// </summary>
     [JsonPropertyName("StartDatetime")]
-    public DateTimeOffset StartDatetime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDatetime { get; set; }
 
     /// <summary>
     /// Date/time when the pump schedule interval ended.
     /// </summary>
     [JsonPropertyName("EndDatetime")]
-    public DateTimeOffset EndDatetime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDatetime { get; set; }
 
     /// <summary>
     /// Duration of the pumping schedule interval
@@ -2353,7 +2365,8 @@ public class CementJob_1_3_0_Data_CasingPressureTest
     /// Test Date/time
     /// </summary>
     [JsonPropertyName("CasingTestDate")]
-    public DateTimeOffset CasingTestDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CasingTestDate { get; set; }
 
     /// <summary>
     /// Casing Test Elapsed Time following end of cement job
@@ -2444,7 +2457,8 @@ public class CementJob_1_3_0_Data_LogEvaluation
     /// Evaluation Date/time
     /// </summary>
     [JsonPropertyName("EvaluationDate")]
-    public DateTimeOffset EvaluationDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EvaluationDate { get; set; }
 
     /// <summary>
     /// Log type
@@ -2794,7 +2808,8 @@ public class CementJob_1_3_0_Data_ShoetrackCement
     /// Shoetrack Drill Date
     /// </summary>
     [JsonPropertyName("ShoetrackDrillDate")]
-    public DateTimeOffset ShoetrackDrillDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ShoetrackDrillDate { get; set; }
 
     /// <summary>
     /// Shoetrack Drill Measured Depth

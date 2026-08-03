@@ -59,7 +59,8 @@ public class GeoPoliticalEntity_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class GeoPoliticalEntity_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -105,7 +107,8 @@ public class GeoPoliticalEntity_1_0_0_Data : AbstractCommonResources_1_0_0 // Al
     /// The date and time at which a given geopolitical entity is no longer in effect.
     /// </summary>
     [JsonPropertyName("TerminationDate")]
-    public DateTimeOffset TerminationDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDate { get; set; }
 
     /// <summary>
     /// Indicates whether the GeoPolitical entity has a disputed status.
@@ -118,19 +121,22 @@ public class GeoPoliticalEntity_1_0_0_Data : AbstractCommonResources_1_0_0 // Al
     /// The date and time at which a given geopolitical entity becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDate")]
-    public DateTimeOffset EffectiveDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDate { get; set; }
 
     /// <summary>
     /// Day light saving start date.
     /// </summary>
     [JsonPropertyName("DaylightSavingTimeStartDate")]
-    public DateTimeOffset DaylightSavingTimeStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DaylightSavingTimeStartDate { get; set; }
 
     /// <summary>
     /// Day light saving end date.
     /// </summary>
     [JsonPropertyName("DaylightSavingTimeEndDate")]
-    public DateTimeOffset DaylightSavingTimeEndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DaylightSavingTimeEndDate { get; set; }
 
     /// <summary>
     /// Type of geopolitical entity.

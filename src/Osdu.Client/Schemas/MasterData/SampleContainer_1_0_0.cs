@@ -59,7 +59,8 @@ public class SampleContainer_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class SampleContainer_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -171,13 +173,15 @@ public class SampleContainer_1_0_0_Data : AbstractCommonResources_1_0_0 // Also 
     /// The date the sample container was commisioned and put in service.
     /// </summary>
     [JsonPropertyName("StartDate")]
-    public DateTimeOffset StartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDate { get; set; }
 
     /// <summary>
     /// The date the sample container reached end of life and should be taken out of commission.
     /// </summary>
     [JsonPropertyName("ExpirationDate")]
-    public DateTimeOffset ExpirationDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ExpirationDate { get; set; }
 
     [JsonPropertyName("Remarks")]
     public AbstractRemark_1_0_0? Remarks { get; set; }
@@ -198,13 +202,15 @@ public class SampleContainer_1_0_0_Data_ContainerCertifications
     /// InspectionDate=PRODML:2.1:FluidSampleContainer.Model.LastInspectionDate
     /// </summary>
     [JsonPropertyName("InspectionDate")]
-    public DateTimeOffset InspectionDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? InspectionDate { get; set; }
 
     /// <summary>
     /// This is the proposed date for the next inspection to be performed on the sample container.
     /// </summary>
     [JsonPropertyName("NextInspectionDate")]
-    public DateTimeOffset NextInspectionDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? NextInspectionDate { get; set; }
 
     /// <summary>
     /// This is the period or amount of time for which the last inspection or certification process is valid.

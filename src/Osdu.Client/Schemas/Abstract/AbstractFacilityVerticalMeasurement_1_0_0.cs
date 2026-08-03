@@ -23,7 +23,8 @@ public class AbstractFacilityVerticalMeasurement_1_0_0
     /// The date and time at which a vertical measurement instance becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The value of the elevation or depth. Depth is positive downwards from a vertical reference or geodetic datum along a path, which can be vertical; elevation is positive upwards from a geodetic datum along a vertical path. Either can be negative.
@@ -35,7 +36,8 @@ public class AbstractFacilityVerticalMeasurement_1_0_0
     /// The date and time at which a vertical measurement instance is no longer in effect.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
     /// <summary>
     /// Specifies the type of vertical measurement (TD, Plugback, Kickoff, Drill Floor, Rotary Table...).

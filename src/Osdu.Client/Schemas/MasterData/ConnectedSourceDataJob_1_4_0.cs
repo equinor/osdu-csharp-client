@@ -59,7 +59,8 @@ public class ConnectedSourceDataJob_1_4_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class ConnectedSourceDataJob_1_4_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -161,7 +163,8 @@ public class ConnectedSourceDataJob_1_4_0_Data : AbstractCommonResources_1_0_0 /
     /// The last successful run date of the job (UTC)
     /// </summary>
     [JsonPropertyName("LastSuccessfulRunDateUTC")]
-    public DateTimeOffset LastSuccessfulRunDateUTC { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? LastSuccessfulRunDateUTC { get; set; }
 
     /// <summary>
     /// The maximum number of records to be processed in this job.
@@ -185,7 +188,8 @@ public class ConnectedSourceDataJob_1_4_0_Data : AbstractCommonResources_1_0_0 /
     /// The maximum create/update time for data records (UTC).
     /// </summary>
     [JsonPropertyName("CreateTimeMax")]
-    public DateTimeOffset CreateTimeMax { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTimeMax { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }

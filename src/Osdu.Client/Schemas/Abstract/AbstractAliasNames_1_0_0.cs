@@ -43,12 +43,14 @@ public class AbstractAliasNames_1_0_0
     /// The date and time when an alias name becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The data and time when an alias name is no longer in effect.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
 }

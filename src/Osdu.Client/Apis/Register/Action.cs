@@ -38,7 +38,8 @@ public class Action
     public string ContactEmail { get; set; }
 
     [JsonPropertyName("createdOnEpoch")]
-    public DateTimeOffset CreatedOnEpoch { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreatedOnEpoch { get; set; }
 
     /// <summary>
     /// Represents a model for Filter

@@ -59,7 +59,8 @@ public class PerforationJob_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class PerforationJob_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -150,13 +152,15 @@ public class PerforationJob_1_0_0_Data : AbstractCommonResources_1_0_0 // Also c
     /// Job Start Date/time
     /// </summary>
     [JsonPropertyName("JobStartDateTime")]
-    public DateTimeOffset JobStartDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? JobStartDateTime { get; set; }
 
     /// <summary>
     /// Job End Date/time
     /// </summary>
     [JsonPropertyName("JobEndDateTime")]
-    public DateTimeOffset JobEndDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? JobEndDateTime { get; set; }
 
     /// <summary>
     /// Downhole temperature at mid-point of perforation intervals
@@ -230,7 +234,8 @@ public class PerforationJob_1_0_0_Data : AbstractCommonResources_1_0_0 // Also c
     /// Date/time when final surface pressure measured
     /// </summary>
     [JsonPropertyName("SurfacePressureFinalDateTime")]
-    public DateTimeOffset SurfacePressureFinalDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? SurfacePressureFinalDateTime { get; set; }
 
     /// <summary>
     /// Post pill fluid loss rate
@@ -261,7 +266,8 @@ public class PerforationJob_1_0_0_Data : AbstractCommonResources_1_0_0 // Also c
     /// Date when Reference Log run
     /// </summary>
     [JsonPropertyName("ReferenceLogDate")]
-    public DateTimeOffset ReferenceLogDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ReferenceLogDate { get; set; }
 
     /// <summary>
     /// SRN to Wireline log run

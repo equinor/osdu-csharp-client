@@ -47,7 +47,8 @@ public class ReplayStatus
     /// Timestamp when processing of this kind started.
     /// </summary>
     [JsonPropertyName("startedAt")]
-    public DateTimeOffset StartedAt { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartedAt { get; set; }
 
     /// <summary>
     /// Human-readable elapsed time for this kind.

@@ -78,6 +78,7 @@ public class AbstractReferenceType_1_0_0
     /// For reference values published and governed by OSDU: The date and time the record was committed into the OSDU member GitLab reference-values repository. The sole purpose of this date is to optimise the OSDU milestone upgrades. It allows the upgrade code to figure out whether or not the record must be PUT into reference value storage.
     /// </summary>
     [JsonPropertyName("CommitDate")]
-    public DateTimeOffset CommitDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CommitDate { get; set; }
 
 }

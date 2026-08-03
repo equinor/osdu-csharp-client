@@ -59,7 +59,8 @@ public class EquipmentInventory_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class EquipmentInventory_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -136,25 +138,29 @@ public class EquipmentInventory_1_0_0_Data_EquipmentInventory
     /// Date and time the equipment/unit is installed on site
     /// </summary>
     [JsonPropertyName("InstallDate")]
-    public DateTimeOffset InstallDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? InstallDate { get; set; }
 
     /// <summary>
     /// Date and time the equipment/unit is removed from site
     /// </summary>
     [JsonPropertyName("RemoveDate")]
-    public DateTimeOffset RemoveDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? RemoveDate { get; set; }
 
     /// <summary>
     /// Date and time the equipment/unit taken offline to under go maintenance or repairs. removed from site
     /// </summary>
     [JsonPropertyName("MaintenanceDate")]
-    public DateTimeOffset MaintenanceDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? MaintenanceDate { get; set; }
 
     /// <summary>
     /// Date and time the equipment/unit returned to service after main or repairs.
     /// </summary>
     [JsonPropertyName("ReturnDate")]
-    public DateTimeOffset ReturnDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ReturnDate { get; set; }
 
     /// <summary>
     /// Remarks or comments on the equipment such as why it went to maintenance.

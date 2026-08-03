@@ -40,15 +40,14 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
 
         var response = await osduClient.Search.PostQueryAsync(request, cancellationToken);
 
-        IEnumerable<WellLog_1_3_0> wellbores = response.Results.DeserializeList<WellLog_1_3_0>();
-
         if (ShowFullResponse)
         {
             return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
         }
 
+        IEnumerable<WellLog_1_5_0> wellbores = response.Results.DeserializeList<WellLog_1_5_0>();
         StringBuilder sb = new StringBuilder();
-        foreach (WellLog_1_3_0 wellLog in wellbores)
+        foreach (WellLog_1_5_0 wellLog in wellbores)
         {
             sb.AppendLine($"""
                           -----------------------------------------------------------------------------------------------
@@ -58,7 +57,7 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
                           """);
             if (wellLog.Data?.Curves is not null)
             {
-                foreach (WellLog_1_3_0_Data_Curves curve in wellLog.Data.Curves)
+                foreach (WellLog_1_5_0_Data_Curves curve in wellLog.Data.Curves)
                 {
                     sb.AppendLine($"CurveID={curve.CurveID}, Mnemonic={curve.Mnemonic}, CurveUnit={curve.CurveUnit}, CurveDescription={curve.CurveDescription}, LogCurveMainFamilyID={curve.LogCurveMainFamilyID}");
                 }

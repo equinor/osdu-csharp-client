@@ -23,13 +23,15 @@ public class AbstractActivityState_1_0_0
     /// The date and time at which the activity status becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The date and time at which the activity status is no longer in effect. For still effective activity states, the TerminationDateTime is left absent. For zero-duration intervals (events), the TerminationDateTime set to the same value as EffectiveDateTime.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
     /// <summary>
     /// The ActivityStatus is a set of major activity phases that are significant to business stakeholders.

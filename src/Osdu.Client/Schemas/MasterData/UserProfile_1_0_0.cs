@@ -59,7 +59,8 @@ public class UserProfile_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class UserProfile_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -118,13 +120,15 @@ public class UserProfile_1_0_0_Data : AbstractCommonResources_1_0_0 // Also comp
     /// The date and time that this User Profile begins to be considered active.
     /// </summary>
     [JsonPropertyName("UserActivatedDateTime")]
-    public DateTimeOffset UserActivatedDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? UserActivatedDateTime { get; set; }
 
     /// <summary>
     /// The date and time that this User Profile is considered no longer active.
     /// </summary>
     [JsonPropertyName("UserDeactivatedDateTime")]
-    public DateTimeOffset UserDeactivatedDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? UserDeactivatedDateTime { get; set; }
 
     /// <summary>
     /// A reference to the OSDU User Profile representing a previous time of user activation for the same individual.
@@ -208,12 +212,14 @@ public class UserProfile_1_0_0_Data_UserDataGovernanceRoles
     /// The date and time that this data governance role in this Organisation begins to be considered active.
     /// </summary>
     [JsonPropertyName("DataGovernanceRoleEffectiveDateTime")]
-    public DateTimeOffset DataGovernanceRoleEffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataGovernanceRoleEffectiveDateTime { get; set; }
 
     /// <summary>
     /// The date and time that this data governance role in this Organisation begins to be considered inactive.
     /// </summary>
     [JsonPropertyName("DataGovernanceRoleTerminationDateTime")]
-    public DateTimeOffset DataGovernanceRoleTerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DataGovernanceRoleTerminationDateTime { get; set; }
 
 }

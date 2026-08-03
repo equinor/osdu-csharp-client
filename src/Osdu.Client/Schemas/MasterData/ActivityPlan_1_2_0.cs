@@ -59,7 +59,8 @@ public class ActivityPlan_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class ActivityPlan_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -221,19 +223,22 @@ public class ActivityPlan_1_2_0_Data_WellPlanningActivities
     /// Date/Time the activity is planned to start
     /// </summary>
     [JsonPropertyName("PlannedStartTime")]
-    public DateTimeOffset PlannedStartTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PlannedStartTime { get; set; }
 
     /// <summary>
     /// Date/Time the activity is planned to end
     /// </summary>
     [JsonPropertyName("PlannedEndTime")]
-    public DateTimeOffset PlannedEndTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PlannedEndTime { get; set; }
 
     /// <summary>
     /// DEPRECATED: Overall duration as planned for the activity
     /// </summary>
     [JsonPropertyName("PlannedDuration")]
-    public DateTimeOffset PlannedDuration { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PlannedDuration { get; set; }
 
     /// <summary>
     /// A reference to the object that holds the information about the risks that apply to the activity

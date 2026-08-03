@@ -23,7 +23,8 @@ public class AbstractSpatialLocation_1_1_0
     /// Date when coordinates were measured or retrieved.
     /// </summary>
     [JsonPropertyName("SpatialLocationCoordinatesDate")]
-    public DateTimeOffset SpatialLocationCoordinatesDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? SpatialLocationCoordinatesDate { get; set; }
 
     /// <summary>
     /// An approximate quantitative assessment of the quality of a location (accurate to &gt; 500 m (i.e. not very accurate)), to &lt; 1 m, etc.
@@ -49,7 +50,8 @@ public class AbstractSpatialLocation_1_1_0
     /// The date of the Quality Check.
     /// </summary>
     [JsonPropertyName("CoordinateQualityCheckDateTime")]
-    public DateTimeOffset CoordinateQualityCheckDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CoordinateQualityCheckDateTime { get; set; }
 
     /// <summary>
     /// Freetext remarks on Quality Check.

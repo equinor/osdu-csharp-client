@@ -74,7 +74,8 @@ public class AbstractActivityParameter_1_1_0
     /// Parameter containing a time index value.  It is assumed that all TimeIndexParameters within an Activity have the same date-time format, which is then described by the FrameOfReference mechanism.
     /// </summary>
     [JsonPropertyName("TimeIndexParameter")]
-    public DateTimeOffset TimeIndexParameter { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TimeIndexParameter { get; set; }
 
     /// <summary>
     /// The boolean parameter value, if ParameterKindID refers to the Boolean type.

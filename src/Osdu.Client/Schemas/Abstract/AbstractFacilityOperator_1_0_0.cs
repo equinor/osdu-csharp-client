@@ -36,12 +36,14 @@ public class AbstractFacilityOperator_1_0_0
     /// The date and time at which the facility operator becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The date and time at which the facility operator is no longer in effect. If the operator is still effective, the 'TerminationDateTime' is left absent.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
 }

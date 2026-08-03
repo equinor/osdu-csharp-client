@@ -36,7 +36,8 @@ public class SchemaInfo
     /// The UTC date time of the entity creation
     /// </summary>
     [JsonPropertyName("dateCreated")]
-    public DateTimeOffset DateCreated { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DateCreated { get; set; }
 
     /// <summary>
     /// Schema lifecycle status

@@ -59,7 +59,8 @@ public class WellOpsNonProductiveTime_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class WellOpsNonProductiveTime_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -169,13 +171,15 @@ public class WellOpsNonProductiveTime_1_0_0_Data : AbstractCommonResources_1_0_0
     /// Date/time the Unplanned event started
     /// </summary>
     [JsonPropertyName("EventStartTime")]
-    public DateTimeOffset EventStartTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EventStartTime { get; set; }
 
     /// <summary>
     /// Date/time the Unplanned event ended
     /// </summary>
     [JsonPropertyName("EventEndTime")]
-    public DateTimeOffset EventEndTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EventEndTime { get; set; }
 
     /// <summary>
     /// Start Operations Activity Daily Operations Report ID in which the NPT Event started.
@@ -440,7 +444,8 @@ public class WellOpsNonProductiveTime_1_0_0_Data : AbstractCommonResources_1_0_0
     /// Equipment Last Inspection Date/time
     /// </summary>
     [JsonPropertyName("EquipmentLastInspectionDateTime")]
-    public DateTimeOffset EquipmentLastInspectionDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EquipmentLastInspectionDateTime { get; set; }
 
     /// <summary>
     /// Equipment Failure Location Description
@@ -538,7 +543,8 @@ public class WellOpsNonProductiveTime_1_0_0_Data_InvestigationStatus
     /// Status Date/time
     /// </summary>
     [JsonPropertyName("InvestigationStatusDateTime")]
-    public DateTimeOffset InvestigationStatusDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? InvestigationStatusDateTime { get; set; }
 
     /// <summary>
     /// NPT Investigation Status Type ID
@@ -570,7 +576,8 @@ public class WellOpsNonProductiveTime_1_0_0_Data_NPTActions
     /// Action Title
     /// </summary>
     [JsonPropertyName("ActionTitle")]
-    public DateTimeOffset ActionTitle { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ActionTitle { get; set; }
 
     /// <summary>
     /// Action Description

@@ -59,7 +59,8 @@ public class ReservoirSimulationRockPhysicsModel_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class ReservoirSimulationRockPhysicsModel_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -126,7 +128,8 @@ public class ReservoirSimulationRockPhysicsModel_1_0_0_Data : AbstractCommonReso
     /// This represents the date the model generated was published and made available to the consumers or downstream applications..
     /// </summary>
     [JsonPropertyName("DatePublished")]
-    public DateTimeOffset DatePublished { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? DatePublished { get; set; }
 
     /// <summary>
     /// An array of remarks that provide more context for this data record.

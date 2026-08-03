@@ -21,6 +21,7 @@ public class BulkDataStatisticsResponse
 {
     [Required]
     [JsonPropertyName("computationStartDatetime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset ComputationStartDatetime { get; set; }
 
     [Required]

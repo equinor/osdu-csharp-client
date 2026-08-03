@@ -41,7 +41,8 @@ public class UpdateLegalTag
     /// The optional expiration date of the contract in the format YYYY-MM-DD
     /// </summary>
     [JsonPropertyName("expirationDate")]
-    public DateTimeOffset ExpirationDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ExpirationDate { get; set; }
 
     /// <summary>
     /// The optional object field to attach any company specific attributes.

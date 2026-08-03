@@ -59,7 +59,8 @@ public class WellPressureTestRawMeasurement_1_1_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class WellPressureTestRawMeasurement_1_1_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -118,13 +120,15 @@ public class WellPressureTestRawMeasurement_1_1_0_Data : AbstractCommonResources
     /// The date (and time) at which the test started
     /// </summary>
     [JsonPropertyName("PressureTestStartDate")]
-    public DateTimeOffset PressureTestStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? PressureTestStartDate { get; set; }
 
     /// <summary>
     /// Date that the production string has been closed in prior to the pressure test.
     /// </summary>
     [JsonPropertyName("ClosedInDate")]
-    public DateTimeOffset ClosedInDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ClosedInDate { get; set; }
 
     /// <summary>
     /// Array of comprehensive description of the well test raw measurement (one entry per gauge's depth)

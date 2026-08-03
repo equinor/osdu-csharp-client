@@ -32,7 +32,8 @@ public class Properties
     /// The date when this legal tag expires. Format: yyyy-MM-dd.
     /// </summary>
     [JsonPropertyName("expirationDate")]
-    public DateTimeOffset ExpirationDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ExpirationDate { get; set; }
 
     /// <summary>
     /// The company or individual that created the data.

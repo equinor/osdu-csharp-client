@@ -60,7 +60,8 @@ public class WellPressureTestAcquisitionJob_1_2_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -72,7 +73,8 @@ public class WellPressureTestAcquisitionJob_1_2_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -187,13 +189,15 @@ public class WellPressureTestAcquisitionJob_1_2_0_Data_PressureTestsAcquisitionR
     /// Date and Time of the start of this specific run
     /// </summary>
     [JsonPropertyName("RunStartDate")]
-    public DateTimeOffset RunStartDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? RunStartDate { get; set; }
 
     /// <summary>
     /// Date and Time of the end of this specific run
     /// </summary>
     [JsonPropertyName("RunEndDate")]
-    public DateTimeOffset RunEndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? RunEndDate { get; set; }
 
     /// <summary>
     /// DEPRECATED- Use Correct Spelling Instead:Main Category of the Presssure Test - could be Formation Test, Transient Test, Interference Transient Tests,…

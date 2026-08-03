@@ -59,7 +59,8 @@ public class WellboreMarkerSet_1_3_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class WellboreMarkerSet_1_3_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -203,7 +205,8 @@ public class WellboreMarkerSet_1_3_0_Data_Markers
     /// Timestamp of the date and time when the when the Marker was interpreted.
     /// </summary>
     [JsonPropertyName("MarkerDate")]
-    public DateTimeOffset MarkerDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? MarkerDate { get; set; }
 
     /// <summary>
     /// Any observation number that distinguishes a Marker observation from others with same Marker name, date.

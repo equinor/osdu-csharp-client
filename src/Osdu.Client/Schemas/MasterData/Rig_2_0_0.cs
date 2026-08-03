@@ -59,7 +59,8 @@ public class Rig_2_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class Rig_2_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -131,19 +133,22 @@ public class Rig_2_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: Ab
     /// The date the date Construction of the Rig ended.
     /// </summary>
     [JsonPropertyName("ConstructionDate")]
-    public DateTimeOffset ConstructionDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ConstructionDate { get; set; }
 
     /// <summary>
     /// The date the Rig first came into service.
     /// </summary>
     [JsonPropertyName("ServiceDate")]
-    public DateTimeOffset ServiceDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ServiceDate { get; set; }
 
     /// <summary>
     /// The date the Rig was retired
     /// </summary>
     [JsonPropertyName("RetiredDate")]
-    public DateTimeOffset RetiredDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? RetiredDate { get; set; }
 
     /// <summary>
     /// The 4-digit year the rig entered service.

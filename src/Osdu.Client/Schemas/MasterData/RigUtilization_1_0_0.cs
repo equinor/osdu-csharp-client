@@ -59,7 +59,8 @@ public class RigUtilization_1_0_0
     /// Timestamp of the time at which initial version of this OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("createTime")]
-    public DateTimeOffset CreateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? CreateTime { get; set; }
 
     /// <summary>
     /// The user reference, which created the first version of this resource object. Set by the System.
@@ -71,7 +72,8 @@ public class RigUtilization_1_0_0
     /// Timestamp of the time at which this version of the OSDU resource object was created. Set by the System. The value is a combined date-time string in ISO-8601 given in UTC.
     /// </summary>
     [JsonPropertyName("modifyTime")]
-    public DateTimeOffset ModifyTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ModifyTime { get; set; }
 
     /// <summary>
     /// The user reference, which created this version of this resource object. Set by the System.
@@ -125,13 +127,15 @@ public class RigUtilization_1_0_0_Data : AbstractCommonResources_1_0_0 // Also c
     /// The start date and time for the activity that this rig was utilized for
     /// </summary>
     [JsonPropertyName("StartDateActivity")]
-    public DateTimeOffset StartDateActivity { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? StartDateActivity { get; set; }
 
     /// <summary>
     /// The end date and time for the activity that this rig was utilized for
     /// </summary>
     [JsonPropertyName("EndDateActivity")]
-    public DateTimeOffset EndDateActivity { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EndDateActivity { get; set; }
 
     /// <summary>
     /// Required hoisting capacity based on derrick / drawworks

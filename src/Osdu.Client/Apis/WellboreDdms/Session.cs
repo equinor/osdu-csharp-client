@@ -58,6 +58,7 @@ public class Session
     /// </summary>
     [Required]
     [JsonPropertyName("expiry")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset Expiry { get; set; }
 
     /// <summary>
@@ -65,6 +66,7 @@ public class Session
     /// </summary>
     [Required]
     [JsonPropertyName("createdTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset CreatedTime { get; set; }
 
     /// <summary>
@@ -72,6 +74,7 @@ public class Session
     /// </summary>
     [Required]
     [JsonPropertyName("updatedTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
     public DateTimeOffset UpdatedTime { get; set; }
 
     [Required]

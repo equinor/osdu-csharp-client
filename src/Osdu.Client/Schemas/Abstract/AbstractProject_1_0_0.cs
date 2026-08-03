@@ -47,13 +47,15 @@ public class AbstractProject_1_0_0
     /// The date and time when the Project was initiated.
     /// </summary>
     [JsonPropertyName("ProjectBeginDate")]
-    public DateTimeOffset ProjectBeginDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ProjectBeginDate { get; set; }
 
     /// <summary>
     /// The date and time when the Project was completed.
     /// </summary>
     [JsonPropertyName("ProjectEndDate")]
-    public DateTimeOffset ProjectEndDate { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ProjectEndDate { get; set; }
 
     /// <summary>
     /// The history of expenditure approvals.
@@ -115,7 +117,8 @@ public class AbstractProject_1_0_0_FundsAuthorizations
     /// The date and time when the funds were approved.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The level of expenditure approved.
@@ -195,13 +198,15 @@ public class AbstractProject_1_0_0_ProjectSpecifications
     /// The date and time at which a ProjectSpecification becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The date and time at which a ProjectSpecification is no longer in effect.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
     /// <summary>
     /// The value for the specified parameter type.
@@ -213,7 +218,8 @@ public class AbstractProject_1_0_0_ProjectSpecifications
     /// The actual date and time value of the parameter.  ISO format permits specification of time or date only.
     /// </summary>
     [JsonPropertyName("ProjectSpecificationDateTime")]
-    public DateTimeOffset ProjectSpecificationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? ProjectSpecificationDateTime { get; set; }
 
     /// <summary>
     /// The actual indicator value of the parameter.
@@ -253,13 +259,15 @@ public class AbstractProject_1_0_0_ProjectStates
     /// The date and time at which the state becomes effective.
     /// </summary>
     [JsonPropertyName("EffectiveDateTime")]
-    public DateTimeOffset EffectiveDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
 
     /// <summary>
     /// The date and time at which the state is no longer in effect.
     /// </summary>
     [JsonPropertyName("TerminationDateTime")]
-    public DateTimeOffset TerminationDateTime { get; set; }
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
 
     /// <summary>
     /// The Project life cycle state from planning to completion.
