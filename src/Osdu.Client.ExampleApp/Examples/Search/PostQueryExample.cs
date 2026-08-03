@@ -21,13 +21,17 @@ public class PostQueryExample(IOsduClient osduClient) : ExampleBase
     [ExampleParameter(DisplayName = "Limit", Order = 2, Description = "Maximum number of results to return.")]
     public int Limit { get; set; } = 20;
 
+    [ExampleParameter(DisplayName = "Returned Fields", Order = 3, Description = "Comma-separated list of fields to return.")]
+    public string[] ReturnedFields { get; set; } = []; //["id", "kind", "createTime"];
+
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
         var request = new QueryRequest
         {
             Kind = Kind,
             Limit = Limit,
-            Query = Query
+            Query = Query,
+            ReturnedFields = ReturnedFields.ToList()
         };
 
         var response = await osduClient.Search.PostQueryAsync(request, cancellationToken);
