@@ -29,6 +29,11 @@ public partial class ApiTestWindow : Window
     private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
     private readonly Dictionary<IExample, Button> _exampleButtons = new();
     private readonly List<Expander> _categoryExpanders = new();
+    private readonly Dictionary<string, bool> _categoryExpanderStates = new();
+
+    // Cached content state per mode
+    private ContentState? _apisContentState;
+    private ContentState? _examplesContentState;
 
     private enum SidebarMode
     {
@@ -37,6 +42,14 @@ public partial class ApiTestWindow : Window
     }
 
     private record ExampleResult(bool Success, string Output, long ElapsedMs);
+
+    private record ContentState(
+        string Title,
+        string Description,
+        List<UIElement> EndpointChildren,
+        string ResponseText,
+        string StatusText,
+        Brush StatusForeground);
 
     public ApiTestWindow(IHttpClientFactory httpClientFactory, IEnumerable<IExample> examples)
     {
@@ -54,21 +67,67 @@ public partial class ApiTestWindow : Window
     private void ApisTab_Click(object sender, RoutedEventArgs e)
     {
         if (_activeMode == SidebarMode.Apis) return;
+        SaveCurrentContentState();
         _activeMode = SidebarMode.Apis;
         _selectedButton = null;
         ApplyTabStyles();
         RebuildSidebarForCurrentMode();
-        ClearContent("Select an API from the sidebar", "Choose a service on the left to view its endpoints.");
+        RestoreContentState(_apisContentState, "Select an API from the sidebar", "Choose a service on the left to view its endpoints.");
     }
 
     private void ExamplesTab_Click(object sender, RoutedEventArgs e)
     {
         if (_activeMode == SidebarMode.Examples) return;
+        SaveCurrentContentState();
         _activeMode = SidebarMode.Examples;
         _selectedButton = null;
         ApplyTabStyles();
         RebuildSidebarForCurrentMode();
-        ClearContent("Select an Example", "Choose an example on the left to run it against the OSDU platform.");
+        RestoreContentState(_examplesContentState, "Select an Example", "Choose an example on the left to run it against the OSDU platform.");
+    }
+
+    private void SaveCurrentContentState()
+    {
+        var children = new List<UIElement>();
+        foreach (UIElement child in EndpointsPanel.Children)
+            children.Add(child);
+        EndpointsPanel.Children.Clear();
+
+        var state = new ContentState(
+            ApiTitleText.Text,
+            ApiDescriptionText.Text,
+            children,
+            ResponseTextBox.Text,
+            ResponseStatusText.Text,
+            ResponseStatusText.Foreground);
+
+        if (_activeMode == SidebarMode.Apis)
+            _apisContentState = state;
+        else
+            _examplesContentState = state;
+    }
+
+    private void RestoreContentState(ContentState? state, string defaultTitle, string defaultDescription)
+    {
+        EndpointsPanel.Children.Clear();
+
+        if (state != null)
+        {
+            ApiTitleText.Text = state.Title;
+            ApiDescriptionText.Text = state.Description;
+            foreach (var child in state.EndpointChildren)
+                EndpointsPanel.Children.Add(child);
+            ResponseTextBox.Text = state.ResponseText;
+            ResponseStatusText.Text = state.StatusText;
+            ResponseStatusText.Foreground = state.StatusForeground;
+        }
+        else
+        {
+            ApiTitleText.Text = defaultTitle;
+            ApiDescriptionText.Text = defaultDescription;
+            ResponseTextBox.Clear();
+            ResponseStatusText.Text = "";
+        }
     }
 
     private void ClearContent(string title, string description)
@@ -196,15 +255,25 @@ public partial class ApiTestWindow : Window
                 Padding = new Thickness(2)
             };
 
+            var isExpanded = _categoryExpanderStates.TryGetValue(group.Key, out var savedState) && savedState;
+
             var expander = new Expander
             {
-                IsExpanded = false, Background = Brushes.Transparent, BorderThickness = new Thickness(0),
-                Foreground = _currentTheme.TextPrimaryBrush, Margin = new Thickness(2)
+                IsExpanded = isExpanded,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                Foreground = _currentTheme.TextPrimaryBrush,
+                Margin = new Thickness(2)
             };
             // Hide default toggle arrow
             expander.SetResourceReference(Expander.StyleProperty, "ExpanderWithoutToggle");
             expander.Header = BuildCategoryHeader(group.Key, all, expander);
             _categoryExpanders.Add(expander);
+
+            // Track expander state changes
+            var categoryKey = group.Key;
+            expander.Expanded += (_, _) => _categoryExpanderStates[categoryKey] = true;
+            expander.Collapsed += (_, _) => _categoryExpanderStates[categoryKey] = false;
 
             var items = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
             foreach (var example in visible)
@@ -244,17 +313,25 @@ public partial class ApiTestWindow : Window
 
         var runCat = new Button
         {
-            Content = "▶", Background = Brushes.Transparent, Foreground = _currentTheme.AccentBrush,
-            BorderThickness = new Thickness(0), Padding = new Thickness(4, 0, 6, 0), FontSize = 13,
-            Cursor = System.Windows.Input.Cursors.Hand, VerticalAlignment = VerticalAlignment.Center
+            Content = "▶",
+            Background = Brushes.Transparent,
+            Foreground = _currentTheme.AccentBrush,
+            BorderThickness = new Thickness(0),
+            Padding = new Thickness(4, 0, 6, 0),
+            FontSize = 13,
+            Cursor = System.Windows.Input.Cursors.Hand,
+            VerticalAlignment = VerticalAlignment.Center
         };
         runCat.Click += async (_, _) => await RunExamplesAsync(all);
         header.Children.Add(runCat);
 
         header.Children.Add(new TextBlock
         {
-            Text = categoryName, FontWeight = FontWeights.SemiBold, FontSize = 12,
-            Foreground = _currentTheme.TextPrimaryBrush, VerticalAlignment = VerticalAlignment.Center
+            Text = categoryName,
+            FontWeight = FontWeights.SemiBold,
+            FontSize = 12,
+            Foreground = _currentTheme.TextPrimaryBrush,
+            VerticalAlignment = VerticalAlignment.Center
         });
 
         var failed = all.Count(ex => _exampleResults.TryGetValue(ex, out var r) && !r.Success);
@@ -265,11 +342,13 @@ public partial class ApiTestWindow : Window
 
         header.Children.Add(new Border
         {
-            Background = _currentTheme.TagBrush, CornerRadius = new CornerRadius(8),
-            Padding = new Thickness(7, 2, 7, 2), Margin = new Thickness(8, 0, 0, 0),
+            Background = _currentTheme.TagBrush,
+            CornerRadius = new CornerRadius(8),
+            Padding = new Thickness(7, 2, 7, 2),
+            Margin = new Thickness(8, 0, 0, 0),
             VerticalAlignment = VerticalAlignment.Center,
             Child = new TextBlock
-                { Text = badgeText, Foreground = badgeColor, FontSize = 10, FontWeight = FontWeights.SemiBold }
+            { Text = badgeText, Foreground = badgeColor, FontSize = 10, FontWeight = FontWeights.SemiBold }
         });
 
         return header;
@@ -283,17 +362,22 @@ public partial class ApiTestWindow : Window
         var content = new StackPanel { Orientation = Orientation.Horizontal };
         content.Children.Add(new TextBlock
         {
-            Text = hasResult ? "●" : "○", Foreground = statusColor, FontSize = 14,
-            VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0)
+            Text = hasResult ? "●" : "○",
+            Foreground = statusColor,
+            FontSize = 14,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 10, 0)
         });
 
         var namePanel = new StackPanel();
         namePanel.Children.Add(new TextBlock
-            { Text = example.Text, FontSize = 12.5, VerticalAlignment = VerticalAlignment.Center });
+        { Text = example.Text, FontSize = 12.5, VerticalAlignment = VerticalAlignment.Center });
         if (hasResult)
             namePanel.Children.Add(new TextBlock
             {
-                Text = $"{result!.ElapsedMs}ms", FontSize = 10, Foreground = _currentTheme.TextMutedBrush,
+                Text = $"{result!.ElapsedMs}ms",
+                FontSize = 10,
+                Foreground = _currentTheme.TextMutedBrush,
                 Margin = new Thickness(0, 1, 0, 0)
             });
         content.Children.Add(namePanel);
@@ -381,7 +465,9 @@ public partial class ApiTestWindow : Window
                 else
                     np.Children.Add(new TextBlock
                     {
-                        Text = $"{result.ElapsedMs}ms", FontSize = 10, Foreground = _currentTheme.TextMutedBrush,
+                        Text = $"{result.ElapsedMs}ms",
+                        FontSize = 10,
+                        Foreground = _currentTheme.TextMutedBrush,
                         Margin = new Thickness(0, 1, 0, 0)
                     });
             }
