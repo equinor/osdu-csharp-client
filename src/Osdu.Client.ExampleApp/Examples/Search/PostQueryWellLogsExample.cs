@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Osdu.Client.Apis;
 using Osdu.Client.Apis.Search;
@@ -24,6 +25,9 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
     [ExampleParameter(DisplayName = "Returned Fields", Order = 2, Description = "Comma-separated list of fields to return.")]
     public string[] ReturnedFields { get; set; } = []; //["id", "kind", "createTime"];
 
+    [ExampleParameter(DisplayName = "Show Full Response", Order = 3, Description = "Whether to show the full response or only curve information (using strongly-typed result).")]
+    public bool ShowFullResponse { get; set; } = false;
+
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
         var request = new QueryRequest
@@ -38,8 +42,29 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
 
         IEnumerable<WellLog_1_3_0> wellbores = response.Results.DeserializeList<WellLog_1_3_0>();
 
-        return JsonSerializer.Serialize(wellbores, new JsonSerializerOptions { WriteIndented = true });
+        if (ShowFullResponse)
+        {
+            return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
+        }
 
-        //return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
+        StringBuilder sb = new StringBuilder();
+        foreach (WellLog_1_3_0 wellLog in wellbores)
+        {
+            sb.AppendLine($"""
+                          -----------------------------------------------------------------------------------------------
+                          WellLogID: {wellLog.Id}
+                          Curves: {wellLog.Data?.Curves?.Count ?? 0}
+                          -----------------------------------------------------------------------------------------------
+                          """);
+            if (wellLog.Data?.Curves is not null)
+            {
+                foreach (WellLog_1_3_0DataCurves curve in wellLog.Data.Curves)
+                {
+                    sb.AppendLine($"CurveID={curve.CurveID}, Mnemonic={curve.Mnemonic}, CurveUnit={curve.CurveUnit}, CurveDescription={curve.CurveDescription}, LogCurveMainFamilyID={curve.LogCurveMainFamilyID}");
+                }
+            }
+        }
+
+        return sb.ToString();
     }
 }
