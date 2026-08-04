@@ -54,16 +54,22 @@ public class ServicesExtensionGenerator
                           /// Registers all generated OSDU API clients with the service collection.
                           /// </summary>
                           /// <param name="services">The service collection.</param>
-                          /// <param name="configureClient">Optional configuration for the underlying <see cref="HttpClient"/>.</param>
+                          /// <param name="configureHttpClient">Optional configuration for the underlying <see cref="HttpClient"/>.</param>
+                          /// <param name="configureHttpClientBuilder">Optional configuration for each <see cref="IHttpClientBuilder"/> (e.g., to add message handlers).</param>
                           /// <returns>The service collection for chaining.</returns>
-                          public static IServiceCollection AddOsduApiClients(this IServiceCollection services, Action<HttpClient>? configureClient = null)
+                          public static IServiceCollection AddOsduApiClients(this IServiceCollection services, Action<HttpClient>? configureHttpClient = null, Action<IHttpClientBuilder>? configureHttpClientBuilder = null)
                           {
                       """);
 
         foreach (string name in apiClientNames.OrderBy(n => n))
         {
             sb.AppendLine($$"""
-                                    services.AddHttpClient<I{{name}}ApiClient, {{name}}ApiClient>(client => { configureClient?.Invoke(client); });
+                                    IHttpClientBuilder {{char.ToLowerInvariant(name[0])}}{{name[1..]}}Builder = services.AddHttpClient<I{{name}}ApiClient, {{name}}ApiClient>(httpClient => 
+                                    { 
+                                        configureHttpClient?.Invoke(httpClient); 
+                                    });
+                                    configureHttpClientBuilder?.Invoke({{char.ToLowerInvariant(name[0])}}{{name[1..]}}Builder);
+                                    
                             """);
         }
 

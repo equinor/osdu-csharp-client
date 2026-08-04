@@ -40,27 +40,113 @@ public static class ServicesExtension
     /// Registers all generated OSDU API clients with the service collection.
     /// </summary>
     /// <param name="services">The service collection.</param>
-    /// <param name="configureClient">Optional configuration for the underlying <see cref="HttpClient"/>.</param>
+    /// <param name="configureHttpClient">Optional configuration for the underlying <see cref="HttpClient"/>.</param>
+    /// <param name="configureHttpClientBuilder">Optional configuration for each <see cref="IHttpClientBuilder"/> (e.g., to add message handlers).</param>
     /// <returns>The service collection for chaining.</returns>
-    public static IServiceCollection AddOsduApiClients(this IServiceCollection services, Action<HttpClient>? configureClient = null)
+    public static IServiceCollection AddOsduApiClients(this IServiceCollection services, Action<HttpClient>? configureHttpClient = null, Action<IHttpClientBuilder>? configureHttpClientBuilder = null)
     {
-        services.AddHttpClient<ICrsCatalogApiClient, CrsCatalogApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<ICrsConversionApiClient, CrsConversionApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IDatasetApiClient, DatasetApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IEntitlementApiClient, EntitlementApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IFileApiClient, FileApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IIndexerApiClient, IndexerApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<ILegalApiClient, LegalApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<INotificationApiClient, NotificationApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IPartitionApiClient, PartitionApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IPolicyApiClient, PolicyApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IRafsDdmsApiClient, RafsDdmsApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IRegisterApiClient, RegisterApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<ISchemaApiClient, SchemaApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<ISearchApiClient, SearchApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IStorageApiClient, StorageApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IUnitApiClient, UnitApiClient>(client => { configureClient?.Invoke(client); });
-        services.AddHttpClient<IWellboreDdmsApiClient, WellboreDdmsApiClient>(client => { configureClient?.Invoke(client); });
+        IHttpClientBuilder crsCatalogBuilder = services.AddHttpClient<ICrsCatalogApiClient, CrsCatalogApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(crsCatalogBuilder);
+        
+        IHttpClientBuilder crsConversionBuilder = services.AddHttpClient<ICrsConversionApiClient, CrsConversionApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(crsConversionBuilder);
+        
+        IHttpClientBuilder datasetBuilder = services.AddHttpClient<IDatasetApiClient, DatasetApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(datasetBuilder);
+        
+        IHttpClientBuilder entitlementBuilder = services.AddHttpClient<IEntitlementApiClient, EntitlementApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(entitlementBuilder);
+        
+        IHttpClientBuilder fileBuilder = services.AddHttpClient<IFileApiClient, FileApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(fileBuilder);
+        
+        IHttpClientBuilder indexerBuilder = services.AddHttpClient<IIndexerApiClient, IndexerApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(indexerBuilder);
+        
+        IHttpClientBuilder legalBuilder = services.AddHttpClient<ILegalApiClient, LegalApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(legalBuilder);
+        
+        IHttpClientBuilder notificationBuilder = services.AddHttpClient<INotificationApiClient, NotificationApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(notificationBuilder);
+        
+        IHttpClientBuilder partitionBuilder = services.AddHttpClient<IPartitionApiClient, PartitionApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(partitionBuilder);
+        
+        IHttpClientBuilder policyBuilder = services.AddHttpClient<IPolicyApiClient, PolicyApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(policyBuilder);
+        
+        IHttpClientBuilder rafsDdmsBuilder = services.AddHttpClient<IRafsDdmsApiClient, RafsDdmsApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(rafsDdmsBuilder);
+        
+        IHttpClientBuilder registerBuilder = services.AddHttpClient<IRegisterApiClient, RegisterApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(registerBuilder);
+        
+        IHttpClientBuilder schemaBuilder = services.AddHttpClient<ISchemaApiClient, SchemaApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(schemaBuilder);
+        
+        IHttpClientBuilder searchBuilder = services.AddHttpClient<ISearchApiClient, SearchApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(searchBuilder);
+        
+        IHttpClientBuilder storageBuilder = services.AddHttpClient<IStorageApiClient, StorageApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(storageBuilder);
+        
+        IHttpClientBuilder unitBuilder = services.AddHttpClient<IUnitApiClient, UnitApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(unitBuilder);
+        
+        IHttpClientBuilder wellboreDdmsBuilder = services.AddHttpClient<IWellboreDdmsApiClient, WellboreDdmsApiClient>(httpClient => 
+        { 
+            configureHttpClient?.Invoke(httpClient); 
+        });
+        configureHttpClientBuilder?.Invoke(wellboreDdmsBuilder);
+        
 
         services.AddScoped<IOsduClient, OsduClient>();
 

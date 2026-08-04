@@ -2,7 +2,6 @@ using System.Reflection;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Http;
 using Osdu.Client.ExampleApp.Authentication;
 using Osdu.Client.ExampleApp.Examples;
 using Osdu.Client.Extensions;
@@ -44,20 +43,16 @@ public partial class App : Application
             client.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
         }).AddHttpMessageHandler<OsduAuthHandler>();
 
-        services.AddOsduApiClients(client =>
-        {
-            client.BaseAddress = new Uri(baseUrl);
-            client.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
-        });
-
-        // Attach the auth handler to all OSDU-registered HttpClients
-        services.ConfigureAll<HttpClientFactoryOptions>(options =>
-        {
-            options.HttpMessageHandlerBuilderActions.Add(builder =>
+        services.AddOsduApiClients(
+            httpClient =>
             {
-                builder.AdditionalHandlers.Add(builder.Services.GetRequiredService<OsduAuthHandler>());
+                httpClient.BaseAddress = new Uri(baseUrl);
+                httpClient.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
+            },
+            httpClientBuilder =>
+            {
+                httpClientBuilder.AddHttpMessageHandler<OsduAuthHandler>();
             });
-        });
 
         // Auto-discover and register all IExample implementations
         var exampleTypes = Assembly.GetExecutingAssembly()
