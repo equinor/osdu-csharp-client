@@ -1,5 +1,4 @@
 using Microsoft.OpenApi;
-using Osdu.Client.Generator.ConsoleApp.Extensions;
 
 namespace Osdu.Client.Generator.ConsoleApp.Generators.Api;
 

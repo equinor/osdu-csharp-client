@@ -1,6 +1,5 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
-using Osdu.Client.Generator.ConsoleApp;
 
 namespace Osdu.Client.Generator.ConsoleApp.Generators.Api;
 

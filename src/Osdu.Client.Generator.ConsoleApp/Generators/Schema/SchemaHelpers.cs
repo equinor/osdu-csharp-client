@@ -19,22 +19,6 @@ public static class SchemaHelpers
         return !HasFlag(type, JsonSchemaType.String) && !HasFlag(type, JsonSchemaType.Array);
     }
 
-    //public static string Sanitize(string? name)
-    //{
-    //    if (string.IsNullOrEmpty(name)) return "Unknown";
-    //    var result = new StringBuilder();
-    //    foreach (var ch in name)
-    //    {
-    //        if (char.IsLetterOrDigit(ch) || ch == '_')
-    //            result.Append(ch);
-    //    }
-    //    if (result.Length == 0)
-    //        return "Unknown";
-    //    if (result.Length > 0 && char.IsDigit(result[0]))
-    //        result.Insert(0, '_');
-    //    return result.ToString().Replace("json", "");
-    //}
-
     public static string Sanitize(string? name)
     {
         if (string.IsNullOrEmpty(name)) return "Unknown";
