@@ -33,8 +33,7 @@ public partial class App : Application
 
         var services = new ServiceCollection();
 
-        services.AddTransient<OsduAuthHandler>(_ =>
-            new OsduAuthHandler(tenantId, clientId, clientSecret, scope));
+        services.AddTransient<OsduAuthHandler>(_ => new OsduAuthHandler(tenantId, clientId, clientSecret, scope));
 
         // Register a named HttpClient for the dynamic API explorer
         services.AddHttpClient("OsduApi", client =>
