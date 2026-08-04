@@ -1,169 +1,104 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <UserSecretsId>55b978a3-6edf-48a2-a246-204b25d233ae</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <UserSecretsId>55b978a3-6edf-48a2-a246-204b25d233ae</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.json" />
-    <None Remove="Definitions\Api\crs-catalog.json" />
-    <None Remove="Definitions\Api\crs-conversion.json" />
-    <None Remove="Definitions\Api\dataset.json" />
-    <None Remove="Definitions\Api\entitlement.json" />
-    <None Remove="Definitions\Api\file.json" />
-    <None Remove="Definitions\Api\indexer.json" />
-    <None Remove="Definitions\Api\legal.json" />
-    <None Remove="Definitions\Api\notification.json" />
-    <None Remove="Definitions\Api\partition.json" />
-    <None Remove="Definitions\Api\policy.json" />
-    <None Remove="Definitions\Api\rafs-ddms.json" />
-    <None Remove="Definitions\Api\register.json" />
-    <None Remove="Definitions\Api\schema.json" />
-    <None Remove="Definitions\Api\search.json" />
-    <None Remove="Definitions\Api\storage.json" />
-    <None Remove="Definitions\Api\unit.json" />
-    <None Remove="Definitions\Api\wellbore-ddms.json" />
-  </ItemGroup>
+    <Target Name="CopyApiDefinitions" AfterTargets="PostBuildEvent">
+        <ItemGroup>
+            <ApiDefinitionFiles Include="$(ProjectDir)..\Osdu.Client.Generator.ConsoleApp\Definitions\Api\*.json" />
+        </ItemGroup>
+        <Copy SourceFiles="@(ApiDefinitionFiles)" DestinationFolder="$(OutputPath)Definitions\Api" SkipUnchangedFiles="false" />
+    </Target>
 
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\crs-catalog.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\crs-conversion.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\dataset.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\entitlement.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\file.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\indexer.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\legal.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\notification.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\partition.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\policy.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\rafs-ddms.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\register.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\schema.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\search.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\storage.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\unit.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Definitions\Api\wellbore-ddms.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Storage\GetRecordsExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Storage\PostRecordsDeleteByIdExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\WellboreDdms\PostDdmsV3WelllogsExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Storage\GetRecordsExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Storage\PostRecordsDeleteByIdExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\WellboreDdms\PostDdmsV3WelllogsExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="ExamplesBuilder\IExample.cs" />
-    <Content Include="Examples\Entitlement\GetInfoExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Entitlement\GetGroupsExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Indexer\GetInfoExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Legal\GetLegalTagsPropertiesExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Legal\GetLegalTagsExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Schema\GetInfoExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Schema\GetSchemaExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Search\PostQueryExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Search\PostQueryWellLogsExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\Storage\GetRecordsByIdExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\WellboreDdms\PostDdmsV3WellboresExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\WellboreDdms\GetAboutExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples\WellboreDdms\GetVersionExample.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="ExamplesBuilder\IExample.cs" />
+        <Content Include="Examples\Entitlement\GetInfoExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Entitlement\GetGroupsExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Indexer\GetInfoExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Legal\GetLegalTagsPropertiesExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Legal\GetLegalTagsExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Schema\GetInfoExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Schema\GetSchemaExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Search\PostQueryExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Search\PostQueryWellLogsExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\Storage\GetRecordsByIdExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\WellboreDdms\PostDdmsV3WellboresExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\WellboreDdms\GetAboutExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Examples\WellboreDdms\GetVersionExample.cs">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.21.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.87.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Azure.Identity" Version="1.21.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Identity.Client" Version="4.87.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Osdu.Client\Osdu.Client.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Osdu.Client\Osdu.Client.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Examples\Dataset\" />
-    <Folder Include="Examples\File\" />
-    <Folder Include="Examples\Notification\" />
-    <Folder Include="Examples\Partition\" />
-    <Folder Include="Examples\Policy\" />
-    <Folder Include="Examples\RafsDdms\" />
-    <Folder Include="Examples\Register\" />
-    <Folder Include="Examples\Unit\" />
-    <Folder Include="Examples\CrsConversion\" />
-    <Folder Include="Examples\CrsCatalog\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Examples\Dataset\" />
+        <Folder Include="Examples\File\" />
+        <Folder Include="Examples\Notification\" />
+        <Folder Include="Examples\Partition\" />
+        <Folder Include="Examples\Policy\" />
+        <Folder Include="Examples\RafsDdms\" />
+        <Folder Include="Examples\Register\" />
+        <Folder Include="Examples\Unit\" />
+        <Folder Include="Examples\CrsConversion\" />
+        <Folder Include="Examples\CrsCatalog\" />
+    </ItemGroup>
 
 </Project>
