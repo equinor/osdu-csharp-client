@@ -1,13 +1,9 @@
-using System;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Identity.Client;
 
-namespace Osdu.Client.ExampleApp.Authentication;
+namespace Osdu.Client.Authentication;
 
 public sealed class OsduAuthHandler : DelegatingHandler
 {
