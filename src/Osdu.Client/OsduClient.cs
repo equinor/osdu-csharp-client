@@ -24,7 +24,7 @@ using Osdu.Client.Apis.Storage;
 using Osdu.Client.Apis.Unit;
 using Osdu.Client.Apis.WellboreDdms;
 
-namespace Osdu.Client.Apis;
+namespace Osdu.Client;
 
 
   /// <summary>

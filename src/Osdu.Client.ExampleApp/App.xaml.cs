@@ -34,14 +34,6 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddTransient<OsduAuthHandler>(_ => new OsduAuthHandler(tenantId, clientId, clientSecret, scope));
-
-        // Register a named HttpClient for the dynamic API explorer
-        services.AddHttpClient("OsduApi", client =>
-        {
-            client.BaseAddress = new Uri(baseUrl);
-            client.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
-        }).AddHttpMessageHandler<OsduAuthHandler>();
-
         services.AddOsduApiClients(
             httpClient =>
             {
@@ -52,6 +44,15 @@ public partial class App : Application
             {
                 httpClientBuilder.AddHttpMessageHandler<OsduAuthHandler>();
             });
+
+        // Register a named HttpClient for the dynamic API explorer
+        services.AddHttpClient("OsduApi", client =>
+        {
+            client.BaseAddress = new Uri(baseUrl);
+            client.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
+        }).AddHttpMessageHandler<OsduAuthHandler>();
+
+
 
         // Auto-discover and register all IExample implementations
         var exampleTypes = Assembly.GetExecutingAssembly()

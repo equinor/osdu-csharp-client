@@ -25,7 +25,7 @@ public class OsduClientGenerator
     /// <param name="apiClientNames">List of PascalCase API client names (e.g., "Dataset", "Search", "Storage").</param>
     public void Generate(IReadOnlyList<string> apiClientNames)
     {
-        string outputDir = _configuration.Api.OutputDir;
+        string outputDir = Directory.GetParent(_configuration.Api.OutputDir)?.FullName!;
         string apiBaseNamespace = _configuration.Api.Namespace;
 
         Directory.CreateDirectory(outputDir);
@@ -41,7 +41,7 @@ public class OsduClientGenerator
         }
 
         sb.AppendLine();
-        sb.AppendLine($"namespace {apiBaseNamespace};");
+        sb.AppendLine($"namespace Osdu.Client;");
         sb.AppendLine();
 
         // Interface
