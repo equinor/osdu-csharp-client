@@ -12,16 +12,11 @@ public class CodeGenerator
     private readonly AppConfiguration _configuration;
     private readonly ApiGenerator _apiGenerator;
     private readonly SchemaGenerator _schemaGenerator;
-    private readonly ServicesExtensionGenerator _servicesExtensionGenerator;
+    private readonly ServiceCollectionExtensionsGenerator _servicesExtensionGenerator;
     private readonly OsduClientGenerator _osduClientGenerator;
-    private readonly ObjectExtensionsGenerator _objectExtensionsGenerator;
-    private readonly OsduApiExceptionGenerator _osduApiExceptionGenerator;
-    private readonly ConvertersGenerator _convertersGenerator;
 
     public CodeGenerator(ILogger<CodeGenerator> logger, AppConfiguration configuration, ApiGenerator apiGenerator,
-        SchemaGenerator schemaGenerator, ServicesExtensionGenerator servicesExtensionGenerator,
-        OsduClientGenerator osduClientGenerator, ObjectExtensionsGenerator objectExtensionsGenerator,
-        OsduApiExceptionGenerator osduApiExceptionGenerator, ConvertersGenerator convertersGenerator)
+        SchemaGenerator schemaGenerator, ServiceCollectionExtensionsGenerator servicesExtensionGenerator, OsduClientGenerator osduClientGenerator)
     {
         _logger = logger;
         _configuration = configuration;
@@ -29,9 +24,6 @@ public class CodeGenerator
         _schemaGenerator = schemaGenerator;
         _servicesExtensionGenerator = servicesExtensionGenerator;
         _osduClientGenerator = osduClientGenerator;
-        _objectExtensionsGenerator = objectExtensionsGenerator;
-        _osduApiExceptionGenerator = osduApiExceptionGenerator;
-        _convertersGenerator = convertersGenerator;
     }
 
     public static void BuildAutogenComment(StringBuilder sb)
@@ -50,22 +42,8 @@ public class CodeGenerator
 
     public void Generate()
     {
-        GenerateConverters();
         GenerateApiClientsAndSchemas();
         GenerateDataSchemas();
-        GenerateExtensions();
-    }
-
-    private void GenerateConverters()
-    {
-        _logger.LogInformation("Generating converters...");
-        _convertersGenerator.Generate();
-    }
-
-    private void GenerateExtensions()
-    {
-        _logger.LogInformation("Generating extension helpers...");
-        _objectExtensionsGenerator.Generate();
     }
 
     private void GenerateApiClientsAndSchemas()
@@ -109,7 +87,6 @@ public class CodeGenerator
         {
             _servicesExtensionGenerator.Generate(apiClientNames);
             _osduClientGenerator.Generate(apiClientNames);
-            _osduApiExceptionGenerator.Generate();
         }
     }
 

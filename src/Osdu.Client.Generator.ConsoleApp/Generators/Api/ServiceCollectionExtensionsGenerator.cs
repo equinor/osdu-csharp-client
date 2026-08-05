@@ -6,12 +6,12 @@ namespace Osdu.Client.Generator.ConsoleApp.Generators.Api;
 /// <summary>
 /// Generates the ServicesExtension class that registers all generated API clients with DI.
 /// </summary>
-public class ServicesExtensionGenerator
+public class ServiceCollectionExtensionsGenerator
 {
-    private readonly ILogger<ServicesExtensionGenerator> _logger;
+    private readonly ILogger<ServiceCollectionExtensionsGenerator> _logger;
     private readonly AppConfiguration _configuration;
 
-    public ServicesExtensionGenerator(ILogger<ServicesExtensionGenerator> logger, AppConfiguration configuration)
+    public ServiceCollectionExtensionsGenerator(ILogger<ServiceCollectionExtensionsGenerator> logger, AppConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;
@@ -46,7 +46,7 @@ public class ServicesExtensionGenerator
                       /// <summary>
                       /// Extension methods for registering OSDU API clients with dependency injection.
                       /// </summary>
-                      public static class ServicesExtension
+                      public static class ServiceCollectionExtensions
                       {
                           /// <summary>
                           /// Registers all generated OSDU API clients with the service collection.
@@ -81,10 +81,10 @@ public class ServicesExtensionGenerator
                       }
                       """);
 
-        string outputFile = Path.Combine(outputDir, "ServicesExtension.cs");
+        string outputFile = Path.Combine(outputDir, "ServiceCollectionExtensions.cs");
         File.WriteAllText(outputFile, sb.ToString());
 
-        _logger.LogInformation($"Generated services extension: {outputFile}");
+        _logger.LogInformation($"Generated service collection extensions: {outputFile}");
     }
 
     public void BuildUsings(StringBuilder sb)

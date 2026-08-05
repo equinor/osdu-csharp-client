@@ -10,10 +10,13 @@
   <ItemGroup>
     <Compile Remove="CodeGenerator - Copy.cs" />
     <Compile Remove="Generators\ApiGenerator.cs" />
+    <Compile Remove="Generators\Api\ObjectExtensionsGenerator.cs" />
+    <Compile Remove="Generators\Api\OsduApiExceptionGenerator.cs" />
     <Compile Remove="Generators\SchemaGenerator - Copy %282%29.cs" />
     <Compile Remove="Generators\SchemaGenerator - Copy %283%29.cs" />
     <Compile Remove="Generators\SchemaGenerator - Copy.cs" />
     <Compile Remove="Generators\SchemaGenerator.cs" />
+    <Compile Remove="Generators\Schema\ConvertersGenerator.cs" />
     <Compile Remove="Program - Copy.cs" />
   </ItemGroup>
 

@@ -34,7 +34,7 @@ namespace Osdu.Client.Extensions;
 /// <summary>
 /// Extension methods for registering OSDU API clients with dependency injection.
 /// </summary>
-public static class ServicesExtension
+public static class ServiceCollectionExtensions
 {
     /// <summary>
     /// Registers all generated OSDU API clients with the service collection.
