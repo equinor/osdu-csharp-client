@@ -49,14 +49,14 @@ public class ApiGenerator
         _classBuilder.BuildInterface(sb, openApiDocument, $"{apiClientName}");
         _classBuilder.BuildImplementation(sb, openApiDocument, apiClientName);
 
-        string outputFile = Path.Combine(outputDir, apiClientName, $"{apiClientName}Client.cs");
+        string outputFile = Path.Combine(outputDir, apiClientName, $"{apiClientName}ApiClient.cs");
 
         if (!Directory.Exists(Path.GetDirectoryName(outputFile)))
         {
             Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
         }
 
-        _logger.LogInformation($"    Generated API client: {apiClientName}Client.cs");
+        _logger.LogInformation($"    Generated API client: {apiClientName}ApiClient.cs");
         File.WriteAllText(outputFile, sb.ToString());
     }
 }
