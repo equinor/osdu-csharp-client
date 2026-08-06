@@ -158,10 +158,24 @@
                             </StackPanel>
                         </DockPanel>
                     </Border>
-                    <TextBox x:Name="ResponseTextBox" IsReadOnly="True"
-                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                             TextWrapping="Wrap" FontFamily="Cascadia Code, Consolas, monospace" FontSize="12"
-                             AcceptsReturn="True" Padding="24,12" BorderThickness="0"/>
+                    <Grid>
+                        <TextBox x:Name="ResponseTextBox" IsReadOnly="True"
+                                 VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                 TextWrapping="Wrap" FontFamily="Cascadia Code, Consolas, monospace" FontSize="12"
+                                 AcceptsReturn="True" Padding="24,12" BorderThickness="0"/>
+                        <Grid x:Name="ResponseDataGridPanel" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid x:Name="ResponseDataGrid" Grid.Row="0"
+                                      Margin="8,4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                      BorderThickness="0"/>
+                            <Border x:Name="DataGridStatusBar" Grid.Row="1" Padding="12,4,12,4" BorderThickness="0,1,0,0">
+                                <TextBlock x:Name="DataGridItemCountText" FontSize="11" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
                 </DockPanel>
             </Border>
         </Grid>

@@ -60,6 +60,9 @@ public partial class ApiTestWindow : Window
         ApplyTheme();
         ApplyTabStyles();
         RebuildSidebarForCurrentMode();
+
+        // Initialize the response display service for DataGrid support
+        Controls.ResponseDisplayService.Initialize(ResponseTextBox, ResponseDataGrid, ResponseDataGridPanel, DataGridItemCountText, DataGridStatusBar, _currentTheme);
     }
 
     // ─── Tab Switching ───────────────────────────────────────────────
@@ -624,6 +627,7 @@ public partial class ApiTestWindow : Window
 
     private async System.Threading.Tasks.Task RunSingleExampleAsync(IExample example)
     {
+        Controls.ResponseDisplayService.ShowTextBox(); // Reset to text mode
         ResponseTextBox.Clear();
         ResponseStatusText.Text = "⏳ Running...";
         ResponseStatusText.Foreground = _currentTheme.TextSecondaryBrush;
@@ -700,12 +704,20 @@ public partial class ApiTestWindow : Window
         RowSplitter.Background = _currentTheme.BorderBrush;
         ContentGrid.Background = _currentTheme.SurfaceBrush;
         CopyResponseButton.Foreground = _currentTheme.TextSecondaryBrush;
+
+        Controls.ResponseDisplayService.UpdateTheme(_currentTheme);
     }
 
     private void CopyResponse_Click(object sender, RoutedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(ResponseTextBox.Text))
+        if (Controls.ResponseDisplayService.IsDataGridVisible)
+        {
+            Controls.ResponseDisplayService.CopySelectedToClipboard();
+        }
+        else if (!string.IsNullOrEmpty(ResponseTextBox.Text))
+        {
             Clipboard.SetText(ResponseTextBox.Text);
+        }
     }
 
     private Style CreateExpanderStyle()
