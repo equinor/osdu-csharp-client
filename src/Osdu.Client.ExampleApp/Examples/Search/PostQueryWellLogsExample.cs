@@ -1,13 +1,10 @@
-using System.Text;
 using System.Text.Json;
 using System.Windows;
-using Osdu.Client.Apis;
 using Osdu.Client.Apis.Search;
 using Osdu.Client.ExampleApp.Controls;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
 using Osdu.Client.Extensions;
-using Osdu.Client.Schemas.MasterData;
 using Osdu.Client.Schemas.WorkProductComponent;
 
 namespace Osdu.Client.ExampleApp.Examples;
@@ -47,7 +44,7 @@ public class PostQueryWellLogsExample(IOsduClient osduClient) : ExampleBase
             return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
         }
 
-        IEnumerable<WellLog_1_5_0> wellLogs = response.Results.Deserialize<WellLog_1_5_0>();
+        IEnumerable<WellLog_1_4_0> wellLogs = response.Results.Deserialize<WellLog_1_4_0>();
 
         // Flatten all curves with their parent WellLog ID for DataGrid display
         var items = wellLogs
