@@ -66,10 +66,12 @@ public partial class App : Application
 
         services.AddTransient<MainWindow>();
         services.AddTransient<ApiTestWindow>();
+        services.AddTransient<RecordBrowserWindow>();
 
         Services = services.BuildServiceProvider();
 
-        ApiTestWindow testWindow = Services.GetRequiredService<ApiTestWindow>();
-        testWindow.Show();
+        //ApiTestWindow testWindow = Services.GetRequiredService<ApiTestWindow>();
+        var window = Services.GetRequiredService<RecordBrowserWindow>();
+        window.Show();
     }
 }
