@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.2](https://github.com/equinor/osdu-csharp-client/compare/v1.1.1...v1.1.2) (2026-08-13)
+
+
+### Dependencies
+
+* bump the github-actions group across 1 directory with 6 updates ([#74](https://github.com/equinor/osdu-csharp-client/issues/74)) ([ceb5bc5](https://github.com/equinor/osdu-csharp-client/commit/ceb5bc5e1a4a18d446593b8693a91a1c955e70a2))
+* bump the github-actions group with 6 updates ([#78](https://github.com/equinor/osdu-csharp-client/issues/78)) ([1fe5add](https://github.com/equinor/osdu-csharp-client/commit/1fe5adda2f1e0a89b6ee1e9a784025ebe755ef6f))
+* Bump the nuget group with 9 updates ([#80](https://github.com/equinor/osdu-csharp-client/issues/80)) ([f6e77a2](https://github.com/equinor/osdu-csharp-client/commit/f6e77a2fabfdef34f6db539c65197138e0fd9352))
+
 ## [1.1.1](https://github.com/equinor/osdu-csharp-client/compare/v1.1.0...v1.1.1) (2026-06-23)
 
 
