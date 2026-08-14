@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace Osdu.Client.ExampleApp.Caching;
 
 /// <summary>
@@ -19,4 +21,14 @@ public class OsduQueryOptions
     /// When true, fetches all available records regardless of MaxPages.
     /// </summary>
     public bool FetchAll { get; set; }
+
+    /// <summary>
+    /// The fields to project in the results. When empty, all fields are returned.
+    /// </summary>
+    public List<string> ReturnedFields { get; set; } = [];
+
+    /// <summary>
+    /// The fields to exclude from the results.
+    /// </summary>
+    public List<string> ExcludedFields { get; set; } = [];
 }

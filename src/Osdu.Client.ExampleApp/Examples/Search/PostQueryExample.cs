@@ -5,6 +5,7 @@ using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
 using Osdu.Client.Extended.Apis.Dataset;
+using Osdu.Client.Schemas.MasterData;
 using Osdu.Client.Schemas.ReferenceData;
 
 namespace Osdu.Client.ExampleApp.Examples.Search;
@@ -38,6 +39,12 @@ public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cachePr
         var queryItems = await queryExecutor.ExecuteAsync<UnitOfMeasure_1_0_0>("osdu:wks:reference-data--UnitOfMeasure:1.0.0", x => x.Data.IsBaseUnit == true);
 
         //AzureStorageLocation? storageLocation = await osduClient.Dataset.GetAzureStorageLocationAsync("test","1h", cancellationToken);
+
+        var result = await queryExecutor
+            .Query<Wellbore_1_3_0>("osdu:wks:master-data--Wellbore:*")
+            .Where(w => w.Data.WellID == "well-123")
+            .Select(w => w.Id, w => w.Kind, w => w.Data.WellID, w => w.Data.FacilityName)
+            .ExecuteAsync(cancellationToken);
 
         var request = new QueryRequest
         {

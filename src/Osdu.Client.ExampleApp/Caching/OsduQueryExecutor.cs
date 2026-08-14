@@ -11,6 +11,9 @@ namespace Osdu.Client.ExampleApp.Caching;
 public class OsduQueryExecutor(IOsduClient osduClient) : IOsduQueryExecutor
 {
     /// <inheritdoc />
+    public OsduQuery<TItem> Query<TItem>(string kind) => new(this, kind);
+
+    /// <inheritdoc />
     public Task<OsduQueryResult<TItem>> ExecuteAsync<TItem>(
         string kind,
         Expression<Func<TItem, bool>> predicate,
@@ -46,6 +49,18 @@ public class OsduQueryExecutor(IOsduClient osduClient) : IOsduQueryExecutor
         return OsduQueryBuilder.Build(predicate);
     }
 
+    /// <inheritdoc />
+    public string ResolveField<TItem>(Expression<Func<TItem, object?>> selector)
+    {
+        return OsduFieldSelector.Resolve(selector);
+    }
+
+    /// <inheritdoc />
+    public List<string> ResolveFields<TItem>(params Expression<Func<TItem, object?>>[] selectors)
+    {
+        return OsduFieldSelector.ResolveMany(selectors);
+    }
+
     private async Task<OsduQueryResult<TItem>> FetchPaginatedAsync<TItem>(
         string kind, string query, OsduQueryOptions options, CancellationToken ct)
     {
@@ -62,14 +77,22 @@ public class OsduQueryExecutor(IOsduClient osduClient) : IOsduQueryExecutor
             if (!options.FetchAll && options.MaxPages > 0 && pagesFetched >= options.MaxPages)
                 break;
 
-            var response = await osduClient.Search.PostQueryWithCursorAsync(new CursorQueryRequest
+            var request = new CursorQueryRequest
             {
                 Kind = kind,
                 Query = query,
                 Limit = options.PageSize,
                 Cursor = cursor,
                 TrackTotalCount = pagesFetched == 0
-            }, cancellationToken: ct);
+            };
+
+            if (options.ReturnedFields is { Count: > 0 })
+                request.ReturnedFields = options.ReturnedFields;
+
+            if (options.ExcludedFields is { Count: > 0 })
+                request.ExcludedFields = options.ExcludedFields;
+
+            var response = await osduClient.Search.PostQueryWithCursorAsync(request, cancellationToken: ct);
 
             if (pagesFetched == 0 && response?.TotalCount is > 0)
                 totalCount = response.TotalCount.Value;
