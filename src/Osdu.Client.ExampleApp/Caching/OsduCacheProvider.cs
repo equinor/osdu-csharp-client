@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Linq.Expressions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Osdu.Client.ExampleApp.Caching;
@@ -11,14 +12,14 @@ namespace Osdu.Client.ExampleApp.Caching;
 public class OsduCacheProvider : IOsduCacheProvider
 {
     private readonly IMemoryCache _memoryCache;
-    private readonly IOsduClient _osduClient;
+    private readonly IOsduQueryExecutor _queryExecutor;
     private readonly ConcurrentDictionary<Type, OsduCacheDescriptor> _descriptors = [];
     private readonly ConcurrentDictionary<Type, object> _caches = [];
 
-    public OsduCacheProvider(IMemoryCache memoryCache, IOsduClient osduClient, IEnumerable<OsduCacheDescriptor> descriptors)
+    public OsduCacheProvider(IMemoryCache memoryCache, IOsduQueryExecutor queryExecutor, IEnumerable<OsduCacheDescriptor> descriptors)
     {
         _memoryCache = memoryCache;
-        _osduClient = osduClient;
+        _queryExecutor = queryExecutor;
 
         foreach (var descriptor in descriptors)
             _descriptors[descriptor.ItemType] = descriptor;
@@ -30,9 +31,10 @@ public class OsduCacheProvider : IOsduCacheProvider
         return (OsduCache<TItem>)_caches.GetOrAdd(typeof(TItem), type =>
         {
             if (!_descriptors.TryGetValue(type, out var descriptor))
-                throw new InvalidOperationException($"No cache registered for type '{type.Name}'. Call Register<{type.Name}>() or add it via AddOsduCaching().");
+                throw new InvalidOperationException(
+                    $"No cache registered for type '{type.Name}'. Call Register<{type.Name}>() or add it via AddOsduCaching().");
 
-            return new OsduCache<TItem>(_memoryCache, descriptor.Options, _osduClient, descriptor.KeyPrefix, descriptor.Kind);
+            return new OsduCache<TItem>(_memoryCache, descriptor.Options, _queryExecutor, descriptor.KeyPrefix, descriptor.Kind);
         });
     }
 
@@ -50,16 +52,17 @@ public class OsduCacheProvider : IOsduCacheProvider
         return result.Items;
     }
 
-    public bool IsRegistered<TItem>()
+    /// <inheritdoc />
+    public async Task<List<TItem>> GetByQueryAsync<TItem>(Expression<Func<TItem, bool>> predicate, CancellationToken ct = default)
     {
-        return _descriptors.ContainsKey(typeof(TItem));
+        var result = await For<TItem>().GetByQueryAsync(predicate, ct);
+        return result.Items;
     }
 
     /// <inheritdoc />
     public void Register(OsduCacheDescriptor descriptor)
     {
         _descriptors[descriptor.ItemType] = descriptor;
-        // Evict any previously created cache instance so it gets recreated with new descriptor
         _caches.TryRemove(descriptor.ItemType, out _);
     }
 

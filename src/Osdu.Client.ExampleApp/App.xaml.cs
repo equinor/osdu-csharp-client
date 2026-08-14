@@ -65,6 +65,8 @@ public partial class App : Application
             });
         });
 
+        services.AddOsduQueryExecutor();
+
         // Auto-discover and register all IExample implementations
         var exampleTypes = Assembly.GetExecutingAssembly()
             .GetTypes()

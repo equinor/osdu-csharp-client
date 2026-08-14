@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace Osdu.Client.ExampleApp.Caching;
 
 /// <summary>
@@ -12,23 +14,20 @@ public interface IOsduCacheProvider
     Task<List<TItem>> GetAllAsync<TItem>(CancellationToken ct = default);
 
     /// <summary>
-    /// Gets cached items matching a query for the given type in a single call.
+    /// Gets cached items matching a raw Lucene query string.
     /// </summary>
     Task<List<TItem>> GetByQueryAsync<TItem>(string query, CancellationToken ct = default);
+
+    /// <summary>
+    /// Gets cached items matching a strongly-typed predicate expression.
+    /// </summary>
+    Task<List<TItem>> GetByQueryAsync<TItem>(Expression<Func<TItem, bool>> predicate, CancellationToken ct = default);
 
     /// <summary>
     /// Resolves the underlying cache instance for advanced operations
     /// (e.g. invalidation, accessing <see cref="CachedResult{T}"/> metadata).
     /// </summary>
     OsduCache<TItem> For<TItem>();
-
-    /// <summary>
-    /// Checks if a cache for the given type is registered.
-    /// Returns true if the cache is registered, false otherwise.
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <returns></returns>
-    bool IsRegistered<TItem>();
 
     /// <summary>
     /// Registers a new cache descriptor at runtime.

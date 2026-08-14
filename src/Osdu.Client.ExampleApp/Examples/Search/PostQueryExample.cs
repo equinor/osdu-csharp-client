@@ -9,7 +9,7 @@ using Osdu.Client.Schemas.ReferenceData;
 
 namespace Osdu.Client.ExampleApp.Examples.Search;
 
-public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cacheProvider) : ExampleBase
+public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cacheProvider, IOsduQueryExecutor queryExecutor) : ExampleBase
 {
     public override string Category => ExampleCategory.Search;
     public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
@@ -33,11 +33,12 @@ public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cachePr
 
         var cache = cacheProvider.For<UnitOfMeasure_1_0_0>();
 
-        cacheProvider.IsRegistered<UnitOfMeasure_1_0_0>();
-   
+        var list = await cacheProvider.GetByQueryAsync<UnitOfMeasure_1_0_0>(x=>x.Data.IsBaseUnit == true );
+
+        var queryItems = await queryExecutor.ExecuteAsync<UnitOfMeasure_1_0_0>("osdu:wks:reference-data--UnitOfMeasure:1.0.0", x => x.Data.IsBaseUnit == true);
 
         //AzureStorageLocation? storageLocation = await osduClient.Dataset.GetAzureStorageLocationAsync("test","1h", cancellationToken);
-        
+
         var request = new QueryRequest
         {
             Kind = Kind,
