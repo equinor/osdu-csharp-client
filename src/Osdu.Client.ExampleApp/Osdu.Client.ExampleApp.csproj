@@ -17,6 +17,17 @@
     </Target>
 
     <ItemGroup>
+      <Compile Remove="Caching\BaseCache.cs" />
+      <Compile Remove="Caching\FieldCache.cs" />
+      <Compile Remove="Caching\OsduCacheOptions.cs" />
+      <Compile Remove="Caching\OsduCacheRegistry.cs" />
+      <Compile Remove="Caching\SchemaCache.cs" />
+      <Compile Remove="Caching\UnitCache.cs" />
+      <Compile Remove="Caching\WellboreCache.cs" />
+      <Compile Remove="Caching\WellCache.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Content Include="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
@@ -76,6 +87,7 @@
 
     <ItemGroup>
         <PackageReference Include="Azure.Identity" Version="1.21.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.11" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.10" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
         <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
@@ -85,6 +97,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Osdu.Client.Extended\Osdu.Client.Extended.csproj" />
         <ProjectReference Include="..\Osdu.Client\Osdu.Client.csproj" />
     </ItemGroup>
 

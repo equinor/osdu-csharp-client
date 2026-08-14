@@ -3,8 +3,10 @@ using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Osdu.Client.Authentication;
+using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.Examples;
 using Osdu.Client.Extensions;
+using Osdu.Client.Schemas.ReferenceData;
 
 namespace Osdu.Client.ExampleApp;
 
@@ -52,7 +54,16 @@ public partial class App : Application
             client.DefaultRequestHeaders.Add("data-partition-id", dataPartitionId);
         }).AddHttpMessageHandler<OsduAuthHandler>();
 
-
+        // Configure caching
+        services.AddOsduCaching(configuration, configureDescriptors: descriptors =>
+        {
+            descriptors.Add(new OsduCacheDescriptor
+            {
+                Kind = "osdu:wks:reference-data--UnitOfMeasure:1.0.0",
+                Options = new CacheOptions { Expiration = TimeSpan.FromHours(1), CacheAll = true },
+                ItemType = typeof(UnitOfMeasure_1_0_0)
+            });
+        });
 
         // Auto-discover and register all IExample implementations
         var exampleTypes = Assembly.GetExecutingAssembly()
@@ -71,7 +82,7 @@ public partial class App : Application
         Services = services.BuildServiceProvider();
 
         //ApiTestWindow testWindow = Services.GetRequiredService<ApiTestWindow>();
-        var window = Services.GetRequiredService<RecordBrowserWindow>();
+        var window = Services.GetRequiredService<ApiTestWindow>();
         window.Show();
     }
 }

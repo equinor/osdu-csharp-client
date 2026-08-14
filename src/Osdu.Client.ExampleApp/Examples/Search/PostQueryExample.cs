@@ -1,12 +1,15 @@
 using System.Text.Json;
-using Osdu.Client.Apis;
+using System.Windows.Documents;
 using Osdu.Client.Apis.Search;
+using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
+using Osdu.Client.Extended.Apis.Dataset;
+using Osdu.Client.Schemas.ReferenceData;
 
 namespace Osdu.Client.ExampleApp.Examples.Search;
 
-public class PostQueryExample(IOsduClient osduClient) : ExampleBase
+public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cacheProvider) : ExampleBase
 {
     public override string Category => ExampleCategory.Search;
     public override string Text => $"{Category}.{GetType().Name.RemoveExample()}";
@@ -26,6 +29,15 @@ public class PostQueryExample(IOsduClient osduClient) : ExampleBase
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
+        List<UnitOfMeasure_1_0_0> units = await cacheProvider.GetAllAsync<UnitOfMeasure_1_0_0>(cancellationToken);
+
+        var cache = cacheProvider.For<UnitOfMeasure_1_0_0>();
+
+        cacheProvider.IsRegistered<UnitOfMeasure_1_0_0>();
+   
+
+        //AzureStorageLocation? storageLocation = await osduClient.Dataset.GetAzureStorageLocationAsync("test","1h", cancellationToken);
+        
         var request = new QueryRequest
         {
             Kind = Kind,
