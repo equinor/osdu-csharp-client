@@ -31,4 +31,9 @@ public class OsduQueryOptions
     /// The fields to exclude from the results.
     /// </summary>
     public List<string> ExcludedFields { get; set; } = [];
+
+    /// <summary>
+    /// Sort criteria. When empty, results use OSDU default ordering.
+    /// </summary>
+    public List<OsduSortField>? Sort { get; set; }
 }

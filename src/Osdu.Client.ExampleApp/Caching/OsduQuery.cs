@@ -15,6 +15,7 @@ public class OsduQuery<TItem>
     private readonly OsduQueryOptions _options = new();
     private readonly List<string> _returnedFields = [];
     private readonly List<string> _excludedFields = [];
+    private readonly List<(string Field, SortDirection Direction)> _sortFields = [];
 
     internal OsduQuery(IOsduQueryExecutor executor, string kind)
     {
@@ -78,6 +79,51 @@ public class OsduQuery<TItem>
     }
 
     /// <summary>
+    /// Sorts results by the specified field in ascending order.
+    /// </summary>
+    public OsduQuery<TItem> OrderBy(Expression<Func<TItem, object?>> selector)
+    {
+        _sortFields.Add((OsduFieldSelector.Resolve(selector), SortDirection.Ascending));
+        return this;
+    }
+
+    /// <summary>
+    /// Sorts results by the specified field in descending order.
+    /// </summary>
+    public OsduQuery<TItem> OrderByDescending(Expression<Func<TItem, object?>> selector)
+    {
+        _sortFields.Add((OsduFieldSelector.Resolve(selector), SortDirection.Descending));
+        return this;
+    }
+
+    /// <summary>
+    /// Adds a secondary sort by the specified field in ascending order.
+    /// </summary>
+    public OsduQuery<TItem> ThenBy(Expression<Func<TItem, object?>> selector)
+    {
+        _sortFields.Add((OsduFieldSelector.Resolve(selector), SortDirection.Ascending));
+        return this;
+    }
+
+    /// <summary>
+    /// Adds a secondary sort by the specified field in descending order.
+    /// </summary>
+    public OsduQuery<TItem> ThenByDescending(Expression<Func<TItem, object?>> selector)
+    {
+        _sortFields.Add((OsduFieldSelector.Resolve(selector), SortDirection.Descending));
+        return this;
+    }
+
+    /// <summary>
+    /// Sorts results by the specified raw field name.
+    /// </summary>
+    public OsduQuery<TItem> OrderBy(string field, SortDirection direction = SortDirection.Ascending)
+    {
+        _sortFields.Add((field, direction));
+        return this;
+    }
+
+    /// <summary>
     /// Sets the page size for paginated fetching.
     /// </summary>
     public OsduQuery<TItem> PageSize(int pageSize)
@@ -111,6 +157,14 @@ public class OsduQuery<TItem>
     {
         _options.ReturnedFields = _returnedFields;
         _options.ExcludedFields = _excludedFields;
+
+        if (_sortFields.Count > 0)
+        {
+            _options.Sort = _sortFields
+                .Select(s => new OsduSortField(s.Field, s.Direction))
+                .ToList();
+        }
+
         return _executor.ExecuteAsync<TItem>(_kind, _query, _options, ct);
     }
 
@@ -134,3 +188,17 @@ public class OsduQuery<TItem>
         return result.Items.Count > 0 ? result.Items[0] : default;
     }
 }
+
+/// <summary>
+/// Sort direction for OSDU query results.
+/// </summary>
+public enum SortDirection
+{
+    Ascending,
+    Descending
+}
+
+/// <summary>
+/// Represents a sort field and its direction.
+/// </summary>
+public record OsduSortField(string Field, SortDirection Direction);
