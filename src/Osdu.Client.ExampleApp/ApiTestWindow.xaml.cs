@@ -23,12 +23,14 @@ public partial class ApiTestWindow : Window
     private readonly string _definitionsPath;
     private readonly HttpClient _httpClient;
     private readonly IEnumerable<IExample> _examples;
+    private readonly IOsduClient _osduClient;
     private Button? _selectedButton;
     private AppTheme _currentTheme = AppTheme.Light;
     private string? _lastLoadedFilePath;
     private IExample? _lastSelectedExample;
     private SidebarMode _activeMode = SidebarMode.Apis;
     private bool _showOnlyFailed;
+    private bool _browseDataInitialized;
 
     private readonly Dictionary<IExample, ExampleResult> _exampleResults = new();
     private readonly Dictionary<IExample, Button> _exampleButtons = new();
@@ -42,7 +44,8 @@ public partial class ApiTestWindow : Window
     private enum SidebarMode
     {
         Apis,
-        Examples
+        Examples,
+        BrowseData
     }
 
     private record ExampleResult(bool Success, string Output, long ElapsedMs);
@@ -55,14 +58,15 @@ public partial class ApiTestWindow : Window
         string StatusText,
         Brush StatusForeground);
 
-    public ApiTestWindow(IHttpClientFactory httpClientFactory, IEnumerable<IExample> examples)
+    public ApiTestWindow(IHttpClientFactory httpClientFactory, IEnumerable<IExample> examples, IOsduClient osduClient)
     {
         InitializeComponent();
         _definitionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Definitions", "Api");
         _httpClient = httpClientFactory.CreateClient("OsduApi");
         _examples = examples;
+        _osduClient = osduClient;
         ApplyTheme();
-        ApplyTabStyles();
+        ApplyToolbarStyles();
         RebuildSidebarForCurrentMode();
 
         // Initialize the response display service for DataGrid support
@@ -77,7 +81,8 @@ public partial class ApiTestWindow : Window
         SaveCurrentContentState();
         _activeMode = SidebarMode.Apis;
         _selectedButton = null;
-        ApplyTabStyles();
+        ApplyToolbarStyles();
+        ShowSidebarContent();
         RebuildSidebarForCurrentMode();
         RestoreContentState(_apisContentState, "Select an API from the sidebar", "Choose a service on the left to view its endpoints.");
     }
@@ -88,13 +93,44 @@ public partial class ApiTestWindow : Window
         SaveCurrentContentState();
         _activeMode = SidebarMode.Examples;
         _selectedButton = null;
-        ApplyTabStyles();
+        ApplyToolbarStyles();
+        ShowSidebarContent();
         RebuildSidebarForCurrentMode();
         RestoreContentState(_examplesContentState, "Select an Example", "Choose an example on the left to run it against the OSDU platform.");
     }
 
+    private void BrowseDataTab_Click(object sender, RoutedEventArgs e)
+    {
+        if (_activeMode == SidebarMode.BrowseData) return;
+        SaveCurrentContentState();
+        _activeMode = SidebarMode.BrowseData;
+        _selectedButton = null;
+        ApplyToolbarStyles();
+        ShowBrowseData();
+    }
+
+    private void ShowSidebarContent()
+    {
+        SidebarContentGrid.Visibility = Visibility.Visible;
+        BrowseDataControl.Visibility = Visibility.Collapsed;
+    }
+
+    private void ShowBrowseData()
+    {
+        SidebarContentGrid.Visibility = Visibility.Collapsed;
+        BrowseDataControl.Visibility = Visibility.Visible;
+
+        if (!_browseDataInitialized)
+        {
+            BrowseDataControl.Initialize(_osduClient, _currentTheme);
+            _browseDataInitialized = true;
+        }
+    }
+
     private void SaveCurrentContentState()
     {
+        if (_activeMode == SidebarMode.BrowseData) return;
+
         var children = new List<UIElement>();
         foreach (UIElement child in EndpointsPanel.Children)
             children.Add(child);
@@ -146,14 +182,14 @@ public partial class ApiTestWindow : Window
         ResponseStatusText.Text = "";
     }
 
-    private void ApplyTabStyles()
+    private void ApplyToolbarStyles()
     {
         ApisTabButton.Background = _activeMode == SidebarMode.Apis ? _currentTheme.AccentBrush : _currentTheme.TagBrush;
         ApisTabButton.Foreground = _activeMode == SidebarMode.Apis ? Brushes.White : _currentTheme.TextSecondaryBrush;
-        ExamplesTabButton.Background =
-            _activeMode == SidebarMode.Examples ? _currentTheme.AccentBrush : _currentTheme.TagBrush;
-        ExamplesTabButton.Foreground =
-            _activeMode == SidebarMode.Examples ? Brushes.White : _currentTheme.TextSecondaryBrush;
+        ExamplesTabButton.Background = _activeMode == SidebarMode.Examples ? _currentTheme.AccentBrush : _currentTheme.TagBrush;
+        ExamplesTabButton.Foreground = _activeMode == SidebarMode.Examples ? Brushes.White : _currentTheme.TextSecondaryBrush;
+        BrowseDataTabButton.Background = _activeMode == SidebarMode.BrowseData ? _currentTheme.AccentBrush : _currentTheme.TagBrush;
+        BrowseDataTabButton.Foreground = _activeMode == SidebarMode.BrowseData ? Brushes.White : _currentTheme.TextSecondaryBrush;
 
         SidebarTitle.Text = _activeMode == SidebarMode.Apis ? "🔌 APIs" : "📝 Examples";
         SidebarSubtitle.Text = _activeMode == SidebarMode.Apis ? "Select a service" : "Select an example";
@@ -168,7 +204,7 @@ public partial class ApiTestWindow : Window
         _exampleButtons.Clear();
 
         if (_activeMode == SidebarMode.Apis) RebuildApiButtons();
-        else RebuildExampleButtons();
+        else if (_activeMode == SidebarMode.Examples) RebuildExampleButtons();
     }
 
     private void RebuildApiButtons()
@@ -674,8 +710,12 @@ public partial class ApiTestWindow : Window
     {
         _currentTheme = _currentTheme.IsDark ? AppTheme.Light : AppTheme.Dark;
         ApplyTheme();
-        ApplyTabStyles();
+        ApplyToolbarStyles();
         RebuildSidebarForCurrentMode();
+
+        if (_browseDataInitialized)
+            BrowseDataControl.UpdateTheme(_currentTheme);
+
         if (_activeMode == SidebarMode.Apis && _lastLoadedFilePath != null) LoadApiFromFile(_lastLoadedFilePath);
         else if (_activeMode == SidebarMode.Examples && _lastSelectedExample != null) ShowExample(_lastSelectedExample);
     }
@@ -683,14 +723,24 @@ public partial class ApiTestWindow : Window
     private void ApplyTheme()
     {
         Background = _currentTheme.SurfaceBrush;
+
+        // Toolbar
+        ToolbarBorder.Background = _currentTheme.SidebarBrush;
+        ToolbarBorder.BorderBrush = _currentTheme.BorderBrush;
+        AppTitle.Foreground = _currentTheme.TextPrimaryBrush;
+        NavButtonsBorder.Background = _currentTheme.TagBrush;
+        ThemeToggleButton.Content = _currentTheme.IsDark ? "☀️ Light" : "🌙 Dark";
+        ThemeToggleButton.Foreground = _currentTheme.TextSecondaryBrush;
+        ThemeToggleButton.Background = _currentTheme.TagBrush;
+
+        // Sidebar
         SidebarBorder.Background = _currentTheme.SidebarBrush;
         SidebarBorder.BorderBrush = _currentTheme.BorderBrush;
         SidebarTitle.Foreground = _currentTheme.TextPrimaryBrush;
         SidebarSubtitle.Foreground = _currentTheme.TextSecondaryBrush;
         SidebarHeaderBorder.BorderBrush = _currentTheme.BorderBrush;
-        ThemeToggleButton.Content = _currentTheme.IsDark ? "☀️ Light" : "🌙 Dark";
-        ThemeToggleButton.Foreground = _currentTheme.TextSecondaryBrush;
-        ThemeToggleButton.Background = _currentTheme.TagBrush;
+
+        // Content
         TitleBarBorder.BorderBrush = _currentTheme.BorderBrush;
         ApiTitleText.Foreground = _currentTheme.TextPrimaryBrush;
         ApiDescriptionText.Foreground = _currentTheme.TextSecondaryBrush;

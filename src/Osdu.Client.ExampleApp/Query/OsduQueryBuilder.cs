@@ -103,11 +103,25 @@ public static class OsduQueryBuilder
             return $"{fieldPath}:*{value}*";
         }
 
+        // string.StartsWith (instance method)
+        if (method.Method.Name == nameof(string.StartsWith) && method.Object is not null)
+        {
+            var fieldPath = ResolveMemberPath(method.Object);
+            var value = ResolveValue(method.Arguments[0]);
+            return $"{fieldPath}:{value}*";
+        }
+
+        // string.EndsWith (instance method)
+        if (method.Method.Name == nameof(string.EndsWith) && method.Object is not null)
+        {
+            var fieldPath = ResolveMemberPath(method.Object);
+            var value = ResolveValue(method.Arguments[0]);
+            return $"{fieldPath}:*{value}";
+        }
+
         // Extension methods — resolved by name
         return method.Method.Name switch
         {
-            nameof(OsduQueryExtensions.StartsWith) => ParseSingleArgExtension(method, (field, value) => $"{field}:{value}*"),
-            nameof(OsduQueryExtensions.EndsWith) => ParseSingleArgExtension(method, (field, value) => $"{field}:*{value}"),
             nameof(OsduQueryExtensions.Exists) => ParseFieldOnlyExtension(method, field => $"_exists_:{field}"),
             nameof(OsduQueryExtensions.IsNotNull) => ParseFieldOnlyExtension(method, field => $"_exists_:{field}"),
             nameof(OsduQueryExtensions.IsNull) => ParseFieldOnlyExtension(method, field => $"NOT _exists_:{field}"),

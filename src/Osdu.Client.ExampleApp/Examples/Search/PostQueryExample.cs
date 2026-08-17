@@ -51,7 +51,8 @@ public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cachePr
 
         var result1 = await queryExecutor
             .Query<Wellbore_1_2_0>("osdu:wks:master-data--Wellbore:1.2.0")
-            .Where(w => w.Data.WellID == "dev:master-data--Well:Drogon-55-33-2")
+            //.Where(w => w.Data.WellID == "dev:master-data--Well:Drogon-55-33-2")
+            .Where(w => w.Data.WellID.MatchesPattern("33-A"))
             //.Select(w => w.Id, w => w.Kind, w => w.Data.WellID, w => w.Data.DrillingReasons)
             .ExecuteAsync(cancellationToken);
 
