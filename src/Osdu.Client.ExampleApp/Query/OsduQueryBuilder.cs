@@ -127,7 +127,10 @@ public static class OsduQueryBuilder
             nameof(OsduQueryExtensions.IsNull) => ParseFieldOnlyExtension(method, field => $"NOT _exists_:{field}"),
             nameof(OsduQueryExtensions.IsOneOf) => ParseIsOneOf(method),
             nameof(OsduQueryExtensions.Between) => ParseBetween(method),
-            nameof(OsduQueryExtensions.MatchesPattern) => ParseSingleArgExtension(method, (field, value) => $"{field}:{value}"),
+            nameof(OsduQueryExtensions.MatchesPattern) => ParseSingleArgExtension(method, (field, value) =>
+    value.Contains('*') || value.Contains('?')
+        ? $"{field}:{value}"
+        : $"{field}:\"{value}\""),
             nameof(OsduQueryExtensions.Fuzzy) => ParseFuzzy(method),
             _ => throw new NotSupportedException($"Method '{method.Method.Name}' is not supported.")
         };
@@ -216,5 +219,19 @@ public static class OsduQueryBuilder
             IEnumerable<string> strings => strings.ToList(),
             _ => throw new NotSupportedException("IsOneOf requires an IEnumerable<string> argument.")
         };
+    }
+
+    private static string EscapeLucene(string value)
+    {
+        // Escape Lucene special characters, preserving * and ? as wildcards
+        char[] specialChars = ['+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', ':', '\\', '/'];
+        var sb = new System.Text.StringBuilder(value.Length);
+        foreach (var c in value)
+        {
+            if (specialChars.Contains(c))
+                sb.Append('\\');
+            sb.Append(c);
+        }
+        return sb.ToString();
     }
 }
