@@ -41,7 +41,7 @@ public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cachePr
         //AzureStorageLocation? storageLocation = await osduClient.Dataset.GetAzureStorageLocationAsync("test","1h", cancellationToken);
 
         var result = await queryExecutor
-            .Query<Wellbore_1_3_0>("osdu:wks:master-data--Wellbore:*")
+            .Query<Wellbore_1_3_0>("osdu:wks:master-data--Wellbore:1.3.0")
             .Where(w => w.Data.WellID == "well-123")
             .Select(w => w.Id, w => w.Kind, w => w.Data.WellID, w => w.Data.DrillingReasons)
             .OrderBy(x=>x.Data.WellID)
@@ -56,6 +56,7 @@ public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cachePr
             ReturnedFields = ReturnedFields.ToList()
         };
 
+        // /////////////////
         var response = await osduClient.Search.PostQueryAsync(request, cancellationToken);
 
         return JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true });
