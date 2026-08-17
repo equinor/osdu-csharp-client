@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Caching.Memory;
 using Osdu.Client.ExampleApp.Query;
@@ -14,6 +15,7 @@ public class OsduCache<TItem>
     private readonly IOsduQueryExecutor _queryExecutor;
     private readonly string _keyPrefix;
     private readonly string _kind;
+    private readonly ConcurrentDictionary<string, SemaphoreSlim> _locks = [];
 
     protected CacheOptions Options { get; }
 
@@ -70,29 +72,44 @@ public class OsduCache<TItem>
     {
         var fullKey = $"{_keyPrefix}:{cacheKey}";
 
+        // Fast path: return cached result without locking
         if (_cache.TryGetValue(fullKey, out CachedResult<TItem>? cached) && cached is not null)
             return cached;
 
-        var queryResult = await _queryExecutor.ExecuteAsync<TItem>(_kind, query, new OsduQueryOptions
+        // Slow path: acquire per-key lock to prevent thundering herd
+        var keyLock = _locks.GetOrAdd(fullKey, _ => new SemaphoreSlim(1, 1));
+        await keyLock.WaitAsync(ct);
+        try
         {
-            PageSize = Options.PageSize,
-            MaxPages = Options.MaxPages,
-            FetchAll = Options.CacheAll
-        }, ct);
+            // Double-check after acquiring lock
+            if (_cache.TryGetValue(fullKey, out cached) && cached is not null)
+                return cached;
 
-        var result = new CachedResult<TItem>
+            var queryResult = await _queryExecutor.ExecuteAsync<TItem>(_kind, query, new OsduQueryOptions
+            {
+                PageSize = Options.PageSize,
+                MaxPages = Options.MaxPages,
+                FetchAll = Options.CacheAll
+            }, ct);
+
+            var result = new CachedResult<TItem>
+            {
+                Items = queryResult.Items,
+                TotalCount = queryResult.TotalCount,
+                IsComplete = queryResult.IsComplete,
+                CachedAt = DateTimeOffset.UtcNow
+            };
+
+            _cache.Set(fullKey, result, new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = Options.Expiration
+            });
+
+            return result;
+        }
+        finally
         {
-            Items = queryResult.Items,
-            TotalCount = queryResult.TotalCount,
-            IsComplete = queryResult.IsComplete,
-            CachedAt = DateTimeOffset.UtcNow
-        };
-
-        _cache.Set(fullKey, result, new MemoryCacheEntryOptions
-        {
-            AbsoluteExpirationRelativeToNow = Options.Expiration
-        });
-
-        return result;
+            keyLock.Release();
+        }
     }
 }
