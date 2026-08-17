@@ -4,6 +4,7 @@ using Osdu.Client.Apis.Search;
 using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
+using Osdu.Client.ExampleApp.Query;
 using Osdu.Client.Extended.Apis.Dataset;
 using Osdu.Client.Schemas.MasterData;
 using Osdu.Client.Schemas.ReferenceData;
@@ -46,6 +47,12 @@ public class PostQueryExample(IOsduClient osduClient, IOsduCacheProvider cachePr
             .Select(w => w.Id, w => w.Kind, w => w.Data.WellID, w => w.Data.DrillingReasons)
             .OrderBy(x=>x.Data.WellID)
             .OrderBy(x=> x.Data.FluidDirectionID)
+            .ExecuteAsync(cancellationToken);
+
+        var result1 = await queryExecutor
+            .Query<Wellbore_1_2_0>("osdu:wks:master-data--Wellbore:1.2.0")
+            .Where(w => w.Data.WellID == "dev:master-data--Well:Drogon-55-33-2")
+            //.Select(w => w.Id, w => w.Kind, w => w.Data.WellID, w => w.Data.DrillingReasons)
             .ExecuteAsync(cancellationToken);
 
         var request = new QueryRequest

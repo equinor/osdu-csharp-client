@@ -83,8 +83,10 @@ public partial class App : Application
 
         Services = services.BuildServiceProvider();
 
-        //ApiTestWindow testWindow = Services.GetRequiredService<ApiTestWindow>();
+        // ApiTestWindow testWindow = Services.GetRequiredService<ApiTestWindow>();
+        // RecordBrowserWindow
         var window = Services.GetRequiredService<ApiTestWindow>();
+        //var window = Services.GetRequiredService<RecordBrowserWindow>();
         window.Show();
     }
 }

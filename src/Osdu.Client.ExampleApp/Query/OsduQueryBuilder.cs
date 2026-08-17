@@ -1,8 +1,9 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Osdu.Client.ExampleApp.Query;
 
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Builds OSDU/Lucene query strings from strongly-typed lambda expressions.

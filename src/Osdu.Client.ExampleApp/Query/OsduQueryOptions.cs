@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Options for controlling query execution behavior.

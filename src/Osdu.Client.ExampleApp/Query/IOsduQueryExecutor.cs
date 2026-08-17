@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
+using Osdu.Client.ExampleApp.Caching;
 
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Executes strongly-typed OSDU queries built from lambda expressions.

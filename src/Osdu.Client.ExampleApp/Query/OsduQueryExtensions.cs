@@ -1,4 +1,4 @@
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Extension methods used inside OSDU query expressions.

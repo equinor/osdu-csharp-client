@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.Extensions.Caching.Memory;
+using Osdu.Client.ExampleApp.Query;
 
 namespace Osdu.Client.ExampleApp.Caching;
 

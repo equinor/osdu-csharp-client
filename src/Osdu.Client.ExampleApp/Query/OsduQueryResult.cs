@@ -1,4 +1,4 @@
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Result of an OSDU query execution.

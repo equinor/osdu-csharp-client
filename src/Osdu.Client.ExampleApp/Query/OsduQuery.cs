@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
+using Osdu.Client.ExampleApp.Caching;
 
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Fluent builder for constructing and executing strongly-typed OSDU queries.

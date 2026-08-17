@@ -1,8 +1,9 @@
 using System.Linq.Expressions;
 using Osdu.Client.Apis.Search;
+using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.Extensions;
 
-namespace Osdu.Client.ExampleApp.Caching;
+namespace Osdu.Client.ExampleApp.Query;
 
 /// <summary>
 /// Default implementation of <see cref="IOsduQueryExecutor"/>.
