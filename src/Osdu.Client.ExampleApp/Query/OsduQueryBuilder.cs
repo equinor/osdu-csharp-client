@@ -99,7 +99,7 @@ public static class OsduQueryBuilder
         if (method.Method.Name == nameof(string.Contains) && method.Object is not null)
         {
             var fieldPath = ResolveMemberPath(method.Object);
-            var value = ResolveValue(method.Arguments[0]);
+            var value = EscapeLucene(ResolveValue(method.Arguments[0]));
             return $"{fieldPath}:*{value}*";
         }
 
@@ -107,7 +107,7 @@ public static class OsduQueryBuilder
         if (method.Method.Name == nameof(string.StartsWith) && method.Object is not null)
         {
             var fieldPath = ResolveMemberPath(method.Object);
-            var value = ResolveValue(method.Arguments[0]);
+            var value = EscapeLucene(ResolveValue(method.Arguments[0]));
             return $"{fieldPath}:{value}*";
         }
 
@@ -115,7 +115,7 @@ public static class OsduQueryBuilder
         if (method.Method.Name == nameof(string.EndsWith) && method.Object is not null)
         {
             var fieldPath = ResolveMemberPath(method.Object);
-            var value = ResolveValue(method.Arguments[0]);
+            var value = EscapeLucene(ResolveValue(method.Arguments[0]));
             return $"{fieldPath}:*{value}";
         }
 
@@ -128,9 +128,9 @@ public static class OsduQueryBuilder
             nameof(OsduQueryExtensions.IsOneOf) => ParseIsOneOf(method),
             nameof(OsduQueryExtensions.Between) => ParseBetween(method),
             nameof(OsduQueryExtensions.MatchesPattern) => ParseSingleArgExtension(method, (field, value) =>
-    value.Contains('*') || value.Contains('?')
-        ? $"{field}:{value}"
-        : $"{field}:\"{value}\""),
+                value.Contains('*') || value.Contains('?')
+                    ? $"{field}:{value}"
+                    : $"{field}:\"{value}\""),
             nameof(OsduQueryExtensions.Fuzzy) => ParseFuzzy(method),
             _ => throw new NotSupportedException($"Method '{method.Method.Name}' is not supported.")
         };
