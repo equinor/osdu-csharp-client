@@ -43,7 +43,7 @@ public class QueryPerformanceExample(IOsduQueryExecutor queryExecutor) : Example
         sw.Restart();
         var fluentResult = await queryExecutor
             .Query<Wellbore_1_2_0>(Kind)
-            .Where(w => w.Id == WellIdFilter)
+            .Where(w => w.Data.WellID == WellIdFilter)
             .Select(w => w.Id, w => w.Kind, w => w.Data.WellID)
             .OrderBy(w => w.Data.WellID)
             .ExecuteAsync(cancellationToken);
@@ -116,7 +116,7 @@ public class QueryPerformanceExample(IOsduQueryExecutor queryExecutor) : Example
         {
             sw.Restart();
             await queryExecutor
-                .Query<Wellbore_1_3_0>(Kind)
+                .Query<Wellbore_1_2_0>(Kind)
                 .Where(w => w.Data.WellID == WellIdFilter)
                 .Select(w => w.Id, w => w.Kind, w => w.Data.WellID)
                 .ExecuteAsync(cancellationToken);

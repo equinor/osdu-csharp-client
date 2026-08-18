@@ -587,7 +587,7 @@ public partial class ApiTestWindow : Window
         try
         {
             output = JsonSerializer.Serialize(JsonDocument.Parse(output),
-                new JsonSerializerOptions { WriteIndented = true });
+                new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
         }
         catch
         {
@@ -677,7 +677,7 @@ public partial class ApiTestWindow : Window
             try
             {
                 result = JsonSerializer.Serialize(JsonDocument.Parse(result),
-                    new JsonSerializerOptions { WriteIndented = true });
+                    new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
             }
             catch
             {
