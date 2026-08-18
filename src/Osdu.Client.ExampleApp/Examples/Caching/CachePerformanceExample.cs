@@ -20,6 +20,8 @@ public class CachePerformanceExample(IOsduCacheProvider cacheProvider) : Example
 
     public override async Task<string> RunAsync(CancellationToken cancellationToken)
     {
+        var sampleImageColours = await cacheProvider.GetAllAsync<SampleImageColourSpace_1_0_0>(cancellationToken);
+
         var stats = new List<(string Operation, TimeSpan Duration, int ResultCount)>();
         var sw = new Stopwatch();
 

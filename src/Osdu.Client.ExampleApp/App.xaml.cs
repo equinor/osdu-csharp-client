@@ -64,6 +64,13 @@ public partial class App : Application
                 Options = new CacheOptions { Expiration = TimeSpan.FromHours(1), CacheAll = true },
                 ItemType = typeof(UnitOfMeasure_1_0_0)
             });
+
+            descriptors.Add(new OsduCacheDescriptor
+            {
+                Kind = "osdu:wks:reference-data--SampleImageColourSpace:1.0.0",
+                Options = new CacheOptions { Expiration = TimeSpan.FromHours(1), CacheAll = true },
+                ItemType = typeof(SampleImageColourSpace_1_0_0)
+            });
         });
 
         services.AddOsduQueryExecutor();

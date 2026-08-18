@@ -97,6 +97,123 @@ public class Wellbore_1_5_1
 
 public class Wellbore_1_5_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractFacility_1_1_0
 {
+    /// <summary>
+    /// Alternative names, including historical, by which this master data is/has been known (it should include all the identifiers).
+    /// </summary>
+    [JsonPropertyName("NameAliases")]
+    public List<AbstractAliasNames_1_0_0> NameAliases { get; set; }
+
+    /// <summary>
+    /// List of geographic entities which provide context to the master data. This may include multiple types or multiple values of the same type.
+    /// </summary>
+    [JsonPropertyName("GeoContexts")]
+    public List<AbstractGeoContext_1_0_0> GeoContexts { get; set; }
+
+    [JsonPropertyName("SpatialLocation")]
+    public AbstractSpatialLocation_1_1_0? SpatialLocation { get; set; }
+
+    /// <summary>
+    /// This describes the reason that caused the creation of a new version of this master data.
+    /// </summary>
+    [JsonPropertyName("VersionCreationReason")]
+    public string VersionCreationReason { get; set; }
+
+    /// <summary>
+    /// DEPRECATED: (in favor of more nuanced TechnicalAssurances[] array) Describes a master-data record's overall suitability for general business consumption based on data quality. Clarifications: Since Certified is the highest classification of suitable quality, any further change or versioning of a Certified record should be carefully considered and justified. If a Technical Assurance value is not populated then one can assume the data has not been evaluated or its quality is unknown (=Unevaluated). Technical Assurance values are not intended to be used for the identification of a single "preferred" or "definitive" record by comparison with other records.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-TechnicalAssuranceType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("TechnicalAssuranceTypeID")]
+    public string TechnicalAssuranceTypeID { get; set; }
+
+    /// <summary>
+    /// Describes a record's overall suitability for general business consumption in context of one or more workflows/personas based on data quality and reviewer's decisions. Clarifications: Since Certified is the highest classification of suitable quality, any further change or versioning of a Certified record should be carefully considered and justified. If a Technical Assurance value is not populated then one can assume the data has not been evaluated or its quality is unknown (=Unevaluated). Technical Assurance values are not intended to be used for the identification of a single "preferred" or "definitive" record by comparison with other records.
+    /// </summary>
+    [JsonPropertyName("TechnicalAssurances")]
+    public List<AbstractTechnicalAssurance_1_2_0> TechnicalAssurances { get; set; }
+
+    /// <summary>
+    /// Native identifier from a Master Data Management System or other trusted source external to OSDU - stored here in order to allow for multi-system connection and synchronization. If used, the "Source" property should identify that source system.
+    /// </summary>
+    [JsonPropertyName("FacilityID")]
+    public string FacilityID { get; set; }
+
+    /// <summary>
+    /// The definition of a kind of capability to perform a business function or a service.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-FacilityType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("FacilityTypeID")]
+    public string FacilityTypeID { get; set; }
+
+    /// <summary>
+    /// The history of operator organizations of the facility.
+    /// </summary>
+    [JsonPropertyName("FacilityOperators")]
+    public List<AbstractFacilityOperator_1_1_0> FacilityOperators { get; set; }
+
+    /// <summary>
+    /// A initial operator organization ID; the organization ID may also be found in the FacilityOperatorOrganisationID of the FacilityOperator array providing the actual dates.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:master-data\-\-Organisation:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("InitialOperatorID")]
+    public string InitialOperatorID { get; set; }
+
+    /// <summary>
+    /// The current operator organization ID; the organization ID may also be found in the FacilityOperatorOrganisationID of the FacilityOperator array providing the actual dates.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:master-data\-\-Organisation:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("CurrentOperatorID")]
+    public string CurrentOperatorID { get; set; }
+
+    /// <summary>
+    /// The main source of the header information.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:master-data\-\-Organisation:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("DataSourceOrganisationID")]
+    public string DataSourceOrganisationID { get; set; }
+
+    /// <summary>
+    /// Identifies the Facility's general location as being onshore vs. offshore.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-OperatingEnvironment:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("OperatingEnvironmentID")]
+    public string OperatingEnvironmentID { get; set; }
+
+    /// <summary>
+    /// Name of the Facility.
+    /// </summary>
+    [JsonPropertyName("FacilityName")]
+    public string FacilityName { get; set; }
+
+    /// <summary>
+    /// A descriptive text or remark about the Facility.
+    /// </summary>
+    [JsonPropertyName("FacilityDescription")]
+    public string FacilityDescription { get; set; }
+
+    /// <summary>
+    /// DEPRECATED: please use data.NameAliases. Alternative names, including historical, by which this facility is/has been known.
+    /// </summary>
+    [JsonPropertyName("FacilityNameAliases")]
+    public List<AbstractAliasNames_1_0_0> FacilityNameAliases { get; set; }
+
+    /// <summary>
+    /// The history of life cycle states the facility has been through.
+    /// </summary>
+    [JsonPropertyName("FacilityStates")]
+    public List<AbstractFacilityState_1_1_0> FacilityStates { get; set; }
+
+    /// <summary>
+    /// A list of key facility events.
+    /// </summary>
+    [JsonPropertyName("FacilityEvents")]
+    public List<AbstractFacilityEvent_1_1_0> FacilityEvents { get; set; }
+
+    /// <summary>
+    /// facilitySpecification maintains the specification like slot name, wellbore drilling permit number, rig name etc.
+    /// </summary>
+    [JsonPropertyName("FacilitySpecifications")]
+    public List<AbstractFacilitySpecification_1_0_0> FacilitySpecifications { get; set; }
+
     [RegularExpression(@"^[\w\-\.]+:master-data\-\-Well:[\w\-\.\:\%]+:[0-9]*$")]
     [JsonPropertyName("WellID")]
     public string WellID { get; set; }

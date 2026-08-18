@@ -98,6 +98,107 @@ public class ReferenceLevel_1_1_0
 public class ReferenceLevel_1_1_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_2_0, AbstractReferenceLevel_1_0_0
 {
     /// <summary>
+    /// Alternative names, including historical, by which this master data is/has been known (it should include all the identifiers).
+    /// </summary>
+    [JsonPropertyName("NameAliases")]
+    public List<AbstractAliasNames_1_0_0> NameAliases { get; set; }
+
+    /// <summary>
+    /// List of geographic entities which provide context to the master data. This may include multiple types or multiple values of the same type.
+    /// </summary>
+    [JsonPropertyName("GeoContexts")]
+    public List<AbstractGeoContext_1_0_0> GeoContexts { get; set; }
+
+    [JsonPropertyName("SpatialLocation")]
+    public AbstractSpatialLocation_1_1_0? SpatialLocation { get; set; }
+
+    /// <summary>
+    /// This describes the reason that caused the creation of a new version of this master data.
+    /// </summary>
+    [JsonPropertyName("VersionCreationReason")]
+    public string VersionCreationReason { get; set; }
+
+    /// <summary>
+    /// DEPRECATED: (in favor of more nuanced TechnicalAssurances[] array) Describes a master-data record's overall suitability for general business consumption based on data quality. Clarifications: Since Certified is the highest classification of suitable quality, any further change or versioning of a Certified record should be carefully considered and justified. If a Technical Assurance value is not populated then one can assume the data has not been evaluated or its quality is unknown (=Unevaluated). Technical Assurance values are not intended to be used for the identification of a single "preferred" or "definitive" record by comparison with other records.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-TechnicalAssuranceType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("TechnicalAssuranceTypeID")]
+    public string TechnicalAssuranceTypeID { get; set; }
+
+    /// <summary>
+    /// Describes a record's overall suitability for general business consumption in context of one or more workflows/personas based on data quality and reviewer's decisions. Clarifications: Since Certified is the highest classification of suitable quality, any further change or versioning of a Certified record should be carefully considered and justified. If a Technical Assurance value is not populated then one can assume the data has not been evaluated or its quality is unknown (=Unevaluated). Technical Assurance values are not intended to be used for the identification of a single "preferred" or "definitive" record by comparison with other records.
+    /// </summary>
+    [JsonPropertyName("TechnicalAssurances")]
+    public List<AbstractTechnicalAssurance_1_2_0> TechnicalAssurances { get; set; }
+
+    /// <summary>
+    /// The height above the reference surface defined by the VerticalCoordinateReferenceSystemID positive upwards.
+    /// </summary>
+    [JsonPropertyName("Height")]
+    public double? Height { get; set; }
+
+    /// <summary>
+    /// The relationship to the vertical CRS defining the absolute reference surface.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-CoordinateReferenceSystem:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("VerticalCoordinateReferenceSystemID")]
+    public string VerticalCoordinateReferenceSystemID { get; set; }
+
+    /// <summary>
+    /// The date and time at which this reference level instance becomes effective.
+    /// </summary>
+    [JsonPropertyName("EffectiveDateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? EffectiveDateTime { get; set; }
+
+    /// <summary>
+    /// The date and time at which a reference level instance is no longer in effect.
+    /// </summary>
+    [JsonPropertyName("TerminationDateTime")]
+    [JsonConverter(typeof(NullableDateTimeOffsetConverter))]
+    public DateTimeOffset? TerminationDateTime { get; set; }
+
+    /// <summary>
+    /// Specifies the type of vertical measurement (SRD, ES, GR, MSL,and many more).
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-VerticalMeasurementType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("VerticalMeasurementTypeID")]
+    public string VerticalMeasurementTypeID { get; set; }
+
+    /// <summary>
+    /// When used in context of a Wellbore, this specifies Measured Depth, True Vertical Depth, or Elevation.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-VerticalMeasurementPath:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("VerticalMeasurementPathID")]
+    public string VerticalMeasurementPathID { get; set; }
+
+    /// <summary>
+    /// When used in context of a Wellbore this specifies Driller vs Logger measurements.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-VerticalMeasurementSource:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("VerticalMeasurementSourceID")]
+    public string VerticalMeasurementSourceID { get; set; }
+
+    /// <summary>
+    /// When used in context of a Wellbore this specifies what directional survey or wellpath was used to calculate the TVD.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:work-product-component\-\-WellboreTrajectory:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("WellboreTVDTrajectoryID")]
+    public string WellboreTVDTrajectoryID { get; set; }
+
+    /// <summary>
+    /// The positional uncertainty in the vertical direction.
+    /// </summary>
+    [JsonPropertyName("VerticalUncertainty")]
+    public double? VerticalUncertainty { get; set; }
+
+    /// <summary>
+    /// The replacement velocity value used to produce vertical static shifts in seismic data.
+    /// </summary>
+    [JsonPropertyName("SeismicReplacementVelocity")]
+    public double? SeismicReplacementVelocity { get; set; }
+
+    /// <summary>
     /// The name of the reference point or vertical reference plane.
     /// </summary>
     [JsonPropertyName("Name")]

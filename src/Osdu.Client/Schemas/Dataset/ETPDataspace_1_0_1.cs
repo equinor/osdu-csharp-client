@@ -98,10 +98,49 @@ public class ETPDataspace_1_0_1
 public class ETPDataspace_1_0_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1
 {
     /// <summary>
-    /// The dataset specific properties for ETPDataspace.
+    /// An optional name of the dataset, e.g. a user friendly file or file collection name.
+    /// </summary>
+    [JsonPropertyName("Name")]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// An optional, textual description of the dataset.
+    /// </summary>
+    [JsonPropertyName("Description")]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Total size of the dataset in bytes; for files it is the same as declared in FileSourceInfo.FileSize or the sum of all individual files. Implemented as string. The value must be convertible to a long integer (sizes can become very large).
+    /// </summary>
+    [RegularExpression(@"^[0-9]+$")]
+    [JsonPropertyName("TotalSize")]
+    public string TotalSize { get; set; }
+
+    /// <summary>
+    /// EncodingFormatType ID reference value relationship. It can be a mime-type or media-type.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-EncodingFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("EncodingFormatTypeID")]
+    public string EncodingFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Relationship to the SchemaFormatType reference value.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-SchemaFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("SchemaFormatTypeID")]
+    public string SchemaFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
+    /// </summary>
+    [JsonPropertyName("Endian")]
+    public ETPDataspace_1_0_1_Data_Endian Endian { get; set; }
+
+    /// <summary>
+    /// Placeholder for a specialization.
     /// </summary>
     [JsonPropertyName("DatasetProperties")]
-    public ETPDataspace_1_0_1_Data_DatasetProperties? DatasetProperties { get; set; }
+    public object? DatasetProperties { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,28 +148,15 @@ public class ETPDataspace_1_0_1_Data : AbstractCommonResources_1_0_0 // Also com
 }
 
 /// <summary>
-/// The dataset specific properties for ETPDataspace.
+/// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
 /// </summary>
-public class ETPDataspace_1_0_1_Data_DatasetProperties
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum ETPDataspace_1_0_1_Data_Endian
 {
-    /// <summary>
-    /// The location of the ETP server over the web containing the Dataspace. Optional, only if the ETP server is located outside of an OSDU instance
-    /// </summary>
-    [JsonPropertyName("ServerURL")]
-    public Uri ServerURL { get; set; }
+    [JsonStringEnumMemberName("BIG")]
+    BIG,
 
-    /// <summary>
-    /// The unique location associated with the Dataspace, which is used to construct the Dataspace's URI. Optional
-    /// </summary>
-    [JsonPropertyName("Path")]
-    public string Path { get; set; }
-
-    /// <summary>
-    /// ETP 1.2 canonical URI for Dataspace. Mandatory and controlled by a pattern given by the ETP documentation  ^eml:\/\/\/(?:dataspace\('(?[^']?(?:''[^']?)*)'\))?$ .
-    /// </summary>
-    [Required]
-    [RegularExpression(@"^eml:\/\/\/(?:dataspace\('(?:[^']*?(?:''[^']*?)*)'\))?$")]
-    [JsonPropertyName("URI")]
-    public Uri URI { get; set; }
+    [JsonStringEnumMemberName("LITTLE")]
+    LITTLE,
 
 }

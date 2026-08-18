@@ -98,6 +98,51 @@ public class FileCollection_TGS_MDIO_1_0_0
 public class FileCollection_TGS_MDIO_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1, AbstractFileCollection_1_0_1
 {
     /// <summary>
+    /// An optional name of the dataset, e.g. a user friendly file or file collection name.
+    /// </summary>
+    [JsonPropertyName("Name")]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// An optional, textual description of the dataset.
+    /// </summary>
+    [JsonPropertyName("Description")]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Total size of the dataset in bytes; for files it is the same as declared in FileSourceInfo.FileSize or the sum of all individual files. Implemented as string. The value must be convertible to a long integer (sizes can become very large).
+    /// </summary>
+    [RegularExpression(@"^[0-9]+$")]
+    [JsonPropertyName("TotalSize")]
+    public string TotalSize { get; set; }
+
+    /// <summary>
+    /// EncodingFormatType ID reference value relationship. It can be a mime-type or media-type.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-EncodingFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("EncodingFormatTypeID")]
+    public string EncodingFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Relationship to the SchemaFormatType reference value.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-SchemaFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("SchemaFormatTypeID")]
+    public string SchemaFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
+    /// </summary>
+    [JsonPropertyName("Endian")]
+    public FileCollection_TGS_MDIO_1_0_0_Data_Endian Endian { get; set; }
+
+    /// <summary>
+    /// Placeholder for a specialization.
+    /// </summary>
+    [JsonPropertyName("DatasetProperties")]
+    public object? DatasetProperties { get; set; }
+
+    /// <summary>
     /// The size of the data chunks (commonly called "brick size") into which the seismic data is divided. Populate one array entry per dimension.
     /// </summary>
     [RegularExpression(@"^[0-9]+$")]
@@ -125,6 +170,20 @@ public class FileCollection_TGS_MDIO_1_0_0_Data : AbstractCommonResources_1_0_0 
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
+
+}
+
+/// <summary>
+/// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum FileCollection_TGS_MDIO_1_0_0_Data_Endian
+{
+    [JsonStringEnumMemberName("BIG")]
+    BIG,
+
+    [JsonStringEnumMemberName("LITTLE")]
+    LITTLE,
 
 }
 

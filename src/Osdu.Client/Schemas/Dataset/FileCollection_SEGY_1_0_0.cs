@@ -98,6 +98,57 @@ public class FileCollection_SEGY_1_0_0
 public class FileCollection_SEGY_1_0_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_0, AbstractFileCollection_1_0_0, AbstractVectorHeaderMapping_1_0_0
 {
     /// <summary>
+    /// An optional name of the dataset, e.g. a user friendly file or file collection name.
+    /// </summary>
+    [JsonPropertyName("Name")]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// An optional, textual description of the dataset.
+    /// </summary>
+    [JsonPropertyName("Description")]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Total size of the dataset in bytes; for files it is the same as declared in FileSourceInfo.FileSize or the sum of all individual files. Implemented as string. The value must be convertible to a long integer (sizes can become very large).
+    /// </summary>
+    [RegularExpression(@"^[0-9]+$")]
+    [JsonPropertyName("TotalSize")]
+    public string TotalSize { get; set; }
+
+    /// <summary>
+    /// EncodingFormatType ID reference value relationship. It can be a mime-type or media-type.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-EncodingFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("EncodingFormatTypeID")]
+    public string EncodingFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Relationship to the SchemaFormatType reference value.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-SchemaFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("SchemaFormatTypeID")]
+    public string SchemaFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
+    /// </summary>
+    [JsonPropertyName("Endian")]
+    public FileCollection_SEGY_1_0_0_Data_Endian Endian { get; set; }
+
+    /// <summary>
+    /// Placeholder for a specialization.
+    /// </summary>
+    [JsonPropertyName("DatasetProperties")]
+    public object? DatasetProperties { get; set; }
+
+    /// <summary>
+    /// Array of objects which define the meaning and format of a tabular structure used in a binary file as a header.  The initial use case is the trace headers of a SEG-Y file.  Note that some of this information may be repeated in the SEG-Y EBCDIC header.
+    /// </summary>
+    [JsonPropertyName("VectorHeaderMapping")]
+    public List<FileCollection_SEGY_1_0_0_Data_VectorHeaderMapping> VectorHeaderMapping { get; set; }
+
+    /// <summary>
     /// The SEG-Y standard revision the SEG-Y file set is conforming to.
     /// </summary>
     [JsonPropertyName("SEGYRevision")]
@@ -105,5 +156,88 @@ public class FileCollection_SEGY_1_0_0_Data : AbstractCommonResources_1_0_0 // A
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
+
+}
+
+/// <summary>
+/// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum FileCollection_SEGY_1_0_0_Data_Endian
+{
+    [JsonStringEnumMemberName("BIG")]
+    BIG,
+
+    [JsonStringEnumMemberName("LITTLE")]
+    LITTLE,
+
+}
+
+/// <summary>
+/// Array of objects which define the meaning and format of a tabular structure used in a binary file as a header.  The initial use case is the trace headers of a SEG-Y file.  Note that some of this information may be repeated in the SEG-Y EBCDIC header.
+/// </summary>
+public class FileCollection_SEGY_1_0_0_Data_VectorHeaderMapping
+{
+    /// <summary>
+    /// Relationship to a reference value for a name of a property header such as INLINE, CDPX.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-HeaderKeyName:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("KeyName")]
+    public string KeyName { get; set; }
+
+    /// <summary>
+    /// Relationship to a reference value for binary data types, such as INT, UINT, FLOAT, IBM_FLOAT, ASCII, EBCDIC.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-WordFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("WordFormat")]
+    public string WordFormat { get; set; }
+
+    /// <summary>
+    /// Size of the word in bytes.
+    /// </summary>
+    [JsonPropertyName("WordWidth")]
+    public int? WordWidth { get; set; }
+
+    /// <summary>
+    /// Beginning byte position of header value, 1 indexed.
+    /// </summary>
+    [JsonPropertyName("Position")]
+    public int? Position { get; set; }
+
+    /// <summary>
+    /// Relationship to units of measure reference if header standard is not followed.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-UnitOfMeasure:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("UoM")]
+    public string UoM { get; set; }
+
+    /// <summary>
+    /// Enumerated string indicating whether to use the normal scalar field for scaling this field (STANDARD), no scaling (NOSCALE), or override scalar (OVERRIDE).  Default is current STANDARD (such as SEG-Y rev2).
+    /// </summary>
+    [JsonPropertyName("ScalarIndicator")]
+    public FileCollection_SEGY_1_0_0_Data_VectorHeaderMapping_ScalarIndicator ScalarIndicator { get; set; }
+
+    /// <summary>
+    /// Scalar value (as defined by standard) when a value present in the header needs to be overwritten for this value.
+    /// </summary>
+    [JsonPropertyName("ScalarOverride")]
+    public double? ScalarOverride { get; set; }
+
+}
+
+/// <summary>
+/// Enumerated string indicating whether to use the normal scalar field for scaling this field (STANDARD), no scaling (NOSCALE), or override scalar (OVERRIDE).  Default is current STANDARD (such as SEG-Y rev2).
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum FileCollection_SEGY_1_0_0_Data_VectorHeaderMapping_ScalarIndicator
+{
+    [JsonStringEnumMemberName("STANDARD")]
+    STANDARD,
+
+    [JsonStringEnumMemberName("NOSCALE")]
+    NOSCALE,
+
+    [JsonStringEnumMemberName("OVERRIDE")]
+    OVERRIDE,
 
 }

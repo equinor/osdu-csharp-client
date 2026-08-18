@@ -98,6 +98,63 @@ public class ConnectedSourceRegistryEntry_1_2_0
 public class ConnectedSourceRegistryEntry_1_2_0_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractMaster_1_1_0, AbstractProjectActivity_1_1_0
 {
     /// <summary>
+    /// Alternative names, including historical, by which this master data is/has been known (it should include all the identifiers).
+    /// </summary>
+    [JsonPropertyName("NameAliases")]
+    public List<AbstractAliasNames_1_0_0> NameAliases { get; set; }
+
+    /// <summary>
+    /// List of geographic entities which provide context to the master data. This may include multiple types or multiple values of the same type.
+    /// </summary>
+    [JsonPropertyName("GeoContexts")]
+    public List<AbstractGeoContext_1_0_0> GeoContexts { get; set; }
+
+    [JsonPropertyName("SpatialLocation")]
+    public AbstractSpatialLocation_1_1_0? SpatialLocation { get; set; }
+
+    /// <summary>
+    /// This describes the reason that caused the creation of a new version of this master data.
+    /// </summary>
+    [JsonPropertyName("VersionCreationReason")]
+    public string VersionCreationReason { get; set; }
+
+    /// <summary>
+    /// Describes a master-data record's overall suitability for general business consumption based on data quality. Clarifications: Since Certified is the highest classification of suitable quality, any further change or versioning of a Certified record should be carefully considered and justified. If a Technical Assurance value is not populated then one can assume the data has not been evaluated or its quality is unknown (=Unevaluated). Technical Assurance values are not intended to be used for the identification of a single "preferred" or "definitive" record by comparison with other records.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-TechnicalAssuranceType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("TechnicalAssuranceTypeID")]
+    public string TechnicalAssuranceTypeID { get; set; }
+
+    /// <summary>
+    /// The relation to the ActivityTemplate carrying expected parameter definitions and default values.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:master-data\-\-ActivityTemplate:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("ActivityTemplateID")]
+    public string ActivityTemplateID { get; set; }
+
+    /// <summary>
+    /// The relationship to a parent project acting as a parent activity.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:master-data\-\-[\w\-\.]+:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("ParentProjectID")]
+    public string ParentProjectID { get; set; }
+
+    /// <summary>
+    /// General parameter value used in one instance of activity.  Includes reference to data objects which are inputs and outputs of the activity.
+    /// </summary>
+    [JsonPropertyName("Parameters")]
+    public List<AbstractActivityParameter_1_0_0> Parameters { get; set; }
+
+    /// <summary>
+    /// The (non-overlapping) historical activity states and effective start and termination dates. The last state is replicated in the single LastActivityState for simpler queries.
+    /// </summary>
+    [JsonPropertyName("ActivityStates")]
+    public List<AbstractActivityState_1_0_0> ActivityStates { get; set; }
+
+    [JsonPropertyName("LastActivityState")]
+    public AbstractActivityState_1_0_0? LastActivityState { get; set; }
+
+    /// <summary>
     /// Descriptive label given to the data source. This could be the name of an organisation and/or the name of a specific database or system.
     /// </summary>
     [JsonPropertyName("Name")]

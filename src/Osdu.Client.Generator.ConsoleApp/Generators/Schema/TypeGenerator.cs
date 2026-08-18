@@ -279,11 +279,13 @@ public class TypeGenerator
                 var baseClass = SchemaHelpers.Sanitize(refs[0].Reference.Id);
                 var mergedProperties = new Dictionary<string, IOpenApiSchema>();
 
+                // Resolve additional $ref schemas and merge their properties
                 foreach (var refSchema in refs.Skip(1))
                 {
-                    if (refSchema.Properties is not null)
+                    var resolved = _resolver.ResolveSchemaFully(refSchema);
+                    if (resolved?.Properties is not null)
                     {
-                        foreach (var (key, value) in refSchema.Properties)
+                        foreach (var (key, value) in resolved.Properties)
                             mergedProperties.TryAdd(key, value);
                     }
                 }

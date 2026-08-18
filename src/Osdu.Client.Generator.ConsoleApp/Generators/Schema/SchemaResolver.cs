@@ -9,6 +9,7 @@ namespace Osdu.Client.Generator.ConsoleApp.Generators.Schema;
 public class SchemaResolver
 {
     private readonly SchemaGeneratorContext _context;
+    private readonly Dictionary<string, IOpenApiSchema> _externalSchemaCache = new(StringComparer.OrdinalIgnoreCase);
 
     public SchemaResolver(SchemaGeneratorContext context)
     {
@@ -27,7 +28,64 @@ public class SchemaResolver
             return resolved;
         }
 
+        // Handle external $ref by loading the referenced JSON file
+        var externalResource = schemaRef.Reference?.ExternalResource;
+        if (!string.IsNullOrEmpty(externalResource))
+        {
+            return ResolveExternalSchema(externalResource);
+        }
+
         return schemaRef;
+    }
+
+    /// <summary>
+    /// Resolves an external $ref by loading and parsing the referenced JSON schema file.
+    /// Results are cached to avoid repeated file I/O and parsing.
+    /// </summary>
+    private IOpenApiSchema? ResolveExternalSchema(string externalResource)
+    {
+        if (_externalSchemaCache.TryGetValue(externalResource, out var cached))
+            return cached;
+
+        try
+        {
+            string currentDir = Path.GetDirectoryName(_context.JsonFilePath) ?? string.Empty;
+            string fullPath = Path.GetFullPath(Path.Combine(currentDir, externalResource));
+
+            if (!File.Exists(fullPath))
+                return null;
+
+            string jsonContent = File.ReadAllText(fullPath);
+            string schemaName = Path.GetFileNameWithoutExtension(fullPath).Replace('.', '_');
+
+            // Wrap in a minimal OpenAPI document to reuse the parser
+            var wrappedJson = $$"""
+                {
+                    "openapi": "3.0.0",
+                    "info": { "title": "{{schemaName}}", "version": "1.0.0" },
+                    "paths": {},
+                    "components": {
+                        "schemas": {
+                            "{{schemaName}}": {{jsonContent}}
+                        }
+                    }
+                }
+                """;
+
+            var result = OpenApiDocument.Parse(wrappedJson, "json");
+            var schema = result?.Document?.Components?.Schemas?.Values.FirstOrDefault();
+
+            if (schema is not null)
+            {
+                _externalSchemaCache[externalResource] = schema;
+            }
+
+            return schema;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public IOpenApiSchema? ResolveReference(OpenApiSchemaReference schemaRef)
@@ -52,16 +110,37 @@ public class SchemaResolver
 
         string? baseClass = null;
         var mergedProperties = new Dictionary<string, IOpenApiSchema>();
+        var additionalRefs = new List<OpenApiSchemaReference>();
 
         foreach (var allOfItem in schema.AllOf)
         {
             if (allOfItem is OpenApiSchemaReference schemaRef)
             {
-                baseClass = SchemaHelpers.Sanitize(schemaRef.Reference.Id);
+                if (baseClass is null)
+                {
+                    baseClass = SchemaHelpers.Sanitize(schemaRef.Reference.Id);
+                }
+                else
+                {
+                    additionalRefs.Add(schemaRef);
+                }
             }
             else if (allOfItem.Properties is not null)
             {
                 foreach (var (key, value) in allOfItem.Properties)
+                {
+                    mergedProperties.TryAdd(key, value);
+                }
+            }
+        }
+
+        // Resolve properties from additional $ref schemas that can't be inherited
+        foreach (var additionalRef in additionalRefs)
+        {
+            var resolved = ResolveSchemaFully(additionalRef);
+            if (resolved?.Properties is not null)
+            {
+                foreach (var (key, value) in resolved.Properties)
                 {
                     mergedProperties.TryAdd(key, value);
                 }

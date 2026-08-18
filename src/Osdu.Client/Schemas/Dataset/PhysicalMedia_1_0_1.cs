@@ -98,10 +98,49 @@ public class PhysicalMedia_1_0_1
 public class PhysicalMedia_1_0_1_Data : AbstractCommonResources_1_0_0 // Also composes: AbstractDataset_1_0_1
 {
     /// <summary>
-    /// Properties specific to physical tapes, prints, etc.
+    /// An optional name of the dataset, e.g. a user friendly file or file collection name.
+    /// </summary>
+    [JsonPropertyName("Name")]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// An optional, textual description of the dataset.
+    /// </summary>
+    [JsonPropertyName("Description")]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Total size of the dataset in bytes; for files it is the same as declared in FileSourceInfo.FileSize or the sum of all individual files. Implemented as string. The value must be convertible to a long integer (sizes can become very large).
+    /// </summary>
+    [RegularExpression(@"^[0-9]+$")]
+    [JsonPropertyName("TotalSize")]
+    public string TotalSize { get; set; }
+
+    /// <summary>
+    /// EncodingFormatType ID reference value relationship. It can be a mime-type or media-type.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-EncodingFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("EncodingFormatTypeID")]
+    public string EncodingFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Relationship to the SchemaFormatType reference value.
+    /// </summary>
+    [RegularExpression(@"^[\w\-\.]+:reference-data\-\-SchemaFormatType:[\w\-\.\:\%]+:[0-9]*$")]
+    [JsonPropertyName("SchemaFormatTypeID")]
+    public string SchemaFormatTypeID { get; set; }
+
+    /// <summary>
+    /// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
+    /// </summary>
+    [JsonPropertyName("Endian")]
+    public PhysicalMedia_1_0_1_Data_Endian Endian { get; set; }
+
+    /// <summary>
+    /// Placeholder for a specialization.
     /// </summary>
     [JsonPropertyName("DatasetProperties")]
-    public PhysicalMedia_1_0_1_Data_DatasetProperties? DatasetProperties { get; set; }
+    public object? DatasetProperties { get; set; }
 
     [JsonPropertyName("ExtensionProperties")]
     public object? ExtensionProperties { get; set; }
@@ -109,36 +148,15 @@ public class PhysicalMedia_1_0_1_Data : AbstractCommonResources_1_0_0 // Also co
 }
 
 /// <summary>
-/// Properties specific to physical tapes, prints, etc.
+/// Endianness of binary value.  Enumeration: "BIG", "LITTLE".  If absent, applications will need to interpret from context indicators.
 /// </summary>
-public class PhysicalMedia_1_0_1_Data_DatasetProperties
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum PhysicalMedia_1_0_1_Data_Endian
 {
-    [JsonPropertyName("CurrentStorageLocation")]
-    public AbstractStorageLocation_1_0_0? CurrentStorageLocation { get; set; }
+    [JsonStringEnumMemberName("BIG")]
+    BIG,
 
-    /// <summary>
-    /// The record of previous storage locations.
-    /// </summary>
-    [JsonPropertyName("PreviousStorageLocations")]
-    public List<AbstractStorageLocation_1_0_0> PreviousStorageLocations { get; set; }
-
-    /// <summary>
-    /// In case the object (e.g., file) did not fit into a single storage medium, this relationship to another PhysicalMedia record identifies the continuation PhysicalMedia record.
-    /// </summary>
-    [RegularExpression(@"^[\w\-\.]+:dataset\-\-PhysicalMedia:[\w\-\.\:\%]+:[0-9]*$")]
-    [JsonPropertyName("NextPhysicalMediaID")]
-    public string NextPhysicalMediaID { get; set; }
-
-    /// <summary>
-    /// Typically one or more pictures of, e.g., tape labels, title pages of prints/hard copies containing information, which aid the creation of minimal metadata for 'business objects'  (work-product-component records like WellLog, SeismicTraceData, Document).
-    /// </summary>
-    [JsonPropertyName("Previews")]
-    public List<string> Previews { get; set; }
-
-    /// <summary>
-    /// Optional identifiers or names for this PhysicalMedia as used in the platform.
-    /// </summary>
-    [JsonPropertyName("NameAliases")]
-    public List<AbstractAliasNames_1_0_0> NameAliases { get; set; }
+    [JsonStringEnumMemberName("LITTLE")]
+    LITTLE,
 
 }
