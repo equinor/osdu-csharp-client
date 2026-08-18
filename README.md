@@ -73,6 +73,25 @@ For low-level usage (constructing service clients directly with a raw adapter), 
 
 Wellbore DDMS bulk data (well-log curves) can be read and written as Parquet via `osdu.WellboreDdmsBulk` — including chunked session writes for large datasets. See [docs/usage.md](docs/usage.md#wellbore-ddms-parquet-bulk-data).
 
+## Typed schema models (optional companion)
+
+This client keeps each record's free-form `data` block as an `UntypedNode`, matching the canonical OSDU `Map<String, Object>` model — a single client cannot hard-code every OSDU kind. When you want intellisense and compile-time types for a specific OSDU `kind` and version, pair the client with the companion [`equinor/osdu-csharp-schemas`](https://github.com/equinor/osdu-csharp-schemas) (`Equinor.Osdu.Schemas`) library. It provides typed POCOs for `work-product-component`, `master-data`, and `dataset` entity types that bridge into a record envelope through the client's `ToUntypedNode()` / `Deserialize<T>()` extensions — no changes to the client required.
+
+```csharp
+using V15 = Osdu.Schemas.WorkProductComponent.WellLog.V1_5_0;
+using Equinor.OsduCsharpClient.Facade; // ToUntypedNode() / Deserialize<T>()
+
+// Read: envelope from the client, data as a typed schema POCO.
+var record = await osdu.WellboreDdms.Ddms.V3.Welllogs[id].GetAsync();
+V15.Data data = record.Data.Deserialize<V15.Data>(); // UntypedNode → POCO
+Console.WriteLine(data.Name);                         // typed property, not data["name"]
+
+// Write: author the data as a POCO, bridge back to the envelope.
+record.Data = data.ToUntypedNode();                   // POCO → UntypedNode
+```
+
+Runnable, end-to-end examples combining both libraries live in the separate [`equinor/osdu-csharp-samples`](https://github.com/equinor/osdu-csharp-samples) repository — covering search, get, versioning, reference navigation, bulk-data read/write, and typed WellLog ingestion.
+
 ## Available Services
 
 | Namespace                                   | Service                    |
@@ -126,6 +145,11 @@ For release flow, OpenAPI update steps, response media type normalization, clien
 - Environment and tests: [docs/environment-and-tests.md](docs/environment-and-tests.md)
 - Usage examples (including raw JSON access): [docs/usage.md](docs/usage.md)
 - Development and release workflow: [docs/development.md](docs/development.md)
+
+## Related projects
+
+- [`equinor/osdu-csharp-schemas`](https://github.com/equinor/osdu-csharp-schemas) — typed C# domain models (`Equinor.Osdu.Schemas`) for OSDU record `data` blocks, an opt-in companion to this client.
+- [`equinor/osdu-csharp-samples`](https://github.com/equinor/osdu-csharp-samples) — runnable examples showing this client and the schema models used together.
 
 ## License
 
