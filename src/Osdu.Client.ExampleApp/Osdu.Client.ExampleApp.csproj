@@ -17,14 +17,14 @@
     </Target>
 
     <ItemGroup>
-      <Compile Remove="Caching\BaseCache.cs" />
-      <Compile Remove="Caching\FieldCache.cs" />
-      <Compile Remove="Caching\OsduCacheOptions.cs" />
-      <Compile Remove="Caching\OsduCacheRegistry.cs" />
-      <Compile Remove="Caching\SchemaCache.cs" />
-      <Compile Remove="Caching\UnitCache.cs" />
-      <Compile Remove="Caching\WellboreCache.cs" />
-      <Compile Remove="Caching\WellCache.cs" />
+      <Compile Remove="Caching\**" />
+      <Compile Remove="Query\**" />
+      <EmbeddedResource Remove="Caching\**" />
+      <EmbeddedResource Remove="Query\**" />
+      <None Remove="Caching\**" />
+      <None Remove="Query\**" />
+      <Page Remove="Caching\**" />
+      <Page Remove="Query\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -97,7 +97,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Osdu.Client.Extended\Osdu.Client.Extended.csproj" />
+        <ProjectReference Include="..\Osdu.Client.Extensions\Osdu.Client.Extensions.csproj" />
         <ProjectReference Include="..\Osdu.Client\Osdu.Client.csproj" />
     </ItemGroup>
 

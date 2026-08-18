@@ -1,11 +1,10 @@
 using System.Text.Json;
 using System.Windows.Documents;
 using Osdu.Client.Apis.Search;
-using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
-using Osdu.Client.ExampleApp.Query;
-using Osdu.Client.Extended.Apis.Dataset;
+using Osdu.Client.Extensions.Caching;
+using Osdu.Client.Extensions.Querying;
 using Osdu.Client.Schemas.MasterData;
 using Osdu.Client.Schemas.ReferenceData;
 

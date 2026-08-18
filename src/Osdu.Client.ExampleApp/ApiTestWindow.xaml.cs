@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -9,12 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using Osdu.Client.Apis.Unit;
-using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.Examples;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
-using Osdu.Client.Schemas.MasterData;
-using Osdu.Client.Schemas.ReferenceData;
 
 namespace Osdu.Client.ExampleApp;
 

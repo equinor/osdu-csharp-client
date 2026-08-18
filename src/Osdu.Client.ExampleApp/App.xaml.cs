@@ -3,9 +3,10 @@ using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Osdu.Client.Authentication;
-using Osdu.Client.ExampleApp.Caching;
 using Osdu.Client.ExampleApp.Examples;
 using Osdu.Client.Extensions;
+using Osdu.Client.Extensions.Caching;
+using Osdu.Client.Extensions.Querying;
 using Osdu.Client.Schemas.ReferenceData;
 
 namespace Osdu.Client.ExampleApp;
