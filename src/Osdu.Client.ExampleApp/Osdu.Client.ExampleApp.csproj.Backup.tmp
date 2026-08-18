@@ -17,11 +17,25 @@
     </Target>
 
     <ItemGroup>
+      <Compile Remove="Caching\**" />
+      <Compile Remove="Query\**" />
+      <EmbeddedResource Remove="Caching\**" />
+      <EmbeddedResource Remove="Query\**" />
+      <None Remove="Caching\**" />
+      <None Remove="Query\**" />
+      <Page Remove="Caching\**" />
+      <Page Remove="Query\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Examples\Caching\CachePerformanceExample.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Content Include="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="Examples\Caching\CachePerformanceExample.cs" />
-        <Content Include="Examples\Querying\QueryPerformanceExample.cs">
+        <Content Include="Examples\Caching\CachePerformanceExample.cs">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
         <Content Include="Examples\Storage\GetRecordsExample.cs">

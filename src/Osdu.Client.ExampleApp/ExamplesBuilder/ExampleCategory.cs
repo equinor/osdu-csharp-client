@@ -3,6 +3,7 @@ namespace Osdu.Client.ExampleApp.ExamplesBuilder;
 public static class ExampleCategory
 {
     public const string Caching = "Caching";
+    public const string Querying = "Querying";
     public const string CrsCatalog = "CrsCatalog";
     public const string CrsConversion = "CrsConversion";
     public const string Dataset = "Dataset";

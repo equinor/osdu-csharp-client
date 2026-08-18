@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using Osdu.Client.ExampleApp.ExamplesBuilder;
 using Osdu.Client.ExampleApp.Extensions;
@@ -36,15 +37,13 @@ public class CachePerformanceExample(IOsduCacheProvider cacheProvider) : Example
 
         // 3. GetByQueryAsync with predicate
         sw.Restart();
-        List<UnitOfMeasure_1_0_0> baseUnits = await cacheProvider.GetByQueryAsync<UnitOfMeasure_1_0_0>(
-            x => x.Data.IsBaseUnit == true, cancellationToken);
+        List<UnitOfMeasure_1_0_0> baseUnits = await cacheProvider.GetByQueryAsync<UnitOfMeasure_1_0_0>(x => x.Data.IsBaseUnit == true, cancellationToken);
         sw.Stop();
         stats.Add(("GetByQueryAsync (predicate)", sw.Elapsed, baseUnits.Count));
 
         // 4. GetByQueryAsync with raw query string
         sw.Restart();
-        List<UnitOfMeasure_1_0_0> queryResults = await cacheProvider.GetByQueryAsync<UnitOfMeasure_1_0_0>(
-            "data.IsBaseUnit:true", cancellationToken);
+        List<UnitOfMeasure_1_0_0> queryResults = await cacheProvider.GetByQueryAsync<UnitOfMeasure_1_0_0>("data.IsBaseUnit:true", cancellationToken);
         sw.Stop();
         stats.Add(("GetByQueryAsync (raw query)", sw.Elapsed, queryResults.Count));
 
@@ -77,6 +76,6 @@ public class CachePerformanceExample(IOsduCacheProvider cacheProvider) : Example
                 : 0
         };
 
-        return JsonSerializer.Serialize(result, new JsonSerializerOptions { WriteIndented = true });
+        return JsonSerializer.Serialize(result, new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
     }
 }
