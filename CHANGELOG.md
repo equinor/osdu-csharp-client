@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/equinor/osdu-csharp-client/compare/v1.1.3...v1.1.4) (2026-08-20)
+
+
+### Bug Fixes
+
+* make OsduClient service-client initialisation thread-safe ([#87](https://github.com/equinor/osdu-csharp-client/issues/87)) ([6bf2814](https://github.com/equinor/osdu-csharp-client/commit/6bf2814554ff21afc7820e50cc2e3bb9e933623e))
+
 ## [1.1.3](https://github.com/equinor/osdu-csharp-client/compare/v1.1.2...v1.1.3) (2026-08-18)
 
 
