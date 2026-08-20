@@ -41,30 +41,22 @@ public sealed class OsduClient : IDisposable
     private readonly OsduConfig _config;
     private readonly ITokenProvider _tokenProvider;
     private readonly ILoggerFactory _loggerFactory;
+
+    /// <summary>
+    /// Guards all lazy initialisation state below. Service clients and their adapters are
+    /// built on first access, so concurrent first calls would otherwise race on the
+    /// dictionaries and on <see cref="_httpClients"/>. Contention is negligible: each
+    /// service is built at most once per client instance.
+    /// </summary>
+    private readonly Lock _sync = new();
+
     private readonly List<HttpClient> _httpClients = [];
     private readonly Dictionary<string, HttpClientRequestAdapter> _adapters = [];
-    private bool _disposed;
 
-    private CrsCatalogClient?    _crsCatalog;
-    private CrsConversionClient? _crsConversion;
-    private DatasetClient?       _dataset;
-    private EntitlementsClient?  _entitlements;
-    private FileClient?          _file;
-    private GeospatialClient?    _geospatial;
-    private IndexerClient?       _indexer;
-    private LegalClient?         _legal;
-    private NotificationClient?  _notification;
-    private PartitionClient?     _partition;
-    private PolicyClient?        _policy;
-    private RegisterClient?      _register;
-    private SchemaClient?        _schema;
-    private SearchClient?        _search;
-    private SeismicDdmsClient?   _seismicDdms;
-    private StorageClient?       _storage;
-    private UnitClient?          _unit;
-    private WellboreDdmsClient?  _wellboreDdms;
-    private WorkflowClient?      _workflow;
-    private WellboreDdmsBulkClient? _wellboreDdmsBulk;
+    /// <summary>Built service clients, keyed by client type. Guarded by <see cref="_sync"/>.</summary>
+    private readonly Dictionary<Type, object> _clients = [];
+
+    private bool _disposed;
 
     /// <param name="config">OSDU configuration. Use <see cref="OsduConfig.FromConfiguration"/> to bind from <c>IConfiguration</c>.</param>
     /// <param name="tokenProvider">
@@ -83,25 +75,25 @@ public sealed class OsduClient : IDisposable
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
     }
 
-    public CrsCatalogClient    CrsCatalog    => _crsCatalog    ??= Build(ref _crsCatalog,    "crs_catalog");
-    public CrsConversionClient CrsConversion => _crsConversion ??= Build(ref _crsConversion, "crs_conversion");
-    public DatasetClient       Dataset       => _dataset       ??= Build(ref _dataset,       "dataset");
-    public EntitlementsClient  Entitlements  => _entitlements  ??= Build(ref _entitlements,  "entitlements");
-    public FileClient          File          => _file          ??= Build(ref _file,          "file");
-    public GeospatialClient    Geospatial    => _geospatial    ??= Build(ref _geospatial,    "geospatial");
-    public IndexerClient       Indexer       => _indexer       ??= Build(ref _indexer,       "indexer");
-    public LegalClient         Legal         => _legal         ??= Build(ref _legal,         "legal");
-    public NotificationClient  Notification  => _notification  ??= Build(ref _notification,  "notification");
-    public PartitionClient     Partition     => _partition     ??= Build(ref _partition,     "partition");
-    public PolicyClient        Policy        => _policy        ??= Build(ref _policy,        "policy");
-    public RegisterClient      Register      => _register      ??= Build(ref _register,      "register");
-    public SchemaClient        Schema        => _schema        ??= Build(ref _schema,        "schema");
-    public SearchClient        Search        => _search        ??= Build(ref _search,        "search");
-    public SeismicDdmsClient   SeismicDdms   => _seismicDdms   ??= Build(ref _seismicDdms,   "seismic_ddms");
-    public StorageClient       Storage       => _storage       ??= Build(ref _storage,       "storage");
-    public UnitClient          Unit          => _unit          ??= Build(ref _unit,          "unit");
-    public WellboreDdmsClient  WellboreDdms  => _wellboreDdms  ??= Build(ref _wellboreDdms,  "wellbore_ddms");
-    public WorkflowClient      Workflow      => _workflow      ??= Build(ref _workflow,      "workflow");
+    public CrsCatalogClient    CrsCatalog    => Client<CrsCatalogClient>("crs_catalog");
+    public CrsConversionClient CrsConversion => Client<CrsConversionClient>("crs_conversion");
+    public DatasetClient       Dataset       => Client<DatasetClient>("dataset");
+    public EntitlementsClient  Entitlements  => Client<EntitlementsClient>("entitlements");
+    public FileClient          File          => Client<FileClient>("file");
+    public GeospatialClient    Geospatial    => Client<GeospatialClient>("geospatial");
+    public IndexerClient       Indexer       => Client<IndexerClient>("indexer");
+    public LegalClient         Legal         => Client<LegalClient>("legal");
+    public NotificationClient  Notification  => Client<NotificationClient>("notification");
+    public PartitionClient     Partition     => Client<PartitionClient>("partition");
+    public PolicyClient        Policy        => Client<PolicyClient>("policy");
+    public RegisterClient      Register      => Client<RegisterClient>("register");
+    public SchemaClient        Schema        => Client<SchemaClient>("schema");
+    public SearchClient        Search        => Client<SearchClient>("search");
+    public SeismicDdmsClient   SeismicDdms   => Client<SeismicDdmsClient>("seismic_ddms");
+    public StorageClient       Storage       => Client<StorageClient>("storage");
+    public UnitClient          Unit          => Client<UnitClient>("unit");
+    public WellboreDdmsClient  WellboreDdms  => Client<WellboreDdmsClient>("wellbore_ddms");
+    public WorkflowClient      Workflow      => Client<WorkflowClient>("workflow");
 
     /// <summary>
     /// Hand-written Wellbore DDMS bulk-data helpers for <c>application/x-parquet</c>
@@ -109,8 +101,7 @@ public sealed class OsduClient : IDisposable
     /// <see cref="WellboreDdms"/> client cannot express. Shares the same
     /// authenticated transport as <see cref="WellboreDdms"/>.
     /// </summary>
-    public WellboreDdmsBulkClient WellboreDdmsBulk =>
-        _wellboreDdmsBulk ??= new WellboreDdmsBulkClient(GetOrCreateAdapter("wellbore_ddms"));
+    public WellboreDdmsBulkClient WellboreDdmsBulk => Client<WellboreDdmsBulkClient>("wellbore_ddms");
 
     /// <summary>
     /// Returns the authenticated Kiota request adapter for the given service attr name
@@ -121,20 +112,39 @@ public sealed class OsduClient : IDisposable
     /// </summary>
     public IRequestAdapter GetRequestAdapter(string serviceAttr) => GetOrCreateAdapter(serviceAttr);
 
-    private T Build<T>(ref T? field, string serviceAttr) where T : class
+    /// <summary>
+    /// Returns the cached service client of type <typeparamref name="T"/>, building it
+    /// (and its adapter) on first access. Keyed by client type rather than by
+    /// <paramref name="serviceAttr"/> so that two client types may share one adapter —
+    /// <see cref="WellboreDdms"/> and <see cref="WellboreDdmsBulk"/> both use
+    /// <c>wellbore_ddms</c>.
+    /// </summary>
+    private T Client<T>(string serviceAttr) where T : class
     {
-        if (field is not null) return field;
-        var adapter = GetOrCreateAdapter(serviceAttr);
-        field = (T)Activator.CreateInstance(typeof(T), adapter)!;
-        return field;
+        lock (_sync)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+
+            if (_clients.TryGetValue(typeof(T), out var existing)) return (T)existing;
+
+            var client = (T)Activator.CreateInstance(typeof(T), GetOrCreateAdapter(serviceAttr))!;
+            _clients[typeof(T)] = client;
+            return client;
+        }
     }
 
     private HttpClientRequestAdapter GetOrCreateAdapter(string serviceAttr)
     {
-        if (_adapters.TryGetValue(serviceAttr, out var adapter)) return adapter;
-        adapter = CreateAdapter(_config.UrlFor(serviceAttr));
-        _adapters[serviceAttr] = adapter;
-        return adapter;
+        lock (_sync)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+
+            if (_adapters.TryGetValue(serviceAttr, out var adapter)) return adapter;
+
+            adapter = CreateAdapter(_config.UrlFor(serviceAttr));
+            _adapters[serviceAttr] = adapter;
+            return adapter;
+        }
     }
 
     /// <summary>
@@ -168,11 +178,18 @@ public sealed class OsduClient : IDisposable
 
     public void Dispose()
     {
-        if (_disposed) return;
-        _disposed = true;
-        foreach (var client in _httpClients)
-            client.Dispose();
-        _httpClients.Clear();
+        lock (_sync)
+        {
+            if (_disposed) return;
+            _disposed = true;
+
+            foreach (var client in _httpClients)
+                client.Dispose();
+
+            _httpClients.Clear();
+            _adapters.Clear();
+            _clients.Clear();
+        }
     }
 
     /// <summary>Adapts <see cref="ITokenProvider"/> to Kiota's <see cref="IAccessTokenProvider"/>.</summary>
