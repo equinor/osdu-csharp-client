@@ -31,21 +31,20 @@ public class OsduClientTests
 
         Assert.NotNull(client.Search);
         Assert.NotNull(client.Storage);
-        Assert.NotNull(client.Schema);
+        Assert.NotNull(client.SchemaService);
         Assert.NotNull(client.Entitlements);
         Assert.NotNull(client.Legal);
         Assert.NotNull(client.File);
         Assert.NotNull(client.Dataset);
-        Assert.NotNull(client.Geospatial);
         Assert.NotNull(client.Indexer);
         Assert.NotNull(client.Notification);
         Assert.NotNull(client.Partition);
         Assert.NotNull(client.Policy);
         Assert.NotNull(client.Register);
-        Assert.NotNull(client.Unit);
+        Assert.NotNull(client.UnitV2);
+        Assert.NotNull(client.UnitV3);
         Assert.NotNull(client.CrsCatalog);
         Assert.NotNull(client.CrsConversion);
-        Assert.NotNull(client.SeismicDdms);
         Assert.NotNull(client.WellboreDdms);
         Assert.NotNull(client.Workflow);
     }

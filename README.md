@@ -101,18 +101,17 @@ Runnable, end-to-end examples combining both libraries live in the separate [`eq
 | `OsduCsharpClient.Dataset`                  | Dataset                    |
 | `OsduCsharpClient.Entitlements`             | Entitlements               |
 | `OsduCsharpClient.File`                     | File                       |
-| `OsduCsharpClient.Geospatial`               | Geospatial                 |
 | `OsduCsharpClient.Indexer`                  | Indexer                    |
 | `OsduCsharpClient.Legal`                    | Legal                      |
 | `OsduCsharpClient.Notification`             | Notification               |
 | `OsduCsharpClient.Partition`                | Partition                  |
 | `OsduCsharpClient.Policy`                   | Policy                     |
 | `OsduCsharpClient.Register`                 | Register                   |
-| `OsduCsharpClient.Schema`                   | Schema                     |
+| `OsduCsharpClient.SchemaService`             | Schema                     |
 | `OsduCsharpClient.Search`                   | Search                     |
-| `OsduCsharpClient.SeismicDdms`              | Seismic DDMS               |
 | `OsduCsharpClient.Storage`                  | Storage                    |
-| `OsduCsharpClient.Unit`                     | Unit                       |
+| `OsduCsharpClient.UnitV2`                    | Unit v2                    |
+| `OsduCsharpClient.UnitV3`                    | Unit v3                    |
 | `OsduCsharpClient.WellboreDdms`             | Wellbore DDMS              |
 | `OsduCsharpClient.Workflow`                 | Workflow                   |
 
