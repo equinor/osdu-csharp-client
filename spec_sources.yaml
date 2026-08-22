@@ -42,16 +42,10 @@ specs:
     path: docs/api/community/v3/openapi.yaml
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/reference/crs-catalog-service/-/raw/master/docs/api/community/v3/openapi.yaml
-    state: differs
+    state: identical
     upstream_sha256: b838c3b41bf65f6db24fb3bea33e140de6653b25eadfe4de5cceb552ee387fce
-    local_sha256: 384be2bf5774962f994a8b6b01209b56b3d4c727da19a968849e81679be7422f
+    local_sha256: b838c3b41bf65f6db24fb3bea33e140de6653b25eadfe4de5cceb552ee387fce
     verified: "2026-08-22"
-    note: >-
-      Capture from a running service spanning v2 and v3 (32 operations) against
-      4 paths in the published v3 spec. Upstream withdrew v2 from master; the
-      surviving copy is Swagger 2.0 at 7c024c84, which the generator cannot
-      read. Adopting the published spec drops the v2 operations, so it needs a
-      decision. osdu-python-client took the published spec in its !19.
 
   - service: CRS_Conversion
     spec: CRS_Conversion.yaml
@@ -59,16 +53,10 @@ specs:
     path: docs/api/community/v4/openapi.yaml
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/reference/crs-conversion-service/-/raw/master/docs/api/community/v4/openapi.yaml
-    state: differs
+    state: identical
     upstream_sha256: c464bb3addd22eb369ab000511b76d813ed60b0c654d716d4fbd6a646ca4e339
-    local_sha256: cab631f02925daf380081c9ebdb6a7ee13a6c269f61864d43dcb30256da0fb28
+    local_sha256: c464bb3addd22eb369ab000511b76d813ed60b0c654d716d4fbd6a646ca4e339
     verified: "2026-08-22"
-    note: >-
-      Same as CRS_Catalog: capture spanning v2, v3 and v4 (18 operations)
-      against 3 in the published v4 spec. Upstream publishes v4 only; v2 and v3
-      survive as Swagger 2.0 at 614dac6f, pointing at a vendor host with a
-      mismatched basePath. convertBinGrid exists only at v3 and has no v4
-      successor.
 
   - service: Dataset
     spec: Dataset.yaml
@@ -180,8 +168,8 @@ specs:
     local_sha256: 6ff04c52afd1487335d154c5f1d343ba94047f700e91f8d409839cd3b75bbf61
     verified: "2026-08-22"
 
-  - service: Schema
-    spec: Schema.yaml
+  - service: Schema_Service
+    spec: Schema_Service.yaml
     project: osdu/platform/system/schema-service
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -202,26 +190,6 @@ specs:
     local_sha256: c4c15f44d946c42a03ba860dddd1bd302631e0f9bcb7d7178755081fc9b28715
     verified: "2026-08-22"
 
-  - service: Seismic_ddms
-    spec: Seismic_ddms.yaml
-    project: osdu/platform/domain-data-mgmt-services/seismic/seismic-dms-suite/seismic-store-service
-    path: app/sdms/docs/api/openapi.yaml
-    ref: master
-    url: https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/seismic/seismic-dms-suite/seismic-store-service/-/raw/master/app/sdms/docs/api/openapi.yaml
-    state: differs
-    upstream_sha256: 4f717431bbcf16556db00321c8cd837bfaa39ce4957bb61831f678a85f8f1da9
-    local_sha256: b9a0fec2e7a6fd5e31bdf2972927ab86cd5c7eac6b407340b4450c66c0aee823
-    verified: "2026-08-22"
-    note: >-
-      Same 50 operations as upstream, but the local copy is a bundle: 11 schemas
-      were inlined from sibling files the upstream spec $refs
-      (../schemas/segy/..., ../schemas/abstract/...), which the generator never
-      sees, and servers[0].url was rewritten from the deploy-time placeholder
-      '#{SDMS_PREFIX}#'. Upstream also leaves literal tabs on blank lines, so
-      the raw file is not valid YAML. Resolving this means teaching
-      generate_all.py to bundle at fetch time; osdu-python-client removed the
-      service instead.
-
   - service: Storage
     spec: Storage.yaml
     project: osdu/platform/system/storage
@@ -233,21 +201,27 @@ specs:
     local_sha256: fc893bd59daaf5b6bb14bc9f77b639720b1cd3d70e59374916a3e89b9b661c45
     verified: "2026-08-22"
 
-  - service: Unit
-    spec: Unit.yaml
+  - service: Unit_v2
+    spec: Unit_v2.yaml
+    project: osdu/platform/system/reference/unit-service
+    path: docs/api/community/v2/openapi.yaml
+    ref: master
+    url: https://community.opengroup.org/osdu/platform/system/reference/unit-service/-/raw/master/docs/api/community/v2/openapi.yaml
+    state: identical
+    upstream_sha256: 60d943d2ff63d536f249872662154c92990f764300d878b047dbcb7b84f3ae7f
+    local_sha256: 60d943d2ff63d536f249872662154c92990f764300d878b047dbcb7b84f3ae7f
+    verified: "2026-08-22"
+
+  - service: Unit_v3
+    spec: Unit_v3.yaml
     project: osdu/platform/system/reference/unit-service
     path: docs/api/community/v3/openapi.yaml
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/reference/unit-service/-/raw/master/docs/api/community/v3/openapi.yaml
-    state: differs
+    state: identical
     upstream_sha256: 13d53a3b1f3dd610b35e8f6f99e450cb94c7959c46da9f49ae73c5327f4fcb1c
-    local_sha256: 2037e5c6cfe7706d82963c1abc3a8b2fedaf7f14fb5011f78fd398caf9f9a97d
+    local_sha256: 13d53a3b1f3dd610b35e8f6f99e450cb94c7959c46da9f49ae73c5327f4fcb1c
     verified: "2026-08-22"
-    note: >-
-      Capture spanning v1, v2 and v3 (61 operations) against 31 in the published
-      v3 spec. Upstream publishes v2 and v3 as separate files. osdu-python-
-      client split these into unit_v2 and unit_v3 packages with an unversioned
-      alias; doing the same here drops the v1 operations and renames the rest.
 
   - service: Wellbore_ddms
     spec: Wellbore_ddms.json

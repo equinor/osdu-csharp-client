@@ -11,11 +11,11 @@ using Equinor.OsduCsharpClient.Notification;
 using Equinor.OsduCsharpClient.Partition;
 using Equinor.OsduCsharpClient.Policy;
 using Equinor.OsduCsharpClient.Register;
-using Equinor.OsduCsharpClient.Schema;
+using Equinor.OsduCsharpClient.SchemaService;
 using Equinor.OsduCsharpClient.Search;
-using Equinor.OsduCsharpClient.SeismicDdms;
 using Equinor.OsduCsharpClient.Storage;
-using Equinor.OsduCsharpClient.Unit;
+using Equinor.OsduCsharpClient.UnitV2;
+using Equinor.OsduCsharpClient.UnitV3;
 using Equinor.OsduCsharpClient.WellboreDdms;
 using Equinor.OsduCsharpClient.Workflow;
 using Microsoft.Extensions.Logging;
@@ -87,11 +87,18 @@ public sealed class OsduClient : IDisposable
     public PartitionClient     Partition     => Client<PartitionClient>("partition");
     public PolicyClient        Policy        => Client<PolicyClient>("policy");
     public RegisterClient      Register      => Client<RegisterClient>("register");
-    public SchemaClient        Schema        => Client<SchemaClient>("schema");
+    public SchemaServiceClient SchemaService => Client<SchemaServiceClient>("schema_service");
+
+    /// <summary>Renamed to <see cref="SchemaService"/>, matching the /api/schema-service route.</summary>
+    [Obsolete("Renamed to SchemaService. This alias will be removed in a future major release.")]
+    public SchemaServiceClient Schema        => SchemaService;
     public SearchClient        Search        => Client<SearchClient>("search");
-    public SeismicDdmsClient   SeismicDdms   => Client<SeismicDdmsClient>("seismic_ddms");
     public StorageClient       Storage       => Client<StorageClient>("storage");
-    public UnitClient          Unit          => Client<UnitClient>("unit");
+    public UnitV2Client        UnitV2        => Client<UnitV2Client>("unit_v2");
+    public UnitV3Client        UnitV3        => Client<UnitV3Client>("unit_v3");
+
+    /// <summary>The current default Unit version. Tracks <see cref="UnitV3"/>.</summary>
+    public UnitV3Client        Unit          => UnitV3;
     public WellboreDdmsClient  WellboreDdms  => Client<WellboreDdmsClient>("wellbore_ddms");
     public WorkflowClient      Workflow      => Client<WorkflowClient>("workflow");
 
