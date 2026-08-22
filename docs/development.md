@@ -40,9 +40,51 @@ How it works:
 
 ## Updating OpenAPI Specs
 
-Specs in `openapi_specs/` are updated manually: fetch the spec from a deployed service (e.g. `<server>/api/<service>/.../openapi.json`) or from the upstream OSDU service repository, and commit it. Update one service at a time so the diff stays reviewable.
+Every file in `openapi_specs/` is a copy of a spec its service publishes, and [`spec_sources.yaml`](../spec_sources.yaml) records where each one came from and the sha256 of both sides at the last check.
 
-> Warning: The raw upstream specs are not always generator-friendly. This repository may intentionally apply local edits to files in `openapi_specs/` to improve generated client quality. Check `git diff` against the previous spec before committing.
+### Why upstream git, and not a deployed service
+
+Each OSDU service already runs `cimpl-check-openapi-spec` in its own pipeline, which fetches the spec from the deployed service and fails that pipeline when the committed `docs/api/community/v{N}/openapi.yaml` no longer matches. The published file is therefore already known to match a running service. Comparing against it inherits that guarantee and needs no OSDU environment, no deployment, and no credentials — the URLs serve anonymously.
+
+### Refreshing
+
+```bash
+python verify_spec_sources.py            # offline: manifest vs local files
+python verify_spec_sources.py --fetch    # also compare against upstream
+python verify_spec_sources.py --refresh  # overwrite the specs from upstream, then re-record
+python verify_spec_sources.py --update   # re-record only
+```
+
+`--refresh` is the one you usually want. `--update` alone only re-records hashes, which turns a real divergence into a recorded one. Regenerate and run the tests after refreshing — an upstream change can add, remove or reshape operations on the generated client. Update one service at a time when the diff is large.
+
+### Never hand-edit a vendored spec
+
+An undeclared manual edit makes the drift check red forever, and the noise trains everyone to ignore it. Corrections belong in `generate_all.py`'s patch step, which is applied in memory so the file on disk stays a faithful copy of what the service publishes — see [Regenerating Clients](#regenerating-clients).
+
+### The gate
+
+| Workflow | When | Blocking |
+|---|---|---|
+| `run-tests.yml` → *Check spec provenance* | every PR | yes |
+| `spec-drift.yml` → *check* | PRs touching `openapi_specs/`, `spec_sources.yaml`, `verify_spec_sources.py` | yes |
+| `spec-drift.yml` → *report* | Mondays 06:00 UTC, or manually | no |
+
+The offline check runs on every PR and needs no network. The upstream comparison is scoped to PRs that touch the specs on purpose: upstream services merge spec changes on their own cadence, and a gate that ran on every PR would turn this repo red for a change no author here could fix.
+
+The scheduled half refreshes every spec and opens a PR when anything moved. Note that pull requests opened with the default `GITHUB_TOKEN` do not trigger further workflow runs, so that PR arrives without a CI run — close and reopen it, or push an empty commit, to get one.
+
+### Specs that are not yet matched to a published file
+
+Four entries carry `state: differs` with a note explaining why. Each is a capture taken from a running service rather than from the repository, and each needs a decision that removes or renames operations:
+
+| Spec | Situation |
+|---|---|
+| `CRS_Catalog` | capture spans v2 + v3 (32 operations); upstream publishes v3 only (4 paths) |
+| `CRS_Conversion` | capture spans v2, v3, v4 (18 operations); upstream publishes v4 only (3) |
+| `Unit` | capture spans v1, v2, v3 (61 operations); upstream publishes v2 and v3 separately |
+| `Seismic_ddms` | same 50 operations, but the copy inlines 11 schemas the upstream spec `$ref`s from sibling files, and rewrites a deploy-time `servers` placeholder |
+
+`differs` is a holding position, not a destination — a spec that cannot be matched to a published file has no provenance to check against. See [osdu-python-client !19](https://community.opengroup.org/osdu/platform/system/sdks/osdu-python-client/-/merge_requests/19) for how the same four were resolved there.
 
 ## Regenerating Clients
 
@@ -65,7 +107,7 @@ These patches are applied in memory only — the files in `openapi_specs/` are n
 
 ## Adding a New Service
 
-1. **Add the OpenAPI spec** to `openapi_specs/` (`.json`, `.yaml`, or `.yml`).
+1. **Add the OpenAPI spec** to `openapi_specs/` (`.json`, `.yaml`, or `.yml`), then record where it came from in [`spec_sources.yaml`](../spec_sources.yaml) and run `python verify_spec_sources.py --update`. A spec with no recorded provenance fails the *Check spec provenance* step on every PR.
 
 2. **Regenerate** — `generate_all.py` auto-discovers all specs, so no script changes are needed:
    ```sh
