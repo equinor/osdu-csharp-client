@@ -4,7 +4,6 @@ using Equinor.OsduCsharpClient.Dataset;
 using Equinor.OsduCsharpClient.Entitlements;
 using Equinor.OsduCsharpClient.Facade.Auth;
 using Equinor.OsduCsharpClient.FileNamespace;
-using Equinor.OsduCsharpClient.Geospatial;
 using Equinor.OsduCsharpClient.Indexer;
 using Equinor.OsduCsharpClient.Legal;
 using Equinor.OsduCsharpClient.Notification;
@@ -80,7 +79,6 @@ public sealed class OsduClient : IDisposable
     public DatasetClient       Dataset       => Client<DatasetClient>("dataset");
     public EntitlementsClient  Entitlements  => Client<EntitlementsClient>("entitlements");
     public FileClient          File          => Client<FileClient>("file");
-    public GeospatialClient    Geospatial    => Client<GeospatialClient>("geospatial");
     public IndexerClient       Indexer       => Client<IndexerClient>("indexer");
     public LegalClient         Legal         => Client<LegalClient>("legal");
     public NotificationClient  Notification  => Client<NotificationClient>("notification");

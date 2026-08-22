@@ -33,7 +33,6 @@ public static class ServiceRegistry
         new("entitlements",              "/api/entitlements/v2"),
         new("legal",                     "/api/legal/v1"),
         new("file",                      "/api/file"),
-        new("geospatial",                "/gcz/transformer"),
         new("dataset",                   "/api/dataset/v1"),
         new("indexer",                   "/api/indexer/v2"),
         new("notification",              "/api/notification/v1"),

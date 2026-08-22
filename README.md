@@ -101,7 +101,6 @@ Runnable, end-to-end examples combining both libraries live in the separate [`eq
 | `OsduCsharpClient.Dataset`                  | Dataset                    |
 | `OsduCsharpClient.Entitlements`             | Entitlements               |
 | `OsduCsharpClient.File`                     | File                       |
-| `OsduCsharpClient.Geospatial`               | Geospatial                 |
 | `OsduCsharpClient.Indexer`                  | Indexer                    |
 | `OsduCsharpClient.Legal`                    | Legal                      |
 | `OsduCsharpClient.Notification`             | Notification               |

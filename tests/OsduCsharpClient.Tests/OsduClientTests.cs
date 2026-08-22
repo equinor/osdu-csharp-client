@@ -36,7 +36,6 @@ public class OsduClientTests
         Assert.NotNull(client.Legal);
         Assert.NotNull(client.File);
         Assert.NotNull(client.Dataset);
-        Assert.NotNull(client.Geospatial);
         Assert.NotNull(client.Indexer);
         Assert.NotNull(client.Notification);
         Assert.NotNull(client.Partition);

@@ -86,9 +86,14 @@ and v3. Operations from older versions are not in the client; the services may
 still serve them, but upstream no longer describes them. `convertBinGrid` is the
 one with no successor, having existed only at CRS Conversion v3.
 
-Seismic DDMS was removed rather than carried: its upstream spec `$ref`s sibling
-files that only exist in the upstream repository, and leaves literal tabs on
-blank lines, so the published file is neither valid YAML nor usable standalone.
+Two services were dropped rather than carried. Seismic DDMS's upstream spec
+`$ref`s sibling files that only exist in the upstream repository and leaves
+literal tabs on blank lines, so the published file is neither valid YAML nor
+usable standalone. Geospatial's spec is the GCZ Transformer's administrative
+API -- all 27 paths sit under `/admin` -- and upstream has not configured it:
+the title is springdoc's `OpenAPI definition` placeholder, the version is `v0`,
+and `servers` is an absolute dev-sandbox URL, so its route could only be
+inferred from upstream's CI config. Neither is in osdu-python-client either.
 
 ### Endpoints must match the spec's own `servers`
 
@@ -99,11 +104,6 @@ against. Where a spec declares `servers: /api/file` and paths like
 `/api/file/v2` produces `/api/file/v2/v2/files/uploadURL` and makes every
 operation on that service unreachable. That was the state of `file`, `workflow`,
 `unit` and both CRS services until it was corrected.
-
-`geospatial` is the exception: its spec declares an absolute dev-sandbox server
-URL rather than a relative path, so its route comes from upstream's own CI
-config (`CIMPL_OPENAPI_YAML_ROUTE: /gcz/transformer/admin/v3/api-docs.yaml`),
-giving `/gcz/transformer`.
 
 ## Regenerating Clients
 

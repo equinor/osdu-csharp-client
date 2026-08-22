@@ -91,17 +91,6 @@ specs:
     local_sha256: 20b0679f360e2d4aa6acfed8b059b3e12325285855323f2194b5df4361e0c10e
     verified: "2026-08-22"
 
-  - service: Geospatial
-    spec: Geospatial.yaml
-    project: osdu/platform/consumption/geospatial
-    path: docs/api/community/v3/openapi.yaml
-    ref: master
-    url: https://community.opengroup.org/osdu/platform/consumption/geospatial/-/raw/master/docs/api/community/v3/openapi.yaml
-    state: identical
-    upstream_sha256: 33e01e867c48ce98e92b0c01d4647bd510c96c392b029ecd6ccf83d1d5a49b28
-    local_sha256: 33e01e867c48ce98e92b0c01d4647bd510c96c392b029ecd6ccf83d1d5a49b28
-    verified: "2026-08-22"
-
   - service: Indexer
     spec: Indexer.yaml
     project: osdu/platform/system/indexer-service
