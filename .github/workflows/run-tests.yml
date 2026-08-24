@@ -32,6 +32,13 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      # Offline half of the drift check: the manifest must describe exactly the
+      # specs on disk, with current hashes. Catches a spec edited without
+      # re-recording its provenance. The comparison against upstream needs the
+      # network and lives in the spec-drift workflow.
+      - name: Check spec provenance
+        run: python verify_spec_sources.py
+
       - name: Set up .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:

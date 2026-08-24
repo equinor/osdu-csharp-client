@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.5](https://github.com/equinor/osdu-csharp-client/compare/v1.1.4...v1.1.5) (2026-08-24)
+
+
+### Bug Fixes
+
+* retire pooled connections by age so DNS changes are picked up ([#90](https://github.com/equinor/osdu-csharp-client/issues/90)) ([8c7bd8c](https://github.com/equinor/osdu-csharp-client/commit/8c7bd8ce869630185593b0d6478d05de9817c8bc))
+
+
+### Dependencies
+
+* bump the github-actions group with 3 updates ([#93](https://github.com/equinor/osdu-csharp-client/issues/93)) ([5dffff6](https://github.com/equinor/osdu-csharp-client/commit/5dffff625658a981a8d6e875391457a900707ddd))
+
 ## [1.1.4](https://github.com/equinor/osdu-csharp-client/compare/v1.1.3...v1.1.4) (2026-08-20)
 
 

@@ -40,9 +40,70 @@ How it works:
 
 ## Updating OpenAPI Specs
 
-Specs in `openapi_specs/` are updated manually: fetch the spec from a deployed service (e.g. `<server>/api/<service>/.../openapi.json`) or from the upstream OSDU service repository, and commit it. Update one service at a time so the diff stays reviewable.
+Every file in `openapi_specs/` is a copy of a spec its service publishes, and [`spec_sources.yaml`](../spec_sources.yaml) records where each one came from and the sha256 of both sides at the last check.
 
-> Warning: The raw upstream specs are not always generator-friendly. This repository may intentionally apply local edits to files in `openapi_specs/` to improve generated client quality. Check `git diff` against the previous spec before committing.
+### Why upstream git, and not a deployed service
+
+Each OSDU service already runs `cimpl-check-openapi-spec` in its own pipeline, which fetches the spec from the deployed service and fails that pipeline when the committed `docs/api/community/v{N}/openapi.yaml` no longer matches. The published file is therefore already known to match a running service. Comparing against it inherits that guarantee and needs no OSDU environment, no deployment, and no credentials — the URLs serve anonymously.
+
+### Refreshing
+
+```bash
+python verify_spec_sources.py            # offline: manifest vs local files
+python verify_spec_sources.py --fetch    # also compare against upstream
+python verify_spec_sources.py --refresh  # overwrite the specs from upstream, then re-record
+python verify_spec_sources.py --update   # re-record only
+```
+
+`--refresh` is the one you usually want. `--update` alone only re-records hashes, which turns a real divergence into a recorded one. Regenerate and run the tests after refreshing — an upstream change can add, remove or reshape operations on the generated client. Update one service at a time when the diff is large.
+
+### Never hand-edit a vendored spec
+
+An undeclared manual edit makes the drift check red forever, and the noise trains everyone to ignore it. Corrections belong in `generate_all.py`'s patch step, which is applied in memory so the file on disk stays a faithful copy of what the service publishes — see [Regenerating Clients](#regenerating-clients).
+
+### The gate
+
+| Workflow | When | Blocking |
+|---|---|---|
+| `run-tests.yml` → *Check spec provenance* | every PR | yes |
+| `spec-drift.yml` → *check* | PRs touching `openapi_specs/`, `spec_sources.yaml`, `verify_spec_sources.py` | yes |
+| `spec-drift.yml` → *report* | Mondays 06:00 UTC, or manually | no |
+
+The offline check runs on every PR and needs no network. The upstream comparison is scoped to PRs that touch the specs on purpose: upstream services merge spec changes on their own cadence, and a gate that ran on every PR would turn this repo red for a change no author here could fix.
+
+The scheduled half refreshes every spec and opens a PR when anything moved. Note that pull requests opened with the default `GITHUB_TOKEN` do not trigger further workflow runs, so that PR arrives without a CI run — close and reopen it, or push an empty commit, to get one.
+
+### Every spec matches a published file
+
+`spec_sources.yaml` carries no `differs` entry. It is worth keeping it that way:
+`differs` exists so a drift check can tell a known divergence from a new one, but
+a spec that cannot be matched to a published file has no provenance to check
+against.
+
+Three services publish one spec per API version rather than a combined one, so
+this repo tracks the latest of each — CRS Catalog v3, CRS Conversion v4, Unit v2
+and v3. Operations from older versions are not in the client; the services may
+still serve them, but upstream no longer describes them. `convertBinGrid` is the
+one with no successor, having existed only at CRS Conversion v3.
+
+Two services were dropped rather than carried. Seismic DDMS's upstream spec
+`$ref`s sibling files that only exist in the upstream repository and leaves
+literal tabs on blank lines, so the published file is neither valid YAML nor
+usable standalone. Geospatial's spec is the GCZ Transformer's administrative
+API -- all 27 paths sit under `/admin` -- and upstream has not configured it:
+the title is springdoc's `OpenAPI definition` placeholder, the version is `v0`,
+and `servers` is an absolute dev-sandbox URL, so its route could only be
+inferred from upstream's CI config. Neither is in osdu-python-client either.
+
+### Endpoints must match the spec's own `servers`
+
+The generated clients append each spec path verbatim to the base URL, so
+`ServiceSpec.DefaultEndpoint` has to be exactly what the spec was written
+against. Where a spec declares `servers: /api/file` and paths like
+`/v2/files/uploadURL`, the version belongs to the path — registering
+`/api/file/v2` produces `/api/file/v2/v2/files/uploadURL` and makes every
+operation on that service unreachable. That was the state of `file`, `workflow`,
+`unit` and both CRS services until it was corrected.
 
 ## Regenerating Clients
 
@@ -65,7 +126,7 @@ These patches are applied in memory only — the files in `openapi_specs/` are n
 
 ## Adding a New Service
 
-1. **Add the OpenAPI spec** to `openapi_specs/` (`.json`, `.yaml`, or `.yml`).
+1. **Add the OpenAPI spec** to `openapi_specs/` (`.json`, `.yaml`, or `.yml`), then record where it came from in [`spec_sources.yaml`](../spec_sources.yaml) and run `python verify_spec_sources.py --update`. A spec with no recorded provenance fails the *Check spec provenance* step on every PR.
 
 2. **Regenerate** — `generate_all.py` auto-discovers all specs, so no script changes are needed:
    ```sh
