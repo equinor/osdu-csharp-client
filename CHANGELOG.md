@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/equinor/osdu-csharp-client/compare/v1.1.5...v1.1.6) (2026-08-24)
+
+
+### Dependencies
+
+* Bump the nuget group with 10 updates ([#94](https://github.com/equinor/osdu-csharp-client/issues/94)) ([ad1eb27](https://github.com/equinor/osdu-csharp-client/commit/ad1eb2700364f6e0068e1507ee0ebade37b2473d))
+
 ## [1.1.5](https://github.com/equinor/osdu-csharp-client/compare/v1.1.4...v1.1.5) (2026-08-24)
 
 
