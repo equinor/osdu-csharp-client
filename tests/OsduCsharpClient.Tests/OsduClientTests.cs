@@ -66,4 +66,33 @@ public class OsduClientTests
         var client = new OsduClient(MakeConfig());
         client.Dispose();
     }
+
+    [Fact]
+    public void TransportHandler_RetiresPooledConnectionsByAge()
+    {
+        // The framework default is infinite, which lets a continuously busy connection
+        // stay pinned to a stale address across a DNS change.
+        using var handler = OsduClient.CreateTransportHandler();
+
+        Assert.NotEqual(Timeout.InfiniteTimeSpan, handler.PooledConnectionLifetime);
+        Assert.True(handler.PooledConnectionLifetime > TimeSpan.Zero);
+        Assert.Equal(OsduClient.PooledConnectionLifetime, handler.PooledConnectionLifetime);
+    }
+
+    [Fact]
+    public void TransportHandler_KeepsHttpClientHandlerDefaults()
+    {
+        // SocketsHttpHandler is used only to reach PooledConnectionLifetime; nothing else
+        // about the transport should change from the HttpClientHandler it replaced.
+        using var reference = new HttpClientHandler();
+        using var handler = OsduClient.CreateTransportHandler();
+
+        Assert.Equal(reference.AutomaticDecompression, handler.AutomaticDecompression);
+        Assert.Equal(reference.UseProxy, handler.UseProxy);
+        Assert.Equal(reference.UseCookies, handler.UseCookies);
+        Assert.Equal(reference.AllowAutoRedirect, handler.AllowAutoRedirect);
+        Assert.Equal(reference.MaxAutomaticRedirections, handler.MaxAutomaticRedirections);
+        Assert.Equal(reference.MaxConnectionsPerServer, handler.MaxConnectionsPerServer);
+        Assert.Equal(reference.PreAuthenticate, handler.PreAuthenticate);
+    }
 }
