@@ -73,18 +73,37 @@ The offline check runs on every PR and needs no network. The upstream comparison
 
 The scheduled half refreshes every spec and opens a PR when anything moved. Note that pull requests opened with the default `GITHUB_TOKEN` do not trigger further workflow runs, so that PR arrives without a CI run — close and reopen it, or push an empty commit, to get one.
 
-### Specs that are not yet matched to a published file
+### Every spec matches a published file
 
-Four entries carry `state: differs` with a note explaining why. Each is a capture taken from a running service rather than from the repository, and each needs a decision that removes or renames operations:
+`spec_sources.yaml` carries no `differs` entry. It is worth keeping it that way:
+`differs` exists so a drift check can tell a known divergence from a new one, but
+a spec that cannot be matched to a published file has no provenance to check
+against.
 
-| Spec | Situation |
-|---|---|
-| `CRS_Catalog` | capture spans v2 + v3 (32 operations); upstream publishes v3 only (4 paths) |
-| `CRS_Conversion` | capture spans v2, v3, v4 (18 operations); upstream publishes v4 only (3) |
-| `Unit` | capture spans v1, v2, v3 (61 operations); upstream publishes v2 and v3 separately |
-| `Seismic_ddms` | same 50 operations, but the copy inlines 11 schemas the upstream spec `$ref`s from sibling files, and rewrites a deploy-time `servers` placeholder |
+Three services publish one spec per API version rather than a combined one, so
+this repo tracks the latest of each — CRS Catalog v3, CRS Conversion v4, Unit v2
+and v3. Operations from older versions are not in the client; the services may
+still serve them, but upstream no longer describes them. `convertBinGrid` is the
+one with no successor, having existed only at CRS Conversion v3.
 
-`differs` is a holding position, not a destination — a spec that cannot be matched to a published file has no provenance to check against. See [osdu-python-client !19](https://community.opengroup.org/osdu/platform/system/sdks/osdu-python-client/-/merge_requests/19) for how the same four were resolved there.
+Two services were dropped rather than carried. Seismic DDMS's upstream spec
+`$ref`s sibling files that only exist in the upstream repository and leaves
+literal tabs on blank lines, so the published file is neither valid YAML nor
+usable standalone. Geospatial's spec is the GCZ Transformer's administrative
+API -- all 27 paths sit under `/admin` -- and upstream has not configured it:
+the title is springdoc's `OpenAPI definition` placeholder, the version is `v0`,
+and `servers` is an absolute dev-sandbox URL, so its route could only be
+inferred from upstream's CI config. Neither is in osdu-python-client either.
+
+### Endpoints must match the spec's own `servers`
+
+The generated clients append each spec path verbatim to the base URL, so
+`ServiceSpec.DefaultEndpoint` has to be exactly what the spec was written
+against. Where a spec declares `servers: /api/file` and paths like
+`/v2/files/uploadURL`, the version belongs to the path — registering
+`/api/file/v2` produces `/api/file/v2/v2/files/uploadURL` and makes every
+operation on that service unreachable. That was the state of `file`, `workflow`,
+`unit` and both CRS services until it was corrected.
 
 ## Regenerating Clients
 
