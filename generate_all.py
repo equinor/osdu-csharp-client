@@ -3,6 +3,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 
 import yaml
@@ -151,25 +152,65 @@ def normalize_wildcard_properties(obj):
             normalize_wildcard_properties(item)
 
 
+def spec_paths() -> list[Path]:
+    """Every spec on disk.
+
+    A spec lives at ``openapi_specs/<service>/openapi.<ext>``, so the directory
+    is what identifies it and the filename carries no meaning. Deriving the
+    name from the directory means renaming a service is a directory move that
+    shows up as such, rather than a filename edit that silently renames the
+    generated namespace underneath ``ServiceRegistry``.
+    """
+    return [
+        p
+        for p in SPECS_DIR.rglob("openapi.*")
+        if p.is_file() and p.suffix.lower() in SPEC_EXTENSIONS
+    ]
+
+
+def service_name_for(spec_path: Path) -> str:
+    """``openapi_specs/unit/v3/openapi.yaml`` -> ``unit_v3``.
+
+    Nested directories join with ``_``, so adding a second API version of a
+    service is additive: no change to this script, and the generated namespace
+    follows from where the spec sits.
+    """
+    parts = spec_path.parent.relative_to(SPECS_DIR).parts
+    return "_".join(parts).lower().replace(" ", "_").replace("-", "_")
+
+
+def prune_orphaned_packages(keep: set[str]) -> None:
+    """Delete generated packages that no spec produces any more.
+
+    Each run only clears the directory it is about to write, so a package left
+    over from a removed or renamed spec survives indefinitely. ``Generated/`` is
+    gitignored, so such a directory is invisible in ``git status`` while still
+    compiling into a locally built package -- which is how osdu-python-client
+    shipped a dead module in its 0.5.0 wheel.
+    """
+    if not OUTPUT_DIR.exists():
+        return
+    for path in sorted(OUTPUT_DIR.iterdir()):
+        if path.is_dir() and path.name not in keep:
+            print(f"Removing orphaned generated package {path.name} (no matching spec).")
+            shutil.rmtree(path)
+
+
 def generate_all():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    specs = sorted(
-        p for p in SPECS_DIR.iterdir()
-        if p.is_file() and p.suffix.lower() in SPEC_EXTENSIONS
-    )
+    specs = sorted(spec_paths())
     print(f"Found {len(specs)} OpenAPI specs.")
 
+    generated_dirs: set[str] = set()
     for spec_path in specs:
-        raw_name = spec_path.stem  # e.g. "CRS_Catalog"
-        service_name = (
-            raw_name.lower().replace(" ", "_").replace("-", "_")
-        )  # e.g. "crs_catalog"
+        service_name = service_name_for(spec_path)  # e.g. "crs_catalog", "unit_v2"
         class_name = to_pascal_case(service_name) + "Client"  # e.g. "CrsCatalogClient"
         namespace = f"Equinor.OsduCsharpClient.{to_pascal_case(service_name)}"  # e.g. "Equinor.OsduCsharpClient.CrsCatalog"
         output_path = OUTPUT_DIR / to_pascal_case(
             service_name
         )  # e.g. src/OsduCsharpClient/CrsCatalog
+        generated_dirs.add(output_path.name)
 
         print(f"Generating client for {service_name} (from {spec_path.name})...")
 
@@ -187,8 +228,11 @@ def generate_all():
 
         # Always write a temp JSON file so in-memory normalizations and YAML
         # conversion take effect (Kiota accepts JSON on all platforms).
-        temp_spec_path = spec_path.with_suffix(".temp.json")
-        with open(temp_spec_path, "w") as f:
+        # Written outside openapi_specs/ so a crashed run cannot leave a file
+        # that the next `rglob("openapi.*")` would mistake for a spec.
+        temp_fd, temp_name = tempfile.mkstemp(suffix=".json", prefix=f"{service_name}-")
+        temp_spec_path = Path(temp_name)
+        with os.fdopen(temp_fd, "w") as f:
             json.dump(spec_data, f)
 
         if output_path.exists():
@@ -225,6 +269,8 @@ def generate_all():
         finally:
             if temp_spec_path.exists():
                 temp_spec_path.unlink()
+
+    prune_orphaned_packages(generated_dirs)
 
 
 if __name__ == "__main__":

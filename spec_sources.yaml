@@ -37,7 +37,7 @@ verified: "2026-08-22"
 
 specs:
   - service: CRS_Catalog
-    spec: CRS_Catalog.yaml
+    spec: crs_catalog/openapi.yaml
     project: osdu/platform/system/reference/crs-catalog-service
     path: docs/api/community/v3/openapi.yaml
     ref: master
@@ -48,7 +48,7 @@ specs:
     verified: "2026-08-22"
 
   - service: CRS_Conversion
-    spec: CRS_Conversion.yaml
+    spec: crs_conversion/openapi.yaml
     project: osdu/platform/system/reference/crs-conversion-service
     path: docs/api/community/v4/openapi.yaml
     ref: master
@@ -59,7 +59,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Dataset
-    spec: Dataset.yaml
+    spec: dataset/openapi.yaml
     project: osdu/platform/system/dataset
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -70,7 +70,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Entitlements
-    spec: Entitlements.yaml
+    spec: entitlements/openapi.yaml
     project: osdu/platform/security-and-compliance/entitlements
     path: docs/api/community/v2/openapi.yaml
     ref: master
@@ -81,7 +81,7 @@ specs:
     verified: "2026-08-22"
 
   - service: File
-    spec: File.yaml
+    spec: file/openapi.yaml
     project: osdu/platform/system/file
     path: docs/api/community/v2/openapi.yaml
     ref: master
@@ -92,7 +92,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Indexer
-    spec: Indexer.yaml
+    spec: indexer/openapi.yaml
     project: osdu/platform/system/indexer-service
     path: docs/api/community/v2/openapi.yaml
     ref: master
@@ -103,7 +103,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Legal
-    spec: Legal.yaml
+    spec: legal/openapi.yaml
     project: osdu/platform/security-and-compliance/legal
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -114,7 +114,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Notification
-    spec: Notification.yaml
+    spec: notification/openapi.yaml
     project: osdu/platform/system/notification
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -125,7 +125,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Partition
-    spec: Partition.yaml
+    spec: partition/openapi.yaml
     project: osdu/platform/system/partition
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -136,7 +136,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Policy
-    spec: Policy.json
+    spec: policy/openapi.json
     project: osdu/platform/security-and-compliance/policy
     path: docs/api/community/v1/openapi.json
     ref: master
@@ -147,7 +147,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Register
-    spec: Register.yaml
+    spec: register/openapi.yaml
     project: osdu/platform/system/register
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -158,7 +158,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Schema_Service
-    spec: Schema_Service.yaml
+    spec: schema_service/openapi.yaml
     project: osdu/platform/system/schema-service
     path: docs/api/community/v1/openapi.yaml
     ref: master
@@ -169,7 +169,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Search
-    spec: Search.yaml
+    spec: search/openapi.yaml
     project: osdu/platform/system/search-service
     path: docs/api/community/v2/openapi.yaml
     ref: master
@@ -180,7 +180,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Storage
-    spec: Storage.yaml
+    spec: storage/openapi.yaml
     project: osdu/platform/system/storage
     path: docs/api/community/v2/openapi.yaml
     ref: master
@@ -191,7 +191,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Unit_v2
-    spec: Unit_v2.yaml
+    spec: unit/v2/openapi.yaml
     project: osdu/platform/system/reference/unit-service
     path: docs/api/community/v2/openapi.yaml
     ref: master
@@ -202,7 +202,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Unit_v3
-    spec: Unit_v3.yaml
+    spec: unit/v3/openapi.yaml
     project: osdu/platform/system/reference/unit-service
     path: docs/api/community/v3/openapi.yaml
     ref: master
@@ -213,7 +213,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Wellbore_ddms
-    spec: Wellbore_ddms.json
+    spec: wellbore_ddms/openapi.json
     project: osdu/platform/domain-data-mgmt-services/wellbore/wellbore-domain-services
     path: docs/api/community/v1/openapi.json
     ref: master
@@ -224,7 +224,7 @@ specs:
     verified: "2026-08-22"
 
   - service: Workflow
-    spec: Workflow.yaml
+    spec: workflow/openapi.yaml
     project: osdu/platform/data-flow/ingestion/ingestion-workflow
     path: docs/api/community/v1/openapi.yaml
     ref: master

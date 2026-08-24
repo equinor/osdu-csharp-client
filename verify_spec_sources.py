@@ -45,13 +45,13 @@ def load_manifest() -> dict[str, Any]:
 def local_spec_files() -> list[Path]:
     """Every spec on disk, as a path relative to ``SPECS_DIR``.
 
-    Specs are flat files named after the service (``Storage.yaml``), and
-    ``generate_all.py`` derives the generated namespace from that filename, so
-    the name is the identity. Anything with a spec extension in here is a spec.
+    Specs live one per service directory under a generic name
+    (``crs_catalog/openapi.yaml``), so the directory is what identifies them;
+    the bare filename is the same for all of them.
     """
     return sorted(
         p.relative_to(SPECS_DIR)
-        for p in SPECS_DIR.iterdir()
+        for p in SPECS_DIR.rglob("openapi.*")
         if p.is_file() and p.suffix.lower() in SPEC_EXTENSIONS
     )
 
