@@ -1,0 +1,119 @@
+name: OpenAPI Spec Drift
+
+# The specs in openapi_specs/ are copies of files their services publish, with
+# provenance recorded in spec_sources.yaml. This keeps the copies honest.
+#
+# Two halves:
+#   check   blocking, on PRs that touch the specs or the checking machinery
+#   report  non-blocking, weekly, refreshes and opens a PR when anything moved
+#
+# The check is scoped to PRs that touch the specs on purpose. Upstream services
+# merge spec changes on their own cadence, so an unscoped gate would turn this
+# repo red for a change no PR author here can fix. Drift found outside a PR is
+# the scheduled half's business.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "openapi_specs/**"
+      - "spec_sources.yaml"
+      - "verify_spec_sources.py"
+  schedule:
+    # Mondays, 06:00 UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Specs match upstream
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # Downloads each recorded URL. They serve anonymously, so no credentials
+      # and no deployed OSDU environment are needed.
+      - name: Compare specs against upstream
+        run: python verify_spec_sources.py --fetch
+
+  report:
+    name: Refresh specs from upstream
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # --refresh leaves the manifest untouched when nothing moved, so a quiet
+      # week produces no diff and no pull request.
+      - name: Refresh
+        run: python verify_spec_sources.py --refresh | tee spec-drift-report.txt
+
+      - name: Open a pull request if anything moved
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "Every vendored spec matches upstream. Nothing to do."
+            exit 0
+          fi
+          echo "Specs refreshed from upstream:"
+          git diff --stat
+          BRANCH="chore/refresh-openapi-specs-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "${BRANCH}"
+          git add openapi_specs/ spec_sources.yaml
+          git commit -m "chore: refresh OpenAPI specs from upstream"
+          git push origin "${BRANCH}"
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "chore: refresh OpenAPI specs from upstream" \
+            --body "Opened by the scheduled \`OpenAPI Spec Drift\` workflow. An upstream spec change can add, remove or reshape operations, so review the regenerated client before merging.
+
+          Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          > Note: pull requests opened with the default \`GITHUB_TOKEN\` do not trigger further workflow runs, so this PR starts without a CI run. Close and reopen it, or push an empty commit, to get one."
+
+      - name: Upload the refreshed specs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: refreshed-specs
+          path: |
+            openapi_specs/
+            spec_sources.yaml
+            spec-drift-report.txt
+          retention-days: 30

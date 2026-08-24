@@ -10,9 +10,9 @@ public class ServiceRegistryTests
     {
         var expected = new[]
         {
-            "search", "storage", "schema", "entitlements", "legal", "file",
-            "dataset", "geospatial", "indexer", "notification", "partition", "policy",
-            "register", "unit", "crs_catalog", "crs_conversion", "seismic_ddms",
+            "search", "storage", "schema_service", "entitlements", "legal", "file",
+            "dataset", "indexer", "notification", "partition", "policy",
+            "register", "unit_v2", "unit_v3", "crs_catalog", "crs_conversion",
             "wellbore_ddms", "workflow",
         };
 
@@ -21,9 +21,11 @@ public class ServiceRegistryTests
     }
 
     [Fact]
-    public void ByAttr_ContainsSameCountAsServices()
+    public void ByAttr_ContainsEveryServiceAndAlias()
     {
-        Assert.Equal(ServiceRegistry.Services.Count, ServiceRegistry.ByAttr.Count);
+        var expected = ServiceRegistry.Services.Count
+                     + ServiceRegistry.Services.Sum(s => s.Aliases?.Count ?? 0);
+        Assert.Equal(expected, ServiceRegistry.ByAttr.Count);
     }
 
     [Fact]
