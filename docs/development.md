@@ -107,6 +107,31 @@ operation on that service unreachable. That was the state of `file`, `workflow`,
 
 ## Regenerating Clients
 
+### Why the directory names the package
+
+The directory *is* the generated namespace; the filename carries no meaning.
+`openapi_specs/crs_catalog/openapi.yaml` generates
+`Equinor.OsduCsharpClient.CrsCatalog`, whatever the file is called.
+
+This mirrors how the services themselves publish
+(`docs/api/community/v1/openapi.yaml`) and makes a rename a directory move that
+reads as one, rather than a filename edit that quietly renames the namespace
+`ServiceRegistry` and `OsduClient` are compiled against.
+
+Nested directories join with `_`, so a second API version of a service is
+additive: `openapi_specs/unit/v3/openapi.yaml` generates `UnitV3` with no change
+to `generate_all.py`.
+
+### Orphaned packages are pruned
+
+`generate_all.py` clears each service's own output directory before writing it,
+which leaves behind any package whose spec was removed or renamed. `Generated/`
+is gitignored, so such a directory never shows up in `git status` while still
+compiling into a locally built NuGet — osdu-python-client shipped a dead module
+in its 0.5.0 wheel exactly that way. `prune_orphaned_packages()` deletes any
+directory under `Generated/` that no spec produces, and prints what it removed.
+
+
 To regenerate all C# clients from the specs in `openapi_specs/`:
 
 ```sh
@@ -126,7 +151,7 @@ These patches are applied in memory only — the files in `openapi_specs/` are n
 
 ## Adding a New Service
 
-1. **Add the OpenAPI spec** to `openapi_specs/` (`.json`, `.yaml`, or `.yml`), then record where it came from in [`spec_sources.yaml`](../spec_sources.yaml) and run `python verify_spec_sources.py --update`. A spec with no recorded provenance fails the *Check spec provenance* step on every PR.
+1. **Add the OpenAPI spec** as `openapi_specs/<service>/openapi.<ext>` — the directory is named exactly as you want the generated namespace to be derived from (lowercase, underscores), and the filename is always `openapi`. Then record where it came from in [`spec_sources.yaml`](../spec_sources.yaml) and run `python verify_spec_sources.py --update`. A spec with no recorded provenance fails the *Check spec provenance* step on every PR.
 
 2. **Regenerate** — `generate_all.py` auto-discovers all specs, so no script changes are needed:
    ```sh
