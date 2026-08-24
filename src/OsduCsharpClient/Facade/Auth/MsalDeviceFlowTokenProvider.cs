@@ -20,6 +20,9 @@ public sealed class MsalDeviceFlowTokenProvider : ITokenProvider
     private readonly string[] _scopes;
     private readonly Action<DeviceCodeResult> _prompt;
     private readonly ILogger _log;
+    private readonly string _cachePath;
+    private readonly SemaphoreSlim _cacheGate = new(1, 1);
+    private bool _cacheRegistered;
 
     /// <param name="config">OSDU configuration.</param>
     /// <param name="tokenCachePath">Override path for the persistent token cache file.</param>
@@ -40,31 +43,21 @@ public sealed class MsalDeviceFlowTokenProvider : ITokenProvider
         _log = (loggerFactory ?? NullLoggerFactory.Instance)
             .CreateLogger<MsalDeviceFlowTokenProvider>();
 
-        var cachePath = tokenCachePath
+        _cachePath = tokenCachePath
             ?? Environment.GetEnvironmentVariable("OSDU_MSAL_CACHE_PATH")
             ?? DefaultCachePath;
-
-        Directory.CreateDirectory(Path.GetDirectoryName(cachePath)!);
 
         _app = PublicClientApplicationBuilder
             .Create(config.ClientId)
             .WithAuthority(config.Authority)
             .Build();
 
-        _app.UserTokenCache.SetBeforeAccess(args =>
-        {
-            if (File.Exists(cachePath))
-                args.TokenCache.DeserializeMsalV3(File.ReadAllBytes(cachePath));
-        });
-        _app.UserTokenCache.SetAfterAccess(args =>
-        {
-            if (args.HasStateChanged)
-                File.WriteAllBytes(cachePath, args.TokenCache.SerializeMsalV3());
-        });
     }
 
     public async Task<string> GetTokenAsync(CancellationToken cancellationToken = default)
     {
+        await EnsureCacheRegisteredAsync().ConfigureAwait(false);
+
         var accounts = await _app.GetAccountsAsync();
         AuthenticationResult? result = null;
 
@@ -92,5 +85,31 @@ public sealed class MsalDeviceFlowTokenProvider : ITokenProvider
 
         return result.AccessToken
             ?? throw new OsduException("Authentication failed: no access token returned.");
+    }
+
+    /// <summary>Registers the OS-encrypted token cache on first use.</summary>
+    /// <remarks>
+    /// <c>MsalCacheHelper</c> is created asynchronously and a constructor cannot await, so
+    /// this happens on the first token request rather than sync-over-async in the
+    /// constructor. Costs one guarded flag check per call thereafter.
+    /// </remarks>
+    private async Task EnsureCacheRegisteredAsync()
+    {
+        if (_cacheRegistered) return;
+
+        await _cacheGate.WaitAsync().ConfigureAwait(false);
+        try
+        {
+            if (_cacheRegistered) return;
+            await TokenCacheStorage.TryRegisterAsync(_app.UserTokenCache, _cachePath, _log)
+                .ConfigureAwait(false);
+            // Set even when persistence was unavailable: the warning is already logged, and
+            // retrying on every request would only repeat it.
+            _cacheRegistered = true;
+        }
+        finally
+        {
+            _cacheGate.Release();
+        }
     }
 }
