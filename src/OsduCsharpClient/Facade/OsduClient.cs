@@ -148,6 +148,27 @@ public sealed class OsduClient : IDisposable
     }
 
     /// <summary>
+    /// How long a pooled connection may be reused before it is retired. The framework
+    /// default is infinite, which lets a continuously busy connection outlive a DNS
+    /// change and stay pinned to a stale address — a real risk for long-running
+    /// services behind an endpoint whose IPs move. Retiring by age forces periodic
+    /// re-resolution. (Idle connections are already dropped after
+    /// <c>PooledConnectionIdleTimeout</c>, one minute, so this only affects busy ones.)
+    /// </summary>
+    internal static readonly TimeSpan PooledConnectionLifetime = TimeSpan.FromMinutes(2);
+
+    /// <summary>
+    /// Builds the innermost transport handler. Every default matches
+    /// <see cref="HttpClientHandler"/> — proxy, decompression, redirects, cookies and
+    /// connection limits are all unchanged; <see cref="SocketsHttpHandler"/> is used
+    /// only because it exposes <see cref="PooledConnectionLifetime"/>.
+    /// </summary>
+    internal static SocketsHttpHandler CreateTransportHandler() => new()
+    {
+        PooledConnectionLifetime = PooledConnectionLifetime,
+    };
+
+    /// <summary>
     /// Creates a Kiota <see cref="HttpClientRequestAdapter"/> for the given base URL,
     /// with bearer-token auth and data-partition-id header injection built in.
     /// </summary>
@@ -158,7 +179,7 @@ public sealed class OsduClient : IDisposable
             {
                 InnerHandler = new DataPartitionHandler(_config.DataPartitionId)
                 {
-                    InnerHandler = new HttpClientHandler()
+                    InnerHandler = CreateTransportHandler()
                 }
             })
         {
