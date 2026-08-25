@@ -84,6 +84,46 @@ def _is_freeform_data_schema(schema: dict) -> bool:
     return additional_properties is True or isinstance(additional_properties, dict)
 
 
+HTTP_METHODS = ("get", "put", "post", "delete", "patch", "head", "options")
+
+
+def untype_string_json_responses(spec_data: dict) -> list[str]:
+    """Untype ``application/json`` success responses declared as a bare string.
+
+    Several OSDU operations describe a JSON response body as ``{"type": "string"}`` — the
+    shape of Spring's ``ResponseEntity<String>`` leaking into the generated document rather
+    than a deliberate contract. Storage's ``GET /records/{id}`` is the clearest case: it is
+    documented as returning a string and returns a Record.
+
+    Kiota believes the spec and generates ``Task<string?>``. Handed a JSON object it cannot
+    produce a string, so it yields ``null`` — the caller gets a successful call and no data,
+    with nothing to indicate anything went wrong. ``osdu record get`` printed an empty line
+    for a record the service had returned in full.
+
+    Replacing the schema with an empty one makes Kiota emit ``UntypedNode``, which
+    round-trips whatever the service actually sends — an object, an array, or a genuine JSON
+    string. Strictly more permissive than the declared type, so nothing that worked before
+    stops working.
+
+    Only touches a schema that is exactly ``{"type": "string"}``. A response given a real
+    schema upstream is left alone, and the patch stops applying on its own once the specs
+    are fixed.
+    """
+    patched = []
+    for path, item in (spec_data.get("paths") or {}).items():
+        for method, operation in (item or {}).items():
+            if method not in HTTP_METHODS or not isinstance(operation, dict):
+                continue
+            for status, response in (operation.get("responses") or {}).items():
+                if not str(status).startswith("2") or not isinstance(response, dict):
+                    continue
+                media = (response.get("content") or {}).get("application/json")
+                if isinstance(media, dict) and media.get("schema") == {"type": "string"}:
+                    media["schema"] = {}
+                    patched.append(f"{method.upper()} {path} -> {status}")
+    return patched
+
+
 def untype_freeform_record_data(spec_data: dict, service_name: str) -> list[str]:
     """Untype the ``data`` property on each free-form record schema for the spec.
 
@@ -220,6 +260,9 @@ def generate_all():
 
         for patched_name in untype_freeform_record_data(spec_data, service_name):
             print(f"  - Untyping {patched_name}.data for {service_name} (free-form JSON)")
+
+        for patched_response in untype_string_json_responses(spec_data):
+            print(f"  - Untyping string-typed JSON response: {patched_response}")
 
         needs_version_patch = "info" in spec_data and "version" not in spec_data["info"]
         if needs_version_patch:
