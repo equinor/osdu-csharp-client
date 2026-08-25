@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.8](https://github.com/equinor/osdu-csharp-client/compare/v1.1.7...v1.1.8) (2026-08-25)
+
+
+### Bug Fixes
+
+* send a content type on bodiless requests so Storage query endpoints work ([#101](https://github.com/equinor/osdu-csharp-client/issues/101)) ([28b751c](https://github.com/equinor/osdu-csharp-client/commit/28b751ce100a7b183ca6004513290c26c20b33c6))
+
 ## [1.1.7](https://github.com/equinor/osdu-csharp-client/compare/v1.1.6...v1.1.7) (2026-08-25)
 
 
