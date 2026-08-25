@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/equinor/osdu-csharp-client/compare/v1.1.6...v1.1.7) (2026-08-25)
+
+
+### Bug Fixes
+
+* encrypt the persisted MSAL token cache and purge plaintext ones ([#98](https://github.com/equinor/osdu-csharp-client/issues/98)) ([4954de4](https://github.com/equinor/osdu-csharp-client/commit/4954de4156c3ab9bd87d47898c2bf80c731858db))
+
 ## [1.1.6](https://github.com/equinor/osdu-csharp-client/compare/v1.1.5...v1.1.6) (2026-08-24)
 
 
