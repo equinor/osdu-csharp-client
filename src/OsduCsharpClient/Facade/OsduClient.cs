@@ -184,7 +184,12 @@ public sealed class OsduClient : IDisposable
             {
                 InnerHandler = new DataPartitionHandler(_config.DataPartitionId)
                 {
-                    InnerHandler = CreateTransportHandler()
+                    // Innermost of ours, so the logger above records the request exactly as
+                    // it goes on the wire.
+                    InnerHandler = new JsonContentTypeHandler
+                    {
+                        InnerHandler = CreateTransportHandler()
+                    }
                 }
             })
         {
