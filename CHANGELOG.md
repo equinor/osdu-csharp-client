@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.9](https://github.com/equinor/osdu-csharp-client/compare/v1.1.8...v1.1.9) (2026-08-26)
+
+
+### Bug Fixes
+
+* untype string-typed JSON responses so record reads return data ([#103](https://github.com/equinor/osdu-csharp-client/issues/103)) ([e07b0a4](https://github.com/equinor/osdu-csharp-client/commit/e07b0a4a3181e72667ccf8f891cdb78e345dad60))
+
 ## [1.1.8](https://github.com/equinor/osdu-csharp-client/compare/v1.1.7...v1.1.8) (2026-08-25)
 
 
