@@ -44,7 +44,7 @@ public record OsduConfig
         return $"{Server.TrimEnd('/')}{spec.DefaultEndpoint}";
     }
 
-    /// <summary>Parses <see cref="Scopes"/> into an array for MSAL.</summary>
+    /// <summary>Parses <see cref="Scopes"/> into an array for the token provider.</summary>
     public string[] ScopesArray =>
         Scopes.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 

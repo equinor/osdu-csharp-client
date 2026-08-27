@@ -2,14 +2,20 @@
 
 ## Using OsduClient (Recommended)
 
-`OsduClient` wraps all service clients with auth, `data-partition-id` injection, and connection management. Construct it once and use it for the lifetime of your application.
+`OsduClient` wraps all service clients with token acquisition (via the `ITokenProvider` you supply), `data-partition-id` injection, and connection management. Construct it once and use it for the lifetime of your application.
 
 ```csharp
 using Equinor.OsduCsharpClient.Facade;
+using Equinor.OsduCsharpClient.Facade.Auth; // MsalInteractiveTokenProvider (Msal package)
 using Microsoft.Extensions.Configuration;
 
-using var osdu = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration));
+var config = OsduConfig.FromConfiguration(builder.Configuration);
+using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));
 ```
+
+> The core package is authentication-agnostic — a token provider is **required**. Install the
+> optional `Equinor.OsduCsharpClient.Msal` package for the MSAL providers used here, or pass
+> your own `ITokenProvider`. See [Authentication](#authentication) below.
 
 `OsduConfig.FromConfiguration(IConfiguration)` binds the `Osdu` section from any standard
 .NET configuration source — `appsettings.json`, environment variables, user secrets, command line:
@@ -40,7 +46,7 @@ var config = new OsduConfig
     ClientId        = "<client-id>",
     Scopes          = "api://<app-id-uri>/.default",
 };
-using var osdu = new OsduClient(config);
+using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));
 ```
 
 ### Example: Search service
@@ -82,31 +88,56 @@ if (result?.Groups is not null)
 }
 ```
 
-### Auth providers
+### Authentication
 
-By default `OsduClient` uses `MsalInteractiveTokenProvider` (browser popup on first run, then silent from cache). Choose the mode that fits your environment:
+`OsduClient` requires an `ITokenProvider` — the core package ships no default and depends on
+no identity library. This prevents the SDK from pinning an MSAL version that could clash with
+your application's, and keeps MSAL's supply-chain surface under your control rather than the
+SDK's.
+
+You have two options:
+
+**1. Bring your own.** Implement the single-method `ITokenProvider` interface, or use the
+built-in `StaticTokenProvider` when you already hold a token:
+
+```csharp
+using Equinor.OsduCsharpClient.Facade.Auth;
+
+public sealed class MyTokenProvider : ITokenProvider
+{
+    public Task<string> GetTokenAsync(CancellationToken ct = default) => /* acquire token */;
+}
+
+using var osdu = new OsduClient(config, new MyTokenProvider());
+
+// Or a pre-acquired token (ships in the core package):
+using var osdu = new OsduClient(config, new StaticTokenProvider("your-bearer-token"));
+```
+
+**2. Use the optional MSAL package.** Install `Equinor.OsduCsharpClient.Msal` for ready-made
+MSAL providers with OS-encrypted token caching. Choose the mode that fits your environment:
+
+```sh
+dotnet add package Equinor.OsduCsharpClient.Msal
+```
 
 | Provider | When to use | Config needed |
 |---|---|---|
 | `MsalInteractiveTokenProvider` | Local dev, opens browser | `Authority`, `ClientId`, `Scopes` |
 | `MsalDeviceFlowTokenProvider` | Headless / SSH sessions | `Authority`, `ClientId`, `Scopes` |
 | `MsalClientCredentialsTokenProvider` | CI / service-to-service | + `clientSecret` |
-| `StaticTokenProvider` | Testing / externally managed token | pre-acquired token string |
 
 ```csharp
 using Equinor.OsduCsharpClient.Facade.Auth;
 
-// Interactive (default — opens browser on first run)
-using var osdu = new OsduClient(config);
+// Interactive (opens browser on first run, then silent from cache)
+using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));
 
 // Device code flow (prints a URL + code to the console; no browser required on this machine)
 using var osdu = new OsduClient(config, new MsalDeviceFlowTokenProvider(config));
 
 // Client credentials (CI / service-to-service, no user interaction)
 using var osdu = new OsduClient(config, new MsalClientCredentialsTokenProvider(config, clientSecret: "..."));
-
-// Pre-acquired token
-using var osdu = new OsduClient(config, new StaticTokenProvider("your-bearer-token"));
 ```
 
 All three MSAL providers persist the token cache to `~/.osdu/msal_cache.bin` by default (override with `OSDU_MSAL_CACHE_PATH` env var), so silent renewal is used on subsequent runs.

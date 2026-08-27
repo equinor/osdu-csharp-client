@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/OsduCsharpClient/OsduCsharpClient.csproj" />
+    <Project Path="src/OsduCsharpClient.Msal/OsduCsharpClient.Msal.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/OsduCsharpClient.IntegrationTests/OsduCsharpClient.IntegrationTests.csproj" />

@@ -1,4 +1,5 @@
 using Equinor.OsduCsharpClient.Facade;
+using Equinor.OsduCsharpClient.Facade.Auth;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
@@ -34,10 +35,15 @@ public class OsduFixture : IAsyncLifetime
             .AddEnvironmentVariables()
             .Build();
 
-        // The facade owns authentication (interactive MSAL, silent renewal).
-        // Passing a logger factory enables HTTP request/response logging — see
-        // the log categories documented in docs/usage.md.
-        Client = new OsduClient(OsduConfig.FromConfiguration(configuration), loggerFactory: _loggerFactory);
+        // Auth is provided explicitly via the optional MSAL package
+        // (interactive browser login with silent renewal). Passing a logger factory
+        // enables HTTP request/response logging — see the log categories documented
+        // in docs/usage.md.
+        var config = OsduConfig.FromConfiguration(configuration);
+        Client = new OsduClient(
+            config,
+            new MsalInteractiveTokenProvider(config, loggerFactory: _loggerFactory),
+            loggerFactory: _loggerFactory);
         return ValueTask.CompletedTask;
     }
 

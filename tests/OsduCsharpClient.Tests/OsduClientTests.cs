@@ -58,12 +58,9 @@ public class OsduClientTests
     }
 
     [Fact]
-    public void DefaultTokenProvider_IsMsalInteractive_WhenNotSpecified()
+    public void Constructor_Throws_WhenTokenProviderIsNull()
     {
-        // Constructing with null provider should not throw (MSAL is constructed lazily via property access)
-        // We just verify construction succeeds
-        var client = new OsduClient(MakeConfig());
-        client.Dispose();
+        Assert.Throws<ArgumentNullException>(() => new OsduClient(MakeConfig(), null!));
     }
 
     [Fact]

@@ -59,7 +59,11 @@ public sealed class OsduClient : IDisposable
 
     /// <param name="config">OSDU configuration. Use <see cref="OsduConfig.FromConfiguration"/> to bind from <c>IConfiguration</c>.</param>
     /// <param name="tokenProvider">
-    /// Token provider. Defaults to <see cref="MsalInteractiveTokenProvider"/> when null.
+    /// Token provider used to acquire bearer tokens for every request. Required — the core
+    /// library is auth-provider agnostic and ships no default. Implement
+    /// <see cref="ITokenProvider"/> yourself, use <see cref="StaticTokenProvider"/> for a
+    /// pre-acquired token, or reference the <c>Equinor.OsduCsharpClient.Msal</c> package for
+    /// ready-made MSAL providers (interactive, device code, client credentials).
     /// </param>
     /// <param name="loggerFactory">
     /// Logger factory for HTTP request/response logging. Defaults to <see cref="NullLoggerFactory.Instance"/> (no logging).
@@ -67,10 +71,11 @@ public sealed class OsduClient : IDisposable
     /// Set logger category <c>Equinor.OsduCsharpClient</c> to <c>Debug</c> for request/response logs,
     /// or <c>Equinor.OsduCsharpClient.Body</c> to <c>Debug</c> to also log bodies (truncated, sensitive headers redacted).
     /// </param>
-    public OsduClient(OsduConfig config, ITokenProvider? tokenProvider = null, ILoggerFactory? loggerFactory = null)
+    public OsduClient(OsduConfig config, ITokenProvider tokenProvider, ILoggerFactory? loggerFactory = null)
     {
+        ArgumentNullException.ThrowIfNull(tokenProvider);
         _config = config;
-        _tokenProvider = tokenProvider ?? new MsalInteractiveTokenProvider(config);
+        _tokenProvider = tokenProvider;
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
     }
 

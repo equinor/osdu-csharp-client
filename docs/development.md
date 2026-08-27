@@ -185,13 +185,18 @@ src/
         Generated/                          Generated C# clients — gitignored, re-run generate_all.py
             <ServiceName>/                  One subfolder per service (e.g. Search/, Storage/)
         Facade/
-            Auth/                           ITokenProvider + MSAL implementations
+            Auth/                           ITokenProvider + StaticTokenProvider (no identity library)
             DataPartitionHandler.cs         DelegatingHandler for data-partition-id injection
             LoggingHandler.cs               DelegatingHandler for HTTP request/response logging
             OsduClient.cs                   High-level facade with typed per-service properties
             OsduConfig.cs                   Configuration record (FromConfiguration binder)
             OsduException.cs                Typed exception for auth/config/API errors
             ServiceRegistry.cs              Static service → endpoint mapping
+    OsduCsharpClient.Msal/                  Optional package: MSAL ITokenProvider implementations
+        MsalInteractiveTokenProvider.cs     Browser login (interactive)
+        MsalDeviceFlowTokenProvider.cs      Device code flow (headless)
+        MsalClientCredentialsTokenProvider.cs   App identity (CI / service-to-service)
+        TokenCacheStorage.cs                OS-encrypted persistent token cache
 tests/
     OsduCsharpClient.IntegrationTests/      xUnit integration tests (require live OSDU server)
     OsduCsharpClient.Tests/                 xUnit unit tests (no network required)
