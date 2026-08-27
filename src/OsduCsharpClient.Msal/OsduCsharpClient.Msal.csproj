@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Equinor.OsduCsharpClient.Msal</PackageId>
-    <Version>1.1.9</Version>
+    <Version>2.0.0</Version>
     <RootNamespace>Equinor.OsduCsharpClient</RootNamespace>
   </PropertyGroup>
 
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OsduCsharpClient\OsduCsharpClient.csproj" />
+    <ProjectReference Include="..\OsduCsharpClient\OsduCsharpClient.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
