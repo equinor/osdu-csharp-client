@@ -57,10 +57,12 @@ jobs:
         run: python generate_all.py
 
       - name: Build
-        run: dotnet build src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release
+        run: dotnet build src/OsduCsharpClient.Msal/OsduCsharpClient.Msal.csproj --configuration Release
 
       - name: Pack
-        run: dotnet pack src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release --no-build --output nupkgs
+        run: |
+          dotnet pack src/OsduCsharpClient/OsduCsharpClient.csproj --configuration Release --no-build --output nupkgs
+          dotnet pack src/OsduCsharpClient.Msal/OsduCsharpClient.Msal.csproj --configuration Release --no-build --output nupkgs
 
       - name: Publish to GitHub Packages
         run: |

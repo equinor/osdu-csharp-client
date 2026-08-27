@@ -37,16 +37,39 @@ dotnet add package Equinor.OsduCsharpClient
 
 > The personal access token needs the `read:packages` scope. Generate one at [github.com/settings/tokens](https://github.com/settings/tokens).
 
+### Authentication packages
+
+The core `Equinor.OsduCsharpClient` package is authentication-agnostic: it depends only
+on your `ITokenProvider` implementation and pulls in **no** identity library of its own.
+This keeps the SDK from pinning an MSAL version that could clash with your application's,
+and removes it as a supply-chain surface you don't control.
+
+You supply auth in one of two ways:
+
+- **Bring your own** — implement `ITokenProvider` (a single `GetTokenAsync` method), or use
+  the built-in `StaticTokenProvider` when you already hold a token.
+- **Use the optional MSAL package** — install `Equinor.OsduCsharpClient.Msal` for ready-made
+  MSAL providers (`MsalInteractiveTokenProvider`, `MsalDeviceFlowTokenProvider`,
+  `MsalClientCredentialsTokenProvider`) with OS-encrypted token caching. MSAL is then a
+  dependency you own and can update independently of this SDK.
+
+  ```sh
+  dotnet add package Equinor.OsduCsharpClient.Msal
+  ```
+
 ## Quick Start
 
-The `OsduClient` facade handles auth, token caching, and `data-partition-id` injection automatically:
+The `OsduClient` facade handles token acquisition (via the `ITokenProvider` you pass) and
+`data-partition-id` injection automatically. This example uses the optional MSAL package:
 
 ```csharp
 using Equinor.OsduCsharpClient.Facade;
+using Equinor.OsduCsharpClient.Facade.Auth; // MsalInteractiveTokenProvider (Msal package)
 using Equinor.OsduCsharpClient.Search.Models;
 using Microsoft.Extensions.Configuration;
 
-using var osdu = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration));
+var config = OsduConfig.FromConfiguration(builder.Configuration);
+using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));
 
 var result = await osdu.Search.Query.PostAsync(
     new QueryRequest

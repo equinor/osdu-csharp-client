@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\OsduCsharpClient\OsduCsharpClient.csproj" />
+    <ProjectReference Include="..\..\src\OsduCsharpClient.Msal\OsduCsharpClient.Msal.csproj" />
   </ItemGroup>
 
 </Project>

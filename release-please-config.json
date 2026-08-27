@@ -6,6 +6,11 @@
       "type": "xml",
       "path": "src/OsduCsharpClient/OsduCsharpClient.csproj",
       "xpath": "/Project/PropertyGroup/Version"
+    },
+    {
+      "type": "xml",
+      "path": "src/OsduCsharpClient.Msal/OsduCsharpClient.Msal.csproj",
+      "xpath": "/Project/PropertyGroup/Version"
     }
   ],
   "packages": {

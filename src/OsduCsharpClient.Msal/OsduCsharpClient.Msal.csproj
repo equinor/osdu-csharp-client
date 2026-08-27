@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Equinor.OsduCsharpClient.Msal</PackageId>
+    <Version>1.1.9</Version>
+    <RootNamespace>Equinor.OsduCsharpClient</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Authors>Equinor</Authors>
+    <Description>Optional MSAL-based ITokenProvider implementations (interactive, device code, client credentials) for Equinor.OsduCsharpClient. Reference this package only if you want the library to acquire tokens via MSAL; otherwise implement ITokenProvider yourself and depend on the core package alone.</Description>
+    <RepositoryUrl>https://github.com/equinor/osdu-csharp-client</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>OsduCsharpClient.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OsduCsharpClient\OsduCsharpClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11"/>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.87.0"/>
+    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.87.0"/>
+  </ItemGroup>
+
+</Project>
