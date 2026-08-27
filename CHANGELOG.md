@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/equinor/osdu-csharp-client/compare/v1.1.9...v2.0.0) (2026-08-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* extract MSAL auth into optional Equinor.OsduCsharpClient.Msal package ([#105](https://github.com/equinor/osdu-csharp-client/issues/105))
+
+### Features
+
+* extract MSAL auth into optional Equinor.OsduCsharpClient.Msal package ([#105](https://github.com/equinor/osdu-csharp-client/issues/105)) ([6bddb51](https://github.com/equinor/osdu-csharp-client/commit/6bddb51dfd5efc136e3f3f60536b30db09616cbd))
+
 ## [1.1.9](https://github.com/equinor/osdu-csharp-client/compare/v1.1.8...v1.1.9) (2026-08-26)
 
 
