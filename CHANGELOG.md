@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/equinor/osdu-csharp-client/compare/v2.0.1...v2.1.0) (2026-09-04)
+
+
+### Features
+
+* **msal:** let the caller choose which cached account to use ([#112](https://github.com/equinor/osdu-csharp-client/issues/112)) ([2b22ae5](https://github.com/equinor/osdu-csharp-client/commit/2b22ae5744aa8fc086f95bce09cbc6ee8e9c5fb8))
+
 ## [2.0.1](https://github.com/equinor/osdu-csharp-client/compare/v2.0.0...v2.0.1) (2026-09-01)
 
 
