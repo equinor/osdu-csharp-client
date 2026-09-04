@@ -62,7 +62,7 @@ var provider = new MsalInteractiveTokenProvider(config) { Username = "azure@exam
 The named account is used if it is already cached; otherwise it becomes the sign-in hint so
 the browser lands on the right account. A hint is only a suggestion, though — if the sign-in
 comes back as somebody else, or as nobody the result can be checked against, `GetTokenAsync`
-throws rather than return a token whose identity was never confirmed.
+throws rather than returning a token whose identity was never confirmed.
 
 To offer the choice, ask what the cache holds:
 
