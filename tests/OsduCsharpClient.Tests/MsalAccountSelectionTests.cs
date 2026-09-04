@@ -18,7 +18,9 @@ public class MsalAccountSelectionTests
     {
         public string Username { get; } = username;
         public string Environment => "login.microsoftonline.com";
-        public AccountId HomeAccountId => new($"{username}.tenant", username, "tenant");
+        // Reads the property, not the constructor parameter: referencing the parameter here
+        // would capture it into the class as well as initialise Username from it (CS9124).
+        public AccountId HomeAccountId => new($"{Username}.tenant", Username, "tenant");
     }
 
     private static IReadOnlyList<IAccount> Cache(params string[] usernames) =>
