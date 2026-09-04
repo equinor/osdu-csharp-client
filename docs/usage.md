@@ -49,6 +49,28 @@ var config = new OsduConfig
 using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));
 ```
 
+### Choosing between several accounts
+
+One token cache can hold more than one account — a normal account and a separate privileged
+one is the usual reason. Without a `username` the first cached account is used, which is
+arbitrary from the caller's point of view and silent about it. Name the account instead:
+
+```csharp
+var provider = new MsalInteractiveTokenProvider(config, username: "azure@example.com");
+```
+
+The named account is used if it is already cached; otherwise it becomes the sign-in hint so
+the browser lands on the right account. A hint is only a suggestion, though — if the user
+signs in as somebody else, `GetTokenAsync` throws rather than return a token for an identity
+that was not asked for.
+
+To offer the choice, ask what the cache holds:
+
+```csharp
+foreach (var username in await provider.GetCachedUsernamesAsync())
+    Console.WriteLine(username);
+```
+
 ### Example: Search service
 
 ```csharp
