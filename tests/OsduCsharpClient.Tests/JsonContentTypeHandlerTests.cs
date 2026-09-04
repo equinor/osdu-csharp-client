@@ -44,7 +44,7 @@ public class JsonContentTypeHandlerTests
         // Semantically still "no body" — only the header the server insists on is added.
         var captured = await SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://example.com/q"));
 
-        Assert.Equal(0, (await captured.Content!.ReadAsByteArrayAsync(TestContext.Current.CancellationToken)).Length);
+        Assert.Empty(await captured.Content!.ReadAsByteArrayAsync(TestContext.Current.CancellationToken));
     }
 
     [Fact]
