@@ -43,6 +43,27 @@ public class MsalAccountSelectionTests
     }
 
     [Fact]
+    public async Task ListingCachedAccountsHonoursCancellation()
+    {
+        // Cache registration serialises on a semaphore; a caller waiting behind it must be
+        // able to give up. Asserted here because adding the token after release would change
+        // a published signature — the break this type's init property exists to avoid.
+        var provider = new MsalInteractiveTokenProvider(Config());
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
+            () => provider.GetCachedUsernamesAsync(new CancellationToken(canceled: true)));
+    }
+
+    private static OsduConfig Config() => new()
+    {
+        Server = "https://example.invalid",
+        DataPartitionId = "test",
+        Authority = "https://login.microsoftonline.com/00000000-0000-0000-0000-000000000000",
+        ClientId = "00000000-0000-0000-0000-000000000001",
+        Scopes = "https://example.invalid/.default",
+    };
+
+    [Fact]
     public void UsernameIsNormalisedOnTheWayIn()
     {
         // Whitespace round a pasted address should not turn into a username nothing matches.

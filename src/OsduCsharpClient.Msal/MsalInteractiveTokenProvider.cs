@@ -10,8 +10,8 @@ namespace Equinor.OsduCsharpClient.Facade.Auth;
 /// </summary>
 /// <remarks>
 /// One cache can hold several accounts. Where a person has more than one — a normal account
-/// and a separate privileged one is the common case — pass <c>username</c> to say which is
-/// meant. Without it the first cached account wins, which is arbitrary from the caller's
+/// and a separate privileged one is the common case — set <see cref="Username"/> to say which
+/// is meant. Without it the first cached account wins, which is arbitrary from the caller's
 /// point of view and silently so. Use <see cref="GetCachedUsernamesAsync"/> to find out what
 /// the cache holds and let the user choose.
 /// </remarks>
@@ -71,7 +71,7 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
 
     public async Task<string> GetTokenAsync(CancellationToken cancellationToken = default)
     {
-        await EnsureCacheRegisteredAsync().ConfigureAwait(false);
+        await EnsureCacheRegisteredAsync(cancellationToken).ConfigureAwait(false);
 
         var accounts = (await _app.GetAccountsAsync()).ToList();
         AuthenticationResult? result = null;
@@ -117,10 +117,16 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
     /// Lets a caller show the user what they are signed into, and decide for itself what to
     /// do when there is more than one — a CLI can refuse to guess and name the alternatives,
     /// which is the only honest answer when the choice is the user's to make.
+    ///
+    /// Takes a cancellation token because registering the cache serialises on a semaphore and
+    /// a caller should not be stuck behind it. Optional parameters are baked in at the call
+    /// site, so adding one after this shipped would change the published signature — the very
+    /// break this type's init property exists to avoid. Cheap now, not later.
     /// </remarks>
-    public async Task<IReadOnlyList<string>> GetCachedUsernamesAsync()
+    public async Task<IReadOnlyList<string>> GetCachedUsernamesAsync(
+        CancellationToken cancellationToken = default)
     {
-        await EnsureCacheRegisteredAsync().ConfigureAwait(false);
+        await EnsureCacheRegisteredAsync(cancellationToken).ConfigureAwait(false);
         return (await _app.GetAccountsAsync()).Select(a => a.Username).ToList();
     }
 
@@ -175,11 +181,11 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
     /// this happens on the first token request rather than sync-over-async in the
     /// constructor. Costs one guarded flag check per call thereafter.
     /// </remarks>
-    private async Task EnsureCacheRegisteredAsync()
+    private async Task EnsureCacheRegisteredAsync(CancellationToken cancellationToken)
     {
         if (_cacheRegistered) return;
 
-        await _cacheGate.WaitAsync().ConfigureAwait(false);
+        await _cacheGate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
             if (_cacheRegistered) return;
