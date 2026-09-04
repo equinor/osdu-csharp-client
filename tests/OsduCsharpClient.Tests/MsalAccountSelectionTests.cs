@@ -1,5 +1,6 @@
 using Equinor.OsduCsharpClient.Facade;
 using Equinor.OsduCsharpClient.Facade.Auth;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
 using Xunit;
 
@@ -25,6 +26,40 @@ public class MsalAccountSelectionTests
 
     private static IReadOnlyList<IAccount> Cache(params string[] usernames) =>
         usernames.Select(u => (IAccount)new FakeAccount(u)).ToList();
+
+    // ---- the published surface ----------------------------------------------------------
+
+    [Fact]
+    public void TheConstructorPublishedIn2_0_KeepsItsSignature()
+    {
+        // Optional parameters are resolved at compile time, so adding one would rewrite this
+        // signature in metadata and an application compiled against 2.0.x would fail with
+        // MissingMethodException on upgrade without recompiling. Account selection is an init
+        // property for that reason; this test is what stops it drifting back.
+        var constructor = typeof(MsalInteractiveTokenProvider).GetConstructor(
+            [typeof(OsduConfig), typeof(string), typeof(ILoggerFactory)]);
+
+        Assert.NotNull(constructor);
+    }
+
+    [Fact]
+    public void UsernameIsNormalisedOnTheWayIn()
+    {
+        // Whitespace round a pasted address should not turn into a username nothing matches.
+        Assert.Null(Normalise("   "));
+        Assert.Null(Normalise(null));
+        Assert.Equal("azure@equinor.com", Normalise("  azure@equinor.com  "));
+    }
+
+    private static string? Normalise(string? value)
+    {
+        var provider = (MsalInteractiveTokenProvider)System.Runtime.CompilerServices
+            .RuntimeHelpers.GetUninitializedObject(typeof(MsalInteractiveTokenProvider));
+        typeof(MsalInteractiveTokenProvider)
+            .GetProperty(nameof(MsalInteractiveTokenProvider.Username))!
+            .SetValue(provider, value);
+        return provider.Username;
+    }
 
     // ---- selection ----------------------------------------------------------------------
 
@@ -102,10 +137,22 @@ public class MsalAccountSelectionTests
     }
 
     [Fact]
-    public void AnAbsentAccountOnTheResultIsNotTreatedAsAMismatch()
+    public void AnUnverifiableIdentityIsRejectedRatherThanTrusted()
     {
-        // Some flows return no Account; that is not evidence of the wrong identity, and
-        // throwing would break them for no benefit.
-        MsalInteractiveTokenProvider.EnsureExpectedAccount("azure@equinor.com", null);
+        // A result with no account is not evidence of the wrong identity, but it is not
+        // evidence of the right one either. Returning the token would hand back exactly the
+        // unverified identity the caller asked to be protected from, so this fails closed.
+        var error = Assert.Throws<OsduException>(() =>
+            MsalInteractiveTokenProvider.EnsureExpectedAccount("azure@equinor.com", null));
+
+        Assert.Contains("azure@equinor.com", error.Message);
+        Assert.Contains("cannot be confirmed", error.Message);
+    }
+
+    [Fact]
+    public void AnAbsentAccountIsFineWhenNoParticularIdentityWasAskedFor()
+    {
+        // Nothing was promised, so there is nothing to verify.
+        MsalInteractiveTokenProvider.EnsureExpectedAccount(null, null);
     }
 }

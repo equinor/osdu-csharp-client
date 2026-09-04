@@ -56,13 +56,13 @@ one is the usual reason. Without a `username` the first cached account is used, 
 arbitrary from the caller's point of view and silent about it. Name the account instead:
 
 ```csharp
-var provider = new MsalInteractiveTokenProvider(config, username: "azure@example.com");
+var provider = new MsalInteractiveTokenProvider(config) { Username = "azure@example.com" };
 ```
 
 The named account is used if it is already cached; otherwise it becomes the sign-in hint so
-the browser lands on the right account. A hint is only a suggestion, though — if the user
-signs in as somebody else, `GetTokenAsync` throws rather than return a token for an identity
-that was not asked for.
+the browser lands on the right account. A hint is only a suggestion, though — if the sign-in
+comes back as somebody else, or as nobody the result can be checked against, `GetTokenAsync`
+throws rather than return a token whose identity was never confirmed.
 
 To offer the choice, ask what the cache holds:
 

@@ -26,23 +26,34 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
     private readonly string[] _scopes;
     private readonly ILogger _log;
     private readonly string _cachePath;
-    private readonly string? _username;
+    private string? _username;
     private readonly SemaphoreSlim _cacheGate = new(1, 1);
     private bool _cacheRegistered;
 
-    /// <param name="username">
+    /// <summary>
     /// Which account to use, when the cache holds more than one. Matched case-insensitively
-    /// against the cached usernames, and used as the sign-in hint when no cached account
-    /// matches. Omit to keep the previous behaviour of taking the first cached account.
-    /// </param>
+    /// against the cached usernames, and used as the sign-in hint when none matches. Leave
+    /// unset to keep the previous behaviour of taking the first cached account.
+    /// </summary>
+    /// <remarks>
+    /// An init property rather than a constructor parameter, because optional parameters are
+    /// a compile-time construct: adding one rewrites the constructor's signature in metadata,
+    /// so an application compiled against 2.0.x would fail with <c>MissingMethodException</c>
+    /// on upgrade without being recompiled. A new property adds to the surface instead of
+    /// changing it, and leaves room for the next option without this question recurring.
+    /// </remarks>
+    public string? Username
+    {
+        get => _username;
+        init => _username = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+
     public MsalInteractiveTokenProvider(
         OsduConfig config,
         string? tokenCachePath = null,
-        ILoggerFactory? loggerFactory = null,
-        string? username = null)
+        ILoggerFactory? loggerFactory = null)
     {
         _scopes = config.ScopesArray;
-        _username = string.IsNullOrWhiteSpace(username) ? null : username.Trim();
         _log = (loggerFactory ?? NullLoggerFactory.Instance)
             .CreateLogger<MsalInteractiveTokenProvider>();
 
@@ -125,7 +136,7 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
                 a.Username, username, StringComparison.OrdinalIgnoreCase));
 
     /// <summary>
-    /// Fails when the account that signed in is not the one that was asked for.
+    /// Fails unless the account that signed in is demonstrably the one that was asked for.
     /// </summary>
     /// <remarks>
     /// A login hint is a suggestion, not a constraint. The user can pick a different account
@@ -133,10 +144,24 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
     /// for an identity it did not ask for, which is the failure this whole mechanism exists
     /// to prevent. Loud is the only safe option: a warning would be missed, and the caller
     /// would act on the wrong identity's permissions.
+    ///
+    /// A result carrying no account at all is treated the same way. It is not evidence of the
+    /// wrong identity, but it is not evidence of the right one either, and "we could not tell"
+    /// has to fail closed — returning the token would give exactly the unverified identity the
+    /// caller asked to be protected from. Interactive and silent acquisition both populate
+    /// Account, so this is an anomaly rather than a flow worth keeping working.
     /// </remarks>
     internal static void EnsureExpectedAccount(string? requested, string? signedIn)
     {
-        if (requested is null || signedIn is null) return;
+        if (requested is null) return;
+
+        if (signedIn is null)
+        {
+            throw new OsduException(
+                $"{requested} was requested, but the sign-in returned no account to check "
+                + "against. Refusing to use a token whose identity cannot be confirmed.");
+        }
+
         if (string.Equals(requested, signedIn, StringComparison.OrdinalIgnoreCase)) return;
 
         throw new OsduException(
