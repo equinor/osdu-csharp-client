@@ -11,7 +11,8 @@ internal sealed class DataPartitionHandler(string dataPartitionId) : DelegatingH
         HttpRequestMessage request,
         CancellationToken cancellationToken)
     {
-        request.Headers.TryAddWithoutValidation("data-partition-id", dataPartitionId);
+        if (!request.Headers.Contains("data-partition-id"))
+            request.Headers.TryAddWithoutValidation("data-partition-id", dataPartitionId);
         return base.SendAsync(request, cancellationToken);
     }
 }

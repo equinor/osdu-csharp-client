@@ -44,8 +44,8 @@ jobs:
         with:
           dotnet-version: "10.x"
 
-      - name: Install Kiota
-        run: dotnet tool install --global Microsoft.OpenApi.Kiota
+      - name: Restore pinned Kiota
+        run: dotnet tool restore
 
       # Generated clients are not committed, so they must be produced before anything compiles.
       - name: Generate C# clients

@@ -13,6 +13,20 @@ var config = OsduConfig.FromConfiguration(builder.Configuration);
 using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));
 ```
 
+Only `Server` and `DataPartitionId` are required by the core configuration.
+`Authority`, `ClientId`, and `Scopes` are validated by MSAL providers when they are
+constructed, not by `OsduConfig.FromConfiguration`. A custom or static token
+provider therefore needs no placeholder identity settings:
+
+```csharp
+var config = new OsduConfig
+{
+    Server = "https://your-osdu-instance.com",
+    DataPartitionId = "your-partition-id",
+};
+using var osdu = new OsduClient(config, new StaticTokenProvider("your-bearer-token"));
+```
+
 > The core package is authentication-agnostic — a token provider is **required**. Install the
 > optional `Equinor.OsduCsharpClient.Msal` package for the MSAL providers used here, or pass
 > your own `ITokenProvider`. See [Authentication](#authentication) below.
@@ -162,7 +176,76 @@ using var osdu = new OsduClient(config, new MsalDeviceFlowTokenProvider(config))
 using var osdu = new OsduClient(config, new MsalClientCredentialsTokenProvider(config, clientSecret: "..."));
 ```
 
-All three MSAL providers persist the token cache to `~/.osdu/msal_cache.bin` by default (override with `OSDU_MSAL_CACHE_PATH` env var), so silent renewal is used on subsequent runs.
+The interactive and device-code providers persist their token cache to
+`~/.osdu/msal_cache.bin` by default (override with `OSDU_MSAL_CACHE_PATH`).
+The client-credentials provider uses MSAL's in-memory application token cache.
+
+### Read-only retries
+
+The facade sends each request once by default. Opt in using configuration or a
+record initializer:
+
+```csharp
+var config = OsduConfig.FromConfiguration(builder.Configuration) with
+{
+    EnableReadRetries = true,
+    RetryAttempts = 3,
+};
+using var osdu = new OsduClient(config, tokenProvider);
+```
+
+`Osdu__EnableReadRetries=true` and `Osdu__RetryAttempts=3` are the equivalent
+environment settings. `RetryAttempts` counts retries **after** the first attempt;
+zero disables retries. Negative values are rejected.
+
+The policy retries only HTTP **429, 503, and 504** responses to bodyless GET/HEAD
+requests and JSON POST requests to the configured Search service's exact `/query`
+and `/query_with_cursor` endpoints. Search endpoint overrides are supported.
+Search JSON bodies are buffered before sending so each retry has identical content.
+Requests whose path contains a `sessions` segment are excluded.
+
+Writes, session operations, uploads, other POST endpoints, transport exceptions,
+and cancellation are not retried. In particular, Parquet upload streams are not
+buffered or replayed. A successful streaming read is not restarted if consuming
+its response body subsequently fails.
+
+`Retry-After` delta-seconds and HTTP dates are honored without shortening the
+server's delay. Otherwise, exponential backoff starts at one second with up to
+one second of jitter, capped at 30 seconds. `TimeoutSeconds` (default 30) is the
+overall `HttpClient` timeout across attempts and delays, not a fresh timeout per
+retry; caller cancellation also interrupts waits. Token acquisition happens
+before the HTTP pipeline and is not covered by that HTTP timeout.
+
+Final error responses are passed to Kiota unchanged. This policy belongs to the
+facade; raw service clients use whichever transport and middleware you supply.
+
+### Error handling
+
+HTTP error responses are deserialized by Kiota into generated exceptions where
+the specification provides an error mapping, or into `ApiException` otherwise.
+For example, Search `AppError` derives from `ApiException` and adds the service's
+error fields.
+
+```csharp
+using Microsoft.Kiota.Abstractions;
+
+try
+{
+    var result = await osdu.Search.Query.PostAsync(request, cancellationToken: ct);
+}
+catch (ApiException ex)
+{
+    // Status and response headers are available without wrapping the exception.
+    Console.Error.WriteLine($"OSDU HTTP {ex.ResponseStatusCode}: {ex.Message}");
+    throw;
+}
+```
+
+`OsduException` covers configuration errors and selected facade/provider failures,
+not all unsuccessful API calls. Transport failures can throw `HttpRequestException`;
+cancellation and HTTP timeouts can throw `OperationCanceledException`.
+Authentication providers can propagate their own exceptions, including MSAL
+exceptions. Do not rely on `catch (OsduException)` as a catch-all.
 
 ### Logging
 
@@ -174,7 +257,7 @@ using Microsoft.Extensions.Logging;
 using var loggerFactory = LoggerFactory.Create(builder =>
     builder.AddConsole().SetMinimumLevel(LogLevel.Debug));
 
-using var osdu = new OsduClient(config, loggerFactory: loggerFactory);
+using var osdu = new OsduClient(config, tokenProvider, loggerFactory: loggerFactory);
 ```
 
 Two log categories are used:

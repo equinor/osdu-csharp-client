@@ -15,6 +15,7 @@ public abstract class OsduTestBase
 
     protected OsduTestBase(OsduFixture fixture, ITestOutputHelper output)
     {
+        Assert.SkipWhen(fixture.SkipReason is not null, fixture.SkipReason!);
         Fixture = fixture;
         Output = output;
         fixture.RouteLogsTo(output);

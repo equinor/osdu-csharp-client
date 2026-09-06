@@ -38,6 +38,7 @@ public sealed class MsalDeviceFlowTokenProvider : ITokenProvider
         Action<DeviceCodeResult>? prompt = null,
         ILoggerFactory? loggerFactory = null)
     {
+        MsalConfigValidator.Validate(config);
         _scopes = config.ScopesArray;
         _prompt = prompt ?? (result => Console.WriteLine(result.Message));
         _log = (loggerFactory ?? NullLoggerFactory.Instance)

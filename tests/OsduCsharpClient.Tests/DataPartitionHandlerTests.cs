@@ -48,9 +48,8 @@ public class DataPartitionHandlerTests
         await httpClient.SendAsync(req, TestContext.Current.CancellationToken);
 
         Assert.NotNull(captured);
-        // TryAddWithoutValidation does not replace an existing header; first value wins
         Assert.True(captured.Headers.TryGetValues("data-partition-id", out var values));
-        Assert.Equal("explicit-partition", values.First());
+        Assert.Equal("explicit-partition", Assert.Single(values));
     }
 
     private sealed class MockHandler(Func<HttpRequestMessage, HttpResponseMessage> handler)

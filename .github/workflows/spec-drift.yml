@@ -105,7 +105,7 @@ jobs:
 
           Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
 
-          > Note: pull requests opened with the default \`GITHUB_TOKEN\` do not trigger further workflow runs, so this PR starts without a CI run. Close and reopen it, or push an empty commit, to get one."
+          > Note: \`GITHUB_TOKEN\`-triggered pull request events (\`opened\`, \`synchronize\`, and \`reopened\`) create approval-required workflow runs. A user with write access must select **Approve workflows to run** in the pull request merge box to start CI. Approve the runs and wait for required checks before merging."
 
       - name: Upload the refreshed specs
         if: ${{ !cancelled() }}
