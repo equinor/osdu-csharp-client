@@ -64,7 +64,8 @@ The `OsduClient` facade handles token acquisition (via the `ITokenProvider` you 
 
 ```csharp
 using Equinor.OsduCsharpClient.Facade;
-using Equinor.OsduCsharpClient.Facade.Auth; // MsalInteractiveTokenProvider (Msal package)
+using Equinor.OsduCsharpClient.Facade.Auth; // ITokenProvider
+using Equinor.OsduCsharpClient.Msal;        // MsalInteractiveTokenProvider (separate package)
 using Equinor.OsduCsharpClient.Search.Models;
 using Microsoft.Extensions.Configuration;
 
