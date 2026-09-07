@@ -50,8 +50,8 @@ jobs:
         with:
           dotnet-version: "10.x"
 
-      - name: Install Kiota
-        run: dotnet tool install --global Microsoft.OpenApi.Kiota
+      - name: Restore pinned Kiota
+        run: dotnet tool restore
 
       - name: Generate C# clients
         run: python generate_all.py

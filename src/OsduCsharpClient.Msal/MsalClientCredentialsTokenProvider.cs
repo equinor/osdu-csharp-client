@@ -22,6 +22,8 @@ public sealed class MsalClientCredentialsTokenProvider : ITokenProvider
         string clientSecret,
         ILoggerFactory? loggerFactory = null)
     {
+        MsalConfigValidator.Validate(config);
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientSecret);
         _scopes = config.ScopesArray;
         _log = (loggerFactory ?? NullLoggerFactory.Instance)
             .CreateLogger<MsalClientCredentialsTokenProvider>();

@@ -18,15 +18,29 @@ Clone the repo, then generate the clients and build:
 ```sh
 git clone https://github.com/equinor/osdu-csharp-client.git
 cd osdu-csharp-client
+python3 -m pip install -r requirements.txt
+dotnet tool restore
 python3 generate_all.py
 dotnet build OsduCsharpClient.slnx
 ```
 
-Provide configuration (e.g. `appsettings.local.json` or `Osdu__*` environment variables) before running tests — see [docs/environment-and-tests.md](environment-and-tests.md).
+Run the tests without OSDU credentials. Integration tests are disabled and skipped
+by default:
 
 ```sh
 dotnet test OsduCsharpClient.slnx
 ```
+
+To run integration tests against a live OSDU instance, provide configuration
+(e.g. `appsettings.local.json` or `Osdu__*` environment variables), then explicitly
+opt in:
+
+```sh
+OSDU_RUN_INTEGRATION_TESTS=true dotnet test tests/OsduCsharpClient.IntegrationTests/OsduCsharpClient.IntegrationTests.csproj
+```
+
+Once enabled, missing or invalid configuration fails rather than skipping.
+See [docs/environment-and-tests.md](environment-and-tests.md) for configuration.
 
 ## Releasing a New Version
 
@@ -71,7 +85,12 @@ An undeclared manual edit makes the drift check red forever, and the noise train
 
 The offline check runs on every PR and needs no network. The upstream comparison is scoped to PRs that touch the specs on purpose: upstream services merge spec changes on their own cadence, and a gate that ran on every PR would turn this repo red for a change no author here could fix.
 
-The scheduled half refreshes every spec and opens a PR when anything moved. Note that pull requests opened with the default `GITHUB_TOKEN` do not trigger further workflow runs, so that PR arrives without a CI run — close and reopen it, or push an empty commit, to get one.
+The scheduled half refreshes every spec and opens a PR when anything moved.
+`GITHUB_TOKEN`-triggered pull request events (`opened`, `synchronize`, and
+`reopened`) create **approval-required** workflow runs. A user with write access
+must select **Approve workflows to run** in the pull request merge box, then
+wait for the required checks before merging. See GitHub's
+[workflow triggering documentation](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow).
 
 ### Every spec matches a published file
 
@@ -135,10 +154,24 @@ directory under `Generated/` that no spec produces, and prints what it removed.
 To regenerate all C# clients from the specs in `openapi_specs/`:
 
 ```sh
+dotnet tool restore
 python3 generate_all.py
 ```
 
-This iterates through all JSON and YAML specs in `openapi_specs/` and runs `kiota generate` for each service into `src/OsduCsharpClient/Generated/<ServiceName>/`. It also handles minor spec patches before invoking Kiota:
+Kiota **1.30.0** is pinned in [`.config/dotnet-tools.json`](../.config/dotnet-tools.json).
+Run `dotnet tool restore` from the repository root after cloning or changing the
+manifest. Generation invokes `dotnet tool run kiota -- generate ...` from the
+repository root; a globally installed Kiota is never used as a fallback. Spec and
+output paths are rooted at the script directory, so invoking the script by path
+from another working directory also works.
+
+Generation stops at the first failed service and exits nonzero, reporting the
+service and Kiota's exit code and output (or the invocation error). Its normalized
+spec file is cleaned up even on failure. A failed run can leave partial generated
+output: fix the error, restore the local tool if needed, and rerun generation
+before building. Orphaned packages are pruned only after all services succeed.
+
+This iterates through all JSON and YAML specs in `openapi_specs/` and generates each service into `src/OsduCsharpClient/Generated/<ServiceName>/`. It also handles minor spec patches before invoking Kiota:
 
 - missing `info.version`
 - non-standard `< * >` wildcard properties
@@ -190,7 +223,7 @@ src/
             LoggingHandler.cs               DelegatingHandler for HTTP request/response logging
             OsduClient.cs                   High-level facade with typed per-service properties
             OsduConfig.cs                   Configuration record (FromConfiguration binder)
-            OsduException.cs                Typed exception for auth/config/API errors
+            OsduException.cs                Typed exception for selected facade/config errors
             ServiceRegistry.cs              Static service → endpoint mapping
     OsduCsharpClient.Msal/                  Optional package: MSAL ITokenProvider implementations
         MsalInteractiveTokenProvider.cs     Browser login (interactive)

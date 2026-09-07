@@ -18,6 +18,8 @@ public class OsduFixture : IAsyncLifetime
     /// <summary>The shared facade client used by every integration test.</summary>
     public OsduClient Client { get; private set; } = null!;
 
+    public string? SkipReason { get; private set; }
+
     /// <summary>
     /// Routes SDK request/response logs to the given test's output.
     /// Called by <see cref="OsduTestBase"/> for each test.
@@ -26,6 +28,10 @@ public class OsduFixture : IAsyncLifetime
 
     public ValueTask InitializeAsync()
     {
+        SkipReason = GetSkipReason(Environment.GetEnvironmentVariable("OSDU_RUN_INTEGRATION_TESTS"));
+        if (SkipReason is not null)
+            return ValueTask.CompletedTask;
+
         // Standard .NET configuration: appsettings.json (committed template),
         // appsettings.local.json (gitignored, real values), user secrets, and
         // environment variables (e.g. Osdu__Server). See docs/environment-and-tests.md.
@@ -46,6 +52,16 @@ public class OsduFixture : IAsyncLifetime
             new MsalInteractiveTokenProvider(config, loggerFactory: _loggerFactory),
             loggerFactory: _loggerFactory);
         return ValueTask.CompletedTask;
+    }
+
+    internal static string? GetSkipReason(string? optIn)
+    {
+        var enabled = false;
+        if (!string.IsNullOrWhiteSpace(optIn) && !bool.TryParse(optIn, out enabled))
+            throw new OsduException("OSDU_RUN_INTEGRATION_TESTS must be true or false.");
+        return enabled
+            ? null
+            : "Set OSDU_RUN_INTEGRATION_TESTS=true to run against a live OSDU server.";
     }
 
     public ValueTask DisposeAsync()

@@ -8,11 +8,10 @@ from pathlib import Path
 
 import yaml
 
-SPECS_DIR = Path("openapi_specs")
-OUTPUT_DIR = Path("src/OsduCsharpClient/Generated")
+REPO_ROOT = Path(__file__).resolve().parent
+SPECS_DIR = REPO_ROOT / "openapi_specs"
+OUTPUT_DIR = REPO_ROOT / "src/OsduCsharpClient/Generated"
 SPEC_EXTENSIONS = {".json", ".yaml", ".yml"}
-
-KIOTA = shutil.which("kiota") or os.path.expanduser("~/.dotnet/tools/kiota")
 
 
 class _NoTimestampLoader(yaml.SafeLoader):
@@ -273,17 +272,17 @@ def generate_all():
         # conversion take effect (Kiota accepts JSON on all platforms).
         # Written outside openapi_specs/ so a crashed run cannot leave a file
         # that the next `rglob("openapi.*")` would mistake for a spec.
-        temp_fd, temp_name = tempfile.mkstemp(suffix=".json", prefix=f"{service_name}-")
+        temp_fd, temp_name = tempfile.mkstemp(
+            suffix=".json", prefix=f"{service_name}-", dir=REPO_ROOT
+        )
         temp_spec_path = Path(temp_name)
-        with os.fdopen(temp_fd, "w") as f:
-            json.dump(spec_data, f)
-
-        if output_path.exists():
-            shutil.rmtree(output_path)
-        output_path.mkdir(parents=True)
 
         cmd = [
-            KIOTA,
+            "dotnet",
+            "tool",
+            "run",
+            "kiota",
+            "--",
             "generate",
             "--openapi",
             str(temp_spec_path),
@@ -301,14 +300,24 @@ def generate_all():
         ]
 
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True)
-            if result.returncode == 0:
-                print(f"  Successfully generated {service_name} → {output_path}")
-            else:
-                print(f"  Failed to generate {service_name}")
-                print(result.stderr or result.stdout)
-        except Exception as e:
-            print(f"  Error generating {service_name}: {e}")
+            with os.fdopen(temp_fd, "w") as f:
+                json.dump(spec_data, f)
+
+            if output_path.exists():
+                shutil.rmtree(output_path)
+            output_path.mkdir(parents=True)
+
+            subprocess.run(
+                cmd, cwd=REPO_ROOT, capture_output=True, text=True, check=True
+            )
+            print(f"  Successfully generated {service_name} → {output_path}")
+        except subprocess.CalledProcessError as e:
+            raise RuntimeError(
+                f"Failed to generate {service_name}: Kiota exited with code "
+                f"{e.returncode}.\n{e.stdout or ''}\n{e.stderr or ''}"
+            ) from e
+        except OSError as e:
+            raise RuntimeError(f"Error generating {service_name}: {e}") from e
         finally:
             if temp_spec_path.exists():
                 temp_spec_path.unlink()

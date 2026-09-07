@@ -1,8 +1,9 @@
 namespace Equinor.OsduCsharpClient.Facade;
 
 /// <summary>
-/// Thrown when an OSDU API call returns a non-2xx status code or encounters an
-/// auth/configuration error.
+/// Reports configuration errors and selected facade or token-provider failures.
+/// HTTP error responses use Kiota ApiException or its generated subclasses.
+/// Authentication providers may also propagate their own exception types.
 /// </summary>
 public class OsduException : Exception
 {

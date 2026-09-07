@@ -16,13 +16,21 @@ public record OsduConfig
 
     [Required] public required string Server { get; init; }
     [Required] public required string DataPartitionId { get; init; }
-    [Required] public required string Authority { get; init; }
-    [Required] public required string ClientId { get; init; }
+    /// <summary>OAuth authority. Required only by the optional MSAL providers.</summary>
+    public string Authority { get; init; } = string.Empty;
+    /// <summary>OAuth client ID. Required only by the optional MSAL providers.</summary>
+    public string ClientId { get; init; } = string.Empty;
 
     /// <summary>Space-separated OAuth scopes, e.g. <c>https://example.com/.default</c>.</summary>
-    [Required] public required string Scopes { get; init; }
+    public string Scopes { get; init; } = string.Empty;
 
     public double TimeoutSeconds { get; init; } = 30.0;
+
+    /// <summary>Opt in to retries of eligible read-only requests on HTTP 429, 503 and 504.</summary>
+    public bool EnableReadRetries { get; init; }
+
+    /// <summary>Maximum retries after the initial request, only when <see cref="EnableReadRetries"/> is true.</summary>
+    [Range(0, int.MaxValue)]
     public int RetryAttempts { get; init; } = 3;
 
     /// <summary>

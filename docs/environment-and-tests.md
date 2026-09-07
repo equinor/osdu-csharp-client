@@ -2,7 +2,8 @@
 
 ## Configuration Setup
 
-Integration tests use standard .NET configuration (`Microsoft.Extensions.Configuration`).
+Integration tests are disabled by default. Set `OSDU_RUN_INTEGRATION_TESTS=true`
+to enable them. They then use standard .NET configuration (`Microsoft.Extensions.Configuration`).
 Settings are read, in increasing order of precedence, from:
 
 1. `appsettings.json` (committed template, empty values)
@@ -44,6 +45,7 @@ dotnet user-secrets set "Osdu:Server" "https://your-osdu-instance.com"
 
 Optional environment variables used by tests:
 
+- `OSDU_RUN_INTEGRATION_TESTS` - `true` enables live tests; unset, blank, or `false` skips them. Other values are configuration errors.
 - `OSDU_MSAL_CACHE_PATH` — path to a persistent MSAL token cache file (default: `~/.osdu/msal_cache.bin`)
 - `SEARCH_KIND` - kind filter for search tests (default: `osdu:wks:work-product-component--WellLog:*`)
 - `SEARCH_QUERY` - query string for search tests (default: `*`)
@@ -56,11 +58,20 @@ Optional environment variables used by tests:
 
 ## Running Tests
 
-Integration tests hit a real OSDU server. On first run a browser window will open for interactive MSAL login; the resulting token is cached in `.msal_token_cache.bin`. Tests are skipped automatically when their required settings are absent.
+Enabled integration tests hit a real OSDU server and can create/delete test records.
+On first run a browser window may open for interactive MSAL login; the token cache
+defaults to `~/.osdu/msal_cache.bin`. Once enabled, missing/invalid connection or
+MSAL settings and authentication failures are failures, not skips. Individual
+record-specific tests still skip when their optional IDs or ingestion settings
+are absent.
 
 ```sh
-# Run all integration tests
+# Run unit tests with integration tests skipped by default
 dotnet test OsduCsharpClient.slnx
+
+# Enable live tests for the following commands (configure your environment first)
+export OSDU_RUN_INTEGRATION_TESTS=true
+dotnet test tests/OsduCsharpClient.IntegrationTests/OsduCsharpClient.IntegrationTests.csproj
 
 # Run a single test by name
 dotnet test OsduCsharpClient.slnx --filter "FullyQualifiedName~QueryRecords_ReturnsResults"

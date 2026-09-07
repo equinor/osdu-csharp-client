@@ -12,10 +12,10 @@ It provides typed, async clients for various OSDU core services, allowing for ea
 
 For regenerating clients locally:
 
-- [Kiota CLI](https://learn.microsoft.com/en-us/openapi/kiota/install)
+- [Kiota CLI](https://learn.microsoft.com/en-us/openapi/kiota/install), pinned in the repository's local tool manifest:
 
   ```sh
-  dotnet tool install --global Microsoft.OpenApi.Kiota
+  dotnet tool restore
   ```
 
 - Python 3.10+
@@ -93,6 +93,11 @@ if (result?.Results is not null)
 
 `OsduConfig.FromConfiguration(IConfiguration)` binds the `Osdu` section (`Server`, `DataPartitionId`, `Authority`, `ClientId`, `Scopes`) from any standard .NET configuration source — `appsettings.json`, environment variables (`Osdu__Server`), user secrets, etc. See [docs/environment-and-tests.md](docs/environment-and-tests.md) for setup.
 
+Only `Server` and `DataPartitionId` are required by the core configuration. The MSAL
+providers additionally require `Authority`, `ClientId`, and `Scopes`; custom or static
+token providers do not. Read-only HTTP retries are disabled by default; see
+[retry policy](docs/usage.md#read-only-retries) for the explicit opt-in and limits.
+
 For low-level usage (constructing service clients directly with a raw adapter), see [docs/usage.md](docs/usage.md).
 
 Wellbore DDMS bulk data (well-log curves) can be read and written as Parquet via `osdu.WellboreDdmsBulk` — including chunked session writes for large datasets. See [docs/usage.md](docs/usage.md#wellbore-ddms-parquet-bulk-data).
@@ -144,8 +149,11 @@ Runnable, end-to-end examples combining both libraries live in the separate [`eq
 Quick run:
 
 ```sh
-# Run all integration tests
+# Run unit tests; integration tests skip unless explicitly enabled
 dotnet test OsduCsharpClient.slnx
+
+# Opt in to live integration tests after configuring your OSDU environment
+OSDU_RUN_INTEGRATION_TESTS=true dotnet test tests/OsduCsharpClient.IntegrationTests/OsduCsharpClient.IntegrationTests.csproj
 ```
 
 For configuration setup, optional variables, and detailed test commands, see [docs/environment-and-tests.md](docs/environment-and-tests.md).
@@ -157,6 +165,7 @@ Quick flow:
 ```sh
 git clone https://github.com/equinor/osdu-csharp-client.git
 cd osdu-csharp-client
+dotnet tool restore
 python3 generate_all.py
 dotnet build OsduCsharpClient.slnx
 ```

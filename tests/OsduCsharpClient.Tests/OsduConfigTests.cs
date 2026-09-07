@@ -62,19 +62,53 @@ public class OsduConfigTests
     [Fact]
     public void FromConfiguration_MissingRequiredValue_ThrowsOsduException()
     {
-        // Section exists but a required value (Scopes) is absent.
+        // Core configuration requires a partition, not identity-provider settings.
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
                 ["Osdu:Server"] = "https://test.example.com",
-                ["Osdu:DataPartitionId"] = "test-partition",
                 ["Osdu:Authority"] = "https://login.microsoftonline.com/tenant",
                 ["Osdu:ClientId"] = "client-id",
             })
             .Build();
 
         var ex = Assert.Throws<OsduException>(() => OsduConfig.FromConfiguration(configuration));
-        Assert.Contains("Scopes", ex.Message);
+        Assert.Contains("DataPartitionId", ex.Message);
+    }
+
+    [Fact]
+    public void FromConfiguration_WithoutIdentitySettings_SupportsStaticTokens()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Osdu:Server"] = "https://test.example.com",
+                ["Osdu:DataPartitionId"] = "test-partition",
+            })
+            .Build();
+
+        var config = OsduConfig.FromConfiguration(configuration);
+        using var client = new OsduClient(config,
+            new Equinor.OsduCsharpClient.Facade.Auth.StaticTokenProvider("token"));
+
+        Assert.NotNull(client.Search);
+        Assert.Empty(config.ScopesArray);
+        Assert.False(config.EnableReadRetries);
+        Assert.Equal(3, config.RetryAttempts);
+    }
+
+    [Fact]
+    public void FromConfiguration_NegativeRetryCount_IsRejected()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Osdu:Server"] = "https://test.example.com",
+                ["Osdu:DataPartitionId"] = "test",
+                ["Osdu:RetryAttempts"] = "-1",
+            })
+            .Build();
+        Assert.Throws<OsduException>(() => OsduConfig.FromConfiguration(configuration));
     }
 
     [Fact]
@@ -91,6 +125,8 @@ public class OsduConfigTests
                 ["MyOsdu:ClientId"] = "client-id",
                 ["MyOsdu:Scopes"] = "https://test.example.com/.default",
                 ["MyOsdu:TimeoutSeconds"] = "45",
+                ["MyOsdu:EnableReadRetries"] = "true",
+                ["MyOsdu:RetryAttempts"] = "2",
                 ["MyOsdu:EndpointOverrides:search"] = "https://custom.example.com/search",
             })
             .Build();
@@ -100,6 +136,8 @@ public class OsduConfigTests
         Assert.Equal("https://test.example.com", config.Server);
         Assert.Equal("test-partition", config.DataPartitionId);
         Assert.Equal(45.0, config.TimeoutSeconds);
+        Assert.True(config.EnableReadRetries);
+        Assert.Equal(2, config.RetryAttempts);
         Assert.Equal("https://custom.example.com/search", config.UrlFor("search"));
     }
 

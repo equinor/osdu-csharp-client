@@ -31,7 +31,7 @@ namespace Equinor.OsduCsharpClient.Facade;
 /// </summary>
 /// <example>
 /// <code>
-/// using var client = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration));
+/// using var client = new OsduClient(OsduConfig.FromConfiguration(builder.Configuration), tokenProvider);
 /// var result = await client.Search.Query.PostAsync(request, cancellationToken: ct);
 /// </code>
 /// </example>
@@ -73,7 +73,9 @@ public sealed class OsduClient : IDisposable
     /// </param>
     public OsduClient(OsduConfig config, ITokenProvider tokenProvider, ILoggerFactory? loggerFactory = null)
     {
+        ArgumentNullException.ThrowIfNull(config);
         ArgumentNullException.ThrowIfNull(tokenProvider);
+        ArgumentOutOfRangeException.ThrowIfNegative(config.RetryAttempts);
         _config = config;
         _tokenProvider = tokenProvider;
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
@@ -151,7 +153,7 @@ public sealed class OsduClient : IDisposable
 
             if (_adapters.TryGetValue(serviceAttr, out var adapter)) return adapter;
 
-            adapter = CreateAdapter(_config.UrlFor(serviceAttr));
+            adapter = CreateAdapter(serviceAttr);
             _adapters[serviceAttr] = adapter;
             return adapter;
         }
@@ -179,24 +181,33 @@ public sealed class OsduClient : IDisposable
     };
 
     /// <summary>
-    /// Creates a Kiota <see cref="HttpClientRequestAdapter"/> for the given base URL,
-    /// with bearer-token auth and data-partition-id header injection built in.
+    /// Builds the facade's HTTP middleware around the supplied transport.
     /// </summary>
-    private HttpClientRequestAdapter CreateAdapter(string baseUrl)
+    internal HttpMessageHandler CreateHttpPipeline(string serviceAttr, HttpMessageHandler transport)
     {
-        var httpClient = new HttpClient(
-            new LoggingHandler(_loggerFactory)
+        var pipeline = new LoggingHandler(_loggerFactory)
+        {
+            InnerHandler = new DataPartitionHandler(_config.DataPartitionId)
             {
-                InnerHandler = new DataPartitionHandler(_config.DataPartitionId)
+                InnerHandler = new JsonContentTypeHandler
                 {
-                    // Innermost of ours, so the logger above records the request exactly as
-                    // it goes on the wire.
-                    InnerHandler = new JsonContentTypeHandler
-                    {
-                        InnerHandler = CreateTransportHandler()
-                    }
+                    InnerHandler = transport
                 }
-            })
+            }
+        };
+        return _config.EnableReadRetries
+                ? new ReadRetryHandler(_config.RetryAttempts,
+                    serviceAttr == "search" ? new Uri(_config.UrlFor(serviceAttr)) : null)
+                {
+                    InnerHandler = pipeline
+                }
+                : pipeline;
+    }
+
+    private HttpClientRequestAdapter CreateAdapter(string serviceAttr)
+    {
+        var baseUrl = _config.UrlFor(serviceAttr);
+        var httpClient = new HttpClient(CreateHttpPipeline(serviceAttr, CreateTransportHandler()))
         {
             Timeout = TimeSpan.FromSeconds(_config.TimeoutSeconds),
         };

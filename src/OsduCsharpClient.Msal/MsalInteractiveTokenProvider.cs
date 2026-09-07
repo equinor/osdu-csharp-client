@@ -56,6 +56,7 @@ public sealed class MsalInteractiveTokenProvider : ITokenProvider
         string? tokenCachePath = null,
         ILoggerFactory? loggerFactory = null)
     {
+        MsalConfigValidator.Validate(config);
         _scopes = config.ScopesArray;
         _log = (loggerFactory ?? NullLoggerFactory.Instance)
             .CreateLogger<MsalInteractiveTokenProvider>();
