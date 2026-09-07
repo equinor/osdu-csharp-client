@@ -6,7 +6,8 @@
 
 ```csharp
 using Equinor.OsduCsharpClient.Facade;
-using Equinor.OsduCsharpClient.Facade.Auth; // MsalInteractiveTokenProvider (Msal package)
+using Equinor.OsduCsharpClient.Facade.Auth; // ITokenProvider
+using Equinor.OsduCsharpClient.Msal;        // MsalInteractiveTokenProvider (separate package)
 using Microsoft.Extensions.Configuration;
 
 var config = OsduConfig.FromConfiguration(builder.Configuration);
@@ -150,7 +151,7 @@ dotnet add package Equinor.OsduCsharpClient.Msal
 | `MsalClientCredentialsTokenProvider` | CI / service-to-service | + `clientSecret` |
 
 ```csharp
-using Equinor.OsduCsharpClient.Facade.Auth;
+using Equinor.OsduCsharpClient.Msal;
 
 // Interactive (opens browser on first run, then silent from cache)
 using var osdu = new OsduClient(config, new MsalInteractiveTokenProvider(config));

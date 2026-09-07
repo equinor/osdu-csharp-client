@@ -2,7 +2,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Identity.Client;
 
-namespace Equinor.OsduCsharpClient.Facade.Auth;
+using Equinor.OsduCsharpClient.Facade;
+using Equinor.OsduCsharpClient.Facade.Auth;
+
+namespace Equinor.OsduCsharpClient.Msal;
 
 /// <summary>
 /// Acquires a token via MSAL interactive browser login with a persistent file cache.

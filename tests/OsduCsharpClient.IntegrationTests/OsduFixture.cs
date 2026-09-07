@@ -1,5 +1,6 @@
 using Equinor.OsduCsharpClient.Facade;
 using Equinor.OsduCsharpClient.Facade.Auth;
+using Equinor.OsduCsharpClient.Msal;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
