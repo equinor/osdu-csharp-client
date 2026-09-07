@@ -104,10 +104,10 @@ Wellbore DDMS bulk data (well-log curves) can be read and written as Parquet via
 
 ## Typed schema models (optional companion)
 
-This client keeps each record's free-form `data` block as an `UntypedNode`, matching the canonical OSDU `Map<String, Object>` model — a single client cannot hard-code every OSDU kind. When you want intellisense and compile-time types for a specific OSDU `kind` and version, pair the client with the companion [`equinor/osdu-csharp-schemas`](https://github.com/equinor/osdu-csharp-schemas) (`Equinor.Osdu.Schemas`) library. It provides typed POCOs for `work-product-component`, `master-data`, and `dataset` entity types that bridge into a record envelope through the client's `ToUntypedNode()` / `Deserialize<T>()` extensions — no changes to the client required.
+This client keeps each record's free-form `data` block as an `UntypedNode`, matching the canonical OSDU `Map<String, Object>` model — a single client cannot hard-code every OSDU kind. When you want intellisense and compile-time types for a specific OSDU `kind` and version, pair the client with the companion [`equinor/osdu-csharp-models`](https://github.com/equinor/osdu-csharp-models) (`Equinor.Osdu.Models`) library. It provides typed POCOs for `work-product-component`, `master-data`, and `dataset` entity types that bridge into a record envelope through the client's `ToUntypedNode()` / `Deserialize<T>()` extensions — no changes to the client required.
 
 ```csharp
-using V15 = Osdu.Schemas.WorkProductComponent.WellLog.V1_5_0;
+using V15 = Osdu.Models.WorkProductComponent.WellLog.V1_5_0;
 using Equinor.OsduCsharpClient.Facade; // ToUntypedNode() / Deserialize<T>()
 
 // Read: envelope from the client, data as a typed schema POCO.
@@ -180,7 +180,7 @@ For release flow, OpenAPI update steps, response media type normalization, clien
 
 ## Related projects
 
-- [`equinor/osdu-csharp-schemas`](https://github.com/equinor/osdu-csharp-schemas) — typed C# domain models (`Equinor.Osdu.Schemas`) for OSDU record `data` blocks, an opt-in companion to this client.
+- [`equinor/osdu-csharp-models`](https://github.com/equinor/osdu-csharp-models) — typed C# domain models (`Equinor.Osdu.Models`) for OSDU record `data` blocks, an opt-in companion to this client.
 - [`equinor/osdu-csharp-samples`](https://github.com/equinor/osdu-csharp-samples) — runnable examples showing this client and the schema models used together.
 
 ## License
