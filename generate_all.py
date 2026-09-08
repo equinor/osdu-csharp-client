@@ -123,6 +123,52 @@ def untype_string_json_responses(spec_data: dict) -> list[str]:
     return patched
 
 
+def untype_string_json_properties(spec_data: dict) -> list[str]:
+    """Untype schema properties declared as a string but exemplified as JSON.
+
+    The mirror of :func:`untype_string_json_responses`, which handles a whole response body;
+    this handles a single property, wherever it appears. Schema Service's
+    ``SchemaRequest.schema`` is the case that surfaced it:
+
+    .. code-block:: json
+
+        {"type": "string",
+         "description": "The JSON Schema definition as a JSON object",
+         "example": {"$schema": "...", "title": "..."}}
+
+    Typed as a string, described as an object, exemplified as an object. Kiota generates
+    ``string? Schema``; a caller deserialising a real request file into the model gets null
+    for it, and the property is then simply absent from the serialised request. The service
+    answers ``400 schema must not be null`` about a field the caller did supply — the CLI's
+    ``schema add`` sent ``{"schemaInfo": {...}}`` and dropped the schema entirely.
+
+    Silent data loss, and on a request it is worse than the response case: there the caller
+    sees nothing and knows something is wrong, here the caller sees a validation error blaming
+    them for an omission that happened after they handed the data over.
+
+    It catches the same defect on responses too — CRS Conversion types four
+    ``ConvertTrajectoryResponseV4`` fields as strings and exemplifies them as unit-of-measure
+    objects — which the response patch above misses because it only looks at whole bodies.
+
+    Only touches a string property carrying an object or array ``example``. A description
+    alone is too weak — plenty of genuine strings are described loosely — while an example of
+    the wrong type is the spec contradicting itself in a way that cannot be intentional. Like
+    the response patch, it stops applying on its own once upstream is fixed.
+    """
+    patched = []
+    for name, schema in ((spec_data.get("components") or {}).get("schemas") or {}).items():
+        if not isinstance(schema, dict):
+            continue
+        for prop, definition in (schema.get("properties") or {}).items():
+            if not isinstance(definition, dict) or definition.get("type") != "string":
+                continue
+            if not isinstance(definition.get("example"), (dict, list)):
+                continue
+            definition.pop("type")
+            patched.append(f"{name}.{prop}")
+    return patched
+
+
 def untype_freeform_record_data(spec_data: dict, service_name: str) -> list[str]:
     """Untype the ``data`` property on each free-form record schema for the spec.
 
@@ -262,6 +308,9 @@ def generate_all():
 
         for patched_response in untype_string_json_responses(spec_data):
             print(f"  - Untyping string-typed JSON response: {patched_response}")
+
+        for patched_property in untype_string_json_properties(spec_data):
+            print(f"  - Untyping string-typed JSON property: {patched_property}")
 
         needs_version_patch = "info" in spec_data and "version" not in spec_data["info"]
         if needs_version_patch:

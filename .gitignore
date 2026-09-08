@@ -27,3 +27,7 @@ appsettings.local.json
 
 # Local AI-assistant context (not part of the published repo)
 .github/copilot-instructions.md
+
+# Python bytecode
+__pycache__/
+*.pyc
