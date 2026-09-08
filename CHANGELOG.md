@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/equinor/osdu-csharp-client/compare/v2.2.0...v2.2.1) (2026-09-08)
+
+
+### Bug Fixes
+
+* **specs:** untype string-typed properties that carry a JSON example ([#120](https://github.com/equinor/osdu-csharp-client/issues/120)) ([bdc4095](https://github.com/equinor/osdu-csharp-client/commit/bdc4095690543718466766a474f2903c68ce0aa8))
+
 ## [2.2.0](https://github.com/equinor/osdu-csharp-client/compare/v2.1.0...v2.2.0) (2026-09-08)
 
 
