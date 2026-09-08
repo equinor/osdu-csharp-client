@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.2.0](https://github.com/equinor/osdu-csharp-client/compare/v2.1.0...v2.2.0) (2026-09-08)
+
+
+### Features
+
+* add safe read retries and harden client generation ([#117](https://github.com/equinor/osdu-csharp-client/issues/117)) ([9e16c05](https://github.com/equinor/osdu-csharp-client/commit/9e16c05e273ec245b17664be4b1dce99176c7531))
+* **msal:** move the providers into a namespace matching their package ([#116](https://github.com/equinor/osdu-csharp-client/issues/116)) ([5ba2808](https://github.com/equinor/osdu-csharp-client/commit/5ba2808a15e1d9386fb1e29b8cab2765478c7d58))
+
+
+### Bug Fixes
+
+* use current MSAL namespace in configuration tests ([#119](https://github.com/equinor/osdu-csharp-client/issues/119)) ([48f129b](https://github.com/equinor/osdu-csharp-client/commit/48f129b39b9cc53b76e6be5eded05f6d71ea843f))
+
+
+### Dependencies
+
+* bump the github-actions group with 3 updates ([#115](https://github.com/equinor/osdu-csharp-client/issues/115)) ([8ef38a7](https://github.com/equinor/osdu-csharp-client/commit/8ef38a7b975dd09492b8b5c60af7a8d0d5b236a8))
+
 ## [2.1.0](https://github.com/equinor/osdu-csharp-client/compare/v2.0.1...v2.1.0) (2026-09-04)
 
 
