@@ -44,6 +44,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: limit
         in: query
         description: Page Size
@@ -62,7 +65,7 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.]+:[0-9]+.[0-9]+.[0-9]+$"
-        example: tenant1:public:well:1.0.2
+        example: osdu:public:well:1.0.2
       - name: cursor
         in: query
         description: Cursor
@@ -102,13 +105,14 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Record retrieved successfully.
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/RecordInfoQueryResult"
         "400":
           description: Bad Request
           content:
@@ -129,6 +133,12 @@ paths:
                 $ref: "#/components/schemas/AppError"
         "404":
           description: Record not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "422":
+          description: Invalid record data format.
           content:
             application/json:
               schema:
@@ -171,6 +181,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: skipdupes
         in: query
         description: Skip duplicates when updating records with the same value.
@@ -183,6 +196,7 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -219,6 +233,12 @@ paths:
                 $ref: "#/components/schemas/AppError"
         "404":
           description: Invalid acl group.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
           content:
             application/json:
               schema:
@@ -263,18 +283,16 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -325,6 +343,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "500":
           description: Internal Server Error
           content:
@@ -359,16 +383,22 @@ paths:
       parameters:
       - name: x-collaboration
         in: header
-        description: x-collaboration
+        description: "x-collaboration source namespace. Must include 'application'.\
+          \ Omit 'id' for System-of-Record (e.g. \"application=<caller>\"); include\
+          \ \"id=<uuid>,application=<caller>\" when copying from a collaboration WIP."
         required: true
         schema:
           type: string
+          minLength: 1
+          pattern: "^(id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},)?application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -412,6 +442,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "500":
           description: Internal Server Error
           content:
@@ -438,22 +474,18 @@ paths:
       - replay
       summary: Replay Based on Filter.
       description: |-
-        The API trigger the replay based on operation and filter.
+        The API triggers the replay based on operation and optional filter.
+        Omit `filter` (or set it to null) to replay all kinds. If `filter` is present, `filter.kinds` is required (at least one kind; currently restricted to a single kind). An empty `filter` object (`{}`) returns 400.
         Required roles: `users.datalake.ops`.
       operationId: triggerReplay
       parameters:
-      - name: x-collaboration
-        in: header
-        description: x-collaboration
-        required: false
-        schema:
-          type: string
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -491,6 +523,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "501":
+          description: Collaboration feature is not yet supported for the Replay API.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "502":
           description: Bad Gateway
           content:
@@ -521,6 +559,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -528,13 +569,14 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "204":
           description: Record deleted successfully.
@@ -598,12 +640,16 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -646,6 +692,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "500":
           description: Internal Server Error
           content:
@@ -682,6 +734,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: cursor
         in: query
         description: Cursor
@@ -702,13 +757,14 @@ paths:
         required: true
         schema:
           type: string
-        example: tenant1:public:well:1.0.2
+        example: osdu:public:well:1.0.2
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Record Ids retrieved successfully.
@@ -775,12 +831,16 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -814,6 +874,12 @@ paths:
                 $ref: "#/components/schemas/AppError"
         "404":
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
           content:
             application/json:
               schema:
@@ -854,12 +920,16 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       - name: frame-of-reference
         in: header
         description: "This value indicates whether normalization applies, should be\
@@ -905,6 +975,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "500":
           description: Internal Server Error
           content:
@@ -941,12 +1017,16 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/json:
@@ -980,6 +1060,12 @@ paths:
                 $ref: "#/components/schemas/AppError"
         "404":
           description: Record(s) not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
           content:
             application/json:
               schema:
@@ -1020,6 +1106,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -1027,7 +1116,7 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: attribute
         in: query
         description: "Filter attributes to restrict the returned fields of the record.\
@@ -1044,6 +1133,7 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Record retrieved successfully.
@@ -1110,6 +1200,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -1117,16 +1210,23 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "204":
           description: Record purged successfully.
+        "400":
+          description: Bad Request (e.g. record id does not belong to the data partition).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "401":
           description: Unauthorized
           content:
@@ -1183,6 +1283,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -1190,13 +1293,14 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       requestBody:
         content:
           application/merge-patch+json:
@@ -1234,6 +1338,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "409":
+          description: Record is legally withheld and cannot be undeleted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "500":
           description: Internal Server Error
           content:
@@ -1266,15 +1382,18 @@ paths:
       parameters:
       - name: id
         in: path
+        description: Replay id
         required: true
         schema:
           type: string
+        example: f506be08-b51f-4cdd-a9ee-d9454ad51600
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Status of the replay
@@ -1296,6 +1415,12 @@ paths:
                 $ref: "#/components/schemas/AppError"
         "403":
           description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "404":
+          description: Replay ID does not exist.
           content:
             application/json:
               schema:
@@ -1335,6 +1460,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -1342,7 +1470,7 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: version
         in: path
         description: Record version
@@ -1367,6 +1495,7 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Record retrieved successfully.
@@ -1434,6 +1563,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -1441,13 +1573,14 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: data-partition-id
         in: header
         description: Tenant Id
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: Record versions retrieved successfully.
@@ -1504,23 +1637,22 @@ paths:
       tags:
       - health-check-api
       summary: Liveness Check endpoint
-      description: For deployment available public `/liveness_check` endpoint verifies
-        the operational status of the Storage Service.
+      description: "For deployment available public `/liveness_check` endpoint verifies\
+        \ the operational status of the Storage Service. Returns HTTP 200 with an\
+        \ empty body (no Content-Type constraint), so probes with any Accept header\
+        \ succeed."
       operationId: livenessCheck
       parameters:
       - name: data-partition-id
         in: header
         description: Tenant Id
-        required: true
+        required: false
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
         "502":
           description: Bad Gateway
           content:
@@ -1533,6 +1665,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+      security: []
   /info:
     get:
       tags:
@@ -1545,9 +1678,10 @@ paths:
       - name: data-partition-id
         in: header
         description: Tenant Id
-        required: true
+        required: false
         schema:
           type: string
+          minLength: 1
       responses:
         "200":
           description: OK
@@ -1555,6 +1689,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VersionInfo"
+      security: []
   /records/{id}/versions:
     delete:
       tags:
@@ -1571,6 +1706,9 @@ paths:
         required: false
         schema:
           type: string
+          minLength: 1
+          pattern: "^id=[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12},application=[a-zA-Z0-9\
+            \ ]{1,128}$"
       - name: id
         in: path
         description: Record id
@@ -1578,7 +1716,7 @@ paths:
         schema:
           type: string
           pattern: "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.\\:\\%]+$"
-        example: tenant1:well:123456789
+        example: osdu:well:123456789
       - name: versionIds
         in: query
         description: comma separated version Ids
@@ -1608,9 +1746,16 @@ paths:
         required: true
         schema:
           type: string
+          minLength: 1
       responses:
         "204":
           description: Record versions purged successfully.
+        "400":
+          description: Bad Request (e.g. record id does not belong to the data partition).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "401":
           description: Unauthorized
           content:
@@ -1664,6 +1809,7 @@ components:
             example: data.default.viewers@opendes.contoso.com
             pattern: "^data\\.[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\\
               .)+[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$"
+          minItems: 1
         owners:
           type: array
           description: List of valid groups which will have write privileges over
@@ -1673,6 +1819,7 @@ components:
             example: data.default.owners@opendes.contoso.com
             pattern: "^data\\.[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\\
               .)+[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$"
+          minItems: 1
       required:
       - owners
       - viewers
@@ -1859,15 +2006,21 @@ components:
           example: "1728332172782"
     ReplayFilter:
       type: object
-      description: Filter for restricting replay operations to specific record kinds.
+      description: "Filter for restricting replay operations to specific record kinds.\
+        \ Required when present: omit the entire filter (or null) for replay-all;\
+        \ do not send an empty object (kinds is required)."
       properties:
         kinds:
           type: array
           description: List of kinds to replay. Currently restricted to a single kind.
+            Required when filter is provided.
           items:
             type: string
+            minLength: 1
           maxItems: 1
           minItems: 1
+      required:
+      - kinds
     ReplayRequest:
       type: object
       description: Request object for triggering a replay operation.
@@ -1884,7 +2037,9 @@ components:
           minLength: 1
         filter:
           $ref: "#/components/schemas/ReplayFilter"
-          description: Optional filter to restrict the replay to specific kinds.
+          description: "Optional filter to restrict the replay to specific kinds.\
+            \ Omit or null for replay-all. If present, kinds is required (empty filter\
+            \ object returns 400)."
       required:
       - operation
     ReplayResponse:
@@ -1919,10 +2074,10 @@ components:
                   lineNumber:
                     type: integer
                     format: int32
-                  nativeMethod:
-                    type: boolean
                   className:
                     type: string
+                  nativeMethod:
+                    type: boolean
             message:
               type: string
             suppressed:
@@ -1948,10 +2103,10 @@ components:
                         lineNumber:
                           type: integer
                           format: int32
-                        nativeMethod:
-                          type: boolean
                         className:
                           type: string
+                        nativeMethod:
+                          type: boolean
                   message:
                     type: string
                   localizedMessage:
@@ -1976,10 +2131,10 @@ components:
               lineNumber:
                 type: integer
                 format: int32
-              nativeMethod:
-                type: boolean
               className:
                 type: string
+              nativeMethod:
+                type: boolean
         notDeletedRecords:
           type: array
           items:
@@ -2009,10 +2164,10 @@ components:
                     lineNumber:
                       type: integer
                       format: int32
-                    nativeMethod:
-                      type: boolean
                     className:
                       type: string
+                    nativeMethod:
+                      type: boolean
               message:
                 type: string
               localizedMessage:
@@ -2022,13 +2177,13 @@ components:
     PairStringString:
       type: object
       properties:
-        left:
-          type: string
-        value:
-          type: string
         key:
           type: string
+        left:
+          type: string
         right:
+          type: string
+        value:
           type: string
     MultiRecordIds:
       type: object
@@ -2038,8 +2193,9 @@ components:
           type: array
           items:
             type: string
+            minLength: 1
           maxItems: 100
-          minItems: 0
+          minItems: 1
         attributes:
           type: array
           items:
@@ -2069,6 +2225,7 @@ components:
           type: array
           items:
             type: string
+            minLength: 1
           maxItems: 20
           minItems: 1
       required:
@@ -2290,6 +2447,8 @@ components:
             \ convention {Data-Partition-Id}:{dataset-name}:{record-type}:{version}."
           items:
             type: string
+            minLength: 1
+          minItems: 1
       required:
       - ids
     PatchRecordsResponse:
@@ -2437,6 +2596,21 @@ components:
           description: Per-kind status breakdown of the replay operation.
           items:
             $ref: "#/components/schemas/ReplayStatus"
+    RecordInfoQueryResult:
+      type: object
+      description: Paginated query result containing a cursor and a list of results.
+      properties:
+        cursor:
+          type:
+          - string
+          - "null"
+          description: Cursor for fetching the next page of results. Null when there
+            are no more results.
+        results:
+          type: array
+          description: List of results for the current page.
+          items:
+            type: object
     RecordVersions:
       type: object
       properties:
