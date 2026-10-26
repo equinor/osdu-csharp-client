@@ -37,6 +37,13 @@ paths:
       description: "This API Revokes the Signed URLs based on the given request parameters.\
         \ For example: for the given storage account. <p> **Required roles**: `service.file.admin`.</p>"
       operationId: revokeURL
+      parameters:
+      - name: data-partition-id
+        in: header
+        description: Tenant Id
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -172,20 +179,22 @@ paths:
       summary: Readiness Check endpoint
       description: For deployment available public `/readiness_check` endpoint.
       operationId: readinessCheck
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: OK
+        "502":
+          description: Bad Gateway
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/AppError"
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+      security: []
   /v2/liveness_check:
     get:
       tags:
@@ -193,20 +202,22 @@ paths:
       summary: Liveness Check endpoint
       description: For deployment available public `/liveness_check` endpoint.
       operationId: livenessCheck
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: OK
+        "502":
+          description: Bad Gateway
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/AppError"
+        "503":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+      security: []
   /v2/info:
     get:
       tags:
@@ -215,13 +226,6 @@ paths:
       description: "For deployment available public `/info` endpoint, which provides\
         \ build and git related information."
       operationId: info
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: Version info.
@@ -229,6 +233,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VersionInfo"
+      security: []
   /v2/files/{id}/metadata:
     get:
       tags:
@@ -574,6 +579,7 @@ components:
             example: data.default.viewers@opendes.contoso.com
             pattern: "^data\\.[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\\
               .)+[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$"
+          minItems: 1
         owners:
           type: array
           description: List of valid groups which will have write privileges over
@@ -583,6 +589,7 @@ components:
             example: data.default.owners@opendes.contoso.com
             pattern: "^data\\.[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\\
               .)+[a-zA-Z](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$"
+          minItems: 1
       required:
       - owners
       - viewers
