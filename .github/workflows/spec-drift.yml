@@ -77,7 +77,9 @@ jobs:
 
       # --refresh leaves the manifest untouched when nothing moved, so a quiet
       # week produces no diff and no pull request.
+      # An explicit shell turns on pipefail, so tee cannot hide a failed refresh.
       - name: Refresh
+        shell: bash
         run: python verify_spec_sources.py --refresh | tee spec-drift-report.txt
 
       - name: Open a pull request if anything moved
@@ -90,13 +92,19 @@ jobs:
           fi
           echo "Specs refreshed from upstream:"
           git diff --stat
-          BRANCH="chore/refresh-openapi-specs-${GITHUB_RUN_ID}"
+          # One fixed branch: a later run updates the open PR instead of adding another.
+          BRANCH="chore/refresh-openapi-specs"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "${BRANCH}"
+          git checkout -B "${BRANCH}"
           git add openapi_specs/ spec_sources.yaml
           git commit -m "chore: refresh OpenAPI specs from upstream"
-          git push origin "${BRANCH}"
+          git push --force origin "${BRANCH}"
+          OPEN_PR="$(gh pr list --head "${BRANCH}" --state open --json number --jq '.[].number')"
+          if [ -n "${OPEN_PR}" ]; then
+            echo "Updated the open pull request #${OPEN_PR}."
+            exit 0
+          fi
           gh pr create \
             --base main \
             --head "${BRANCH}" \
