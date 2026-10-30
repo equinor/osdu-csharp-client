@@ -178,10 +178,19 @@ def refresh(manifest: dict[str, Any]) -> int:
     recorded one. This is the other half: bring the copies back in line, then
     re-record. The manifest is left untouched when nothing moved, so a
     scheduled run that finds no drift produces no diff at all.
+
+    Everything is downloaded before anything is written, so a failed fetch
+    cannot leave some specs refreshed and the manifest out of step with them.
     """
-    changed: list[str] = []
+    downloads: list[tuple[dict[str, Any], bytes]] = []
     for e in manifest.get("specs") or []:
-        upstream = fetch(e["url"])
+        try:
+            downloads.append((e, fetch(e["url"])))
+        except OSError as exc:
+            raise SystemExit(f"{e['spec']}: could not fetch {e['url']} ({exc})") from exc
+
+    changed: list[str] = []
+    for e, upstream in downloads:
         path = SPECS_DIR / e["spec"]
         if path.read_bytes() == upstream:
             continue
