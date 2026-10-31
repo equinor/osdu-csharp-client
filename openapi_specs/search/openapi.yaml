@@ -190,15 +190,12 @@ paths:
       tags:
       - health-check-api
       summary: Readiness Check endpoint
-      description: For deployment available public `/readiness_check` endpoint.
+      description: Public `/readiness_check` endpoint. Returns HTTP 200 with an empty
+        body and no Content-Type constraint.
       operationId: readinessCheck
       responses:
         "200":
           description: OK
-          content:
-            text/plain:
-              schema:
-                type: string
         "502":
           description: Bad Gateway
           content:
@@ -217,15 +214,12 @@ paths:
       tags:
       - health-check-api
       summary: Liveness Check endpoint
-      description: For deployment available public `/liveness_check` endpoint.
+      description: Public `/liveness_check` endpoint. Returns HTTP 200 with an empty
+        body and no Content-Type constraint.
       operationId: livenessCheck
       responses:
         "200":
           description: OK
-          content:
-            text/plain:
-              schema:
-                type: string
         "502":
           description: Bad Gateway
           content:
@@ -260,9 +254,11 @@ paths:
       tags:
       - search-api
       summary: Closes a cursor-based pagination context.
-      description: "Releases server-side resources held by the cursor. \nRequired\
-        \ roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`\
-        \ or `users.datalake.ops`."
+      description: "Releases server-side resources held by a search-after pagination\
+        \ cursor and returns HTTP 204 with no body. When `search_after` is false and\
+        \ the search-after feature flag is off, this call is a no-op (scroll contexts\
+        \ are not closed). \nRequired roles: `users.datalake.viewers` or `users.datalake.editors`\
+        \ or `users.datalake.admins` or `users.datalake.ops`."
       operationId: closeCursor
       parameters:
       - name: cursor
@@ -271,11 +267,15 @@ paths:
         required: true
         schema:
           type: string
-          pattern: "^[A-Za-z0-9=_-]+$"
+          example: 098F6BCD4621D373CADE4E832627B4F6
+          maxLength: 32
+          minLength: 32
+          pattern: "^[0-9A-F]{32}$"
       - name: search_after
         in: query
-        description: "If true, close a search-after pagination context instead of\
-          \ a scroll context."
+        description: "If true, close a search-after pagination context. When false\
+          \ (the default) and the search-after feature flag is off, the request returns\
+          \ 204 and does nothing; scroll contexts are not closed."
         required: false
         schema:
           type: boolean
@@ -288,12 +288,9 @@ paths:
           type: string
           minLength: 1
       responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CursorQueryResponse"
+        "204":
+          description: "No Content — cursor closed, or no-op when search-after is\
+            \ not in use"
         "400":
           description: Invalid parameters were given on request
           content:
@@ -345,6 +342,13 @@ components:
       type: object
       description: Bounding box filter defined by top-left and bottom-right coordinate
         points.
+      example:
+        topLeft:
+          latitude: 45
+          longitude: -100
+        bottomRight:
+          latitude: 0
+          longitude: 0
       properties:
         topLeft:
           $ref: "#/components/schemas/Point"
@@ -355,6 +359,33 @@ components:
       required:
       - bottomRight
       - topLeft
+    ByBoundingBoxOnly:
+      type: object
+      description: Spatial filter using a bounding box.
+      example:
+        field: data.SpatialLocation.Wgs84Coordinates
+        byBoundingBox:
+          topLeft:
+            latitude: 45
+            longitude: -100
+          bottomRight:
+            latitude: 0
+            longitude: 0
+      properties:
+        field:
+          type: string
+          description: geo-point field in the index on which filtering will be performed.
+            Use GET schema API to find which fields supports spatial search.
+          example: data.SpatialLocation.Wgs84Coordinates
+          minLength: 1
+          pattern: .*\S.*
+        byBoundingBox:
+          $ref: "#/components/schemas/ByBoundingBox"
+          description: A query allowing to filter hits based on a point location within
+            a bounding box.
+      required:
+      - byBoundingBox
+      - field
     ByDistance:
       type: object
       description: Distance filter returning results within a given radius of a coordinate
@@ -374,18 +405,74 @@ components:
       required:
       - distance
       - point
+    ByDistanceOnly:
+      type: object
+      description: Spatial filter using distance from a point.
+      properties:
+        field:
+          type: string
+          description: geo-point field in the index on which filtering will be performed.
+            Use GET schema API to find which fields supports spatial search.
+          example: data.SpatialLocation.Wgs84Coordinates
+          minLength: 1
+          pattern: .*\S.*
+        byDistance:
+          $ref: "#/components/schemas/ByDistance"
+          description: Filters documents that include only hits that exist within
+            a specific distance from a geo point.
+      required:
+      - byDistance
+      - field
     ByGeoPolygon:
       type: object
       description: Polygon filter returning results within the given geographic polygon.
+      example:
+        points:
+        - latitude: 26.12362
+          longitude: -112.226716
+        - latitude: 26.595873
+          longitude: -68.457186
+        - latitude: 52.273184
+          longitude: -93.593904
       properties:
         points:
           type: array
-          description: Polygon defined by a set of points.
+          description: "Polygon defined by a set of points. Open ring: at least 3\
+            \ distinct points with first != last. Closed ring: at least 4 points with\
+            \ the first point repeated at the end."
           items:
             $ref: "#/components/schemas/Point"
-          minItems: 1
+          minItems: 3
       required:
       - points
+    ByGeoPolygonOnly:
+      type: object
+      description: Spatial filter using a geo polygon.
+      example:
+        field: data.SpatialLocation.Wgs84Coordinates
+        byGeoPolygon:
+          points:
+          - latitude: 26.12362
+            longitude: -112.226716
+          - latitude: 26.595873
+            longitude: -68.457186
+          - latitude: 52.273184
+            longitude: -93.593904
+      properties:
+        field:
+          type: string
+          description: geo-point field in the index on which filtering will be performed.
+            Use GET schema API to find which fields supports spatial search.
+          example: data.SpatialLocation.Wgs84Coordinates
+          minLength: 1
+          pattern: .*\S.*
+        byGeoPolygon:
+          $ref: "#/components/schemas/ByGeoPolygon"
+          description: A query allowing to filter hits that only fall within a polygon
+            of points.
+      required:
+      - byGeoPolygon
+      - field
     ByIntersection:
       type: object
       description: Intersection filter returning results whose geometry intersects
@@ -398,6 +485,23 @@ components:
             $ref: "#/components/schemas/Polygon"
       required:
       - polygons
+    ByIntersectionOnly:
+      type: object
+      description: Spatial filter using polygon intersection.
+      properties:
+        field:
+          type: string
+          description: geo-point field in the index on which filtering will be performed.
+            Use GET schema API to find which fields supports spatial search.
+          example: data.SpatialLocation.Wgs84Coordinates
+          minLength: 1
+          pattern: .*\S.*
+        byIntersection:
+          $ref: "#/components/schemas/ByIntersection"
+          description: A query allowing to filter documents by intersecting polygons
+      required:
+      - byIntersection
+      - field
     ByWithinPolygon:
       type: object
       description: Within-polygon filter returning results contained within the given
@@ -405,11 +509,31 @@ components:
       properties:
         points:
           type: array
-          description: Polygon defined by a set of points.
+          description: "Polygon defined by a set of points. Open ring: at least 3\
+            \ distinct points with first != last. Closed ring: at least 4 points with\
+            \ the first point repeated at the end."
           items:
             $ref: "#/components/schemas/Point"
       required:
       - points
+    ByWithinPolygonOnly:
+      type: object
+      description: Spatial filter using a within-polygon criterion.
+      properties:
+        field:
+          type: string
+          description: geo-point field in the index on which filtering will be performed.
+            Use GET schema API to find which fields supports spatial search.
+          example: data.SpatialLocation.Wgs84Coordinates
+          minLength: 1
+          pattern: .*\S.*
+        byWithinPolygon:
+          $ref: "#/components/schemas/ByWithinPolygon"
+          description: A query allowing to filter documents by checking if any points
+            are within polygon on document
+      required:
+      - byWithinPolygon
+      - field
     CursorQueryRequest:
       type: object
       description: Search query request using cursor-based pagination for retrieving
@@ -422,11 +546,13 @@ components:
             example: opendes:osdu:wellbore:1.0.0
             pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
           - type: array
+            description: A list of data kinds to search.
             items:
               type: string
               description: "A single data kind, formatted {authority}:{source}:{entityType}:{version}."
               example: opendes:osdu:wellbore:1.0.0
               pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
+            minItems: 1
           description: "The type(s) of data to search. Accepts a single kind string\
             \ or a list of kinds. Format: {Data-Partition-Id}:{source}:{type}:{version}.\
             \ Wildcards are supported per segment, e.g. 'opendes:*:*:*'."
@@ -438,6 +564,7 @@ components:
             \ items which can be fetched by the query is 1000. (If you wish to fetch\
             \ large set of items, please use query_with_cursor API)"
           example: 30
+          maximum: 2147483647
           minimum: 0
         query:
           type: string
@@ -486,12 +613,23 @@ components:
             \ than 10000."
           example: false
         spatialFilter:
-          $ref: "#/components/schemas/SpatialFilter"
           description: A spatial filter to apply.
+          oneOf:
+          - $ref: "#/components/schemas/ByBoundingBoxOnly"
+          - $ref: "#/components/schemas/ByDistanceOnly"
+          - $ref: "#/components/schemas/ByGeoPolygonOnly"
+          - $ref: "#/components/schemas/ByIntersectionOnly"
+          - $ref: "#/components/schemas/ByWithinPolygonOnly"
         cursor:
-          type: string
+          type:
+          - string
+          - "null"
           description: Search context to retrieve the next page of results. Null when
             there are no more results.
+          example: 098F6BCD4621D373CADE4E832627B4F6
+          maxLength: 32
+          minLength: 32
+          pattern: "^[0-9A-F]{32}$"
       required:
       - kind
     Point:
@@ -512,6 +650,9 @@ components:
           example: "-122.174762"
           maximum: 180
           minimum: -180
+      required:
+      - latitude
+      - longitude
     Polygon:
       type: object
       description: A polygon defined by an ordered list of geographic coordinate points.
@@ -529,71 +670,48 @@ components:
         field:
           type: array
           description: The list of fields to sort the results.
-          example:
-          - data.wellName
-          - id
           items:
             type: string
+            minLength: 1
+            pattern: .*\S.*
+          maxItems: 16
+          minItems: 1
         order:
           type: array
           description: The list of orders to sort the results. The element must be
             either ASC or DESC.
-          example:
-          - ASC
-          - DESC
           items:
             type: string
             description: Sort direction for search results.
             enum:
             - ASC
             - DESC
+          maxItems: 16
+          minItems: 1
         filter:
           type: array
           description: "Optional list of filter expressions applied per sort field,\
             \ controlling how missing or unmapped values are treated."
           items:
             type: string
-    SpatialFilter:
-      type: object
-      description: A spatial filter constraining search results by geographic location.
-        Exactly one of the filter types should be specified.
-      properties:
-        field:
-          type: string
-          description: geo-point field in the index on which filtering will be performed.
-            Use GET schema API to find which fields supports spatial search.
-          example: data.SpatialLocation.Wgs84Coordinates
-        byBoundingBox:
-          $ref: "#/components/schemas/ByBoundingBox"
-          description: A query allowing to filter hits based on a point location within
-            a bounding box.
-        byDistance:
-          $ref: "#/components/schemas/ByDistance"
-          description: Filters documents that include only hits that exist within
-            a specific distance from a geo point.
-        byGeoPolygon:
-          $ref: "#/components/schemas/ByGeoPolygon"
-          description: A query allowing to filter hits that only fall within a polygon
-            of points.
-        byIntersection:
-          $ref: "#/components/schemas/ByIntersection"
-          description: A query allowing to filter documents by intersecting polygons
-        byWithinPolygon:
-          $ref: "#/components/schemas/ByWithinPolygon"
-          description: A query allowing to filter documents by checking if any points
-            are within polygon on document
       required:
       - field
+      - order
     CursorQueryResponse:
       type: object
       description: Cursor-based search query response for retrieving large result
         sets incrementally.
       properties:
         cursor:
-          type: string
+          type:
+          - string
+          - "null"
           description: Search context to retrieve the next page of results. Null when
             there are no more results.
-          example: AoE=
+          example: 098F6BCD4621D373CADE4E832627B4F6
+          maxLength: 32
+          minLength: 32
+          pattern: "^[0-9A-F]{32}$"
         results:
           type: array
           description: "List of matched records, each represented as a map of field\
@@ -635,11 +753,13 @@ components:
             example: opendes:osdu:wellbore:1.0.0
             pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
           - type: array
+            description: A list of data kinds to search.
             items:
               type: string
               description: "A single data kind, formatted {authority}:{source}:{entityType}:{version}."
               example: opendes:osdu:wellbore:1.0.0
               pattern: "^[\\w.*-]+:[\\w.*-]+:[\\w.*-]+:[\\d.*]+$"
+            minItems: 1
           description: "The type(s) of data to search. Accepts a single kind string\
             \ or a list of kinds. Format: {Data-Partition-Id}:{source}:{type}:{version}.\
             \ Wildcards are supported per segment, e.g. 'opendes:*:*:*'."
@@ -651,6 +771,7 @@ components:
             \ items which can be fetched by the query is 1000. (If you wish to fetch\
             \ large set of items, please use query_with_cursor API)"
           example: 30
+          maximum: 2147483647
           minimum: 0
         query:
           type: string
@@ -699,8 +820,13 @@ components:
             \ than 10000."
           example: false
         spatialFilter:
-          $ref: "#/components/schemas/SpatialFilter"
           description: A spatial filter to apply.
+          oneOf:
+          - $ref: "#/components/schemas/ByBoundingBoxOnly"
+          - $ref: "#/components/schemas/ByDistanceOnly"
+          - $ref: "#/components/schemas/ByGeoPolygonOnly"
+          - $ref: "#/components/schemas/ByIntersectionOnly"
+          - $ref: "#/components/schemas/ByWithinPolygonOnly"
         aggregateBy:
           type: string
           description: The aggregateBy field returns the distinct values of the given
@@ -711,6 +837,7 @@ components:
           format: int32
           description: The starting offset from which to return results.
           example: 0
+          maximum: 2147483647
           minimum: 0
       required:
       - kind
