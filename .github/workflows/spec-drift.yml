@@ -26,9 +26,11 @@ on:
 
 permissions: {}
 
+# Refresh runs on any ref share one branch, so they queue on one group rather
+# than cancelling or overwriting each other. PR checks stay scoped to their ref.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || 'refresh' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   check:

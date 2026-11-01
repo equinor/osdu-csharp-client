@@ -134,14 +134,18 @@ def check_upstream(manifest: dict[str, Any]) -> list[str]:
     return problems
 
 
-def update(manifest: dict[str, Any]) -> int:
-    """Rewrite the manifest with freshly fetched hashes and states."""
+def update(manifest: dict[str, Any], downloaded: dict[str, bytes] | None = None) -> int:
+    """Rewrite the manifest with fresh hashes and states.
+
+    `downloaded` maps a spec to bytes already fetched; without it each URL is
+    fetched here.
+    """
     import datetime
 
     today = datetime.date.today().isoformat()
     entries = sorted(manifest.get("specs") or [], key=lambda e: e["service"].lower())
     for e in entries:
-        up = fetch(e["url"])
+        up = downloaded[e["spec"]] if downloaded is not None else fetch(e["url"])
         local = (SPECS_DIR / e["spec"]).read_bytes()
         e["upstream_sha256"] = sha256(up)
         e["local_sha256"] = sha256(local)
@@ -204,7 +208,7 @@ def refresh(manifest: dict[str, Any]) -> int:
     print(f"Refreshed {len(changed)} spec(s) from upstream: {', '.join(changed)}")
     print("Regenerate and run the tests before committing -- an upstream change")
     print("can add, remove or reshape operations on the generated client.")
-    return update(manifest)
+    return update(manifest, {e["spec"]: upstream for e, upstream in downloads})
 
 
 def main() -> int:
