@@ -1009,19 +1009,21 @@ components:
         countryOfOrigin:
           type: array
           description: List of ISO 3166-1 alpha-2 country codes where the data originated.
-          example:
-          - US
           items:
             type: string
+            example: US
+          minItems: 1
         contractId:
           type: string
           description: The contract id associated with this legal tag.
-          example: Unknown
+          example: A1234
         expirationDate:
           type: string
-          format: date-time
-          description: "The date when this legal tag expires. Format: yyyy-MM-dd."
-          example: 2099-12-31
+          format: date
+          description: "The date when this legal tag expires. Format: yyyy-MM-dd.\
+            \ Required for Second/Third Party Data (must be a real future date, not\
+            \ the system default)."
+          example: 2099-12-25
         originator:
           type: string
           description: The company or individual that created the data.
@@ -1048,6 +1050,15 @@ components:
         extensionProperties:
           type: object
           additionalProperties: true
+      required:
+      - contractId
+      - countryOfOrigin
+      - dataType
+      - expirationDate
+      - exportClassification
+      - originator
+      - personalData
+      - securityClassification
     AppError:
       type: object
       description: Standard error response returned by OSDU services.

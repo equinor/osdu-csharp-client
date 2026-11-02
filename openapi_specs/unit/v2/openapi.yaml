@@ -51,6 +51,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -70,48 +72,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -141,6 +176,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -154,48 +191,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -211,6 +272,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -230,48 +293,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -295,6 +391,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -314,48 +412,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -387,6 +518,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -406,48 +539,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -464,6 +630,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -483,48 +651,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -541,6 +742,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -560,48 +763,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -631,6 +867,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -644,48 +882,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -701,6 +963,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -720,48 +984,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -793,6 +1090,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -812,48 +1111,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -871,6 +1203,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -890,48 +1224,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -950,6 +1317,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -969,48 +1338,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1043,6 +1445,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1062,48 +1466,81 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1138,6 +1575,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1151,48 +1590,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1223,6 +1686,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response containing the list of UnitSystemInfo
@@ -1237,48 +1702,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1305,6 +1794,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1318,48 +1809,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1381,6 +1896,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1394,48 +1911,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1463,6 +2004,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1476,48 +2019,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1538,6 +2105,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1551,48 +2120,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1613,6 +2206,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1626,48 +2221,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1697,6 +2316,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1710,48 +2331,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1772,6 +2417,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1785,48 +2432,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -1857,6 +2528,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1870,51 +2543,118 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
+  /v2/info:
+    get:
+      tags:
+      - info-api-v3
+      summary: info
+      description: "For deployment available public `/info` endpoint, which provides\
+        \ build and git related information.."
+      operationId: info
+      responses:
+        "200":
+          description: Version info.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionInfo"
+        "400":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+      security: []
   /v2/conversion/scale/{namespaces}/{fromSymbol}/{toSymbol}:
     get:
       tags:
@@ -1945,6 +2685,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -1958,48 +2700,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -2033,6 +2799,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -2046,48 +2814,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -2105,6 +2897,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -2118,48 +2912,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -2190,6 +3008,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -2203,48 +3023,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -2260,6 +3104,8 @@ paths:
         in: header
         description: Tenant Id
         required: true
+        schema:
+          type: string
       responses:
         "200":
           description: A successful response
@@ -2273,48 +3119,72 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "403":
           description: User not authorized to perform the action.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "409":
           description: A LegalTag with the given name already exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "502":
           description: Bad Gateway
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "503":
           description: Service Unavailable
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
       deprecated: true
       security:
       - Authorization: []
@@ -2359,8 +3229,20 @@ components:
           type: string
         lastModified:
           type: string
+        code:
+          type: string
         description:
           type: string
+        baseMeasurement:
+          type: boolean
+        baseMeasurementEssenceJson:
+          type: string
+        dimensionCode:
+          type: string
+        essence:
+          $ref: "#/components/schemas/MeasurementEssence"
+        deprecationInfo:
+          $ref: "#/components/schemas/MeasurementDeprecationInfo"
         unitQuantityCode:
           type: string
         essenceJson:
@@ -2381,18 +3263,6 @@ components:
           type: string
         dimensionAnalysis:
           type: string
-        code:
-          type: string
-        dimensionCode:
-          type: string
-        essence:
-          $ref: "#/components/schemas/MeasurementEssence"
-        baseMeasurement:
-          type: boolean
-        baseMeasurementEssenceJson:
-          type: string
-        deprecationInfo:
-          $ref: "#/components/schemas/MeasurementDeprecationInfo"
         namespace:
           type: string
     MeasurementDeprecationInfo:
@@ -2431,14 +3301,14 @@ components:
           type: string
         description:
           type: string
-        essenceJson:
-          type: string
-        displaySymbol:
-          type: string
         essence:
           $ref: "#/components/schemas/UnitEssence"
         deprecationInfo:
           $ref: "#/components/schemas/UnitDeprecationInfo"
+        essenceJson:
+          type: string
+        displaySymbol:
+          type: string
         namespace:
           type: string
     UnitAssignment:
@@ -2455,9 +3325,9 @@ components:
       properties:
         state:
           type: string
-        supersededByUnit:
-          type: string
         remarks:
+          type: string
+        supersededByUnit:
           type: string
     UnitEssence:
       type: object
@@ -2484,7 +3354,11 @@ components:
           type: string
         source:
           type: string
+        ancestry:
+          type: string
         description:
+          type: string
+        persistableReference:
           type: string
         unitAssignmentCount:
           type: integer
@@ -2501,10 +3375,6 @@ components:
         unitAssignmentCountTotal:
           type: integer
           format: int32
-        ancestry:
-          type: string
-        persistableReference:
-          type: string
     AppError:
       type: object
       description: Standard error response returned by OSDU services.
@@ -2527,22 +3397,22 @@ components:
       description: Energistics standard parameterization y = (A+Bx)/(C+Dx)
       properties:
         a:
-          type: string
+          type: number
           format: double
           description: Coefficient A in the Energistics unit parameterization y =
             (A+Bx)/(C+Dx)
         b:
-          type: string
+          type: number
           format: double
           description: Coefficient B in the Energistics unit parameterization y =
             (A+Bx)/(C+Dx)
         c:
-          type: string
+          type: number
           format: double
           description: Coefficient C in the Energistics unit parameterization y =
             (A+Bx)/(C+Dx)
         d:
-          type: string
+          type: number
           format: double
           description: Coefficient D in the Energistics unit parameterization y =
             (A+Bx)/(C+Dx)
@@ -2551,11 +3421,11 @@ components:
       description: Unit in y = scale*(x-offset) parameterization
       properties:
         scale:
-          type: string
+          type: number
           format: double
           description: The offset in y = scale*(x-offset)
         offset:
-          type: string
+          type: number
           format: double
           description: The scale in y = scale*(x-offset)
     UnitEssenceImpl:
@@ -2593,7 +3463,6 @@ components:
       properties:
         baseMeasurementCode:
           type: string
-          writeOnly: true
         ancestry:
           type: string
           description: "The measurement ancestry, i.e. the parent codes separated\
@@ -2632,8 +3501,6 @@ components:
       properties:
         state:
           type: string
-        toMeasurement:
-          $ref: "#/components/schemas/Measurement"
         fromNamespace:
           type: string
         toNamespace:
@@ -2642,6 +3509,8 @@ components:
           $ref: "#/components/schemas/Measurement"
         note:
           type: string
+        toMeasurement:
+          $ref: "#/components/schemas/Measurement"
     QueryResult:
       type: object
       properties:
@@ -2769,14 +3638,91 @@ components:
           items:
             $ref: "#/components/schemas/UnitSystemInfo"
         totalCount:
-          type: string
+          type: integer
+          format: int32
           description: The total number of elements in the list defined in the catalog
         offset:
-          type: string
+          type: integer
+          format: int32
           description: The offset into the list as requested
         count:
           type: integer
           format: int32
+    ConnectedOuterService:
+      type: object
+      description: Name and version of an external service that this OSDU service
+        connects to.
+      properties:
+        name:
+          type: string
+          description: Name of the connected external service.
+          example: storage
+        version:
+          type: string
+          description: Version of the connected external service.
+          example: 2.0.0
+    FeatureFlagState:
+      type: object
+      description: State of a feature flag for a given partition and source.
+      properties:
+        name:
+          type: string
+          description: Name of the feature flag.
+          example: collaborations-api
+        enabled:
+          type: boolean
+          description: Whether the feature flag is currently enabled.
+          example: true
+        partition:
+          type: string
+          description: Data partition this flag applies to.
+          example: opendes
+        source:
+          type: string
+          description: Source configuration that provided this flag state.
+          example: runtime
+    VersionInfo:
+      type: object
+      description: Version and build information for an OSDU service.
+      properties:
+        groupId:
+          type: string
+          description: Maven group ID of the service artifact.
+          example: org.opengroup.osdu
+        artifactId:
+          type: string
+          description: Maven artifact ID of the service.
+          example: os-search
+        version:
+          type: string
+          description: Semantic version of the deployed service.
+          example: 0.27.0
+        buildTime:
+          type: string
+          description: ISO 8601 timestamp of the build.
+          example: 2021-01-26T02:24:13.843Z
+        branch:
+          type: string
+          description: Source control branch from which the service was built.
+          example: main
+        commitId:
+          type: string
+          description: Short commit SHA of the build.
+          example: "7777777"
+        commitMessage:
+          type: string
+          description: Commit message of the build.
+          example: initial commit
+        connectedOuterServices:
+          type: array
+          description: List of external services this service depends on.
+          items:
+            $ref: "#/components/schemas/ConnectedOuterService"
+        featureFlagStates:
+          type: array
+          description: "Current feature flag states for this partition, if any."
+          items:
+            $ref: "#/components/schemas/FeatureFlagState"
     Catalog:
       type: object
       properties:
@@ -2786,10 +3732,22 @@ components:
             $ref: "#/components/schemas/Unit"
         lastModified:
           type: string
-        unitSystemInfos:
+        measurements:
           type: array
           items:
-            $ref: "#/components/schemas/UnitSystemInfo"
+            $ref: "#/components/schemas/Measurement"
+        unitMaps:
+          type: array
+          items:
+            $ref: "#/components/schemas/UnitMap"
+        measurementMaps:
+          type: array
+          items:
+            $ref: "#/components/schemas/MeasurementMap"
+        mapStates:
+          type: array
+          items:
+            $ref: "#/components/schemas/MapState"
         totalUnitCount:
           type: integer
           format: int32
@@ -2808,22 +3766,10 @@ components:
         totalMapStateCount:
           type: integer
           format: int32
-        measurements:
+        unitSystemInfos:
           type: array
           items:
-            $ref: "#/components/schemas/Measurement"
-        unitMaps:
-          type: array
-          items:
-            $ref: "#/components/schemas/UnitMap"
-        measurementMaps:
-          type: array
-          items:
-            $ref: "#/components/schemas/MeasurementMap"
-        mapStates:
-          type: array
-          items:
-            $ref: "#/components/schemas/MapState"
+            $ref: "#/components/schemas/UnitSystemInfo"
     MeasurementMap:
       type: object
       properties:
@@ -2857,6 +3803,16 @@ components:
       properties:
         lastModified:
           type: string
+    ProblemDetail:
+      description: RFC 7807 problem detail returned when request parsing fails before
+        the service error body.
+      properties:
+        type: {}
+        title: {}
+        status:
+          format: int32
+        detail: {}
+        instance: {}
   securitySchemes:
     Authorization:
       type: http

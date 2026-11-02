@@ -79,6 +79,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "403":
+          description: User not authorized to perform the action.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "404":
           description: Not found.
           content:
@@ -232,6 +238,12 @@ paths:
                 $ref: "#/components/schemas/AppError"
         "404":
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
+        "409":
+          description: Conflict
           content:
             application/json:
               schema:
@@ -399,6 +411,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+        "409":
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppError"
         "500":
           description: Internal Server Error
           content:
@@ -490,7 +508,11 @@ paths:
       tags:
       - update-group-api
       summary: Update Group
-      description: Update Group
+      description: "Update a group (rename and/or appIds). The OpenAPI schema is stricter\
+        \ than runtime for positive contract generation: request body maxItems 2 and\
+        \ the /name path value maxItems 1 rule are documentation-only (extra /name\
+        \ values are ignored at runtime via the first element); op and path enums\
+        \ are case-sensitive in the spec but validated case-insensitively at runtime."
       operationId: updateGroup
       parameters:
       - name: group_email
@@ -512,6 +534,8 @@ paths:
               type: array
               items:
                 $ref: "#/components/schemas/UpdateGroupOperation"
+              maxItems: 2
+              minItems: 1
         required: true
       responses:
         "200":
@@ -580,10 +604,11 @@ paths:
           type: string
       - name: type
         in: query
-        description: "Type of the Group. Allowable Values = \"NONE,DATA,USER,SERVICE\""
+        description: Type of the Group. Documented as GroupType enum; runtime accepts
+          the same values case-insensitively.
         required: true
         schema:
-          type: string
+          $ref: "#/components/schemas/GroupType"
         example: NONE
       - name: appid
         in: query
@@ -662,13 +687,6 @@ paths:
       description: "For deployment available public `/info` endpoint, which provides\
         \ build and git related information."
       operationId: info
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: Version info.
@@ -676,6 +694,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VersionInfo"
+      security: []
   /groups/{group_email}/membersCount:
     get:
       tags:
@@ -760,22 +779,30 @@ paths:
       tags:
       - list-group-on-behalf-of-api
       summary: List All Partition Groups
-      description: List All Partition Groups
+      description: "List all groups in the data partition. The OpenAPI schema for\
+        \ type is stricter than runtime for positive contract generation: type is\
+        \ documented as GroupType (NONE/DATA/USER/SERVICE) but the service accepts\
+        \ those values case-insensitively. Cursor is a non-negative integer offset\
+        \ (^[0-9]*$); empty or omitted means 0; invalid or negative values return\
+        \ 400 Bad Request."
       operationId: listAllPartitionGroups
       parameters:
       - name: type
         in: query
-        description: "Type of the Group. Allowable Values = \"NONE,DATA,USER,SERVICE\""
+        description: Type of the Group. Documented as GroupType enum; runtime accepts
+          the same values case-insensitively.
         required: true
         schema:
-          type: string
+          $ref: "#/components/schemas/GroupType"
         example: NONE
       - name: cursor
         in: query
-        description: cursor
+        description: "Pagination cursor: non-negative integer offset, or empty for\
+          \ 0. Invalid values return 400."
         required: false
         schema:
           type: string
+          pattern: "^[0-9]*$"
       - name: limit
         in: query
         description: limit
@@ -850,20 +877,10 @@ paths:
       summary: Readiness Check endpoint
       description: For deployment available public `/readiness_check` endpoint.
       operationId: readinessCheck
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
+      security: []
   /_ah/liveness_check:
     get:
       tags:
@@ -871,20 +888,10 @@ paths:
       summary: Liveness Check endpoint
       description: For deployment available public `/liveness_check` endpoint.
       operationId: livenessCheck
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
+      security: []
   /members/{member_email}:
     delete:
       tags:
@@ -1097,6 +1104,7 @@ components:
           type: string
           description: Email Id of the member
           minLength: 1
+          pattern: "^[A-Za-z0-9+_.-]{1,256}@[A-Za-z0-9+_.-]{1,256}$"
         role:
           type: string
           description: Role of the member
@@ -1108,19 +1116,45 @@ components:
       - role
     UpdateGroupOperation:
       type: object
+      if:
+        properties:
+          path:
+            type: string
+            enum:
+            - /name
+        required:
+        - path
+      then:
+        properties:
+          value:
+            maxItems: 1
       description: Represents a model for the Update Group Operation
       properties:
         path:
           type: string
-          description: Update Group Path
+          description: "Update Group Path. Spec enum is case-sensitive; runtime accepts\
+            \ /name and /appIds case-insensitively. When path is /name, OpenAPI limits\
+            \ value to maxItems 1 (runtime uses the first element and ignores extras)."
+          enum:
+          - /name
+          - /appIds
         value:
           type: array
-          description: list of values to be updated
+          description: Values to apply. For path=/name only the first element is used
+            at runtime; OpenAPI documents maxItems 1 for that case.
           items:
             type: string
+          minItems: 1
         op:
           type: string
-          description: Update Group Operation
+          description: Update Group Operation. Spec enum is case-sensitive; runtime
+            accepts replace case-insensitively.
+          enum:
+          - replace
+      required:
+      - op
+      - path
+      - value
     UpdateGroupResponseDto:
       type: object
       description: Represents a model for the Update Group Response
@@ -1136,6 +1170,13 @@ components:
           description: List of AppId of the Updated Group
           items:
             type: string
+    GroupType:
+      type: string
+      enum:
+      - NONE
+      - DATA
+      - USER
+      - SERVICE
     ListGroupResponseDto:
       type: object
       description: Represents a model for List Group Response.
