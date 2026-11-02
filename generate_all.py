@@ -83,6 +83,15 @@ def _is_freeform_data_schema(schema: dict) -> bool:
     return additional_properties is True or isinstance(additional_properties, dict)
 
 
+# Per-spec properties whose ``oneOf`` lists object schemas with no ``discriminator``, to be
+# merged into one object schema of the given name. See :func:`merge_undiscriminated_oneofs`.
+UNDISCRIMINATED_ONEOFS: dict[str, dict[str, list[tuple[str, str]]]] = {
+    "search": {
+        "SpatialFilter": [("QueryRequest", "spatialFilter"), ("CursorQueryRequest", "spatialFilter")],
+    },
+}
+
+
 HTTP_METHODS = ("get", "put", "post", "delete", "patch", "head", "options")
 
 
@@ -167,6 +176,75 @@ def untype_string_json_properties(spec_data: dict) -> list[str]:
             definition.pop("type")
             patched.append(f"{name}.{prop}")
     return patched
+
+
+def merge_undiscriminated_oneofs(spec_data: dict, service_name: str) -> list[str]:
+    """Merge a ``oneOf`` of object schemas without a ``discriminator`` into one object.
+
+    Kiota can only tell the members of such a ``oneOf`` apart by a discriminator, so with
+    none it builds a wrapper whose deserialiser picks no member and whose serialiser then
+    writes the property name with no value. Search's ``spatialFilter`` became one in 3.0.0 —
+    ``ByBoundingBoxOnly``, ``ByDistanceOnly`` and three more, each ``field`` plus one filter
+    — and every request carrying it failed to serialise: ``'}' is invalid following a
+    property name``. Nothing reached the service.
+
+    The merged schema has every member's properties, ``required`` only where all members
+    agree, and keeps the members' meaning in its description: exactly one filter is meant to
+    be set. It is registered under the configured name and ``$ref``-ed in place of each
+    ``oneOf``, which restores the ``SpatialFilter`` model 2.x shipped.
+
+    Skipped with a warning if a target is no longer an undiscriminated ``oneOf`` of
+    ``$ref``-ed objects, or if two members define the same property differently: either means
+    upstream changed the shape, and the patch should be re-evaluated rather than guess.
+    """
+    targets = UNDISCRIMINATED_ONEOFS.get(service_name, {})
+    schemas = (spec_data.get("components") or {}).get("schemas") or {}
+    patched: list[str] = []
+    for merged_name, locations in targets.items():
+        for schema_name, prop in locations:
+            definition = ((schemas.get(schema_name) or {}).get("properties") or {}).get(prop)
+            members = (definition or {}).get("oneOf")
+            refs = [m.get("$ref", "") for m in members or [] if isinstance(m, dict)]
+            if (not members or definition.get("discriminator") or len(refs) != len(members)
+                    or not all(refs)):
+                print(f"  ! WARNING: {schema_name}.{prop} in {service_name} is no longer an "
+                      f"undiscriminated oneOf of $refs. Leaving it untouched.")
+                continue
+            resolved = [schemas.get(ref.rsplit("/", 1)[-1]) or {} for ref in refs]
+            if merged_name not in schemas:
+                merged = _merge_object_schemas(resolved)
+                if merged is None:
+                    print(f"  ! WARNING: the members of {schema_name}.{prop} in {service_name} "
+                          f"do not merge cleanly. Leaving it untouched.")
+                    continue
+                schemas[merged_name] = merged
+            replacement = {"$ref": f"#/components/schemas/{merged_name}"}
+            if definition.get("description"):
+                replacement["description"] = definition["description"]
+            schema_props = schemas[schema_name]["properties"]
+            schema_props[prop] = replacement
+            patched.append(f"{schema_name}.{prop} -> {merged_name}")
+    return patched
+
+
+def _merge_object_schemas(members: list[dict]) -> dict | None:
+    """One object schema holding every member's properties, or None if two disagree."""
+    properties: dict = {}
+    for member in members:
+        if member.get("type") != "object" or not isinstance(member.get("properties"), dict):
+            return None
+        for name, schema in member["properties"].items():
+            if name in properties and properties[name] != schema:
+                return None
+            properties[name] = schema
+    required = set.intersection(*(set(m.get("required") or []) for m in members))
+    alternatives = "; ".join(m.get("description", "").rstrip(".") for m in members if m.get("description"))
+    merged = {"type": "object", "properties": properties}
+    if required:
+        merged["required"] = sorted(required)
+    merged["description"] = ("Exactly one of the alternatives is set"
+                             + (f": {alternatives}." if alternatives else "."))
+    return merged
 
 
 def untype_freeform_record_data(spec_data: dict, service_name: str) -> list[str]:
@@ -311,6 +389,9 @@ def generate_all():
 
         for patched_property in untype_string_json_properties(spec_data):
             print(f"  - Untyping string-typed JSON property: {patched_property}")
+
+        for merged in merge_undiscriminated_oneofs(spec_data, service_name):
+            print(f"  - Merging undiscriminated oneOf: {merged}")
 
         needs_version_patch = "info" in spec_data and "version" not in spec_data["info"]
         if needs_version_patch:
