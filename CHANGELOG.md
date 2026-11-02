@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/equinor/osdu-csharp-client/compare/v2.2.3...v3.0.0) (2026-11-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* refresh OpenAPI specs from upstream ([#146](https://github.com/equinor/osdu-csharp-client/issues/146))
+
+### Features
+
+* refresh OpenAPI specs from upstream ([#146](https://github.com/equinor/osdu-csharp-client/issues/146)) ([d9e83c8](https://github.com/equinor/osdu-csharp-client/commit/d9e83c80bfd15e90a64d0b651cafb734b64d1318))
+
 ## [2.2.3](https://github.com/equinor/osdu-csharp-client/compare/v2.2.2...v2.2.3) (2026-11-01)
 
 
