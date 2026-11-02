@@ -522,7 +522,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            text/plain:
               schema:
                 type: string
         "502":
@@ -537,6 +537,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
+      security: []
   /info:
     get:
       tags:
@@ -552,6 +553,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VersionInfo"
+      security: []
 components:
   schemas:
     SchemaIdentity:
@@ -653,10 +655,9 @@ components:
           $ref: "#/components/schemas/SchemaInfo"
           description: Schema identity and metadata
         schema:
-          type: string
+          type: object
           description: The JSON Schema definition as a JSON object
           example:
-            $schema: http://json-schema.org/draft-07/schema#
             title: Wellbore
             type: object
       required:
