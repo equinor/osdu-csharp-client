@@ -219,8 +219,8 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/wellbore/wellbore-domain-services/-/raw/master/docs/api/community/v1/openapi.json
     state: identical
-    upstream_sha256: 825ba1229460662aa24cb4a101276269eb9b445f5269275ec71c0cb8c7b473df
-    local_sha256: 825ba1229460662aa24cb4a101276269eb9b445f5269275ec71c0cb8c7b473df
+    upstream_sha256: f039cfe19997d65b700df4d02b1979ed68a2cfba754fc93170fb77529f994d0e
+    local_sha256: f039cfe19997d65b700df4d02b1979ed68a2cfba754fc93170fb77529f994d0e
     verified: "2026-11-02"
 
   - service: Workflow
