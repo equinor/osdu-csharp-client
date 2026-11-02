@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/equinor/osdu-csharp-client/compare/v3.0.0...v3.0.1) (2026-11-02)
+
+
+### Bug Fixes
+
+* merge Search's spatialFilter oneOf so requests with a spatial filter serialise ([#148](https://github.com/equinor/osdu-csharp-client/issues/148)) ([f066397](https://github.com/equinor/osdu-csharp-client/commit/f06639742eec9ddb79c00f6ba10ee368c2c7da65))
+
 ## [3.0.0](https://github.com/equinor/osdu-csharp-client/compare/v2.2.3...v3.0.0) (2026-11-02)
 
 
