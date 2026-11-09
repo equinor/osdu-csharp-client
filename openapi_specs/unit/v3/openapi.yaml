@@ -3534,6 +3534,7 @@ components:
       properties:
         baseMeasurementCode:
           type: string
+          writeOnly: true
         ancestry:
           type: string
           description: "The measurement ancestry, i.e. the parent codes separated\
