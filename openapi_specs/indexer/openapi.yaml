@@ -469,8 +469,11 @@ components:
       properties:
         kind:
           type: string
+          minLength: 1
         cursor:
           type: string
+      required:
+      - kind
     ReindexRecordsRequest:
       type: object
       description: Request body for re-indexing specific records by their IDs.

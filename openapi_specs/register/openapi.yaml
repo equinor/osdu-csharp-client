@@ -1580,8 +1580,7 @@ components:
           example: wellbore
           minLength: 1
           pattern: "^[\\w\\.-]{2,50}"
-        schema:
-          type: object
+        schema: {}
       required:
       - entityType
       - schema

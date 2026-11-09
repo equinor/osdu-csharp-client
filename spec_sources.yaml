@@ -33,7 +33,7 @@
 # patch step (see docs/development.md).
 
 version: 1
-verified: "2026-11-02"
+verified: "2026-11-09"
 
 specs:
   - service: CRS_Catalog
@@ -43,9 +43,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/reference/crs-catalog-service/-/raw/master/docs/api/community/v3/openapi.yaml
     state: identical
-    upstream_sha256: e400f5875cf97545fdf8758827890eb67da551aa12924fdb051683c08244044b
-    local_sha256: e400f5875cf97545fdf8758827890eb67da551aa12924fdb051683c08244044b
-    verified: "2026-11-02"
+    upstream_sha256: f052df49fb056b06506d164d932c499cd099d58f2306eb0f7447d841221e001c
+    local_sha256: f052df49fb056b06506d164d932c499cd099d58f2306eb0f7447d841221e001c
+    verified: "2026-11-09"
 
   - service: CRS_Conversion
     spec: crs_conversion/openapi.yaml
@@ -56,7 +56,7 @@ specs:
     state: identical
     upstream_sha256: f7135b4e525f2e46c4696968d9f8c142aba699c2f5538bf51ff29892ead64f02
     local_sha256: f7135b4e525f2e46c4696968d9f8c142aba699c2f5538bf51ff29892ead64f02
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Dataset
     spec: dataset/openapi.yaml
@@ -65,9 +65,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/dataset/-/raw/master/docs/api/community/v1/openapi.yaml
     state: identical
-    upstream_sha256: 912170f65991f95c248cb442b59ce6b11b2c032fe6b8bdfd61c51e11aca74f3f
-    local_sha256: 912170f65991f95c248cb442b59ce6b11b2c032fe6b8bdfd61c51e11aca74f3f
-    verified: "2026-11-02"
+    upstream_sha256: d6599ee8736971630933517f2f50b11fc303a53b2d02a7dadc408943eefd695b
+    local_sha256: d6599ee8736971630933517f2f50b11fc303a53b2d02a7dadc408943eefd695b
+    verified: "2026-11-09"
 
   - service: Entitlements
     spec: entitlements/openapi.yaml
@@ -78,7 +78,7 @@ specs:
     state: identical
     upstream_sha256: 72a8cdd440866e3dd4df9f0abadb4125efec791371e9d64ef5fb8f630a8ec129
     local_sha256: 72a8cdd440866e3dd4df9f0abadb4125efec791371e9d64ef5fb8f630a8ec129
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: File
     spec: file/openapi.yaml
@@ -89,7 +89,7 @@ specs:
     state: identical
     upstream_sha256: bd5d9ae45b9073671ccf3ca0e23c0f3f0bf60beae359878e446df096870cb65a
     local_sha256: bd5d9ae45b9073671ccf3ca0e23c0f3f0bf60beae359878e446df096870cb65a
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Indexer
     spec: indexer/openapi.yaml
@@ -98,9 +98,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/indexer-service/-/raw/master/docs/api/community/v2/openapi.yaml
     state: identical
-    upstream_sha256: 5029832360e5478ee3c34ee35daea549d8b82bc522bcdf0f5c537eaa73e18b51
-    local_sha256: 5029832360e5478ee3c34ee35daea549d8b82bc522bcdf0f5c537eaa73e18b51
-    verified: "2026-11-02"
+    upstream_sha256: 169992a1911f89610e3c0e0598c3f560dc900e55742bef4736c619f0693abcb8
+    local_sha256: 169992a1911f89610e3c0e0598c3f560dc900e55742bef4736c619f0693abcb8
+    verified: "2026-11-09"
 
   - service: Legal
     spec: legal/openapi.yaml
@@ -111,7 +111,7 @@ specs:
     state: identical
     upstream_sha256: 360f58bcedd6cfdfa00df31cfc51c6da61df2eb899cd2fca15cbd5db95efdbdf
     local_sha256: 360f58bcedd6cfdfa00df31cfc51c6da61df2eb899cd2fca15cbd5db95efdbdf
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Notification
     spec: notification/openapi.yaml
@@ -122,7 +122,7 @@ specs:
     state: identical
     upstream_sha256: 02e1f24e07fcb11458926763bc0ecb583d56f7c74cfbd94f7f858324a853af52
     local_sha256: 02e1f24e07fcb11458926763bc0ecb583d56f7c74cfbd94f7f858324a853af52
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Partition
     spec: partition/openapi.yaml
@@ -131,9 +131,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/partition/-/raw/master/docs/api/community/v1/openapi.yaml
     state: identical
-    upstream_sha256: 02cb853267f5763841db45844a086c9f759c6ea463665a76275aa78ec0bedd3b
-    local_sha256: 02cb853267f5763841db45844a086c9f759c6ea463665a76275aa78ec0bedd3b
-    verified: "2026-11-02"
+    upstream_sha256: f75063b260a65c2d7ea5d61dedcd11bafc8c1e47b81c88db9419b7117249fcf8
+    local_sha256: f75063b260a65c2d7ea5d61dedcd11bafc8c1e47b81c88db9419b7117249fcf8
+    verified: "2026-11-09"
 
   - service: Policy
     spec: policy/openapi.json
@@ -144,7 +144,7 @@ specs:
     state: identical
     upstream_sha256: 0a49187b445a7a4fe9cf5798ec74ab2a454d4c0cc511e582095d1279a5b467dd
     local_sha256: 0a49187b445a7a4fe9cf5798ec74ab2a454d4c0cc511e582095d1279a5b467dd
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Register
     spec: register/openapi.yaml
@@ -153,9 +153,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/register/-/raw/master/docs/api/community/v1/openapi.yaml
     state: identical
-    upstream_sha256: 0aad665e8e0a66a345d3017dda583ac96cd22d4c0b47cb692c5b24ca46c59580
-    local_sha256: 0aad665e8e0a66a345d3017dda583ac96cd22d4c0b47cb692c5b24ca46c59580
-    verified: "2026-11-02"
+    upstream_sha256: 2791f8618aa156a22272b0ad9fc6fad1c392cea1e3a2f68f98e71ec0462b9734
+    local_sha256: 2791f8618aa156a22272b0ad9fc6fad1c392cea1e3a2f68f98e71ec0462b9734
+    verified: "2026-11-09"
 
   - service: Schema_Service
     spec: schema_service/openapi.yaml
@@ -166,7 +166,7 @@ specs:
     state: identical
     upstream_sha256: 2ec44ba7d30e3e98076c83df65975e4ef074b2c83dcfa63683091be9c1384b34
     local_sha256: 2ec44ba7d30e3e98076c83df65975e4ef074b2c83dcfa63683091be9c1384b34
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Search
     spec: search/openapi.yaml
@@ -177,7 +177,7 @@ specs:
     state: identical
     upstream_sha256: 361b5caa4103ba9fc9e8b1c4f059eb25f5e1986ffff2841cf14d6dc13cb758c8
     local_sha256: 361b5caa4103ba9fc9e8b1c4f059eb25f5e1986ffff2841cf14d6dc13cb758c8
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Storage
     spec: storage/openapi.yaml
@@ -188,7 +188,7 @@ specs:
     state: identical
     upstream_sha256: 0da25e83063b83ac1823abec9f254b86f4e4ba43cf2c368973cf7818e6e04e96
     local_sha256: 0da25e83063b83ac1823abec9f254b86f4e4ba43cf2c368973cf7818e6e04e96
-    verified: "2026-11-02"
+    verified: "2026-11-09"
 
   - service: Unit_v2
     spec: unit/v2/openapi.yaml
@@ -197,9 +197,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/reference/unit-service/-/raw/master/docs/api/community/v2/openapi.yaml
     state: identical
-    upstream_sha256: 3e3b510643b80c11d891ca8789eb8b9f4e130e1f1e5dc91e474bacb2b65f4ec8
-    local_sha256: 3e3b510643b80c11d891ca8789eb8b9f4e130e1f1e5dc91e474bacb2b65f4ec8
-    verified: "2026-11-02"
+    upstream_sha256: 4dfe065a6cdf388ced63cd35ca98a08daa1078533ea2eae80859011dd75c7f99
+    local_sha256: 4dfe065a6cdf388ced63cd35ca98a08daa1078533ea2eae80859011dd75c7f99
+    verified: "2026-11-09"
 
   - service: Unit_v3
     spec: unit/v3/openapi.yaml
@@ -208,9 +208,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/system/reference/unit-service/-/raw/master/docs/api/community/v3/openapi.yaml
     state: identical
-    upstream_sha256: 105fab0a9443f57e9d91c12681a0a6e2f30bc7f96037ef6bfc78a54db0dc7e75
-    local_sha256: 105fab0a9443f57e9d91c12681a0a6e2f30bc7f96037ef6bfc78a54db0dc7e75
-    verified: "2026-11-02"
+    upstream_sha256: 791b2f6955b74e485bc93bed4a0bed54c818c5d1a28f13ee70a6556bd42002b1
+    local_sha256: 791b2f6955b74e485bc93bed4a0bed54c818c5d1a28f13ee70a6556bd42002b1
+    verified: "2026-11-09"
 
   - service: Wellbore_ddms
     spec: wellbore_ddms/openapi.json
@@ -219,9 +219,9 @@ specs:
     ref: master
     url: https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/wellbore/wellbore-domain-services/-/raw/master/docs/api/community/v1/openapi.json
     state: identical
-    upstream_sha256: f039cfe19997d65b700df4d02b1979ed68a2cfba754fc93170fb77529f994d0e
-    local_sha256: f039cfe19997d65b700df4d02b1979ed68a2cfba754fc93170fb77529f994d0e
-    verified: "2026-11-02"
+    upstream_sha256: 4b124a923f0f0728185e9f3b166566c6210d31af0ba35d824dd7a608523c70a2
+    local_sha256: 4b124a923f0f0728185e9f3b166566c6210d31af0ba35d824dd7a608523c70a2
+    verified: "2026-11-09"
 
   - service: Workflow
     spec: workflow/openapi.yaml
@@ -232,4 +232,4 @@ specs:
     state: identical
     upstream_sha256: 75bc51063a395c1f9bc764822636f92767f6e10ac17b69354163bf8267c14c57
     local_sha256: 75bc51063a395c1f9bc764822636f92767f6e10ac17b69354163bf8267c14c57
-    verified: "2026-11-02"
+    verified: "2026-11-09"
