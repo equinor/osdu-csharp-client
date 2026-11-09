@@ -971,8 +971,7 @@ components:
           type: string
         retrievalProperties:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
         providerKey:
           type: string
     RetrievalInstructionsResponse:
