@@ -675,8 +675,7 @@ components:
           pattern: "^[0-9a-fA-F]32}$"
         ExtensionProperties:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
           description: File DMS Extension Properties
       required:
       - DatasetProperties
@@ -704,8 +703,7 @@ components:
           type: array
           items:
             type: object
-            additionalProperties:
-              type: object
+            additionalProperties: {}
         tags:
           type: object
           additionalProperties:
@@ -907,8 +905,7 @@ components:
           type: array
           items:
             type: object
-            additionalProperties:
-              type: object
+            additionalProperties: {}
         tags:
           type: object
           additionalProperties:

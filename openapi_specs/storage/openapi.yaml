@@ -1338,14 +1338,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
-        "415":
-          description: Unsupported Media Type
+        "409":
+          description: Record is legally withheld and cannot be undeleted.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AppError"
-        "409":
-          description: Record is legally withheld and cannot be undeleted.
+        "415":
+          description: Unsupported Media Type
           content:
             application/json:
               schema:
@@ -2510,8 +2510,7 @@ components:
           description: Legal information for the record
         data:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
           description: Record data
         tags:
           type: object
@@ -2609,8 +2608,7 @@ components:
         results:
           type: array
           description: List of results for the current page.
-          items:
-            type: object
+          items: {}
     RecordVersions:
       type: object
       properties:
