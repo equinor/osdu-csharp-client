@@ -2,7 +2,10 @@ openapi: 3.1.0
 info:
   title: Legal Service
   description: "Legal Service provides APIs to help with legal data governance in\
-    \ the Data Lake. See [Legal Service Documentation](https://osdu.pages.opengroup.org/platform/security-and-compliance/legal)."
+    \ the Data Lake. JSON request bodies must match schema types: numbers, booleans,\
+    \ objects and arrays are not coerced to strings (for example `\"contractId\":\
+    \ 12345` returns 400; use `\"12345\"`), and strings or floats are not coerced\
+    \ to integers (for example `\"limit\": 2.5` returns 400). See [Legal Service Documentation](https://osdu.pages.opengroup.org/platform/security-and-compliance/legal)."
   contact:
     name: OSDU Data Platform Team
     email: dps@OSDU.org
@@ -193,7 +196,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LegalTagDto"
+              $ref: "#/components/schemas/CreateLegalTag"
         required: true
       responses:
         "201":
@@ -548,8 +551,9 @@ paths:
       tags:
       - legaltag
       summary: Gets a LegalTag for the given `name`.
-      description: This allows for the retrieval of your LegalTag using the `name`
-        associated with it.
+      description: "This allows for the retrieval of your LegalTag using the `name`\
+        \ associated with it. A missing tag returns HTTP 404 with the standard AppError\
+        \ body (`code`, `reason`, `message`), not `{\"error\":\"Not found.\"}`."
       operationId: getLegalTag
       parameters:
       - name: name
@@ -558,6 +562,9 @@ paths:
         required: true
         schema:
           type: string
+          maxLength: 100
+          minLength: 3
+          pattern: "^[-A-Za-z0-9]{3,100}$"
         example: OSDU-Private-USA-EHC
       - name: data-partition-id
         in: header
@@ -630,6 +637,9 @@ paths:
         required: true
         schema:
           type: string
+          maxLength: 100
+          minLength: 3
+          pattern: "^[-A-Za-z0-9]{3,100}$"
         example: OSDU-Private-USA-EHC
       - name: data-partition-id
         in: header
@@ -640,80 +650,6 @@ paths:
       responses:
         "204":
           description: LegalTag deleted successfully.
-          content:
-            application/json:
-              schema:
-                type: string
-                enum:
-                - 100 CONTINUE
-                - 101 SWITCHING_PROTOCOLS
-                - 102 PROCESSING
-                - 103 EARLY_HINTS
-                - 103 CHECKPOINT
-                - 200 OK
-                - 201 CREATED
-                - 202 ACCEPTED
-                - 203 NON_AUTHORITATIVE_INFORMATION
-                - 204 NO_CONTENT
-                - 205 RESET_CONTENT
-                - 206 PARTIAL_CONTENT
-                - 207 MULTI_STATUS
-                - 208 ALREADY_REPORTED
-                - 226 IM_USED
-                - 300 MULTIPLE_CHOICES
-                - 301 MOVED_PERMANENTLY
-                - 302 FOUND
-                - 302 MOVED_TEMPORARILY
-                - 303 SEE_OTHER
-                - 304 NOT_MODIFIED
-                - 305 USE_PROXY
-                - 307 TEMPORARY_REDIRECT
-                - 308 PERMANENT_REDIRECT
-                - 400 BAD_REQUEST
-                - 401 UNAUTHORIZED
-                - 402 PAYMENT_REQUIRED
-                - 403 FORBIDDEN
-                - 404 NOT_FOUND
-                - 405 METHOD_NOT_ALLOWED
-                - 406 NOT_ACCEPTABLE
-                - 407 PROXY_AUTHENTICATION_REQUIRED
-                - 408 REQUEST_TIMEOUT
-                - 409 CONFLICT
-                - 410 GONE
-                - 411 LENGTH_REQUIRED
-                - 412 PRECONDITION_FAILED
-                - 413 PAYLOAD_TOO_LARGE
-                - 413 REQUEST_ENTITY_TOO_LARGE
-                - 414 URI_TOO_LONG
-                - 414 REQUEST_URI_TOO_LONG
-                - 415 UNSUPPORTED_MEDIA_TYPE
-                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
-                - 417 EXPECTATION_FAILED
-                - 418 I_AM_A_TEAPOT
-                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-                - 420 METHOD_FAILURE
-                - 421 DESTINATION_LOCKED
-                - 422 UNPROCESSABLE_ENTITY
-                - 423 LOCKED
-                - 424 FAILED_DEPENDENCY
-                - 425 TOO_EARLY
-                - 426 UPGRADE_REQUIRED
-                - 428 PRECONDITION_REQUIRED
-                - 429 TOO_MANY_REQUESTS
-                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
-                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
-                - 500 INTERNAL_SERVER_ERROR
-                - 501 NOT_IMPLEMENTED
-                - 502 BAD_GATEWAY
-                - 503 SERVICE_UNAVAILABLE
-                - 504 GATEWAY_TIMEOUT
-                - 505 HTTP_VERSION_NOT_SUPPORTED
-                - 506 VARIANT_ALSO_NEGOTIATES
-                - 507 INSUFFICIENT_STORAGE
-                - 508 LOOP_DETECTED
-                - 509 BANDWIDTH_LIMIT_EXCEEDED
-                - 510 NOT_EXTENDED
-                - 511 NETWORK_AUTHENTICATION_REQUIRED
         "400":
           description: Bad Request
           content:
@@ -773,82 +709,8 @@ paths:
         schema:
           type: string
       responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                enum:
-                - 100 CONTINUE
-                - 101 SWITCHING_PROTOCOLS
-                - 102 PROCESSING
-                - 103 EARLY_HINTS
-                - 103 CHECKPOINT
-                - 200 OK
-                - 201 CREATED
-                - 202 ACCEPTED
-                - 203 NON_AUTHORITATIVE_INFORMATION
-                - 204 NO_CONTENT
-                - 205 RESET_CONTENT
-                - 206 PARTIAL_CONTENT
-                - 207 MULTI_STATUS
-                - 208 ALREADY_REPORTED
-                - 226 IM_USED
-                - 300 MULTIPLE_CHOICES
-                - 301 MOVED_PERMANENTLY
-                - 302 FOUND
-                - 302 MOVED_TEMPORARILY
-                - 303 SEE_OTHER
-                - 304 NOT_MODIFIED
-                - 305 USE_PROXY
-                - 307 TEMPORARY_REDIRECT
-                - 308 PERMANENT_REDIRECT
-                - 400 BAD_REQUEST
-                - 401 UNAUTHORIZED
-                - 402 PAYMENT_REQUIRED
-                - 403 FORBIDDEN
-                - 404 NOT_FOUND
-                - 405 METHOD_NOT_ALLOWED
-                - 406 NOT_ACCEPTABLE
-                - 407 PROXY_AUTHENTICATION_REQUIRED
-                - 408 REQUEST_TIMEOUT
-                - 409 CONFLICT
-                - 410 GONE
-                - 411 LENGTH_REQUIRED
-                - 412 PRECONDITION_FAILED
-                - 413 PAYLOAD_TOO_LARGE
-                - 413 REQUEST_ENTITY_TOO_LARGE
-                - 414 URI_TOO_LONG
-                - 414 REQUEST_URI_TOO_LONG
-                - 415 UNSUPPORTED_MEDIA_TYPE
-                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
-                - 417 EXPECTATION_FAILED
-                - 418 I_AM_A_TEAPOT
-                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-                - 420 METHOD_FAILURE
-                - 421 DESTINATION_LOCKED
-                - 422 UNPROCESSABLE_ENTITY
-                - 423 LOCKED
-                - 424 FAILED_DEPENDENCY
-                - 425 TOO_EARLY
-                - 426 UPGRADE_REQUIRED
-                - 428 PRECONDITION_REQUIRED
-                - 429 TOO_MANY_REQUESTS
-                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
-                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
-                - 500 INTERNAL_SERVER_ERROR
-                - 501 NOT_IMPLEMENTED
-                - 502 BAD_GATEWAY
-                - 503 SERVICE_UNAVAILABLE
-                - 504 GATEWAY_TIMEOUT
-                - 505 HTTP_VERSION_NOT_SUPPORTED
-                - 506 VARIANT_ALSO_NEGOTIATES
-                - 507 INSUFFICIENT_STORAGE
-                - 508 LOOP_DETECTED
-                - 509 BANDWIDTH_LIMIT_EXCEEDED
-                - 510 NOT_EXTENDED
-                - 511 NETWORK_AUTHENTICATION_REQUIRED
+        "204":
+          description: LegalTag status job completed successfully.
         "400":
           description: Bad Request
           content:
@@ -901,13 +763,6 @@ paths:
       description: "For deployment available public `/info` endpoint, which provides\
         \ build and git related information."
       operationId: info
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: Version info.
@@ -915,94 +770,95 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VersionInfo"
+      security: []
   /_ah/readiness_check:
     get:
       tags:
       - health
       summary: Readiness Check endpoint
-      description: "For deployment available public `/readiness_check` endpoint, which\
-        \ provides `Legal service is ready` message."
+      description: Public readiness probe. Returns HTTP 200 with an empty body. Does
+        not return a text message.
       operationId: readinessCheck
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
-          description: Legal service is ready
-          content:
-            application/json:
-              schema:
-                type: string
+          description: OK
+      security: []
   /_ah/liveness_check:
     get:
       tags:
       - health
       summary: Liveness Check endpoint
-      description: "For deployment available public `/liveness_check` endpoint, which\
-        \ provides `Legal service is alive` message."
+      description: Public liveness probe. Returns HTTP 200 with an empty body. Does
+        not return a text message.
       operationId: livenessCheck
-      parameters:
-      - name: data-partition-id
-        in: header
-        description: Tenant Id
-        required: true
-        schema:
-          type: string
       responses:
         "200":
-          description: Legal service is alive
-          content:
-            application/json:
-              schema:
-                type: string
+          description: OK
+      security: []
 components:
   schemas:
     UpdateLegalTag:
       type: object
+      additionalProperties: false
       description: The model to update an existing LegalTag
       properties:
         name:
           type: string
           description: The name of the LegalTag
           example: OSDU-Private-EHCData
+          maxLength: 100
+          minLength: 3
+          pattern: "^[-A-Za-z0-9]{3,100}$"
         contractId:
           type: string
-          description: The Id of the physical contract associated with the data being
-            ingested.
-          example: No Contract Related
+          description: "The Id of the physical contract associated with the data being\
+            \ ingested. Allows 'Unknown', 'No Contract Related', or a real contract\
+            \ id. Optional: omit to keep the existing value."
+          example: A1234
+          maxLength: 40
+          minLength: 3
+          pattern: "^(Unknown|No Contract Related|[-.A-Za-z0-9]{3,40})$"
         description:
           type: string
-          description: The optional description if the LegalTag to allow for easier
-            discoverability of Legaltags overtime.
+          description: Optional description for discoverability. Omit to keep the
+            existing value.
         expirationDate:
-          type: string
-          format: date-time
-          description: The optional expiration date of the contract in the format
-            YYYY-MM-DD
-          example: 2025-12-25
+          type:
+          - string
+          - "null"
+          format: date
+          description: Optional expiration date in the format YYYY-MM-DD. Must be
+            a future date when provided. Omit or send null to keep the existing
+            value. A stored date cannot be cleared.
+          example: 2099-12-25
         extensionProperties:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: true
           description: The optional object field to attach any company specific attributes.
+            Omit to keep the existing value.
+      required:
+      - name
     LegalTagDto:
       type: object
+      additionalProperties: false
       description: Represents a single LegalTag
       properties:
         name:
           type: string
           description: The name of the LegalTag
           example: OSDU-Private-EHCData
+          maxLength: 100
+          minLength: 3
+          pattern: "^[-A-Za-z0-9]{3,100}$"
         description:
           type: string
           description: The description of the LegalTag
         properties:
           $ref: "#/components/schemas/Properties"
           description: LegalTag properties
+      required:
+      - name
+      - properties
     Properties:
       type: object
       properties:
@@ -1076,8 +932,29 @@ components:
           type: string
           description: Detailed error message.
           example: Invalid record format.
+    CreateLegalTag:
+      type: object
+      additionalProperties: false
+      description: Request body for creating a LegalTag
+      properties:
+        name:
+          type: string
+          description: The name of the LegalTag
+          example: OSDU-Private-EHCData
+          maxLength: 95
+          minLength: 3
+          pattern: "^[-A-Za-z0-9]{3,95}$"
+        description:
+          type: string
+          description: The description of the LegalTag
+        properties:
+          $ref: "#/components/schemas/CreateLegalTagProperties"
+      required:
+      - name
+      - properties
     RequestLegalTags:
       type: object
+      additionalProperties: false
       description: The model to retrieve multiple LegalTags in batch.
       properties:
         names:
@@ -1085,6 +962,10 @@ components:
           description: The name of all the LegalTags to retrieve.
           items:
             type: string
+            example: OSDU-Private-USA-EHC
+            maxLength: 100
+            minLength: 3
+            pattern: "^[-A-Za-z0-9]{3,100}$"
           maxItems: 25
           minItems: 1
       required:
@@ -1110,6 +991,7 @@ components:
             $ref: "#/components/schemas/InvalidTagWithReason"
     QueryLegalTag:
       type: object
+      additionalProperties: false
       description: Represents the Search Query objects for Legaltags.
       properties:
         queryList:
@@ -1117,12 +999,18 @@ components:
           description: Filter condition query
           items:
             type: string
+            minLength: 1
         operatorList:
           type: array
-          description: If there are multiple conditions need to be joined in by logical
-            operators
+          description: "Logical operators for joining queryList conditions. Only the\
+            \ first element is used. It is matched case-insensitively as a substring\
+            \ against 'union', 'intersection', or 'add' (same as runtime). When omitted\
+            \ or empty, union is assumed."
           items:
             type: string
+            description: "First list element only. Case-insensitive substring match\
+              \ for union, intersection, add."
+            example: union
         sortBy:
           type: string
           description: The field to sort results by
@@ -1132,7 +1020,10 @@ components:
         limit:
           type: integer
           format: int32
-          description: The maximum number of LegalTags to return
+          description: The maximum number of LegalTags to return. Must be a JSON number
+            (not a string).
+          maximum: 2147483647
+          minimum: 0
       required:
       - queryList
     LegalTagDtos:
@@ -1259,6 +1150,147 @@ components:
           description: "Current feature flag states for this partition, if any."
           items:
             $ref: "#/components/schemas/FeatureFlagState"
+    CreateLegalTagProperties:
+      additionalProperties: false
+      properties:
+        countryOfOrigin:
+          type: array
+          description: List of ISO 3166-1 alpha-2 country codes where the data originated.
+          example:
+          - US
+          items:
+            type: string
+            enum:
+            - AR
+            - AU
+            - BB
+            - BE
+            - BH
+            - BJ
+            - BN
+            - BO
+            - BZ
+            - CA
+            - CH
+            - CL
+            - CO
+            - CY
+            - CZ
+            - DK
+            - DO
+            - EC
+            - ES
+            - ET
+            - FR
+            - GB
+            - GE
+            - GL
+            - GT
+            - GY
+            - HU
+            - IT
+            - JP
+            - KR
+            - LB
+            - LK
+            - LR
+            - LT
+            - MA
+            - MG
+            - MM
+            - MR
+            - NA
+            - NL
+            - "NO"
+            - NZ
+            - PG
+            - PH
+            - PL
+            - PY
+            - SG
+            - SN
+            - SR
+            - TG
+            - TH
+            - TM
+            - TN
+            - TT
+            - TW
+            - UA
+            - UG
+            - US
+            - UZ
+            example: US
+          minItems: 1
+        contractId:
+          type: string
+          description: The contract id associated with this legal tag.
+          example: A1234
+          maxLength: 40
+          minLength: 3
+          pattern: "^(Unknown|No Contract Related|[-.A-Za-z0-9]{3,40})$"
+        expirationDate:
+          type: string
+          format: date
+          description: "The date when this legal tag expires. Format: yyyy-MM-dd.\
+            \ Required for Second/Third Party Data (must be a real future date, not\
+            \ the system default)."
+          example: 2099-12-25
+        originator:
+          type: string
+          description: The company or individual that created the data.
+          example: Equinor
+          maxLength: 60
+          minLength: 3
+          pattern: "^[A-Za-z0-9.-]([-. A-Za-z0-9]*[A-Za-z0-9.-])?$"
+        dataType:
+          type: string
+          description: "The data type classification (e.g. 'Third Party Data', 'First\
+            \ Party Data')."
+          enum:
+          - First Party Data
+          - Public Domain Data
+          - Transferred Data
+          - Second Party Data
+          - Third Party Data
+          example: Third Party Data
+        securityClassification:
+          type: string
+          description: "The security classification (e.g. 'Public', 'Private', 'Confidential')."
+          enum:
+          - Public
+          - Private
+          - Confidential
+          example: Private
+        personalData:
+          type: string
+          description: "The personal data type classification (e.g. 'No Personal Data',\
+            \ 'Personal Data')."
+          enum:
+          - Personally Identifiable
+          - No Personal Data
+          example: No Personal Data
+        exportClassification:
+          type: string
+          description: "The export classification control number (e.g. 'EAR99', 'AT1')."
+          enum:
+          - EAR99
+          - 0A998
+          - Not - Technical Data
+          - No License Required
+          example: EAR99
+        extensionProperties:
+          type: object
+          additionalProperties: true
+      required:
+      - contractId
+      - countryOfOrigin
+      - dataType
+      - expirationDate
+      - exportClassification
+      - originator
+      - personalData
+      - securityClassification
   securitySchemes:
     Authorization:
       type: http

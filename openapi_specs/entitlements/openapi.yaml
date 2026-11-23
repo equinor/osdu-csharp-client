@@ -297,6 +297,7 @@ paths:
         description: Include Type
         required: false
         schema:
+          default: false
           type: boolean
       - name: data-partition-id
         in: header
