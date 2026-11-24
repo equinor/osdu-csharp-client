@@ -217,23 +217,13 @@ components:
       properties:
         sensitive:
           type: boolean
-          example: null
-          default: null
         value:
           type: object
-          example: null
-          default: null
-      example: null
-      default: null
     Map:
       properties:
         < * >:
           type: object
           $ref: "#/components/schemas/Property"
-          example: null
-          default: null
-      example: null
-      default: null
     AppError:
       type: object
       description: Standard error response returned by OSDU services.

@@ -380,8 +380,7 @@ paths:
         required: true
         schema:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
       - name: data-partition-id
         in: header
         description: Tenant Id
@@ -1037,8 +1036,7 @@ components:
             of workflow
         registrationInstructions:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
           description: |-
             Workfow registration instructions which could contains:
 
@@ -1077,8 +1075,7 @@ components:
           writeOnly: true
         registrationInstructions:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
           description: |-
             Workfow registration instructions which could contains:
 
@@ -1096,8 +1093,7 @@ components:
           description: Optional. Explicit setting up workflow run id.
         executionContext:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: {}
           description: Map to configure workflow speciffic key value pairs
     WorkflowRun:
       type: object
