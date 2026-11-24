@@ -7,7 +7,7 @@
       "commands": [
         "kiota"
       ],
-      "rollForward": false
+      "rollForward": true
     }
   }
 }

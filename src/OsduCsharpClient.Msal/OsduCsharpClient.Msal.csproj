@@ -11,7 +11,7 @@
     <Description>Optional MSAL-based ITokenProvider implementations (interactive, device code, client credentials) for Equinor.OsduCsharpClient. Reference this package only if you want the library to acquire tokens via MSAL; otherwise implement ITokenProvider yourself and depend on the core package alone.</Description>
     <RepositoryUrl>https://github.com/equinor/osdu-csharp-client</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="11.0.0"/>
     <PackageReference Include="Microsoft.Identity.Client" Version="4.92.0"/>
     <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="4.92.0"/>
   </ItemGroup>

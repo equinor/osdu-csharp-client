@@ -8,7 +8,10 @@ It provides typed, async clients for various OSDU core services, allowing for ea
 
 ## Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- [.NET 11 SDK](https://dotnet.microsoft.com/download)
+
+Both client packages target .NET 11 only. Applications staying on .NET 10 should
+keep using the 3.x package versions.
 
 For regenerating clients locally:
 
