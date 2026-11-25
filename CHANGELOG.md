@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/equinor/osdu-csharp-client/compare/v3.0.3...v4.0.0) (2026-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* target .NET 11 and enable Runtime Async ([#160](https://github.com/equinor/osdu-csharp-client/issues/160))
+
+### Features
+
+* target .NET 11 and enable Runtime Async ([#160](https://github.com/equinor/osdu-csharp-client/issues/160)) ([3dfbc71](https://github.com/equinor/osdu-csharp-client/commit/3dfbc71bcb3d4755d3ab96013f7e39932342516e))
+
 ## [3.0.3](https://github.com/equinor/osdu-csharp-client/compare/v3.0.2...v3.0.3) (2026-11-24)
 
 
